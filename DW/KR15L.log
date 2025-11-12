@@ -1,0 +1,366 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/KR15L.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 888806
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+KR15L> lt all
+
+251007-11:37:27+0200 19.31.11.191 25.0h  stopfile=/tmp/888511
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 890349
+
+Connected to 19.31.11.191 (SubNetwork=BBMM_rckomc_R,MeContext=KR15L,ManagedElement=KR15L)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113720_888387/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ..................................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.11.191 (SubNetwork=BBMM_rckomc_R,MeContext=KR15L,ManagedElement=KR15L)
+
+Last MO: 16981. Loaded 16981 MOs. Total: 16982 MOs.
+
+KR15L> hget EUtranCellFDD ^cellid
+
+251007-11:37:40+0200 19.31.11.191 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/888511
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=KR15L1 21    
+EUtranCellFDD=KR15L2 22    
+EUtranCellFDD=KR15L3 23    
+=================================================================================================================
+Total: 3 MOs
+
+Added 3 MOs to group: hget_group
+
+KR15L> hget NbIotCell ^cellid
+
+251007-11:37:41+0200 19.31.11.191 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/888511
+Total: 0 MOs
+
+KR15L> hget NRCellDU ^cellLocalId
+
+251007-11:37:41+0200 19.31.11.191 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/888511
+Total: 0 MOs
+
+KR15L> lgdc -m 30d
+
+251007-11:37:41+0200 19.31.11.191 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/888511
+
+Startdate=20250907.093741, Enddate=20251008.093741
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=26510
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 26510    1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113720_888387/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007093744.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113720_888387/availabilityLog888511.xml
+Parsing availabilityLog........Done.
+.....
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;04:04:42;PartialOutage(Manual);33% Lrat Cell 21; ();9s;;;;;
+2025-09-08;04:04:55;PartialOutage(Manual);33% Lrat Cell 22; ();13s;;;;;
+2025-09-08;04:05:09;PartialOutage(Manual);33% Lrat Cell 23; ();10s;;;;;
+2025-09-08;05:28:26;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();352s (5m52s);;;;;
+2025-09-08;05:34:18;PartialOutage(Transmission);100% Lrat Cell 21 22; ();1s;;;;;
+2025-09-11;14:01:48;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();358s (5m58s);;;;;
+2025-09-11;14:07:46;PartialOutage(Transmission);100% Lrat Cell 21 22; ();1s;;;;;
+2025-09-15;05:14:05;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();425s (7m5s);;;;;
+2025-09-15;05:21:10;PartialOutage(Transmission);100% Lrat Cell 22; ();1s;;;;;
+2025-10-01;20:37:35;SpontaneousCold(Other:PowerReset);CXP2010174/2_R27J08;CXP2010174/2_R27J08 (25.Q1);151s (2m31s);392s (6m32s);177s (2m57s);L=399s G=392s ;Requested: RankCold Other PowerReset Performed: RankCold Other PowerReset;Grat GRAT Traffic Control active, Lrat LRAT Traffic Control active
+2025-10-01;20:44:14;PartialOutage(Manual);100% Lrat Cell 22;CXP2010174/2_R27J08 (25.Q1);4s;;;;;
+2025-10-01;20:44:25;PartialOutage(System);33% Lrat Cell 22;CXP2010174/2_R27J08 (25.Q1);7s;;;;;
+2025-10-01;21:28:19;ManualCold(31);CXP2010174/2_R27J08;CXP2010174/2_R27J08 (25.Q1);74s (1m14s);126s (2m6s);100s (1m40s);L=133s G=126s ;Requested: RankCold OperatorInitiated Cold Performed: RankCold OperatorInitiated Cold;Grat GRAT Traffic Control active, Lrat LRAT Traffic Control active
+2025-10-01;21:30:32;PartialOutage(Manual);33% Lrat Cell 22;CXP2010174/2_R27J08 (25.Q1);1s;;;;;
+
+Node uptime since last restart: 475646 seconds (5 days, 12 hours, 7 minutes, 26 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                1                1                2                12              
+Total downtime       0s               126s (2m6s)      392s (6m32s)     518s (8m38s)     1182s (19m42s)  
+Downtime per day     0s               4s               13s              17s              39s             
+Downtime per outage  0s               126s (2m6s)      392s (6m32s)     259s (4m19s)     98s (1m38s)     
+
+KR15L> lgac -m 30d
+
+251007-11:37:51+0200 19.31.11.191 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/888511
+
+Startdate=20250907.093751, Enddate=20251008.093751
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=26511
+..........
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 26511    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113720_888387/rcslogs/saLogAlarm_20240805__165650_20250224__232750.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113720_888387/rcslogs/saLogAlarm_20250224__232750_20251005__084829.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113720_888387/rcslogs/saLogAlarm_20251005__084829.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113720_888387/alarmLog888511.xml
+2025-09-07;12:22:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-08;02:02:34;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650481;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-08;04:04:42;AL  ;Cleared;EUtranCellFDD=KR15L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;04:04:51;AL  ;Minor ;EUtranCellFDD=KR15L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;04:05:09;AL  ;Cleared;EUtranCellFDD=KR15L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;04:05:19;AL  ;Minor ;EUtranCellFDD=KR15L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:28:15;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-08;05:28:23;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-08;05:28:26;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-08;05:28:26;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-08;05:28:26;AL  ;Cleared;EUtranCellFDD=KR15L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:28:26;AL  ;Major ;EUtranCellFDD=KR15L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:28:26;AL  ;Major ;EUtranCellFDD=KR15L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:28:26;AL  ;Cleared;EUtranCellFDD=KR15L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:28:26;AL  ;Major ;EUtranCellFDD=KR15L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:28:26;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-08;05:28:32;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650481;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-08;05:29:24;AL  ;Major ;GsmSector=KR15D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-08;05:29:24;AL  ;Major ;GsmSector=KR15D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-08;05:29:24;AL  ;Major ;GsmSector=KR15D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-08;05:28:26;AL  ;Cleared;EUtranCellFDD=KR15L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:34:10;AL  ;Cleared;GsmSector=KR15D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-08;05:34:10;AL  ;Cleared;GsmSector=KR15D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-08;05:34:10;AL  ;Cleared;GsmSector=KR15D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-08;05:34:17;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-08;05:34:17;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-08;05:34:17;AL  ;Cleared;EUtranCellFDD=KR15L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:34:17;AL  ;Cleared;EUtranCellFDD=KR15L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:34:17;AL  ;Cleared;EUtranCellFDD=KR15L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:34:18;AL  ;Minor ;EUtranCellFDD=KR15L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:34:18;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-08;05:34:19;AL  ;Minor ;EUtranCellFDD=KR15L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:34:19;AL  ;Minor ;EUtranCellFDD=KR15L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;05:34:26;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650481;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-08;05:34:27;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-08;05:34:28;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-08;05:34:33;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-09;14:34:53;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-11;14:01:38;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;14:01:42;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;14:01:48;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;14:01:48;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;14:01:48;AL  ;Cleared;EUtranCellFDD=KR15L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:01:48;AL  ;Major ;EUtranCellFDD=KR15L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:01:48;AL  ;Major ;EUtranCellFDD=KR15L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:01:48;AL  ;Cleared;EUtranCellFDD=KR15L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:01:48;AL  ;Cleared;EUtranCellFDD=KR15L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:01:48;AL  ;Major ;EUtranCellFDD=KR15L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:01:48;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-11;14:01:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-11;14:01:54;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650481;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-11;14:01:54;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-11;14:02:45;AL  ;Major ;GsmSector=KR15D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;14:02:45;AL  ;Major ;GsmSector=KR15D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;14:02:45;AL  ;Major ;GsmSector=KR15D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;14:07:45;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-11;14:07:45;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;14:07:45;AL  ;Cleared;EUtranCellFDD=KR15L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:07:45;AL  ;Cleared;EUtranCellFDD=KR15L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:07:45;AL  ;Cleared;EUtranCellFDD=KR15L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:07:45;AL  ;Cleared;GsmSector=KR15D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;14:07:45;AL  ;Cleared;GsmSector=KR15D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;14:07:45;AL  ;Cleared;GsmSector=KR15D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;14:07:46;AL  ;Minor ;EUtranCellFDD=KR15L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:07:46;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-11;14:07:47;AL  ;Minor ;EUtranCellFDD=KR15L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:07:47;AL  ;Minor ;EUtranCellFDD=KR15L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;14:07:49;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-11;14:08:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650481;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-11;14:08:01;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;14:08:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-12;12:28:21;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210001
+2025-09-12;16:58:56;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210001
+2025-09-14;05:12:26;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-14;05:18:05;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-14;05:18:08;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;07:49:53;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;07:59:25;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;07:59:25;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-14;08:00:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-14;08:24:25;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650481;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;09:03:12;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;09:03:16;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;09:04:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;12:31:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;12:32:24;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-15;05:13:53;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-15;05:13:56;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-15;05:14:05;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-15;05:14:05;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-15;05:14:05;AL  ;Cleared;EUtranCellFDD=KR15L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:14:05;AL  ;Cleared;EUtranCellFDD=KR15L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:14:05;AL  ;Major ;EUtranCellFDD=KR15L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:14:05;AL  ;Major ;EUtranCellFDD=KR15L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:14:05;AL  ;Cleared;EUtranCellFDD=KR15L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:14:05;AL  ;Major ;EUtranCellFDD=KR15L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:14:05;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-15;05:14:09;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-15;05:14:54;AL  ;Major ;GsmSector=KR15D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-15;05:14:54;AL  ;Major ;GsmSector=KR15D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-15;05:14:54;AL  ;Major ;GsmSector=KR15D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-15;05:21:07;AL  ;Cleared;GsmSector=KR15D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-15;05:21:07;AL  ;Cleared;GsmSector=KR15D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-15;05:21:07;AL  ;Cleared;GsmSector=KR15D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-15;05:21:08;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-15;05:21:08;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-15;05:21:08;AL  ;Cleared;EUtranCellFDD=KR15L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:21:08;AL  ;Cleared;EUtranCellFDD=KR15L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:21:08;AL  ;Cleared;EUtranCellFDD=KR15L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:21:10;AL  ;Minor ;EUtranCellFDD=KR15L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:21:10;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-15;05:21:10;AL  ;Minor ;EUtranCellFDD=KR15L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:21:11;AL  ;Minor ;EUtranCellFDD=KR15L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;05:21:20;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-15;05:21:22;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-15;05:44:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-16;10:04:12;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:04:42;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;13:18:40;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650520
+2025-09-17;13:23:00;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650520 PLMN ID-eNB ID 2 = 2221-206576
+2025-09-17;14:01:28;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650520
+2025-09-18;08:08:38;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-18;08:17:46;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650520 PLMN ID-eNB ID 2 = 2221-650121
+2025-09-18;13:03:24;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650520
+2025-09-18;18:17:38;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650520 PLMN ID-eNB ID 2 = 2221-210001
+2025-09-19;10:21:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-19;15:53:46;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210001
+2025-09-20;05:40:54;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210001 PLMN ID-eNB ID 2 = 2221-650520
+2025-09-20;18:54:06;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210001
+2025-09-21;07:46:42;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;07:55:17;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;07:55:17;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-21;07:55:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-21;08:53:12;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:53:23;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210001
+2025-09-21;08:54:14;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;12:10:26;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-22;05:18:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-22;05:24:02;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-22;05:26:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-24;14:34:11;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650520
+2025-09-25;16:12:51;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650520
+2025-09-26;05:20:41;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-26;05:20:41;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-26;05:25:43;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-26;05:25:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;07:56:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-28;07:56:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;07:56:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-28;08:53:22;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;08:54:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;08:55:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;12:09:13;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-29;07:46:46;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650520
+2025-09-29;13:36:20;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650520
+2025-09-30;12:05:50;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650390
+2025-09-30;14:52:04;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650390
+2025-09-30;14:52:42;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650390
+2025-10-01;20:40:32;AL  ;Minor ;EthernetPort=TN_IDL_A_1;Ethernet Link Failure;Connected to physical port TnPort=TN_IDL_A_1
+2025-10-01;20:40:32;AL  ;Minor ;EthernetPort=TN_IDL_A_2;Ethernet Link Failure;Connected to physical port TnPort=TN_IDL_A_2
+2025-10-01;20:40:38;AL  ;Cleared;EthernetPort=TN_IDL_A_2;Ethernet Link Failure;Connected to physical port TnPort=TN_IDL_A_2
+2025-10-01;20:40:38;AL  ;Cleared;EthernetPort=TN_IDL_A_1;Ethernet Link Failure;Connected to physical port TnPort=TN_IDL_A_1
+2025-10-01;20:41:20;AL  ;Major ;GsmSector=KR15D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-01;20:41:36;AL  ;Major ;GsmSector=KR15D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-01;20:41:38;AL  ;Major ;GsmSector=KR15D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-01;20:41:49;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reliability Fault;Master clock class problem, Master clock accuracy problem, Master time not traceable, Master timescale not PTP
+2025-10-01;20:42:18;AL  ;Cleared;GsmSector=KR15D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-01;20:42:18;AL  ;Cleared;GsmSector=KR15D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-01;20:42:18;AL  ;Cleared;GsmSector=KR15D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-01;20:44:14;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-01;20:44:14;AL  ;Minor ;EUtranCellFDD=KR15L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;20:44:14;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-01;20:44:14;AL  ;Minor ;EUtranCellFDD=KR15L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;20:44:18;AL  ;Minor ;EUtranCellFDD=KR15L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;20:44:25;AL  ;Cleared;EUtranCellFDD=KR15L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;20:44:32;AL  ;Minor ;EUtranCellFDD=KR15L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;21:31:04;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-01;21:31:14;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reliability Fault;Master clock class problem, Master clock accuracy problem, Master time not traceable
+2025-10-01;21:32:57;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-01;21:32:57;AL  ;Minor ;EUtranCellFDD=KR15L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;21:32:57;AL  ;Minor ;EUtranCellFDD=KR15L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;21:32:57;AL  ;Minor ;EUtranCellFDD=KR15L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-03;05:20:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-03;05:26:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-03;05:26:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-04;00:42:40;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-04;06:30:30;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-04;07:35:53;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-206865
+2025-10-04;08:18:47;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-206865
+2025-10-05;05:32:14;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-206488
+2025-10-05;05:35:00;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-206488
+2025-10-05;07:42:02;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;07:50:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;07:50:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;07:50:26;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650123;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;08:47:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;08:47:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;08:47:23;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;08:48:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;11:50:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;11:52:26;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650390;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-06;11:42:56;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-206488
+2025-10-06;11:48:08;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-206488
+2025-10-06;11:58:09;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-206488
+2025-10-06;11:58:29;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-206488
+2025-10-07;06:05:13;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650131;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+
+
+KR15L> lgec -m 30d
+
+251007-11:38:00+0200 19.31.11.191 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/888511
+
+Startdate=20250907.093800, Enddate=20251008.093800
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=26512
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 26512    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113720_888387/rcslogs/AlertLog_20230714__143718_20250224__232823.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113720_888387/rcslogs/AlertLog_20250224__232823.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113720_888387/eventLog888511.xml
+2025-10-01;20:41:18;EV  ;Warning;FieldReplaceableUnit=Radio-S182-1;Radio Restart Alert;Restart details are listed in Additional Information AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 4415 B7,"PNR":KRC 161 495/1,"PR":R5FC,"SN":TU8U00VD2Z,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-10-01;20:41:29;EV  ;Warning;FieldReplaceableUnit=Radio-S180-1;Radio Restart Alert;Restart details are listed in Additional Information AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 4415 B7,"PNR":KRC 161 495/1,"PR":R5FE,"SN":DH80207538,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-10-01;20:41:31;EV  ;Warning;ManagedElement=KR15L;System Restart Alert;Requested Restart Category: Other, Requested Restart Type: Power, Performed Restart Category: Other, Performed Restart Type: Power. AI: SystemRestart=[{"RRC":"Other","RRT":"Power","PRC":"Other","PRT":"Power"}] UI=[{"PN":"Baseband 6631","PNR":"KDU1370071/11","PR":"R2A","SN":"E96A00WGM1","SR":"R27J08","SW":"CXP2010174_2"}]
+2025-10-01;20:41:46;EV  ;Warning;FieldReplaceableUnit=Radio-S222-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 2479 24B8 24B20 24B28B M01,"PNR":KRC 161 832/1,"PR":R2F,"SN":TU8U021ZVT,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-10-01;20:41:49;EV  ;Warning;FieldReplaceableUnit=Radio-S220-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 2479 24B8 24B20 24B28B M01,"PNR":KRC 161 832/1,"PR":R2F,"SN":TU8U021ZVZ,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-10-01;20:41:51;EV  ;Warning;FieldReplaceableUnit=Radio-S221-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 2479 24B8 24B20 24B28B M01,"PNR":KRC 161 832/1,"PR":R2F,"SN":TU8U0218T3,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-10-01;20:43:02;EV  ;Warning;RiLink=S222-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-01;20:43:25;EV  ;Warning;RiLink=S221-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-01;20:43:47;EV  ;Warning;RiLink=S180-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-10-01;20:43:47;EV  ;Warning;RiLink=S182-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET). SUPPRESSED
+2025-10-01;20:43:47;EV  ;Warning;RiLink=S222-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-01;20:43:47;EV  ;Warning;RiLink=S220-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-01;21:30:59;EV  ;Warning;ManagedElement=KR15L;System Restart Alert;Requested Restart Category: Operator Initiated, Requested Restart Type: Cold, Performed Restart Category: Operator Initiated, Performed Restart Type: Cold. AI: SystemRestart=[{"RRC":"Operator Initiated","RRT":"Cold","PRC":"Operator Initiated","PRT":"Cold"}] UI=[{"PN":"Baseband 6631","PNR":"KDU1370071/11","PR":"R2A","SN":"E96A00WGM1","SR":"R27J08","SW":"CXP2010174_2"}]
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/KR15L.log

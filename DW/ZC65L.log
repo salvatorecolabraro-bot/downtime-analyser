@@ -1,0 +1,148 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/ZC65L.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 957339
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+ZC65L> lt all
+
+251007-11:45:25+0200 19.31.9.225 25.0h  stopfile=/tmp/957095
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 958345
+
+Connected to 19.31.9.225 (SubNetwork=BBMM_rckomc_R,MeContext=ZC65L,ManagedElement=ZC65L)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114518_957035/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ..................................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.9.225 (SubNetwork=BBMM_rckomc_R,MeContext=ZC65L,ManagedElement=ZC65L)
+
+Last MO: 16573. Loaded 16573 MOs. Total: 16574 MOs.
+
+ZC65L> hget EUtranCellFDD ^cellid
+
+251007-11:45:38+0200 19.31.9.225 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/957095
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=ZC65L1 21    
+EUtranCellFDD=ZC65L2 22    
+=================================================================================================================
+Total: 2 MOs
+
+Added 2 MOs to group: hget_group
+
+ZC65L> hget NbIotCell ^cellid
+
+251007-11:45:38+0200 19.31.9.225 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/957095
+Total: 0 MOs
+
+ZC65L> hget NRCellDU ^cellLocalId
+
+251007-11:45:39+0200 19.31.9.225 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/957095
+Total: 0 MOs
+
+ZC65L> lgdc -m 30d
+
+251007-11:45:39+0200 19.31.9.225 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/957095
+
+Startdate=20250907.094539, Enddate=20251008.094539
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=6110
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 6110     1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114518_957035/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007094541.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114518_957035/availabilityLog957095.xml
+Parsing availabilityLog....Done.
+.
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;04:24:52;PartialOutage(Manual);50% Lrat Cell 22; ();8s;;;;;
+2025-09-08;04:25:04;PartialOutage(Manual);50% Lrat Cell 21; ();7s;;;;;
+
+Node uptime since last restart: 2524836 seconds (29 days, 5 hours, 20 minutes, 36 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                2               
+Total downtime       0s               0s               0s               0s               15s             
+Downtime per day     0s               0s               0s               0s               0s              
+Downtime per outage  0s               0s               0s               0s               8s              
+
+ZC65L> lgac -m 30d
+
+251007-11:45:47+0200 19.31.9.225 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/957095
+
+Startdate=20250907.094547, Enddate=20251008.094548
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=6111
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 6111     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114518_957035/rcslogs/saLogAlarm_20240930__105204_20250226__233552.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114518_957035/rcslogs/saLogAlarm_20250226__233552.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114518_957035/alarmLog957095.xml
+2025-09-15;06:10:32;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1055513
+2025-09-15;10:41:16;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1055513
+2025-09-16;09:03:50;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1055513
+2025-09-16;09:19:55;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1055513
+2025-09-16;10:00:05;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:01:05;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-17;08:04:03;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210024
+2025-09-17;13:48:22;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210024
+2025-09-18;08:17:15;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650121
+2025-09-18;13:03:28;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650121
+2025-09-19;10:32:53;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1055513
+2025-09-19;10:38:23;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1055513
+2025-09-19;15:11:58;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1055513
+2025-09-19;15:13:16;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1055513
+
+
+ZC65L> lgec -m 30d
+
+251007-11:45:53+0200 19.31.9.225 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/957095
+
+Startdate=20250907.094553, Enddate=20251008.094553
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=6112
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 6112     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114518_957035/rcslogs/AlertLog_20240930__105223_20250226__233624.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114518_957035/rcslogs/AlertLog_20250226__233624.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114518_957035/eventLog957095.xml
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/ZC65L.log

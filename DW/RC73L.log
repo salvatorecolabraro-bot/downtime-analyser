@@ -1,0 +1,241 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/RC73L.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 901018
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+RC73L> lt all
+
+251007-11:38:49+0200 19.31.12.197 25.0h  stopfile=/tmp/900832
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 901635
+
+Connected to 19.31.12.197 (SubNetwork=BBMM_rckomc_R,MeContext=RC73L,ManagedElement=RC73L)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113842_900767/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ..................................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.12.197 (SubNetwork=BBMM_rckomc_R,MeContext=RC73L,ManagedElement=RC73L)
+
+Last MO: 16842. Loaded 16842 MOs. Total: 16843 MOs.
+
+RC73L> hget EUtranCellFDD ^cellid
+
+251007-11:39:02+0200 19.31.12.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/900832
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=RC73L1 21    
+EUtranCellFDD=RC73L2 22    
+EUtranCellFDD=RC73L3 23    
+=================================================================================================================
+Total: 3 MOs
+
+Added 3 MOs to group: hget_group
+
+RC73L> hget NbIotCell ^cellid
+
+251007-11:39:03+0200 19.31.12.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/900832
+Total: 0 MOs
+
+RC73L> hget NRCellDU ^cellLocalId
+
+251007-11:39:03+0200 19.31.12.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/900832
+Total: 0 MOs
+
+RC73L> lgdc -m 30d
+
+251007-11:39:03+0200 19.31.12.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/900832
+
+Startdate=20250907.093903, Enddate=20251008.093904
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=50871
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 50871    1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113842_900767/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007093906.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113842_900767/availabilityLog900832.xml
+Parsing availabilityLog....Done.
+.
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;07:59:41;PartialOutage(Manual);33% Lrat Cell 23; ();9s;;;;;
+2025-09-08;07:59:57;PartialOutage(Manual);33% Lrat Cell 21; ();13s;;;;;
+2025-09-08;08:00:14;PartialOutage(Manual);33% Lrat Cell 22; ();13s;;;;;
+
+Node uptime since last restart: 2511525 seconds (29 days, 1 hours, 38 minutes, 45 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                3               
+Total downtime       0s               0s               0s               0s               35s             
+Downtime per day     0s               0s               0s               0s               1s              
+Downtime per outage  0s               0s               0s               0s               12s             
+
+RC73L> lgac -m 30d
+
+251007-11:39:12+0200 19.31.12.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/900832
+
+Startdate=20250907.093912, Enddate=20251008.093912
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=50872
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 50872    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113842_900767/rcslogs/saLogAlarm_20230712__071900_20250226__234621.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113842_900767/rcslogs/saLogAlarm_20250226__234621.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113842_900767/alarmLog900832.xml
+2025-09-07;10:01:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205378;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-07;10:02:02;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205378;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-07;10:19:13;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650585;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-07;10:19:17;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205378;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-07;11:01:30;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205468;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-08;07:26:34;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-209057;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-11;13:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204951;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;10:04:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204951;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;10:25:27;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-209057;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;10:25:31;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205468;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-16;09:58:18;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;09:59:18;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-18;09:01:27;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650585;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;10:10:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650585;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-30;08:45:33;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-30;08:46:03;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-02;11:01:27;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650585;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-03;07:01:10;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205468;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;09:57:32;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650585;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;09:57:35;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205468;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+
+
+RC73L> lgec -m 30d
+
+251007-11:39:18+0200 19.31.12.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/900832
+
+Startdate=20250907.093918, Enddate=20251008.093918
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=50873
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 50873    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113842_900767/rcslogs/AlertLog_20230712__071918_20250226__234653.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113842_900767/rcslogs/AlertLog_20250226__234653.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113842_900767/eventLog900832.xml
+2025-09-07;22:20:00;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-08;12:15:30;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-08;15:52:13;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-08;19:23:11;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-09;00:39:16;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-09;17:56:34;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-09;19:51:43;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-09;22:54:29;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;04:47:50;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;06:18:08;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;15:25:34;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;16:22:44;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-11;03:37:03;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-11;11:46:21;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-11;13:46:52;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-11;19:37:09;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-11;22:09:07;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-11;22:23:56;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-13;07:33:47;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-13;08:10:53;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-13;09:23:07;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-13;10:35:50;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-13;18:53:51;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-13;19:16:34;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-14;21:58:01;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-16;02:24:00;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-16;07:46:47;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-16;10:43:05;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-16;11:08:09;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-16;12:09:47;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-16;18:08:38;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-16;19:35:39;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-16;19:59:16;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-16;23:54:55;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-17;11:47:25;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-18;11:11:27;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-19;08:55:26;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-20;09:56:17;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-20;10:13:18;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-20;11:10:17;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-21;07:38:20;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-21;09:08:13;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-21;10:00:25;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-21;12:12:47;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-21;19:47:53;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-22;16:51:27;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-22;17:59:13;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-23;07:49:35;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-23;12:29:02;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-23;18:34:53;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-23;21:19:35;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-23;22:15:51;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-23;23:37:18;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-24;11:12:44;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-24;20:03:35;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-24;20:06:34;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-24;21:57:23;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-25;00:33:06;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-25;03:43:37;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-25;16:37:14;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-26;01:32:58;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-26;08:15:21;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-27;03:02:21;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-27;18:44:27;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-28;01:47:30;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-28;19:38:57;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-28;21:52:15;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-29;12:22:04;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-30;08:20:54;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-30;15:43:40;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-01;02:53:04;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-01;05:26:14;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-02;09:37:44;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-03;12:50:44;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-04;03:06:54;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-04;08:13:47;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-04;08:39:37;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-04;08:56:41;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-04;11:21:11;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-04;15:22:43;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-04;16:09:34;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-06;03:01:00;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-06;04:12:32;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-06;05:04:37;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-06;08:09:34;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/RC73L.log

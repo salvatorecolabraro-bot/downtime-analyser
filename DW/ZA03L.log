@@ -1,0 +1,162 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/ZA03L.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 1155571
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+ZA03L> lt all
+
+251007-12:09:47+0200 19.31.10.202 25.0h  stopfile=/tmp/1155271
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 1156567
+
+Connected to 19.31.10.202 (SubNetwork=BBMM_rckomc_R,MeContext=ZA03L,ManagedElement=ZA03L)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120940_1155205/MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81.xml.cache.gz ......................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt ......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.10.202 (SubNetwork=BBMM_rckomc_R,MeContext=ZA03L,ManagedElement=ZA03L)
+
+Last MO: 16449. Loaded 16449 MOs. Total: 16450 MOs.
+
+ZA03L> hget EUtranCellFDD ^cellid
+
+251007-12:10:06+0200 19.31.10.202 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1155271
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=ZA03L1 21    
+EUtranCellFDD=ZA03L2 22    
+=================================================================================================================
+Total: 2 MOs
+
+Added 2 MOs to group: hget_group
+
+ZA03L> hget NbIotCell ^cellid
+
+251007-12:10:07+0200 19.31.10.202 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1155271
+Total: 0 MOs
+
+ZA03L> hget NRCellDU ^cellLocalId
+
+251007-12:10:07+0200 19.31.10.202 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1155271
+Total: 0 MOs
+
+ZA03L> lgdc -m 30d
+
+251007-12:10:07+0200 19.31.10.202 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1155271
+
+Startdate=20250907.101007, Enddate=20251008.101007
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=7113
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 7113     1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120940_1155205/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007101010.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120940_1155205/availabilityLog1155271.xml
+Parsing availabilityLog....Done.
+.
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;07:36:29;PartialOutage(Manual);50% Lrat Cell 22; ();7s;;;;;
+2025-09-08;07:36:45;PartialOutage(Manual);50% Lrat Cell 21; ();8s;;;;;
+2025-09-26;15:28:17;PartialOutage(System);100% Lrat Cell 21 22; ();11s;;;;;
+
+Node uptime since last restart: 931308 seconds (10 days, 18 hours, 41 minutes, 48 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                3               
+Total downtime       0s               0s               0s               0s               26s             
+Downtime per day     0s               0s               0s               0s               1s              
+Downtime per outage  0s               0s               0s               0s               9s              
+
+ZA03L> lgac -m 30d
+
+251007-12:10:16+0200 19.31.10.202 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1155271
+
+Startdate=20250907.101017, Enddate=20251008.101017
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=7114
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 7114     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120940_1155205/rcslogs/saLogAlarm_20221006__073841.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120940_1155205/alarmLog1155271.xml
+2025-09-16;10:01:15;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:01:45;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-17;13:23:02;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051259
+2025-09-17;13:23:08;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-206576
+2025-09-17;14:01:19;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051259
+2025-09-17;14:01:31;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-206576
+2025-09-23;14:02:10;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051329
+2025-09-24;06:15:36;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051329
+2025-09-25;11:10:06;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051751
+2025-09-26;05:40:45;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051751 PLMN ID-gNB ID 2 = 2221-1054693
+2025-09-26;05:40:51;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210817
+2025-09-26;06:28:32;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051751
+2025-09-26;06:28:54;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210817
+2025-09-26;15:28:02;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-26;15:28:02;AL  ;Minor ;EUtranCellFDD=ZA03L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:28:02;AL  ;Minor ;EUtranCellFDD=ZA03L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:28:17;AL  ;Cleared;EUtranCellFDD=ZA03L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:28:17;AL  ;Cleared;EUtranCellFDD=ZA03L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:28:17;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-27;08:08:03;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051751
+
+
+ZA03L> lgec -m 30d
+
+251007-12:10:22+0200 19.31.10.202 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1155271
+
+Startdate=20250907.101023, Enddate=20251008.101023
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=7115
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 7115     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120940_1155205/rcslogs/AlertLog_20221006__073925.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120940_1155205/eventLog1155271.xml
+2025-09-26;15:28:21;EV  ;Warning;EUtranCellFDD=ZA03L1;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:21;EV  ;Warning;EUtranCellFDD=ZA03L2;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:25;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-26;15:28:25;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-26;15:28:25;EV  ;Warning;RiLink=S180-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-26;15:28:28;EV  ;Warning;EUtranCellFDD=ZA03L1;Cell Service Available Auto Recovery Successful Alert;
+2025-09-26;15:28:28;EV  ;Warning;EUtranCellFDD=ZA03L2;Cell Service Available Auto Recovery Successful Alert;
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/ZA03L.log

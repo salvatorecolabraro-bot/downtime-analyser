@@ -1,0 +1,802 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/SC65T.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 1041440
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+SC65T> lt all
+
+251007-11:55:47+0200 19.31.2.197 25.0h  stopfile=/tmp/1041041
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 1042684
+
+Connected to 19.31.2.197 (SubNetwork=BBMM_rckomc_R,MeContext=SC65T,ManagedElement=SC65T)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115540_1040985/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ..................................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.2.197 (SubNetwork=BBMM_rckomc_R,MeContext=SC65T,ManagedElement=SC65T)
+
+Last MO: 17787. Loaded 17787 MOs. Total: 17788 MOs.
+
+SC65T> hget EUtranCellFDD ^cellid
+
+251007-11:56:01+0200 19.31.2.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1041041
+.
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=SC65E1 61    
+EUtranCellFDD=SC65E2 62    
+EUtranCellFDD=SC65E3 63    
+EUtranCellFDD=SC65M1 31    
+EUtranCellFDD=SC65M2 32    
+EUtranCellFDD=SC65M3 33    
+EUtranCellFDD=SC65T1 41    
+EUtranCellFDD=SC65T2 42    
+EUtranCellFDD=SC65T3 43    
+=================================================================================================================
+Total: 9 MOs
+
+Added 9 MOs to group: hget_group
+
+SC65T> hget NbIotCell ^cellid
+
+251007-11:56:02+0200 19.31.2.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1041041
+.
+=================================================================================================================
+MO               cellId
+=================================================================================================================
+NbIotCell=SC65N1 161   
+NbIotCell=SC65N2 162   
+NbIotCell=SC65N3 163   
+=================================================================================================================
+Total: 3 MOs
+
+Added 3 MOs to group: hget_group
+
+SC65T> hget NRCellDU ^cellLocalId
+
+251007-11:56:02+0200 19.31.2.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1041041
+Total: 0 MOs
+
+SC65T> lgdc -m 30d
+
+251007-11:56:02+0200 19.31.2.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1041041
+
+Startdate=20250907.095602, Enddate=20251008.095602
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=49357
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 49357    1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115540_1040985/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007095605.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115540_1040985/availabilityLog1041041.xml
+Parsing availabilityLog........Done.
+.....
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-07;22:27:14;PartialOutage(System);100% Lrat Cell 61 62 63 31 32 33 41 42 43; ();8s;;;;;
+2025-09-07;22:27:22;PartialOutage(System);100% Lrat Cell 62 63 31 32 33 41 42 43; ();1s;;;;;
+2025-09-07;22:27:23;PartialOutage(System);100% Lrat Cell 31 32 33 41 42 43; ();1s;;;;;
+2025-09-07;22:27:24;PartialOutage(System);100% Lrat Cell 31 32 42; ();1s;;;;;
+2025-09-07;22:27:25;PartialOutage(System);100% Lrat Cell 32 42; ();1s;;;;;
+2025-09-07;22:27:26;PartialOutage(System);100% Lrat Cell 42; ();2s;;;;;
+2025-09-08;05:13:57;PartialOutage(Manual);11% Lrat Cell 32; ();11s;;;;;
+2025-09-08;05:14:11;PartialOutage(Manual);11% Lrat Cell 33; ();8s;;;;;
+2025-09-08;05:14:24;PartialOutage(Manual);11% Lrat Cell 31; ();15s;;;;;
+2025-09-08;05:14:41;PartialOutage(Manual);33% Lrat Cell 161; ();1s;;;;;
+2025-09-08;05:14:42;PartialOutage(Manual);11% Lrat Cell 61; ();8s;;;;;
+2025-09-08;05:14:54;PartialOutage(Manual);33% Lrat Cell 161 162; ();8s;;;;;
+2025-09-08;05:15:02;PartialOutage(Manual);5% Lrat Cell 62; ();9s;;;;;
+2025-09-08;05:15:16;PartialOutage(Manual);58% Lrat Cell 161 162 163; ();5s;;;;;
+2025-09-08;05:15:21;PartialOutage(Manual);58% Lrat Cell 162 163; ();3s;;;;;
+2025-09-08;05:15:24;PartialOutage(Manual);5% Lrat Cell 63; ();6s;;;;;
+2025-09-08;05:15:35;PartialOutage(Manual);60% Lrat Cell 163; ();4s;;;;;
+2025-09-08;05:15:39;PartialOutage(Manual);6% Lrat Cell 43; ();9s;;;;;
+2025-09-08;05:15:57;PartialOutage(Manual);11% Lrat Cell 41; ();10s;;;;;
+2025-09-08;05:16:15;PartialOutage(Manual);11% Lrat Cell 42; ();7s;;;;;
+2025-09-08;07:59:49;PartialOutage(System);100% Lrat Cell 61 62 63 31 32 33 41 42 43; ();14s;;;;;
+2025-09-08;08:00:03;PartialOutage(System);100% Lrat Cell 31 32 33 41 42 43; ();1s;;;;;
+2025-09-08;08:00:04;PartialOutage(System);100% Lrat Cell 32 41 42; ();1s;;;;;
+2025-09-08;08:00:05;PartialOutage(System);100% Lrat Cell 32 42; ();1s;;;;;
+2025-09-08;08:00:06;PartialOutage(System);100% Lrat Cell 42; ();3s;;;;;
+2025-09-09;14:29:53;PartialOutage(System);100% Lrat Cell 61 62 63 31 32 33 41 42 43; ();14s;;;;;
+2025-09-09;14:30:07;PartialOutage(System);100% Lrat Cell 61 31 32 33 41 42 43; ();1s;;;;;
+2025-09-09;14:30:09;PartialOutage(System);100% Lrat Cell 32 41 42; ();2s;;;;;
+2025-09-09;14:30:11;PartialOutage(System);100% Lrat Cell 41 42; ();1s;;;;;
+2025-09-09;14:30:12;PartialOutage(System);100% Lrat Cell 42; ();1s;;;;;
+2025-09-11;06:23:11;PartialOutage(System);100% Lrat Cell 161 162 163; ();397s (6m37s);;;;;
+2025-09-11;06:29:49;PartialOutage(Transmission);100% Lrat Cell 31 32; ();1s;;;;;
+2025-09-11;06:30:22;PartialOutage(System);100% Lrat Cell 161 162 163; ();28s;;;;;
+2025-09-11;06:30:51;PartialOutage(Transmission);100% Lrat Cell 32 41 42; ();1s;;;;;
+2025-09-11;06:32:12;PartialOutage(System);100% Lrat Cell 161 162 163; ();360s (6m0s);;;;;
+2025-09-11;06:38:13;PartialOutage(Transmission);100% Lrat Cell 31 32 42; ();1s;;;;;
+2025-09-11;06:38:58;PartialOutage(Transmission);67% Lrat Cell 31 32 33 41 42 43; ();1s;;;;;
+2025-09-11;06:38:59;PartialOutage(System);100% Lrat Cell 161 162 163; ();3975s (1h6m);;;;;
+2025-09-11;07:45:14;PartialOutage(Transmission);100% Lrat Cell 31 32 33 41 42; ();1s;;;;;
+2025-09-11;07:45:15;PartialOutage(Transmission);100% Lrat Cell 31; ();1s;;;;;
+2025-09-26;14:49:46;PartialOutage(System);100% Lrat Cell 61 62 63 31 32 33 41 42 43; ();14s;;;;;
+2025-09-26;14:50:00;PartialOutage(System);100% Lrat Cell 63 31 32 33 41 42 43; ();1s;;;;;
+2025-09-26;14:50:01;PartialOutage(System);100% Lrat Cell 31 32 42; ();1s;;;;;
+2025-09-26;14:50:02;PartialOutage(System);100% Lrat Cell 32 42; ();1s;;;;;
+2025-10-05;15:58:48;PartialOutage(System);100% Lrat Cell 161 162 163; ();727s (12m7s);;;;;
+2025-10-05;16:10:56;PartialOutage(Transmission);100% Lrat Cell 41 42; ();1s;;;;;
+2025-10-05;16:11:57;PartialOutage(System);100% Lrat Cell 161 162 163; ();35s;;;;;
+2025-10-05;16:12:33;PartialOutage(Transmission);100% Lrat Cell 31 32 41 42; ();1s;;;;;
+2025-10-05;16:12:43;PartialOutage(System);100% Lrat Cell 161 162 163; ();103s (1m43s);;;;;
+2025-10-05;16:14:26;PartialOutage(Transmission);100% Lrat Cell 31 32 41 42; ();1s;;;;;
+2025-10-05;16:15:01;PartialOutage(System);100% Lrat Cell 161 162 163; ();26s;;;;;
+2025-10-05;16:15:27;PartialOutage(Transmission);100% Lrat Cell 31 32 33 41 42; ();1s;;;;;
+2025-10-05;16:15:28;PartialOutage(Transmission);100% Lrat Cell 41; ();1s;;;;;
+2025-10-05;16:16:33;PartialOutage(System);100% Lrat Cell 161 162 163; ();24s;;;;;
+2025-10-05;16:16:58;PartialOutage(Transmission);100% Lrat Cell 41 42; ();1s;;;;;
+2025-10-05;17:10:33;PartialOutage(System);100% Lrat Cell 161 162 163; ();18s;;;;;
+2025-10-05;17:10:52;PartialOutage(Transmission);100% Lrat Cell 31 41 42; ();1s;;;;;
+2025-10-05;17:11:04;PartialOutage(System);100% Lrat Cell 161 162 163; ();3s;;;;;
+2025-10-05;17:11:07;PartialOutage(System);33% Lrat Cell 161; ();1s;;;;;
+2025-10-05;17:11:08;PartialOutage(Transmission);22% Lrat Cell 41 43; ();1s;;;;;
+2025-10-05;17:11:09;PartialOutage(Transmission);11% Lrat Cell 43; ();1s;;;;;
+2025-10-05;17:27:58;PartialOutage(System);100% Lrat Cell 161 162 163; ();37s;;;;;
+2025-10-05;17:28:35;PartialOutage(Transmission);100% Lrat Cell 31 32 41 42; ();1s;;;;;
+2025-10-05;17:29:50;PartialOutage(System);100% Lrat Cell 161 162 163; ();170s (2m50s);;;;;
+2025-10-05;17:32:40;PartialOutage(System);100% Lrat Cell 61 31 32 33 41 42 43; ();1s;;;;;
+2025-10-05;17:32:41;PartialOutage(Transmission);100% Lrat Cell 31 32 41 42; ();1s;;;;;
+
+Node uptime since last restart: 145410 seconds (1 days, 16 hours, 23 minutes, 30 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                66              
+Total downtime       0s               0s               0s               0s               6096s (1h41m)   
+Downtime per day     0s               0s               0s               0s               203s (3m23s)    
+Downtime per outage  0s               0s               0s               0s               92s (1m32s)     
+
+SC65T> lgac -m 30d
+
+251007-11:56:12+0200 19.31.2.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1041041
+
+Startdate=20250907.095612, Enddate=20251008.095613
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=49358
+.............
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 49358    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115540_1040985/rcslogs/saLogAlarm_20240223__105208_20240313__054244.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115540_1040985/rcslogs/saLogAlarm_20240313__054244_20240715__221246.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115540_1040985/rcslogs/saLogAlarm_20240715__221246_20250226__232125.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115540_1040985/rcslogs/saLogAlarm_20250226__232125.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115540_1040985/alarmLog1041041.xml
+2025-09-07;21:52:30;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-07;21:52:30;AL  ;Minor ;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:30;AL  ;Minor ;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:30;AL  ;Minor ;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:30;AL  ;Minor ;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:30;AL  ;Minor ;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:30;AL  ;Minor ;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:32;AL  ;Minor ;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:32;AL  ;Minor ;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:33;AL  ;Minor ;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:42;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-07;21:52:42;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:42;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:42;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:42;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:42;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:42;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:42;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:42;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:52:42;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:56:14;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-07;21:56:14;AL  ;Minor ;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:56:14;AL  ;Minor ;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:56:15;AL  ;Minor ;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:56:15;AL  ;Minor ;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:56:15;AL  ;Minor ;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:56:15;AL  ;Minor ;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:56:15;AL  ;Minor ;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:56:15;AL  ;Minor ;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:56:15;AL  ;Minor ;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:58:18;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-07;21:58:18;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:58:18;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:58:18;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:58:18;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:58:18;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:58:18;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:58:18;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:58:18;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;21:58:18;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:10;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-07;22:27:10;AL  ;Minor ;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:10;AL  ;Minor ;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:10;AL  ;Minor ;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:10;AL  ;Minor ;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:10;AL  ;Minor ;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:10;AL  ;Minor ;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:14;AL  ;Cleared;AntennaUnitGroup=210,AntennaNearUnit=RET_1800_2100;No Connection;Antenna near unit controller occupied.
+2025-09-07;22:27:14;AL  ;Cleared;AntennaUnitGroup=210,AntennaNearUnit=RET_800_900;No Connection;Antenna near unit controller occupied.
+2025-09-07;22:27:14;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:14;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:14;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:14;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:14;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:14;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-07;22:27:15;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-07;22:27:39;AL  ;Minor ;AntennaUnitGroup=210,AntennaNearUnit=RET_1800_2100;No Connection;Antenna near unit controller occupied.
+2025-09-07;22:27:39;AL  ;Minor ;AntennaUnitGroup=210,AntennaNearUnit=RET_800_900;No Connection;Antenna near unit controller occupied.
+2025-09-08;07:59:44;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-08;07:59:44;AL  ;Minor ;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:44;AL  ;Minor ;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:44;AL  ;Minor ;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:44;AL  ;Minor ;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:44;AL  ;Minor ;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:44;AL  ;Minor ;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:44;AL  ;Minor ;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:44;AL  ;Minor ;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:44;AL  ;Minor ;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:49;AL  ;Cleared;AntennaUnitGroup=210,AntennaNearUnit=RET_1800_2100;No Connection;Antenna near unit controller occupied.
+2025-09-08;07:59:49;AL  ;Cleared;AntennaUnitGroup=210,AntennaNearUnit=RET_800_900;No Connection;Antenna near unit controller occupied.
+2025-09-08;07:59:49;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:49;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:49;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:49;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:49;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:49;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:49;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:49;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:49;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:59:49;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-08;08:00:19;AL  ;Minor ;AntennaUnitGroup=210,AntennaNearUnit=RET_1800_2100;No Connection;Antenna near unit controller occupied.
+2025-09-08;08:00:19;AL  ;Minor ;AntennaUnitGroup=210,AntennaNearUnit=RET_800_900;No Connection;Antenna near unit controller occupied.
+2025-09-09;14:29:53;AL  ;Cleared;AntennaUnitGroup=210,AntennaNearUnit=RET_1800_2100;No Connection;Antenna near unit controller occupied.
+2025-09-09;14:29:53;AL  ;Cleared;AntennaUnitGroup=210,AntennaNearUnit=RET_800_900;No Connection;Antenna near unit controller occupied.
+2025-09-09;14:30:23;AL  ;Minor ;AntennaUnitGroup=210,AntennaNearUnit=RET_1800_2100;No Connection;Antenna near unit controller occupied.
+2025-09-09;14:30:23;AL  ;Minor ;AntennaUnitGroup=210,AntennaNearUnit=RET_800_900;No Connection;Antenna near unit controller occupied.
+2025-09-11;01:06:07;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650563
+2025-09-11;01:07:33;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650563
+2025-09-11;06:02:39;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650563
+2025-09-11;06:11:37;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650563
+2025-09-11;06:23:07;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:23:11;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:23:11;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:23:11;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:23:11;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:23:11;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:23:11;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:23:11;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:23:11;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:23:11;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:23:11;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:23:11;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:23:11;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:23:11;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:23:11;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:24:01;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;06:29:47;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;06:29:47;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:29:47;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:47;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:47;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:47;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:47;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:47;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:47;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:47;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:47;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:47;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:47;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:47;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:52;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;06:30:22;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:30:22;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:22;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:22;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:22;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:22;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:22;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:22;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:22;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:22;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:22;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:22;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:22;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:30:52;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-11;06:30:49;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:30:49;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:49;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:07;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:32:12;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:32:12;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:32:12;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:12;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:12;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:12;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:12;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:12;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:12;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:12;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:12;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:12;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:12;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:12;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:32:31;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;06:32:48;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;06:38:11;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;06:38:11;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:38:11;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:11;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:11;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:11;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:11;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:11;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:11;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:11;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:11;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:11;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:11;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:11;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:16;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;06:38:49;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;06:38:58;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:38:58;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:38:58;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:58;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:58;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:58;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:58;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:58;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:58;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:58;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:59;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:59;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:59;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:38:59;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;07:45:13;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;07:45:13;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:13;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;07:45:42;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-11;07:47:15;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No granted service from PTP grandmaster
+2025-09-16;10:00:40;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:01:10;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-22;13:59:35;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-22;13:59:35;AL  ;Minor ;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;13:59:35;AL  ;Minor ;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;13:59:35;AL  ;Minor ;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;13:59:35;AL  ;Minor ;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;13:59:35;AL  ;Minor ;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;13:59:35;AL  ;Minor ;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;13:59:35;AL  ;Minor ;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;13:59:35;AL  ;Minor ;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;13:59:35;AL  ;Minor ;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;14:03:26;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-22;14:03:26;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;14:03:26;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;14:03:26;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;14:03:26;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;14:03:26;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;14:03:26;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;14:03:26;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;14:03:26;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;14:03:26;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;15:20:44;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650510
+2025-09-25;12:13:15;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650510 PLMN ID-eNB ID 2 = 2221-650189 PLMN ID-eNB ID 3 = 2221-211115
+2025-09-26;13:48:27;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-26;13:49:06;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-26;14:32:50;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-26;14:33:21;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-26;14:36:38;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-26;14:36:38;AL  ;Minor ;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:36:38;AL  ;Minor ;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:36:38;AL  ;Minor ;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:36:38;AL  ;Minor ;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:36:38;AL  ;Minor ;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:36:38;AL  ;Minor ;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:36:38;AL  ;Minor ;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:36:38;AL  ;Minor ;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:36:38;AL  ;Minor ;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:40:18;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-26;14:40:18;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:40:18;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:40:18;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:40:18;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:40:18;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:40:18;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:40:18;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:40:18;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:40:18;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:47:14;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-26;14:47:14;AL  ;Minor ;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:47:14;AL  ;Minor ;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:47:14;AL  ;Minor ;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:47:14;AL  ;Minor ;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:47:14;AL  ;Minor ;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:47:14;AL  ;Minor ;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:47:14;AL  ;Minor ;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:47:14;AL  ;Minor ;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:47:14;AL  ;Minor ;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:49:46;AL  ;Cleared;AntennaUnitGroup=210,AntennaNearUnit=RET_1800_2100;No Connection;Antenna near unit controller occupied.
+2025-09-26;14:49:46;AL  ;Cleared;AntennaUnitGroup=210,AntennaNearUnit=RET_800_900;No Connection;Antenna near unit controller occupied.
+2025-09-26;14:49:46;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:49:46;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:49:46;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:49:46;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:49:46;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:49:46;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:49:46;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:49:46;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:49:46;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;14:49:46;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-26;14:50:16;AL  ;Minor ;AntennaUnitGroup=210,AntennaNearUnit=RET_1800_2100;No Connection;Antenna near unit controller occupied.
+2025-09-26;14:50:16;AL  ;Minor ;AntennaUnitGroup=210,AntennaNearUnit=RET_800_900;No Connection;Antenna near unit controller occupied.
+2025-09-27;13:48:28;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650566
+2025-09-27;15:11:52;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650566 PLMN ID-eNB ID 2 = 2221-650563
+2025-09-27;15:20:16;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650566
+2025-09-28;11:33:50;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650566
+2025-09-30;08:45:33;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-30;08:46:03;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-01;16:00:31;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650514
+2025-10-01;16:01:28;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650514
+2025-10-05;15:23:44;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650563
+2025-10-05;15:38:40;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650563
+2025-10-05;15:56:29;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650563
+2025-10-05;15:58:48;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;15:58:48;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:48;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:48;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:48;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:48;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:48;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:48;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:48;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:48;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:48;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:48;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:48;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:59:38;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages, No granted service from PTP grandmaster
+2025-10-05;16:10:54;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-10-05;16:10:54;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:10:54;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:10:54;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:10:54;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:10:54;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:10:54;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:10:54;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:10:54;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:10:54;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:10:54;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:10:54;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:10:54;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:10:54;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:29;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-10-05;16:11:57;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:11:57;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:57;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:57;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:57;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:57;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:57;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:57;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:57;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:57;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:57;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:57;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:11:57;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:12:31;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:31;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:12:43;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:12:43;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:14:25;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:25;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:14:44;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650563
+2025-10-05;16:14:55;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;16:15:01;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;16:15:01;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:15:01;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:01;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:01;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:01;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:01;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:01;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:01;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:01;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:01;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:01;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:01;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:01;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-10-05;16:15:26;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:15:26;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:26;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:15:57;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-10-05;16:16:25;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;16:16:33;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;16:16:33;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:16:33;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:33;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:33;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:33;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:33;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:33;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:33;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:33;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:33;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:33;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:33;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:33;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-10-05;16:16:56;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:16:56;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:16:56;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:17:03;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-10-05;16:18:59;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No granted service from PTP grandmaster
+2025-10-05;17:05:20;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650734
+2025-10-05;17:08:11;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650734
+2025-10-05;17:10:16;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;17:10:33;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;17:10:33;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;17:10:33;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:33;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:33;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:33;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:33;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:33;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:33;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:33;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:33;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:33;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:33;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:33;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-10-05;17:10:50;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;17:10:50;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:10:50;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:11:34;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;17:27:05;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-10-05;17:27:36;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;17:27:49;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;17:27:58;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;17:27:58;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;17:27:58;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:27:58;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:27:58;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:27:58;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:27:58;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:27:58;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:27:58;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:27:58;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:27:58;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:27:58;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:27:58;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:27:58;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;17:28:33;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;17:28:33;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:28:33;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:04;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-10-05;17:29:42;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;17:29:50;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;17:29:50;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;17:29:50;AL  ;Major ;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:50;AL  ;Major ;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:50;AL  ;Major ;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:50;AL  ;Major ;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:50;AL  ;Major ;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:50;AL  ;Major ;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:50;AL  ;Major ;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:50;AL  ;Major ;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:50;AL  ;Major ;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:50;AL  ;Major ;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:50;AL  ;Major ;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:29:50;AL  ;Major ;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:30:16;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;17:32:39;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-10-05;17:32:39;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;17:32:39;AL  ;Cleared;EUtranCellFDD=SC65T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:39;AL  ;Cleared;EUtranCellFDD=SC65T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:39;AL  ;Cleared;EUtranCellFDD=SC65T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:39;AL  ;Cleared;EUtranCellFDD=SC65M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:39;AL  ;Cleared;EUtranCellFDD=SC65M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:39;AL  ;Cleared;EUtranCellFDD=SC65M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:39;AL  ;Cleared;EUtranCellFDD=SC65E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:39;AL  ;Cleared;EUtranCellFDD=SC65E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:39;AL  ;Cleared;EUtranCellFDD=SC65E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:39;AL  ;Cleared;NbIotCell=SC65N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:39;AL  ;Cleared;NbIotCell=SC65N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:39;AL  ;Cleared;NbIotCell=SC65N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:32:47;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-10-05;17:34:24;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-06;14:47:33;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650510
+
+
+SC65T> lgec -m 30d
+
+251007-11:56:23+0200 19.31.2.197 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1041041
+
+Startdate=20250907.095623, Enddate=20251008.095623
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=49359
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 49359    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115540_1040985/rcslogs/AlertLog_20230105__075941_20250226__232155.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115540_1040985/rcslogs/AlertLog_20250226__232155.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115540_1040985/eventLog1041041.xml
+2025-09-07;22:27:18;EV  ;Warning;RiLink=S100-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-07;22:27:18;EV  ;Warning;RiLink=S102-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET). SUPPRESSED
+2025-09-07;22:27:18;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-07;22:27:18;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-07;22:27:18;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-08;05:29:15;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-08;07:59:53;EV  ;Warning;EUtranCellFDD=SC65E1;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-08;07:59:53;EV  ;Warning;NbIotCell=SC65N1;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-08;07:59:53;EV  ;Warning;EUtranCellFDD=SC65E2;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-08;07:59:53;EV  ;Warning;NbIotCell=SC65N2;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-08;07:59:53;EV  ;Warning;EUtranCellFDD=SC65E3;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-08;07:59:53;EV  ;Warning;NbIotCell=SC65N3;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-08;07:59:53;EV  ;Warning;EUtranCellFDD=SC65T3;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-08;07:59:58;EV  ;Warning;RiLink=S100-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-08;07:59:58;EV  ;Warning;RiLink=S102-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET). SUPPRESSED
+2025-09-08;07:59:58;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-08;07:59:58;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-08;07:59:58;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-08;08:00:03;EV  ;Warning;EUtranCellFDD=SC65E1;Cell Service Available Auto Recovery Successful Alert;
+2025-09-08;08:00:03;EV  ;Warning;EUtranCellFDD=SC65E2;Cell Service Available Auto Recovery Successful Alert;
+2025-09-08;08:00:03;EV  ;Warning;EUtranCellFDD=SC65E3;Cell Service Available Auto Recovery Successful Alert;
+2025-09-08;08:00:04;EV  ;Warning;NbIotCell=SC65N1;Cell Service Available Auto Recovery Successful Alert;
+2025-09-08;08:00:04;EV  ;Warning;NbIotCell=SC65N2;Cell Service Available Auto Recovery Successful Alert;
+2025-09-08;08:00:04;EV  ;Warning;NbIotCell=SC65N3;Cell Service Available Auto Recovery Successful Alert;
+2025-09-08;08:00:04;EV  ;Warning;EUtranCellFDD=SC65T3;Cell Service Available Auto Recovery Successful Alert;
+2025-09-09;00:30:03;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-09;14:30:02;EV  ;Warning;RiLink=S100-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-09;14:30:02;EV  ;Warning;RiLink=S102-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET). SUPPRESSED
+2025-09-09;14:30:02;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-09;14:30:02;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-09;14:30:02;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-09;16:06:13;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-11;22:00:25;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-16;20:48:29;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-17;08:06:33;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-22;02:22:26;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-23;13:07:25;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-23;21:22:55;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-25;22:34:36;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-26;14:49:55;EV  ;Warning;RiLink=S100-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-26;14:49:55;EV  ;Warning;RiLink=S102-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET). SUPPRESSED
+2025-09-26;14:49:55;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-26;14:49:55;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-26;14:49:55;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-27;03:57:52;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-27;11:10:16;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-28;02:20:03;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-28;10:26:36;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-30;21:41:59;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-30;23:58:02;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-01;17:50:06;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-03;17:34:21;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/SC65T.log

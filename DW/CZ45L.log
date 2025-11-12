@@ -1,0 +1,182 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/CZ45L.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 878151
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+CZ45L> lt all
+
+251007-11:36:04+0200 19.31.11.189 25.0h  stopfile=/tmp/878017
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 879109
+
+Connected to 19.31.11.189 (SubNetwork=BBMM_rckomc_R,MeContext=CZ45L,ManagedElement=CZ45L)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113557_877934/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ..................................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.11.189 (SubNetwork=BBMM_rckomc_R,MeContext=CZ45L,ManagedElement=CZ45L)
+
+Last MO: 16401. Loaded 16401 MOs. Total: 16402 MOs.
+
+CZ45L> hget EUtranCellFDD ^cellid
+
+251007-11:36:18+0200 19.31.11.189 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/878017
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=CZ45L1 21    
+EUtranCellFDD=CZ45L2 22    
+=================================================================================================================
+Total: 2 MOs
+
+Added 2 MOs to group: hget_group
+
+CZ45L> hget NbIotCell ^cellid
+
+251007-11:36:18+0200 19.31.11.189 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/878017
+Total: 0 MOs
+
+CZ45L> hget NRCellDU ^cellLocalId
+
+251007-11:36:19+0200 19.31.11.189 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/878017
+Total: 0 MOs
+
+CZ45L> lgdc -m 30d
+
+251007-11:36:19+0200 19.31.11.189 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/878017
+
+Startdate=20250907.093619, Enddate=20251008.093619
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=59486
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 59486    1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113557_877934/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007093622.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113557_877934/availabilityLog878017.xml
+Parsing availabilityLog......Done.
+...
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;04:05:23;PartialOutage(Manual);50% Lrat Cell 22; ();10s;;;;;
+2025-09-08;04:05:38;PartialOutage(Manual);50% Lrat Cell 21; ();8s;;;;;
+2025-09-11;00:58:39;PartialOutage(System);100% Lrat Cell 21 22; ();83s (1m23s);;;;;
+2025-09-11;01:00:02;PartialOutage(System);100% Lrat Cell 22; ();1s;;;;;
+2025-09-21;21:16:20;PartialOutage(System);100% Lrat Cell 21 22; ();84s (1m24s);;;;;
+2025-10-01;08:39:47;PartialOutage(System);100% Lrat Cell 21 22; ();79s (1m19s);;;;;
+
+Node uptime since last restart: 521722 seconds (6 days, 0 hours, 55 minutes, 22 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                6               
+Total downtime       0s               0s               0s               0s               265s (4m25s)    
+Downtime per day     0s               0s               0s               0s               9s              
+Downtime per outage  0s               0s               0s               0s               44s             
+
+CZ45L> lgac -m 30d
+
+251007-11:36:28+0200 19.31.11.189 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/878017
+
+Startdate=20250907.093628, Enddate=20251008.093628
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=59487
+..........
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 59487    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113557_877934/rcslogs/saLogAlarm_20241015__181136_20241016__011633.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113557_877934/rcslogs/saLogAlarm_20241016__011633_20241204__101447.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113557_877934/rcslogs/saLogAlarm_20241204__101447_20250224__231524.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113557_877934/rcslogs/saLogAlarm_20250224__231524.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113557_877934/alarmLog878017.xml
+2025-09-07;12:42:27;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-11;00:58:41;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1;Input Power Failure;Input voltage outside unit operating range. AI: UI=[{"PN":"Radio 4415 B7","SN":"TU8U01TX14","PNR":"KRC 161 495/1","PR":"R5J"}]
+2025-09-11;00:58:41;AL  ;Major ;EUtranCellFDD=CZ45L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:58:41;AL  ;Major ;EUtranCellFDD=CZ45L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:58:42;AL  ;Minor ;FieldReplaceableUnit=Radio-S210-1;Input Power Failure;Input voltage outside unit operating range. AI: UI=[{"PN":"Radio 2279 22B8 22B20 C","SN":"TU8U01SXGE","PNR":"KRC 161 864/1","PR":"R1F"}]
+2025-09-11;00:59:18;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1;Input Power Failure;Input voltage outside unit operating range. AI: UI=[{"PN":"Radio 4415 B7","SN":"TU8U01TX14","PNR":"KRC 161 495/1","PR":"R5J"}]
+2025-09-11;00:59:18;AL  ;Cleared;EUtranCellFDD=CZ45L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:59:18;AL  ;Cleared;EUtranCellFDD=CZ45L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:59:52;AL  ;Cleared;FieldReplaceableUnit=Radio-S210-1;Input Power Failure;Input voltage outside unit operating range. AI: UI=[{"PN":"Radio 2279 22B8 22B20 C","SN":"TU8U01SXGE","PNR":"KRC 161 864/1","PR":"R1F"}]
+2025-09-13;19:24:30;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-13;19:33:21;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212833
+2025-09-14;08:12:21;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212833 PLMN ID-eNB ID 2 = 2221-650086
+2025-09-15;09:45:44;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-16;10:05:59;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:06:29;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-19;13:01:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-21;08:06:17;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:06:17;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-21;12:30:39;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;21:16:22;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1;Input Power Failure;Input voltage outside unit operating range. AI: UI=[{"PN":"Radio 4415 B7","SN":"TU8U01TX14","PNR":"KRC 161 495/1","PR":"R5J"}]
+2025-09-21;21:16:22;AL  ;Major ;EUtranCellFDD=CZ45L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-21;21:16:22;AL  ;Major ;EUtranCellFDD=CZ45L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-21;21:16:23;AL  ;Minor ;FieldReplaceableUnit=Radio-S210-1;Input Power Failure;Input voltage outside unit operating range. AI: UI=[{"PN":"Radio 2279 22B8 22B20 C","SN":"TU8U01SXGE","PNR":"KRC 161 864/1","PR":"R1F"}]
+2025-09-21;21:16:59;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1;Input Power Failure;Input voltage outside unit operating range. AI: UI=[{"PN":"Radio 4415 B7","SN":"TU8U01TX14","PNR":"KRC 161 495/1","PR":"R5J"}]
+2025-09-21;21:16:59;AL  ;Cleared;EUtranCellFDD=CZ45L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-21;21:16:59;AL  ;Cleared;EUtranCellFDD=CZ45L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-21;21:17:33;AL  ;Cleared;FieldReplaceableUnit=Radio-S210-1;Input Power Failure;Input voltage outside unit operating range. AI: UI=[{"PN":"Radio 2279 22B8 22B20 C","SN":"TU8U01SXGE","PNR":"KRC 161 864/1","PR":"R1F"}]
+2025-09-26;10:01:42;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-28;08:07:42;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;08:07:42;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-28;12:27:39;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-01;08:39:48;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1;Input Power Failure;Input voltage outside unit operating range. AI: UI=[{"PN":"Radio 4415 B7","SN":"TU8U01TX14","PNR":"KRC 161 495/1","PR":"R5J"}]
+2025-10-01;08:39:48;AL  ;Major ;EUtranCellFDD=CZ45L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;08:39:48;AL  ;Major ;EUtranCellFDD=CZ45L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;08:40:21;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1;Input Power Failure;Input voltage outside unit operating range. AI: UI=[{"PN":"Radio 4415 B7","SN":"TU8U01TX14","PNR":"KRC 161 495/1","PR":"R5J"}]
+2025-10-01;08:40:21;AL  ;Cleared;EUtranCellFDD=CZ45L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;08:40:21;AL  ;Cleared;EUtranCellFDD=CZ45L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;14:01:03;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;08:01:17;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;08:01:17;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;08:01:42;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;12:08:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650086;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+
+
+CZ45L> lgec -m 30d
+
+251007-11:36:37+0200 19.31.11.189 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/878017
+
+Startdate=20250907.093637, Enddate=20251008.093637
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=59488
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 59488    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113557_877934/rcslogs/AlertLog_20230725__084217_20250224__231556.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113557_877934/rcslogs/AlertLog_20250224__231556.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-113557_877934/eventLog878017.xml
+2025-09-11;00:59:53;EV  ;Warning;FieldReplaceableUnit=Radio-S210-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"System Initiated","RT":"Input Voltage Recovery","ERI":"FALSE"}] UI=[{"PN":Radio 2279 22B8 22B20 C,"PNR":KRC 161 864/1,"PR":R1F,"SN":TU8U01SXGE,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-09-21;21:17:34;EV  ;Warning;FieldReplaceableUnit=Radio-S210-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"System Initiated","RT":"Input Voltage Recovery","ERI":"FALSE"}] UI=[{"PN":Radio 2279 22B8 22B20 C,"PNR":KRC 161 864/1,"PR":R1F,"SN":TU8U01SXGE,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/CZ45L.log

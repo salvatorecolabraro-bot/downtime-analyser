@@ -1,0 +1,265 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/ZA37E.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 1317209
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+ZA37E> lt all
+
+251007-12:31:09+0200 19.31.10.235 25.0h  stopfile=/tmp/1316867
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 1318328
+
+Connected to 19.31.10.235 (SubNetwork=BBMM_rckomc_R,MeContext=ZA37E,ManagedElement=ZA37E)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-123102_1316765/MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81.xml.cache.gz ......................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt ......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.10.235 (SubNetwork=BBMM_rckomc_R,MeContext=ZA37E,ManagedElement=ZA37E)
+
+Last MO: 18986. Loaded 18986 MOs. Total: 18987 MOs.
+
+ZA37E> hget EUtranCellFDD ^cellid
+
+251007-12:31:30+0200 19.31.10.235 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1316867
+.
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=ZA37E1 61    
+EUtranCellFDD=ZA37E2 62    
+EUtranCellFDD=ZA37E3 63    
+EUtranCellFDD=ZA37M1 31    
+EUtranCellFDD=ZA37M2 32    
+EUtranCellFDD=ZA37M3 33    
+EUtranCellFDD=ZA37T1 41    
+EUtranCellFDD=ZA37T2 42    
+EUtranCellFDD=ZA37T3 43    
+=================================================================================================================
+Total: 9 MOs
+
+Added 9 MOs to group: hget_group
+
+ZA37E> hget NbIotCell ^cellid
+
+251007-12:31:30+0200 19.31.10.235 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1316867
+.
+=================================================================================================================
+MO               cellId
+=================================================================================================================
+NbIotCell=ZA37N1 161   
+NbIotCell=ZA37N2 162   
+NbIotCell=ZA37N3 163   
+=================================================================================================================
+Total: 3 MOs
+
+Added 3 MOs to group: hget_group
+
+ZA37E> hget NRCellDU ^cellLocalId
+
+251007-12:31:31+0200 19.31.10.235 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1316867
+Total: 0 MOs
+
+ZA37E> lgdc -m 30d
+
+251007-12:31:31+0200 19.31.10.235 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1316867
+
+Startdate=20250907.103131, Enddate=20251008.103131
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=6267
+......
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 6267     1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-123102_1316765/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007103136.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-123102_1316765/availabilityLog1316867.xml
+Parsing availabilityLog........Done.
+.....
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;00:21:19;PartialOutage(Manual);11% Lrat Cell 62; ();12s;;;;;
+2025-09-08;00:21:32;PartialOutage(Manual);33% Lrat Cell 162 163; ();3s;;;;;
+2025-09-08;00:21:35;PartialOutage(Manual);11% Lrat Cell 63; ();9s;;;;;
+2025-09-08;00:21:45;PartialOutage(Manual);11% Lrat Cell 61; ();2s;;;;;
+2025-09-08;00:21:47;PartialOutage(Manual);44% Lrat Cell 161 163; ();12s;;;;;
+2025-09-08;00:21:59;PartialOutage(Manual);11% Lrat Cell 32; ();2s;;;;;
+2025-09-08;00:22:01;PartialOutage(Manual);53% Lrat Cell 161; ();10s;;;;;
+2025-09-08;00:22:14;PartialOutage(Manual);11% Lrat Cell 33; ();2s;;;;;
+2025-09-08;00:22:29;PartialOutage(Manual);11% Lrat Cell 31; ();10s;;;;;
+2025-09-08;00:22:42;PartialOutage(Manual);11% Lrat Cell 43; ();18s;;;;;
+2025-09-08;00:23:08;PartialOutage(Manual);11% Lrat Cell 41; ();7s;;;;;
+2025-09-08;00:23:20;PartialOutage(Manual);11% Lrat Cell 42; ();6s;;;;;
+2025-09-23;13:08:32;PartialOutage(System);100% Lrat Cell 161 162 163; ();393s (6m33s);;;;;
+2025-09-23;13:15:05;PartialOutage(System);100% Lrat Cell 61 62 63 31 32 41 42 43; ();1s;;;;;
+2025-09-23;13:15:06;PartialOutage(System);100% Lrat Cell 61 62 63; ();2s;;;;;
+2025-09-23;13:15:08;PartialOutage(System);100% Lrat Cell 161; ();1s;;;;;
+
+Node uptime since last restart: 1199794 seconds (13 days, 21 hours, 16 minutes, 34 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                16              
+Total downtime       0s               0s               0s               0s               490s (8m10s)    
+Downtime per day     0s               0s               0s               0s               16s             
+Downtime per outage  0s               0s               0s               0s               31s             
+
+ZA37E> lgac -m 30d
+
+251007-12:31:43+0200 19.31.10.235 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1316867
+
+Startdate=20250907.103144, Enddate=20251008.103144
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=6268
+......
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 6268     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-123102_1316765/rcslogs/saLogAlarm_20250107__135828_20250218__084005.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-123102_1316765/rcslogs/saLogAlarm_20250218__084005_20250818__130749.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-123102_1316765/rcslogs/saLogAlarm_20250818__130749.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-123102_1316765/alarmLog1316867.xml
+2025-09-08;00:22:11;AL  ;Minor ;EUtranCellFDD=ZA37M2;Unreliable Resource;DL frequency 2137500 and/or UL frequency 1947500 not supported by TMA
+2025-09-08;00:22:26;AL  ;Minor ;EUtranCellFDD=ZA37M3;Unreliable Resource;DL frequency 2137500 and/or UL frequency 1947500 not supported by TMA
+2025-09-08;00:22:39;AL  ;Minor ;EUtranCellFDD=ZA37M1;Unreliable Resource;DL frequency 2137500 and/or UL frequency 1947500 not supported by TMA
+2025-09-08;00:30:59;AL  ;Cleared;EUtranCellFDD=ZA37M2;Unreliable Resource;DL frequency 2137500 and/or UL frequency 1947500 not supported by TMA
+2025-09-08;00:34:32;AL  ;Cleared;EUtranCellFDD=ZA37M3;Unreliable Resource;DL frequency 2137500 and/or UL frequency 1947500 not supported by TMA
+2025-09-08;00:34:59;AL  ;Cleared;EUtranCellFDD=ZA37M1;Unreliable Resource;DL frequency 2137500 and/or UL frequency 1947500 not supported by TMA
+2025-09-09;01:17:01;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600617
+2025-09-09;01:18:53;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600617
+2025-09-10;11:42:53;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650655
+2025-09-10;11:43:09;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650655
+2025-09-10;14:45:19;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650541
+2025-09-10;16:59:37;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650541
+2025-09-12;12:29:14;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650560
+2025-09-12;17:00:54;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650560
+2025-09-14;14:02:20;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650279
+2025-09-14;16:06:13;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650279
+2025-09-15;09:28:45;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650677
+2025-09-15;13:38:43;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650677
+2025-09-16;02:30:49;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650773
+2025-09-16;02:41:55;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650773
+2025-09-16;10:04:48;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:05:18;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;17:53:07;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650677
+2025-09-16;18:03:17;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650677
+2025-09-17;07:09:47;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650700
+2025-09-17;09:16:28;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650700
+2025-09-18;18:18:38;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650560
+2025-09-20;02:44:32;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650560 PLMN ID-eNB ID 2 = 2221-650525
+2025-09-20;04:59:20;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650560
+2025-09-21;12:13:13;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650560
+2025-09-21;13:34:54;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205083 PLMN ID-eNB ID 2 = 2221-205084
+2025-09-22;01:20:55;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205083 PLMN ID-eNB ID 2 = 2221-205084 PLMN ID-eNB ID 3 = 2221-650279
+2025-09-22;08:48:32;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205083 PLMN ID-eNB ID 2 = 2221-205084
+2025-09-22;09:59:04;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205083 PLMN ID-eNB ID 2 = 2221-205084
+2025-09-22;13:26:03;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205083
+2025-09-22;14:06:25;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205265 PLMN ID-eNB ID 2 = 2221-205266
+2025-09-22;14:40:34;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205265 PLMN ID-eNB ID 2 = 2221-205266 PLMN ID-eNB ID 3 = 2221-650632
+2025-09-22;17:40:17;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205265 PLMN ID-eNB ID 2 = 2221-205266
+2025-09-23;00:13:36;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205265 PLMN ID-eNB ID 2 = 2221-205266 PLMN ID-eNB ID 3 = 2221-650632
+2025-09-23;08:40:29;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650632
+2025-09-23;13:08:24;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-23;13:08:32;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-23;13:08:32;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-23;13:08:32;AL  ;Major ;EUtranCellFDD=ZA37T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:08:32;AL  ;Major ;EUtranCellFDD=ZA37T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:08:32;AL  ;Major ;EUtranCellFDD=ZA37T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:08:32;AL  ;Major ;EUtranCellFDD=ZA37M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:08:32;AL  ;Major ;EUtranCellFDD=ZA37M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:08:32;AL  ;Major ;EUtranCellFDD=ZA37M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:08:32;AL  ;Major ;EUtranCellFDD=ZA37E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:08:32;AL  ;Major ;EUtranCellFDD=ZA37E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:08:32;AL  ;Major ;EUtranCellFDD=ZA37E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:08:32;AL  ;Major ;NbIotCell=ZA37N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:08:32;AL  ;Major ;NbIotCell=ZA37N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:08:32;AL  ;Major ;NbIotCell=ZA37N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:09:20;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-23;13:15:02;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-23;13:15:02;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-23;13:15:03;AL  ;Cleared;EUtranCellFDD=ZA37T3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:03;AL  ;Cleared;EUtranCellFDD=ZA37T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:03;AL  ;Cleared;EUtranCellFDD=ZA37T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:03;AL  ;Cleared;EUtranCellFDD=ZA37M3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:03;AL  ;Cleared;EUtranCellFDD=ZA37M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:03;AL  ;Cleared;EUtranCellFDD=ZA37M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:03;AL  ;Cleared;EUtranCellFDD=ZA37E3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:03;AL  ;Cleared;EUtranCellFDD=ZA37E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:03;AL  ;Cleared;EUtranCellFDD=ZA37E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:03;AL  ;Cleared;NbIotCell=ZA37N3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:03;AL  ;Cleared;NbIotCell=ZA37N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:03;AL  ;Cleared;NbIotCell=ZA37N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-23;13:15:10;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-23;13:16:52;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;12:47:52;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650632 PLMN ID-eNB ID 2 = 2221-601229
+2025-09-26;13:17:46;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601229
+2025-09-26;14:41:43;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601229
+2025-09-27;08:06:00;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-206491 PLMN ID-eNB ID 2 = 2221-600315
+2025-09-27;08:07:05;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600315
+2025-09-27;08:11:48;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600315
+2025-09-27;11:06:31;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650300
+2025-09-28;12:11:59;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650300
+2025-09-28;23:24:08;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600617 PLMN ID-eNB ID 2 = 2221-600876
+2025-09-28;23:31:19;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600617
+2025-09-28;23:31:39;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600617
+2025-09-30;06:49:03;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205076
+2025-09-30;12:48:06;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205076
+2025-10-02;04:00:41;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650279
+2025-10-02;04:03:53;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650279
+2025-10-03;05:00:20;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650655
+2025-10-03;11:21:58;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650655 PLMN ID-eNB ID 2 = 2221-209918
+2025-10-03;17:57:32;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650655
+2025-10-04;22:07:36;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-208205
+2025-10-04;22:17:47;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-208205
+2025-10-05;17:55:06;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-208205
+2025-10-05;17:55:58;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-208205
+2025-10-05;20:00:10;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650605
+2025-10-05;20:00:27;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650605
+2025-10-05;20:10:48;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650279
+2025-10-05;20:17:41;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650279
+2025-10-06;02:04:11;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650746
+2025-10-06;09:32:12;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650746
+
+
+ZA37E> lgec -m 30d
+
+251007-12:31:52+0200 19.31.10.235 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1316867
+
+Startdate=20250907.103152, Enddate=20251008.103152
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=6269
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 6269     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-123102_1316765/rcslogs/AlertLog_20220422__091608.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-123102_1316765/eventLog1316867.xml
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/ZA37E.log

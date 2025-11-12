@@ -1,0 +1,402 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/RC48T.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 627744
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+RC48T> lt all
+
+251007-11:07:27+0200 19.31.14.254 25.0h  stopfile=/tmp/627463
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 629992
+
+Connected to 19.31.14.254 (SubNetwork=BBMM_rckomc_R,MeContext=RC48T,ManagedElement=RC48T)
+
+Fetching 203 MOM fragments via HTTPS
+...........................................................................................................................................................................................................
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM: /home/shared/t20251007_37258710_53697/moshell/jarxml/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.gz ........................................................................................................................................................................................................................................................................Done.
+Caching MOM to: /home/shared/t20251007_37258710_53697/moshell/jarxml/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache .....Done.
+Compressing to: /home/shared/t20251007_37258710_53697/moshell/jarxml/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ...Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.14.254 (SubNetwork=BBMM_rckomc_R,MeContext=RC48T,ManagedElement=RC48T)
+
+Last MO: 21146. Loaded 21146 MOs. Total: 21147 MOs.
+
+RC48T> hget EUtranCellFDD ^cellid
+
+251007-11:08:44+0200 19.31.14.254 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/627463
+.
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=RC48E1 61    
+EUtranCellFDD=RC48E2 62    
+EUtranCellFDD=RC48M1 31    
+EUtranCellFDD=RC48M2 32    
+EUtranCellFDD=RC48T1 41    
+EUtranCellFDD=RC48T2 42    
+=================================================================================================================
+Total: 6 MOs
+
+Added 6 MOs to group: hget_group
+
+RC48T> hget NbIotCell ^cellid
+
+251007-11:08:45+0200 19.31.14.254 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/627463
+.
+=================================================================================================================
+MO               cellId
+=================================================================================================================
+NbIotCell=RC48N1 161   
+NbIotCell=RC48N2 162   
+=================================================================================================================
+Total: 2 MOs
+
+Added 2 MOs to group: hget_group
+
+RC48T> hget NRCellDU ^cellLocalId
+
+251007-11:08:45+0200 19.31.14.254 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/627463
+.
+=================================================================================================================
+MO              cellLocalId
+=================================================================================================================
+NRCellDU=RC48G1 561        
+NRCellDU=RC48G2 562        
+NRCellDU=RC48V1 571        
+NRCellDU=RC48V2 572        
+=================================================================================================================
+Total: 4 MOs
+
+Added 4 MOs to group: hget_group
+
+RC48T> lgdc -m 30d
+
+251007-11:08:45+0200 19.31.14.254 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/627463
+
+Startdate=20250907.090845, Enddate=20251008.090845
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=39029
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 39029    1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-110720_627363/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007090848.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-110720_627363/availabilityLog627463.xml
+Parsing availabilityLog.....Done.
+..
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;01:13:30;PartialOutage(Manual);17% Lrat Cell 32; ();10s;;;;;
+2025-09-08;01:13:47;PartialOutage(Manual);17% Lrat Cell 31; ();12s;;;;;
+2025-09-08;01:14:04;PartialOutage(Manual);17% Lrat Cell 62; ();10s;;;;;
+2025-09-08;01:14:15;PartialOutage(Manual);50% Lrat Cell 161 162; ();1s;;;;;
+2025-09-08;01:14:16;PartialOutage(Manual);17% Lrat Cell 61; ();19s;;;;;
+2025-09-08;01:14:36;PartialOutage(Manual);17% Lrat Cell 42; ();7s;;;;;
+2025-09-08;01:14:43;PartialOutage(Manual);90% Lrat Cell 161; ();4s;;;;;
+2025-09-08;01:14:51;PartialOutage(Manual);17% Lrat Cell 41; ();3s;;;;;
+
+Node uptime since last restart: 2534035 seconds (29 days, 7 hours, 53 minutes, 55 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                8               
+Total downtime       0s               0s               0s               0s               66s (1m6s)      
+Downtime per day     0s               0s               0s               0s               2s              
+Downtime per outage  0s               0s               0s               0s               8s              
+
+RC48T> lgac -m 30d
+
+251007-11:08:54+0200 19.31.14.254 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/627463
+
+Startdate=20250907.090854, Enddate=20251008.090854
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=39030
+.................
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 39030    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-110720_627363/rcslogs/saLogAlarm_20250226__233054_20250510__140927.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-110720_627363/rcslogs/saLogAlarm_20250510__140927_20250612__143013.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-110720_627363/rcslogs/saLogAlarm_20250612__143013.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-110720_627363/alarmLog627463.xml
+2025-09-07;09:49:08;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-211234;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-07;11:59:56;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600715
+2025-09-08;01:13:40;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:13:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:13:47;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:13:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:14:04;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:14:16;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:14:38;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:14:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:14:51;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:14:52;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:14:52;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:14:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:14:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:15:10;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:15:10;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB The alarm is currently toggling.
+2025-09-08;01:26:02;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;01:23:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB The alarm is currently toggling.
+2025-09-08;01:26:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;02:22:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;02:28:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;03:56:16;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;06:29:54;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600715
+2025-09-08;13:26:54;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600684
+2025-09-08;14:50:42;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600684
+2025-09-08;23:19:56;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-211422
+2025-09-08;23:22:22;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601182
+2025-09-09;02:42:17;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;02:42:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;03:25:35;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;03:26:08;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;03:46:55;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;05:07:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;05:40:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;05:41:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;11:27:27;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051 PLMN ID-gNB ID 2 = 222:01-1051621
+2025-09-09;12:44:02;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051
+2025-09-10;04:19:22;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600914;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;04:25:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600914;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;05:02:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;05:04:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;08:29:45;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600733
+2025-09-10;12:46:18;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600733
+2025-09-10;23:07:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;23:07:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;23:14:10;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601340
+2025-09-10;23:14:25;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601340
+2025-09-10;23:37:18;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601340
+2025-09-10;23:51:43;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601340
+2025-09-11;00:01:20;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601340
+2025-09-11;00:04:54;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601340
+2025-09-11;00:33:53;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601340
+2025-09-11;00:44:07;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601340
+2025-09-11;06:29:55;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601301
+2025-09-11;10:05:03;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;10:06:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;11:44:09;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601301 PLMN ID-eNB ID 2 = 2221-213965
+2025-09-11;11:56:25;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601301
+2025-09-11;13:32:13;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601301
+2025-09-12;02:14:33;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600914;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;02:14:44;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600914;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;05:14:33;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;05:16:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;08:14:55;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-12;08:23:33;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600792
+2025-09-12;08:59:33;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051 PLMN ID-gNB ID 2 = 222:01-1051890
+2025-09-12;09:01:20;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051
+2025-09-12;23:35:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;23:36:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;01:20:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600914;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;01:20:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600914;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;01:52:32;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;01:52:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;05:08:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;05:11:21;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;07:59:48;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;08:00:10;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;09:38:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;09:42:13;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;10:43:11;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600792 PLMN ID-eNB ID 2 = 2221-600829 PLMN ID-eNB ID 3 = 2221-600978
+2025-09-13;10:43:27;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-13;10:43:40;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600792 PLMN ID-eNB ID 2 = 2221-600829 PLMN ID-eNB ID 3 = 2221-600978
+2025-09-13;13:01:38;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;13:02:25;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;16:14:46;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;16:17:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;17:38:37;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;17:39:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;21:16:42;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-211114;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;21:17:00;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-211114;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;02:13:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;02:14:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;05:05:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;05:06:08;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;06:01:42;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650182;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;07:52:57;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;07:55:16;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204635;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;09:54:39;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650182;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-15;05:36:13;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;05:36:29;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;07:33:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-15;07:42:24;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600792 PLMN ID-eNB ID 2 = 2221-600829
+2025-09-15;23:10:19;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;23:10:44;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;23:25:14;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;23:25:46;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-16;03:14:33;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-16;03:14:39;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-16;09:58:54;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;09:59:24;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:39:10;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600829 PLMN ID-eNB ID 2 = 2221-600978
+2025-09-16;10:39:17;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-16;10:39:28;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600829 PLMN ID-eNB ID 2 = 2221-600978
+2025-09-16;10:53:35;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-16;11:00:56;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-16;22:48:12;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-16;22:48:43;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-18;08:57:37;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-18;08:59:57;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-18;09:01:24;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-18;09:02:23;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-18;09:05:17;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-18;09:07:09;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-18;09:10:19;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-18;09:11:17;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-19;00:58:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-19;00:58:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-19;13:14:18;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212970
+2025-09-19;13:17:01;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600715 PLMN ID-eNB ID 2 = 2221-600868
+2025-09-20;23:55:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-20;23:55:39;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-20;23:56:21;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-20;23:56:32;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-20;23:58:41;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-20;23:59:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-21;01:43:37;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-21;01:44:11;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-21;08:57:45;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051 PLMN ID-gNB ID 2 = 222:01-1051890
+2025-09-21;09:02:14;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051
+2025-09-22;00:08:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;00:10:24;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601072;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;05:13:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;05:14:14;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;06:31:41;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-204636;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;06:32:16;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-204636;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;07:52:41;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600911
+2025-09-22;07:52:57;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600911
+2025-09-22;21:02:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-22;21:10:54;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212482 PLMN ID-eNB ID 2 = 2221-600829
+2025-09-22;21:13:12;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-22;21:13:22;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212482
+2025-09-22;21:14:31;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-22;21:23:31;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212482 PLMN ID-eNB ID 2 = 2221-600829
+2025-09-22;21:23:38;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-22;21:35:28;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212482
+2025-09-23;04:08:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-23;04:18:16;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600978
+2025-09-23;04:21:31;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600978 PLMN ID-eNB ID 2 = 2221-600792 PLMN ID-eNB ID 3 = 2221-600829
+2025-09-23;04:33:24;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600978 PLMN ID-eNB ID 2 = 2221-600792 PLMN ID-eNB ID 3 = 2221-600829 PLMN ID-eNB ID 4 = 2221-212482
+2025-09-23;05:28:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;05:29:00;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-601527;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;06:30:32;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-23;06:30:44;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212482
+2025-09-23;06:32:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-23;06:33:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-23;08:09:34;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212482
+2025-09-23;21:16:10;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-23;21:16:35;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-24;07:26:12;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600395
+2025-09-24;11:02:46;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600395
+2025-09-25;15:13:10;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-25;15:22:38;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600829
+2025-09-25;16:28:39;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-25;16:28:45;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600829
+2025-09-26;07:22:15;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205191
+2025-09-26;07:56:11;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;07:58:31;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;07:59:15;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;08:00:13;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;08:04:12;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;08:06:04;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;08:10:44;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;08:11:42;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;08:14:17;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051 PLMN ID-gNB ID 2 = 222:01-1057137
+2025-09-26;08:19:51;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205191 PLMN ID-eNB ID 2 = 2221-650504
+2025-09-26;09:31:14;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205191 PLMN ID-eNB ID 2 = 2221-650504 PLMN ID-eNB ID 3 = 2221-204183
+2025-09-26;10:01:08;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205191 PLMN ID-eNB ID 2 = 2221-650504
+2025-09-26;10:14:12;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051
+2025-09-26;10:14:37;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205191
+2025-09-26;14:15:31;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205191
+2025-09-26;18:53:09;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259
+2025-09-27;07:01:42;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259 PLMN ID-eNB ID 3 = 2221-205191
+2025-09-27;07:49:04;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259
+2025-09-27;11:42:56;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259 PLMN ID-eNB ID 3 = 2221-601153 PLMN ID-eNB ID 4 = 2221-211205
+2025-09-27;11:45:10;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259 PLMN ID-eNB ID 3 = 2221-601153 PLMN ID-eNB ID 4 = 2221-211205 PLMN ID-eNB ID 5 = 2221-601527
+2025-09-27;11:58:05;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259 PLMN ID-eNB ID 3 = 2221-601153 PLMN ID-eNB ID 4 = 2221-211205
+2025-09-27;12:37:02;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259 PLMN ID-eNB ID 3 = 2221-211205 PLMN ID-eNB ID 4 = 2221-601153
+2025-09-27;12:44:21;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259
+2025-09-27;12:58:53;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259 PLMN ID-eNB ID 3 = 2221-650803
+2025-09-27;14:19:26;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259
+2025-09-28;07:23:29;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259 PLMN ID-eNB ID 3 = 2221-205191
+2025-09-28;09:58:12;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213258 PLMN ID-eNB ID 2 = 2221-213259 PLMN ID-eNB ID 3 = 2221-205191
+2025-09-28;10:18:09;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601301
+2025-09-29;13:29:28;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-601301
+2025-09-30;08:45:33;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-30;08:46:03;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-01;06:43:55;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=8;External Alarm;ALLARME PORTA
+2025-10-01;06:44:01;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=8;External Alarm;ALLARME PORTA
+2025-10-01;06:46:24;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=8;External Alarm;ALLARME PORTA
+2025-10-01;06:47:25;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=8;External Alarm;ALLARME PORTA
+2025-10-01;06:47:48;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=8;External Alarm;ALLARME PORTA
+2025-10-01;06:48:49;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=8;External Alarm;ALLARME PORTA
+2025-10-01;08:27:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-10-01;08:36:37;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600829
+2025-10-01;09:23:17;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600829 PLMN ID-eNB ID 2 = 2221-650803
+2025-10-01;10:32:49;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600829
+2025-10-01;11:26:11;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600829;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-10-01;11:26:17;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600829
+2025-10-02;10:21:52;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650054
+2025-10-02;12:05:08;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650054
+2025-10-03;08:44:22;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600901 PLMN ID-eNB ID 2 = 2221-207321
+2025-10-03;09:46:10;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600901 PLMN ID-eNB ID 2 = 2221-207321
+2025-10-04;02:38:01;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051 PLMN ID-gNB ID 2 = 222:01-1057137
+2025-10-04;02:43:58;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650504
+2025-10-04;02:47:35;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051
+2025-10-04;02:48:01;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650504
+2025-10-04;03:49:25;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051 PLMN ID-gNB ID 2 = 222:01-1057137
+2025-10-04;03:53:59;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650504
+2025-10-04;03:54:28;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051
+2025-10-04;03:56:03;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650504
+2025-10-05;17:47:17;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-211234;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-06;11:48:08;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209906
+2025-10-07;06:53:05;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1053051 PLMN ID-gNB ID 2 = 222:01-1051646
+
+
+RC48T> lgec -m 30d
+
+251007-11:09:06+0200 19.31.14.254 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/627463
+
+Startdate=20250907.090906, Enddate=20251008.090906
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=39031
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 39031    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-110720_627363/rcslogs/AlertLog_20240403__072850_20250226__233124.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-110720_627363/rcslogs/AlertLog_20250226__233124.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-110720_627363/eventLog627463.xml
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/RC48T.log

@@ -1,0 +1,289 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/ZA03T.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 1158122
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+ZA03T> lt all
+
+251007-12:10:06+0200 19.31.10.203 25.0h  stopfile=/tmp/1157669
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 1159350
+
+Connected to 19.31.10.203 (SubNetwork=BBMM_rckomc_R,MeContext=ZA03T,ManagedElement=ZA03T)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120959_1157605/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ..................................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.10.203 (SubNetwork=BBMM_rckomc_R,MeContext=ZA03T,ManagedElement=ZA03T)
+
+Last MO: 19866. Loaded 19866 MOs. Total: 19867 MOs.
+
+ZA03T> hget EUtranCellFDD ^cellid
+
+251007-12:10:21+0200 19.31.10.203 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1157669
+.
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=ZA03E1 61    
+EUtranCellFDD=ZA03E2 62    
+EUtranCellFDD=ZA03M1 31    
+EUtranCellFDD=ZA03M2 32    
+EUtranCellFDD=ZA03T1 41    
+EUtranCellFDD=ZA03T2 42    
+=================================================================================================================
+Total: 6 MOs
+
+Added 6 MOs to group: hget_group
+
+ZA03T> hget NbIotCell ^cellid
+
+251007-12:10:22+0200 19.31.10.203 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1157669
+.
+=================================================================================================================
+MO               cellId
+=================================================================================================================
+NbIotCell=ZA03N1 161   
+NbIotCell=ZA03N2 162   
+=================================================================================================================
+Total: 2 MOs
+
+Added 2 MOs to group: hget_group
+
+ZA03T> hget NRCellDU ^cellLocalId
+
+251007-12:10:22+0200 19.31.10.203 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1157669
+.
+=================================================================================================================
+MO              cellLocalId
+=================================================================================================================
+NRCellDU=ZA03V1 571        
+NRCellDU=ZA03V2 572        
+=================================================================================================================
+Total: 2 MOs
+
+Added 2 MOs to group: hget_group
+
+ZA03T> lgdc -m 30d
+
+251007-12:10:22+0200 19.31.10.203 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1157669
+
+Startdate=20250907.101022, Enddate=20251008.101023
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=7090
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 7090     1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120959_1157605/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007101025.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120959_1157605/availabilityLog1157669.xml
+Parsing availabilityLog......Done.
+...
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;05:44:14;PartialOutage(Manual);17% Lrat Cell 31; ();5s;;;;;
+2025-09-08;05:44:25;PartialOutage(Manual);17% Lrat Cell 32; ();11s;;;;;
+2025-09-08;05:44:39;PartialOutage(Manual);50% Lrat Cell 161; ();6s;;;;;
+2025-09-08;05:44:45;PartialOutage(Manual);0% Lrat Cell 61; ();2s;;;;;
+2025-09-08;05:44:55;PartialOutage(Manual);50% Lrat Cell 161 162; ();1s;;;;;
+2025-09-08;05:44:56;PartialOutage(Manual);0% Lrat Cell 62; ();8s;;;;;
+2025-09-08;05:45:08;PartialOutage(Manual);66% Lrat Cell 162; ();5s;;;;;
+2025-09-08;05:45:13;PartialOutage(Manual);4% Lrat Cell 41; ();9s;;;;;
+2025-09-08;05:45:27;PartialOutage(Manual);17% Lrat Cell 42; ();10s;;;;;
+2025-09-26;15:28:01;PartialOutage(System);100% GNBDU Cell 571 572; ();30s;;;;;
+2025-09-26;15:28:01;PartialOutage(System);100% Lrat Cell 61 62 31 32 41 42; ();19s;;;;;
+2025-09-26;15:28:21;PartialOutage(System);100% Lrat Cell 32 41 42; ();3s;;;;;
+
+Node uptime since last restart: 931321 seconds (10 days, 18 hours, 42 minutes, 1 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                12              
+Total downtime       0s               0s               0s               0s               109s (1m49s)    
+Downtime per day     0s               0s               0s               0s               4s              
+Downtime per outage  0s               0s               0s               0s               9s              
+
+ZA03T> lgac -m 30d
+
+251007-12:10:32+0200 19.31.10.203 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1157669
+
+Startdate=20250907.101032, Enddate=20251008.101032
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=7091
+..........
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 7091     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120959_1157605/rcslogs/saLogAlarm_20221006__071347_20240729__085420.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120959_1157605/rcslogs/saLogAlarm_20240729__085420_20250226__235000.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120959_1157605/rcslogs/saLogAlarm_20250226__235000.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120959_1157605/alarmLog1157669.xml
+2025-09-08;06:43:24;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329 PLMN ID-gNB ID 2 = 222:01-1055508
+2025-09-08;06:49:37;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1055508
+2025-09-08;08:11:10;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329 PLMN ID-gNB ID 2 = 222:01-1055508 PLMN ID-gNB ID 3 = 222:01-1051863
+2025-09-08;11:54:52;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329 PLMN ID-gNB ID 2 = 222:01-1055508 PLMN ID-gNB ID 3 = 222:01-1051863 PLMN ID-gNB ID 4 = 222:01-1051715
+2025-09-08;13:17:31;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329 PLMN ID-gNB ID 2 = 222:01-1051863 PLMN ID-gNB ID 3 = 222:01-1051715
+2025-09-08;13:18:43;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1055508
+2025-09-09;05:33:18;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209206
+2025-09-09;05:33:34;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209206
+2025-09-09;13:51:19;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-09;13:53:11;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-09;13:58:10;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-09;13:59:09;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-13;10:40:55;AL  ;Minor ;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;Allarme mancanza rete
+2025-09-13;10:41:12;AL  ;Minor ;FieldReplaceableUnit=BB-1,AlarmPort=3;External Alarm;Minimo batteria
+2025-09-13;11:11:12;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;Allarme mancanza rete
+2025-09-13;11:11:19;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=3;External Alarm;Minimo batteria
+2025-09-15;06:10:38;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209206
+2025-09-15;08:11:25;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329 PLMN ID-gNB ID 2 = 222:01-1051715
+2025-09-15;10:42:21;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209206
+2025-09-15;12:01:25;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329
+2025-09-16;10:03:02;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:03:32;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-17;13:16:27;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329 PLMN ID-gNB ID 2 = 222:01-1051259
+2025-09-17;13:22:13;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650290
+2025-09-17;13:22:14;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051259
+2025-09-17;14:01:03;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329
+2025-09-17;14:01:34;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051259
+2025-09-17;14:02:19;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650290
+2025-09-18;08:18:04;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1053517
+2025-09-18;13:02:33;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1053517
+2025-09-21;09:48:55;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1052884
+2025-09-22;08:04:40;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-22;08:06:32;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-22;08:09:21;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-22;08:10:20;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-22;08:24:14;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1052884 PLMN ID-gNB ID 2 = 2221-1057353
+2025-09-22;08:25:32;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1052884
+2025-09-22;09:44:06;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1052884
+2025-09-22;09:50:04;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1057353
+2025-09-22;09:53:28;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1057353
+2025-09-22;10:39:45;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-22;10:41:37;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-22;10:51:07;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-22;10:52:06;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-22;10:52:20;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-22;10:54:28;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-22;10:58:07;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-22;10:59:06;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-23;14:01:32;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650010
+2025-09-23;14:02:10;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051329
+2025-09-24;06:15:35;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051329
+2025-09-24;06:16:06;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650010
+2025-09-25;11:03:16;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329 PLMN ID-gNB ID 2 = 222:01-1051751
+2025-09-25;11:09:22;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650417
+2025-09-25;11:10:06;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051751
+2025-09-25;11:30:21;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-25;11:32:13;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-25;11:40:43;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-25;11:41:42;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;05:33:49;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329 PLMN ID-gNB ID 2 = 222:01-1051751 PLMN ID-gNB ID 3 = 222:01-1054693
+2025-09-26;05:39:24;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650417 PLMN ID-eNB ID 2 = 2221-210816
+2025-09-26;05:40:44;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051751 PLMN ID-gNB ID 2 = 2221-1054693
+2025-09-26;06:28:13;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329 PLMN ID-gNB ID 2 = 222:01-1051751
+2025-09-26;06:28:31;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051751
+2025-09-26;06:29:27;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650417
+2025-09-26;13:36:49;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;13:38:12;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;13:40:31;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;13:41:30;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;13:45:20;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;13:47:12;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;13:55:37;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference administratively locked or not configured
+2025-09-26;13:55:37;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;13:55:42;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;14:00:42;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;14:01:41;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;14:02:25;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;14:04:23;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;14:12:52;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;14:13:51;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;14:21:00;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference administratively locked or not configured
+2025-09-26;14:28:22;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;14:28:22;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;14:47:59;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference failure
+2025-09-26;14:48:34;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;14:56:00;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference administratively locked or not configured
+2025-09-26;15:22:59;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1;Radio Clock Service in Time Holdover Mode;Time sync reference administratively locked or not configured
+2025-09-27;08:07:17;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329
+2025-09-27;08:08:01;AL  ;Cleared;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1051751
+2025-09-27;08:08:19;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650417
+2025-09-27;08:44:14;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329 PLMN ID-gNB ID 2 = 222:01-1051751
+2025-09-27;08:48:23;AL  ;Minor ;GNBCUCPFunction=1;XnC Link to GNodeB Failure;XnC link problem to gNodeBs listed in Additional Information. AI: PLMN ID-gNB ID 1 = 222:01-1051329
+2025-09-29;19:18:24;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650571
+2025-09-29;19:18:39;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650571
+2025-10-05;05:31:28;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650591
+2025-10-05;05:35:02;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650591
+2025-10-06;11:42:50;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650591
+2025-10-06;11:48:14;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650591
+2025-10-06;11:58:21;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650591
+2025-10-06;11:58:42;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650591
+
+
+ZA03T> lgec -m 30d
+
+251007-12:10:41+0200 19.31.10.203 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1157669
+
+Startdate=20250907.101042, Enddate=20251008.101042
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=7092
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 7092     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120959_1157605/rcslogs/AlertLog_20221006__071408_20250226__235030.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120959_1157605/rcslogs/AlertLog_20250226__235030.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-120959_1157605/eventLog1157669.xml
+2025-09-26;15:28:05;EV  ;Warning;NRCellDU=ZA03V1;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:05;EV  ;Warning;NRCellDU=ZA03V2;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:05;EV  ;Warning;EUtranCellFDD=ZA03E1;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:05;EV  ;Warning;NbIotCell=ZA03N1;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:05;EV  ;Warning;EUtranCellFDD=ZA03E2;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:05;EV  ;Warning;NbIotCell=ZA03N2;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:05;EV  ;Warning;EUtranCellFDD=ZA03M1;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:05;EV  ;Warning;EUtranCellFDD=ZA03M2;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:05;EV  ;Warning;EUtranCellFDD=ZA03T1;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:05;EV  ;Warning;EUtranCellFDD=ZA03T2;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-09-26;15:28:15;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-26;15:28:15;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-26;15:28:15;EV  ;Warning;RiLink=S100-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-26;15:28:20;EV  ;Warning;EUtranCellFDD=ZA03E1;Cell Service Available Auto Recovery Successful Alert;
+2025-09-26;15:28:20;EV  ;Warning;EUtranCellFDD=ZA03E2;Cell Service Available Auto Recovery Successful Alert;
+2025-09-26;15:28:20;EV  ;Warning;NbIotCell=ZA03N1;Cell Service Available Auto Recovery Successful Alert;
+2025-09-26;15:28:20;EV  ;Warning;NbIotCell=ZA03N2;Cell Service Available Auto Recovery Successful Alert;
+2025-09-26;15:28:21;EV  ;Warning;EUtranCellFDD=ZA03M1;Cell Service Available Auto Recovery Successful Alert;
+2025-09-26;15:28:24;EV  ;Warning;EUtranCellFDD=ZA03M2;Cell Service Available Auto Recovery Successful Alert;
+2025-09-26;15:28:24;EV  ;Warning;EUtranCellFDD=ZA03T1;Cell Service Available Auto Recovery Successful Alert;
+2025-09-26;15:28:24;EV  ;Warning;EUtranCellFDD=ZA03T2;Cell Service Available Auto Recovery Successful Alert;
+2025-09-26;15:28:28;EV  ;Warning;NRCellDU=ZA03V1;Cell Service Available Auto Recovery Successful Alert;
+2025-09-26;15:28:28;EV  ;Warning;NRCellDU=ZA03V2;Cell Service Available Auto Recovery Successful Alert;
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/ZA03T.log

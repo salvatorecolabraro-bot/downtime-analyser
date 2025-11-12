@@ -1,0 +1,210 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/CS66L.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 1009612
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+CS66L> lt all
+
+251007-11:51:47+0200 19.31.7.223 25.0h  stopfile=/tmp/1009400
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 1010294
+
+Connected to 19.31.7.223 (SubNetwork=BBMM_rckomc_R,MeContext=CS66L,ManagedElement=CS66L)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115140_1009336/MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81.xml.cache.gz ......................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt ......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.7.223 (SubNetwork=BBMM_rckomc_R,MeContext=CS66L,ManagedElement=CS66L)
+
+Last MO: 16317. Loaded 16317 MOs. Total: 16318 MOs.
+
+CS66L> hget EUtranCellFDD ^cellid
+
+251007-11:52:05+0200 19.31.7.223 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1009400
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=CS66L1 21    
+EUtranCellFDD=CS66L2 22    
+=================================================================================================================
+Total: 2 MOs
+
+Added 2 MOs to group: hget_group
+
+CS66L> hget NbIotCell ^cellid
+
+251007-11:52:06+0200 19.31.7.223 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1009400
+Total: 0 MOs
+
+CS66L> hget NRCellDU ^cellLocalId
+
+251007-11:52:06+0200 19.31.7.223 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1009400
+Total: 0 MOs
+
+CS66L> lgdc -m 30d
+
+251007-11:52:06+0200 19.31.7.223 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1009400
+
+Startdate=20250907.095206, Enddate=20251008.095206
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=7053
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 7053     1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115140_1009336/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007095210.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115140_1009336/availabilityLog1009400.xml
+Parsing availabilityLog.....Done.
+..
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;07:56:20;PartialOutage(Manual);50% Lrat Cell 21; ();9s;;;;;
+2025-09-08;07:56:34;PartialOutage(Manual);50% Lrat Cell 22; ();12s;;;;;
+
+Node uptime since last restart: 2512530 seconds (29 days, 1 hours, 55 minutes, 30 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                2               
+Total downtime       0s               0s               0s               0s               21s             
+Downtime per day     0s               0s               0s               0s               1s              
+Downtime per outage  0s               0s               0s               0s               10s             
+
+CS66L> lgac -m 30d
+
+251007-11:52:16+0200 19.31.7.223 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1009400
+
+Startdate=20250907.095216, Enddate=20251008.095217
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=7054
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 7054     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115140_1009336/rcslogs/saLogAlarm_20230316__081759.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115140_1009336/alarmLog1009400.xml
+2025-09-08;07:56:34;AL  ;Cleared;EUtranCellFDD=CS66L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-08;07:56:46;AL  ;Minor ;EUtranCellFDD=CS66L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-09;09:50:02;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-207661
+2025-09-09;11:16:28;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-207661
+2025-09-11;06:10:23;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212238
+2025-09-11;06:11:28;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 2.7 dB, VSWR 6.5, Sensitivity 1%
+2025-09-11;06:11:29;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:13:44;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212238 PLMN ID-eNB ID 2 = 2221-650737
+2025-09-11;06:26:15;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650737
+2025-09-11;07:16:09;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650737
+2025-09-11;07:56:03;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 2.7 dB, VSWR 6.5, Sensitivity 1%
+2025-09-11;07:56:04;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-16;09:56:32;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;09:57:05;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:04:48;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:05:48;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-29;06:11:25;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 1.9 dB, VSWR 9.2, Sensitivity 1%
+2025-09-29;06:11:26;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-29;09:30:40;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 1.9 dB, VSWR 9.2, Sensitivity 1%
+2025-09-29;09:30:40;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-29;15:06:31;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209911
+2025-09-29;15:13:51;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209911
+2025-09-29;16:34:46;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 3.8 dB, VSWR 4.6, Sensitivity 1%
+2025-09-29;16:34:47;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-29;16:55:31;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 3.8 dB, VSWR 4.6, Sensitivity 1%
+2025-09-29;16:55:31;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-30;17:01:37;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 3.3 dB, VSWR 5.3, Sensitivity 1%
+2025-09-30;17:01:39;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-30;17:32:42;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 3.3 dB, VSWR 5.3, Sensitivity 1%
+2025-09-30;17:32:43;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;11:06:59;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.9 dB, VSWR 3.1, Sensitivity 1%
+2025-10-01;11:07:00;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;14:13:39;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.9 dB, VSWR 3.1, Sensitivity 1%
+2025-10-01;14:13:39;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;17:40:54;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 4.5 dB, VSWR 3.9, Sensitivity 1%
+2025-10-01;17:40:55;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;10:22:40;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 4.5 dB, VSWR 3.9, Sensitivity 1%
+2025-10-02;10:22:41;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;12:27:16;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.9 dB, VSWR 3.1, Sensitivity 1%
+2025-10-02;12:27:17;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;13:07:31;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.9 dB, VSWR 3.1, Sensitivity 1%
+2025-10-02;13:07:31;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;13:17:26;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 6.0 dB, VSWR 3.0, Sensitivity 1%
+2025-10-02;13:17:27;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;14:07:41;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 6.0 dB, VSWR 3.0, Sensitivity 1%
+2025-10-02;14:07:41;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;14:23:36;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.9 dB, VSWR 3.1, Sensitivity 1%
+2025-10-02;14:23:37;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;14:32:31;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.9 dB, VSWR 3.1, Sensitivity 1%
+2025-10-02;14:32:31;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-03;15:05:23;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.9 dB, VSWR 3.1, Sensitivity 1%
+2025-10-03;15:05:24;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-03;16:35:38;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.9 dB, VSWR 3.1, Sensitivity 1%
+2025-10-03;16:35:38;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-03;17:35:53;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.8 dB, VSWR 3.1, Sensitivity 1%
+2025-10-03;17:35:54;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-03;18:10:38;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.8 dB, VSWR 3.1, Sensitivity 1%
+2025-10-03;18:10:38;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-04;13:34:54;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 6.0 dB, VSWR 3.0, Sensitivity 1%
+2025-10-04;13:34:56;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-04;17:20:45;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 6.0 dB, VSWR 3.0, Sensitivity 1%
+2025-10-04;17:20:45;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:15:46;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.7 dB, VSWR 3.2, Sensitivity 1%
+2025-10-05;14:15:47;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:32:28;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212238
+2025-10-05;15:58:53;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212238
+2025-10-05;16:12:31;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 5.7 dB, VSWR 3.2, Sensitivity 1%
+2025-10-05;16:12:31;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;18:14:16;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 6.0 dB, VSWR 3.0, Sensitivity 1%
+2025-10-05;18:14:18;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;18:57:11;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 6.0 dB, VSWR 3.0, Sensitivity 1%
+2025-10-05;18:57:12;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:07:37;AL  ;Minor ;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 4.9 dB, VSWR 3.6, Sensitivity 1%
+2025-10-06;06:07:38;AL  ;Minor ;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;11:24:43;AL  ;Cleared;FieldReplaceableUnit=Radio-S180-1,RfPort=B;VSWR Over Threshold;ReturnLoss 4.9 dB, VSWR 3.6, Sensitivity 1%
+2025-10-06;11:24:43;AL  ;Cleared;EUtranCellFDD=CS66L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+
+
+CS66L> lgec -m 30d
+
+251007-11:52:22+0200 19.31.7.223 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1009400
+
+Startdate=20250907.095222, Enddate=20251008.095223
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=7055
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 7055     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115140_1009336/rcslogs/AlertLog_20230316__081843.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115140_1009336/eventLog1009400.xml
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/CS66L.log

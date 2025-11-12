@@ -1,0 +1,303 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/CZD9L.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 793175
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+CZD9L> lt all
+
+251007-11:26:26+0200 19.31.10.151 25.0h  stopfile=/tmp/793001
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 794093
+
+Connected to 19.31.10.151 (SubNetwork=BBMM_rckomc_R,MeContext=CZD9L,ManagedElement=CZD9L)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112619_792908/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ..................................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.10.151 (SubNetwork=BBMM_rckomc_R,MeContext=CZD9L,ManagedElement=CZD9L)
+
+Last MO: 17850. Loaded 17850 MOs. Total: 17851 MOs.
+
+CZD9L> hget EUtranCellFDD ^cellid
+
+251007-11:26:39+0200 19.31.10.151 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/793001
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=CZD9L1 21    
+EUtranCellFDD=CZD9L2 22    
+EUtranCellFDD=CZD9L3 23    
+EUtranCellFDD=CZD9L4 24    
+=================================================================================================================
+Total: 4 MOs
+
+Added 4 MOs to group: hget_group
+
+CZD9L> hget NbIotCell ^cellid
+
+251007-11:26:40+0200 19.31.10.151 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/793001
+Total: 0 MOs
+
+CZD9L> hget NRCellDU ^cellLocalId
+
+251007-11:26:40+0200 19.31.10.151 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/793001
+Total: 0 MOs
+
+CZD9L> lgdc -m 30d
+
+251007-11:26:40+0200 19.31.10.151 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/793001
+
+Startdate=20250907.092640, Enddate=20251008.092640
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=29480
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 29480    1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112619_792908/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007092642.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112619_792908/availabilityLog793001.xml
+Parsing availabilityLog.....Done.
+..
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;01:41:46;PartialOutage(Manual);25% Lrat Cell 24; ();9s;;;;;
+2025-09-08;01:41:59;PartialOutage(Manual);25% Lrat Cell 21; ();9s;;;;;
+2025-09-08;01:42:13;PartialOutage(Manual);25% Lrat Cell 23; ();9s;;;;;
+2025-09-08;01:42:27;PartialOutage(Manual);25% Lrat Cell 22; ();8s;;;;;
+2025-09-24;22:33:26;PartialOutage(Transmission);100% Lrat Cell 21 22 23 24; ();69s (1m9s);;;;;
+2025-10-05;16:47:56;PartialOutage(Transmission);100% Lrat Cell 21 22 23 24; ();108s (1m48s);;;;;
+
+Node uptime since last restart: 146225 seconds (1 days, 16 hours, 37 minutes, 5 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                6               
+Total downtime       0s               0s               0s               0s               212s (3m32s)    
+Downtime per day     0s               0s               0s               0s               7s              
+Downtime per outage  0s               0s               0s               0s               35s             
+
+CZD9L> lgac -m 30d
+
+251007-11:26:49+0200 19.31.10.151 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/793001
+
+Startdate=20250907.092649, Enddate=20251008.092649
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=29481
+..........
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 29481    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112619_792908/rcslogs/saLogAlarm_20231020__070517_20240913__051007.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112619_792908/rcslogs/saLogAlarm_20240913__051007_20250224__233236.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112619_792908/rcslogs/saLogAlarm_20250224__233236.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112619_792908/alarmLog793001.xml
+2025-09-07;13:03:46;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-09;01:13:57;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600617
+2025-09-09;01:19:02;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600617
+2025-09-09;11:01:56;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-10;06:01:24;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205082;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-10;14:45:32;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210292
+2025-09-10;16:58:29;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210292
+2025-09-12;09:46:23;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650639
+2025-09-12;12:28:58;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650639
+2025-09-12;15:01:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205413;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-12;15:55:55;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205412;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;07:50:26;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205412;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;07:51:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205413;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;08:38:03;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;08:38:05;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650081;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;08:38:55;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;08:47:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650081;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;08:50:17;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205082;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;08:50:21;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;08:50:26;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-15;07:01:57;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-16;02:31:57;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209450
+2025-09-16;02:40:08;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209450
+2025-09-16;09:58:54;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;09:59:24;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-18;08:34:57;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650074;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-18;08:35:56;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-18;11:04:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-18;11:10:11;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-18;15:52:54;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650271;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-18;21:07:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650074;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-19;03:02:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-19;07:18:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650271;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-19;07:19:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650271;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-20;02:35:00;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650525;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-20;02:43:52;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650525
+2025-09-20;04:59:05;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650525
+2025-09-20;05:01:15;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650525;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-21;07:47:38;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205412;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:30:57;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:31:45;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:39:24;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650271;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:40:19;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650081;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:40:20;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650271;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:41:44;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650271;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:41:48;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:41:52;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205412;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:41:57;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650081;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:42:54;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205412;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;12:51:12;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;13:35:31;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205083
+2025-09-22;09:58:58;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205083
+2025-09-22;11:01:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205413;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-22;13:25:58;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205083
+2025-09-22;14:06:20;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205265
+2025-09-23;08:40:21;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205265
+2025-09-24;22:30:00;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650074;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-24;22:30:03;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-24;22:30:35;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650074;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-24;22:32:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650074;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-24;22:33:12;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205412;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-24;22:33:12;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205413;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-24;22:33:13;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650555;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-24;22:33:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650525;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-24;22:33:21;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-24;22:33:26;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-24;22:33:26;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-24;22:33:26;AL  ;Major ;EUtranCellFDD=CZD9L4;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;22:33:26;AL  ;Major ;EUtranCellFDD=CZD9L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;22:33:26;AL  ;Major ;EUtranCellFDD=CZD9L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;22:33:26;AL  ;Major ;EUtranCellFDD=CZD9L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;22:34:02;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-24;22:34:14;AL  ;Major ;GsmSector=CZD9D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-24;22:34:14;AL  ;Major ;GsmSector=CZD9D4,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-24;22:34:14;AL  ;Major ;GsmSector=CZD9D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-24;22:34:14;AL  ;Major ;GsmSector=CZD9D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-24;22:34:34;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-24;22:34:34;AL  ;Cleared;EUtranCellFDD=CZD9L4;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;22:34:34;AL  ;Cleared;EUtranCellFDD=CZD9L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;22:34:34;AL  ;Cleared;EUtranCellFDD=CZD9L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;22:34:34;AL  ;Cleared;EUtranCellFDD=CZD9L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;22:34:35;AL  ;Cleared;GsmSector=CZD9D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-24;22:34:35;AL  ;Cleared;GsmSector=CZD9D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-24;22:34:35;AL  ;Cleared;GsmSector=CZD9D4,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-24;22:34:35;AL  ;Cleared;GsmSector=CZD9D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-24;22:34:39;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-24;22:34:57;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205412;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-24;22:36:36;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-24;22:45:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650555;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-24;22:45:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650525;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-24;22:45:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650074;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-25;06:01:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205413;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-27;11:05:43;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212646
+2025-09-27;11:21:26;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212646 PLMN ID-eNB ID 2 = 2221-211546
+2025-09-28;07:47:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205412;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;07:47:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205413;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;08:32:23;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;08:33:09;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;08:41:13;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650081;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;08:41:14;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650241;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;08:42:46;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650241;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;08:42:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;08:42:49;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-212646 PLMN ID-eNB ID 2 = 2221-211546 PLMN ID-eNB ID 3 = 2221-650655
+2025-09-28;08:42:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650081;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;12:48:22;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;23:23:50;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600617
+2025-09-28;23:31:44;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600617
+2025-09-30;07:19:30;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210743
+2025-09-30;07:40:47;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205412;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-30;07:45:36;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210743
+2025-10-01;13:01:55;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-02;14:01:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205413;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-03;04:59:55;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-211546
+2025-10-03;17:56:13;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-211546
+2025-10-05;07:42:32;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205412;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;07:42:55;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-205413;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;08:25:03;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;08:26:06;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;08:36:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;08:36:14;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650241;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;08:36:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;08:36:35;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;12:27:41;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650301;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;16:01:56;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;16:47:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;16:47:18;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650074;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;16:47:48;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-10-05;16:47:56;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-10-05;16:47:56;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:47:56;AL  ;Major ;EUtranCellFDD=CZD9L4;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:47:56;AL  ;Major ;EUtranCellFDD=CZD9L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:47:56;AL  ;Major ;EUtranCellFDD=CZD9L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:47:56;AL  ;Major ;EUtranCellFDD=CZD9L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:47:57;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650555;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;16:48:02;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650241;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;16:48:02;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650525;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;16:48:41;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;16:48:54;AL  ;Major ;GsmSector=CZD9D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;16:48:54;AL  ;Major ;GsmSector=CZD9D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;16:48:54;AL  ;Major ;GsmSector=CZD9D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;16:48:54;AL  ;Major ;GsmSector=CZD9D4,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;16:49:42;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-10-05;16:49:42;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:49:42;AL  ;Cleared;EUtranCellFDD=CZD9L4;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:49:42;AL  ;Cleared;EUtranCellFDD=CZD9L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:49:42;AL  ;Cleared;EUtranCellFDD=CZD9L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:49:42;AL  ;Cleared;EUtranCellFDD=CZD9L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:49:42;AL  ;Cleared;GsmSector=CZD9D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;16:49:42;AL  ;Cleared;GsmSector=CZD9D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;16:49:42;AL  ;Cleared;GsmSector=CZD9D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;16:49:42;AL  ;Cleared;GsmSector=CZD9D4,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;16:49:48;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;16:50:11;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-10-05;16:51:44;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;17:42:08;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650241;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;19:54:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650555;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;19:54:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650074;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;20:56:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650525;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-06;10:37:24;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650241;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-06;10:37:24;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-06;10:42:33;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650241;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-06;10:42:33;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650570;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-06;12:01:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-205413;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+
+
+CZD9L> lgec -m 30d
+
+251007-11:26:58+0200 19.31.10.151 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/793001
+
+Startdate=20250907.092658, Enddate=20251008.092658
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=29482
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 29482    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112619_792908/rcslogs/AlertLog_20231020__070534_20250224__233309.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112619_792908/rcslogs/AlertLog_20250224__233309.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112619_792908/eventLog793001.xml
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/CZD9L.log

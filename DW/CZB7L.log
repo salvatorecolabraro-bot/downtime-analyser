@@ -1,0 +1,209 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/CZB7L.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 805772
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+CZB7L> lt all
+
+251007-11:27:54+0200 19.31.16.122 25.0h  stopfile=/tmp/805316
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 807701
+
+Connected to 19.31.16.122 (SubNetwork=BBMM_rckomc_R,MeContext=CZB7L,ManagedElement=CZB7L)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112747_805249/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ..................................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.16.122 (SubNetwork=BBMM_rckomc_R,MeContext=CZB7L,ManagedElement=CZB7L)
+
+Last MO: 16916. Loaded 16916 MOs. Total: 16917 MOs.
+
+CZB7L> hget EUtranCellFDD ^cellid
+
+251007-11:28:07+0200 19.31.16.122 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/805316
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=CZB7L1 21    
+EUtranCellFDD=CZB7L2 22    
+EUtranCellFDD=CZB7L3 23    
+=================================================================================================================
+Total: 3 MOs
+
+Added 3 MOs to group: hget_group
+
+CZB7L> hget NbIotCell ^cellid
+
+251007-11:28:08+0200 19.31.16.122 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/805316
+Total: 0 MOs
+
+CZB7L> hget NRCellDU ^cellLocalId
+
+251007-11:28:08+0200 19.31.16.122 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/805316
+Total: 0 MOs
+
+CZB7L> lgdc -m 30d
+
+251007-11:28:08+0200 19.31.16.122 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/805316
+
+Startdate=20250907.092808, Enddate=20251008.092808
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=29389
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 29389    1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112747_805249/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007092810.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112747_805249/availabilityLog805316.xml
+Parsing availabilityLog....Done.
+.
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;00:28:58;PartialOutage(Manual);33% Lrat Cell 21; ();8s;;;;;
+2025-09-08;00:29:09;PartialOutage(Manual);33% Lrat Cell 22; ();9s;;;;;
+2025-09-08;00:29:22;PartialOutage(Manual);33% Lrat Cell 23; ();8s;;;;;
+2025-10-02;23:31:15;PartialOutage(System);33% Lrat Cell 21; ();1s;;;;;
+2025-10-02;23:31:16;PartialOutage(System);100% Lrat Cell 21 22 23; ();12s;;;;;
+2025-10-02;23:31:28;PartialOutage(System);100% Lrat Cell 23; ();2s;;;;;
+2025-10-03;18:24:35;PartialOutage(System);100% Lrat Cell 21 22 23; ();12s;;;;;
+2025-10-03;18:24:47;PartialOutage(System);100% Lrat Cell 23; ();2s;;;;;
+
+Node uptime since last restart: 313407 seconds (3 days, 15 hours, 3 minutes, 27 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                8               
+Total downtime       0s               0s               0s               0s               54s             
+Downtime per day     0s               0s               0s               0s               2s              
+Downtime per outage  0s               0s               0s               0s               7s              
+
+CZB7L> lgac -m 30d
+
+251007-11:28:17+0200 19.31.16.122 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/805316
+
+Startdate=20250907.092817, Enddate=20251008.092817
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=29390
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 29390    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112747_805249/rcslogs/saLogAlarm_20231018__081702_20250224__233259.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112747_805249/rcslogs/saLogAlarm_20250224__233259.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112747_805249/alarmLog805316.xml
+2025-09-14;08:02:02;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650115;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;08:43:16;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650115;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;16:16:03;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-15;10:59:57;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-15;11:05:10;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-15;15:01:06;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650792;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-16;10:05:23;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:05:53;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;11:04:41;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-16;11:09:53;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-17;11:41:02;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-17;11:46:15;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-18;11:04:37;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-18;11:09:55;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-19;10:54:08;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-19;10:59:27;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-20;10:54:27;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-20;10:59:42;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:35:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650792;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;08:35:55;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650638;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-24;07:12:17;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-24;07:12:47;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-26;11:12:22;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650111;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-26;19:06:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650111;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-28;10:01:20;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650792;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;11:47:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650792;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;11:48:47;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650792;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-29;10:45:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650792;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-29;10:47:33;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650792;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-30;11:16:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650792;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-30;11:22:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650792;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-02;23:31:06;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-02;23:31:06;AL  ;Minor ;EUtranCellFDD=CZB7L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;23:31:06;AL  ;Minor ;EUtranCellFDD=CZB7L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;23:31:06;AL  ;Minor ;EUtranCellFDD=CZB7L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;23:31:16;AL  ;Cleared;EUtranCellFDD=CZB7L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;23:31:16;AL  ;Cleared;EUtranCellFDD=CZB7L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;23:31:16;AL  ;Cleared;EUtranCellFDD=CZB7L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-02;23:31:16;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-03;18:24:23;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-03;18:24:23;AL  ;Minor ;EUtranCellFDD=CZB7L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-03;18:24:23;AL  ;Minor ;EUtranCellFDD=CZB7L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-03;18:24:23;AL  ;Minor ;EUtranCellFDD=CZB7L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-03;18:24:35;AL  ;Cleared;EUtranCellFDD=CZB7L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-03;18:24:35;AL  ;Cleared;EUtranCellFDD=CZB7L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-03;18:24:35;AL  ;Cleared;EUtranCellFDD=CZB7L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-03;18:24:35;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-05;08:30:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650792;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-06;02:03:57;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210091
+2025-10-06;09:31:43;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-210091
+
+
+CZB7L> lgec -m 30d
+
+251007-11:28:22+0200 19.31.16.122 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/805316
+
+Startdate=20250907.092822, Enddate=20251008.092822
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=29391
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 29391    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112747_805249/rcslogs/AlertLog_20231018__081719_20250224__233330.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112747_805249/rcslogs/AlertLog_20250224__233330.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112747_805249/eventLog805316.xml
+2025-10-02;23:31:20;EV  ;Warning;EUtranCellFDD=CZB7L3;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-10-02;23:31:25;EV  ;Warning;RiLink=S180-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-10-02;23:31:25;EV  ;Warning;RiLink=S182-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-02;23:31:25;EV  ;Warning;RiLink=S12-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET). SUPPRESSED
+2025-10-02;23:31:25;EV  ;Warning;RiLink=S11-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET). SUPPRESSED
+2025-10-02;23:31:25;EV  ;Warning;RiLink=S10-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET). SUPPRESSED
+2025-10-02;23:31:30;EV  ;Warning;EUtranCellFDD=CZB7L3;Cell Service Available Auto Recovery Successful Alert;
+2025-10-03;18:24:39;EV  ;Warning;EUtranCellFDD=CZB7L1;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-10-03;18:24:39;EV  ;Warning;EUtranCellFDD=CZB7L2;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-10-03;18:24:39;EV  ;Warning;EUtranCellFDD=CZB7L3;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-10-03;18:24:44;EV  ;Warning;RiLink=S180-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-10-03;18:24:44;EV  ;Warning;RiLink=S182-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-03;18:24:44;EV  ;Warning;RiLink=S12-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET). SUPPRESSED
+2025-10-03;18:24:44;EV  ;Warning;RiLink=S11-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET). SUPPRESSED
+2025-10-03;18:24:44;EV  ;Warning;RiLink=S10-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET). SUPPRESSED
+2025-10-03;18:24:47;EV  ;Warning;EUtranCellFDD=CZB7L2;Cell Service Available Auto Recovery Successful Alert;
+2025-10-03;18:24:47;EV  ;Warning;EUtranCellFDD=CZB7L1;Cell Service Available Auto Recovery Successful Alert;
+2025-10-03;18:24:49;EV  ;Warning;EUtranCellFDD=CZB7L3;Cell Service Available Auto Recovery Successful Alert;
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/CZB7L.log

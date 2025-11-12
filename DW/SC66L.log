@@ -1,0 +1,193 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/SC66L.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 1048573
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+SC66L> lt all
+
+251007-11:56:35+0200 19.31.3.213 25.0h  stopfile=/tmp/1048206
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 1050232
+
+Connected to 19.31.3.213 (SubNetwork=BBMM_rckomc_R,MeContext=SC66L,ManagedElement=SC66L)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115628_1048137/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ..................................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.3.213 (SubNetwork=BBMM_rckomc_R,MeContext=SC66L,ManagedElement=SC66L)
+
+Last MO: 16749. Loaded 16749 MOs. Total: 16750 MOs.
+
+SC66L> hget EUtranCellFDD ^cellid
+
+251007-11:56:49+0200 19.31.3.213 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1048206
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=SC66L1 21    
+EUtranCellFDD=SC66L2 22    
+EUtranCellFDD=SC66L3 23    
+=================================================================================================================
+Total: 3 MOs
+
+Added 3 MOs to group: hget_group
+
+SC66L> hget NbIotCell ^cellid
+
+251007-11:56:50+0200 19.31.3.213 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1048206
+Total: 0 MOs
+
+SC66L> hget NRCellDU ^cellLocalId
+
+251007-11:56:50+0200 19.31.3.213 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1048206
+Total: 0 MOs
+
+SC66L> lgdc -m 30d
+
+251007-11:56:50+0200 19.31.3.213 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1048206
+
+Startdate=20250907.095650, Enddate=20251008.095650
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=49388
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 49388    1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115628_1048137/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007095653.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115628_1048137/availabilityLog1048206.xml
+Parsing availabilityLog.....Done.
+..
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;06:51:00;PartialOutage(Manual);33% Lrat Cell 23; ();11s;;;;;
+2025-09-08;06:51:14;PartialOutage(Manual);33% Lrat Cell 22; ();16s;;;;;
+2025-09-08;06:51:34;PartialOutage(Manual);33% Lrat Cell 21; ();11s;;;;;
+2025-09-11;04:26:57;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();96s (1m36s);;;;;
+2025-09-11;04:28:33;PartialOutage(Transmission);100% Lrat Cell 21 22; ();1s;;;;;
+
+Node uptime since last restart: 2266105 seconds (26 days, 5 hours, 28 minutes, 25 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                5               
+Total downtime       0s               0s               0s               0s               135s (2m15s)    
+Downtime per day     0s               0s               0s               0s               4s              
+Downtime per outage  0s               0s               0s               0s               27s             
+
+SC66L> lgac -m 30d
+
+251007-11:56:59+0200 19.31.3.213 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1048206
+
+Startdate=20250907.095700, Enddate=20251008.095700
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=49389
+..........
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 49389    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115628_1048137/rcslogs/saLogAlarm_20221230__083928_20241024__105429.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115628_1048137/rcslogs/saLogAlarm_20241024__105429_20250226__232118.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115628_1048137/rcslogs/saLogAlarm_20250226__232118.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115628_1048137/alarmLog1048206.xml
+2025-09-07;11:35:35;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650414;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-07;11:40:18;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650334;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-07;11:41:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650334;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-07;11:46:37;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650334;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-10;07:59:26;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650414
+2025-09-10;08:49:16;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650414 PLMN ID-eNB ID 2 = 2221-209426
+2025-09-10;09:53:35;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650414
+2025-09-10;10:19:35;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650414 PLMN ID-eNB ID 2 = 2221-209426
+2025-09-10;11:01:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650334;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-11;04:26:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650173;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;04:26:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-451179;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;04:26:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650334;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-11;04:26:48;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;04:26:57;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;04:26:57;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:26:57;AL  ;Major ;EUtranCellFDD=SC66L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:26:57;AL  ;Major ;EUtranCellFDD=SC66L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:26:57;AL  ;Major ;EUtranCellFDD=SC66L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:27:30;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;04:27:41;AL  ;Major ;GsmSector=SC66D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;04:27:41;AL  ;Major ;GsmSector=SC66D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;04:27:41;AL  ;Major ;GsmSector=SC66D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;04:28:32;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;04:28:32;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:28:32;AL  ;Cleared;EUtranCellFDD=SC66L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:28:32;AL  ;Cleared;EUtranCellFDD=SC66L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:28:32;AL  ;Cleared;EUtranCellFDD=SC66L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:28:45;AL  ;Cleared;GsmSector=SC66D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;04:28:45;AL  ;Cleared;GsmSector=SC66D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;04:28:45;AL  ;Cleared;GsmSector=SC66D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;04:29:13;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;04:30:10;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650334;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-11;04:30:44;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No granted service from PTP grandmaster
+2025-09-11;04:39:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650173;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;04:39:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-451179;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-12;16:01:09;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650414;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;11:43:14;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650414;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;11:48:33;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650334;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;11:49:35;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650334;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;11:55:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650334;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-16;09:56:32;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;09:57:05;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:02:26;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:02:56;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-29;07:04:26;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209426
+2025-09-29;12:51:25;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209426
+2025-09-30;05:35:47;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650414;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;06:00:08;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205015
+2025-10-05;06:01:06;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1050719
+2025-10-05;11:08:33;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650414;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;11:18:18;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-205015 PLMN ID-eNB ID 2 = 2221-650334
+2025-10-05;16:04:18;AL  ;Minor ;AntennaUnitGroup=212;Feeder Cable Incorrectly Connected;Feeder cable connected to wrong radio RF Port. The RF Ports are listed in Additional Information AI: DN1=ManagedElement=1,Equipment=1,FieldReplaceableUnit=Radio-S212-1,RfPort=A RAT1=G
+2025-10-05;18:24:19;AL  ;Cleared;AntennaUnitGroup=212;Feeder Cable Incorrectly Connected;Feeder cable connected to wrong radio RF Port. The RF Ports are listed in Additional Information AI: DN1=ManagedElement=1,Equipment=1,FieldReplaceableUnit=Radio-S212-1,RfPort=A RAT1=G
+2025-10-05;22:14:19;AL  ;Minor ;AntennaUnitGroup=212;Feeder Cable Incorrectly Connected;Feeder cable connected to wrong radio RF Port. The RF Ports are listed in Additional Information AI: DN1=ManagedElement=1,Equipment=1,FieldReplaceableUnit=Radio-S212-1,RfPort=A RAT1=G
+2025-10-06;18:34:21;AL  ;Cleared;AntennaUnitGroup=212;Feeder Cable Incorrectly Connected;Feeder cable connected to wrong radio RF Port. The RF Ports are listed in Additional Information AI: DN1=ManagedElement=1,Equipment=1,FieldReplaceableUnit=Radio-S212-1,RfPort=A RAT1=G
+
+
+SC66L> lgec -m 30d
+
+251007-11:57:09+0200 19.31.3.213 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/1048206
+
+Startdate=20250907.095709, Enddate=20251008.095709
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=49390
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 49390    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115628_1048137/rcslogs/AlertLog_20221230__083952_20250226__232149.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115628_1048137/rcslogs/AlertLog_20250226__232149.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-115628_1048137/eventLog1048206.xml
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/SC66L.log

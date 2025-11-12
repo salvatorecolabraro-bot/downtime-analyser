@@ -1,0 +1,863 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/CZ25L.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 919884
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+CZ25L> lt all
+
+251007-11:41:01+0200 19.31.2.183 25.0h  stopfile=/tmp/919601
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 921143
+
+Connected to 19.31.2.183 (SubNetwork=BBMM_rckomc_R,MeContext=CZ25L,ManagedElement=CZ25L)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114054_919539/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ..................................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.2.183 (SubNetwork=BBMM_rckomc_R,MeContext=CZ25L,ManagedElement=CZ25L)
+
+Last MO: 16877. Loaded 16877 MOs. Total: 16878 MOs.
+
+CZ25L> hget EUtranCellFDD ^cellid
+
+251007-11:41:14+0200 19.31.2.183 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/919601
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=CZ25L1 21    
+EUtranCellFDD=CZ25L2 22    
+EUtranCellFDD=CZ25L3 23    
+=================================================================================================================
+Total: 3 MOs
+
+Added 3 MOs to group: hget_group
+
+CZ25L> hget NbIotCell ^cellid
+
+251007-11:41:15+0200 19.31.2.183 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/919601
+Total: 0 MOs
+
+CZ25L> hget NRCellDU ^cellLocalId
+
+251007-11:41:15+0200 19.31.2.183 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/919601
+Total: 0 MOs
+
+CZ25L> lgdc -m 30d
+
+251007-11:41:15+0200 19.31.2.183 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/919601
+
+Startdate=20250907.094116, Enddate=20251008.094116
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=6957
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 6957     1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114054_919539/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007094118.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114054_919539/availabilityLog919601.xml
+Parsing availabilityLog......Done.
+...
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;03:44:06;PartialOutage(Manual);33% Lrat Cell 21; ();7s;;;;;
+2025-09-08;03:44:17;PartialOutage(Manual);33% Lrat Cell 22; ();7s;;;;;
+2025-09-08;03:44:28;PartialOutage(Manual);33% Lrat Cell 23; ();7s;;;;;
+2025-09-10;13:22:59;PartialOutage(System);100% Lrat Cell 21 22 23; ();6s;;;;;
+2025-09-10;13:23:05;PartialOutage(System);100% Lrat Cell 22; ();1s;;;;;
+2025-09-11;06:01:52;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();1426s (23m46s);;;;;
+2025-09-11;06:27:49;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();20s;;;;;
+2025-09-11;06:28:09;PartialOutage(Transmission);100% Lrat Cell 21 22; ();1s;;;;;
+2025-09-11;06:28:30;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();38s;;;;;
+2025-09-11;06:29:08;PartialOutage(Transmission);100% Lrat Cell 22; ();1s;;;;;
+2025-09-11;06:29:35;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();481s (8m1s);;;;;
+2025-09-11;06:37:36;PartialOutage(Transmission);100% Lrat Cell 21 22; ();1s;;;;;
+2025-09-11;06:40:28;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();35s;;;;;
+2025-10-05;14:42:17;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();97s (1m37s);;;;;
+2025-10-05;14:45:07;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();21s;;;;;
+2025-10-05;14:45:28;PartialOutage(Transmission);100% Lrat Cell 21; ();1s;;;;;
+2025-10-05;15:26:15;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();60s (1m0s);;;;;
+2025-10-05;15:27:15;PartialOutage(Transmission);100% Lrat Cell 21 22; ();1s;;;;;
+2025-10-05;15:33:18;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();1535s (25m35s);;;;;
+2025-10-05;15:58:53;PartialOutage(Transmission);100% Lrat Cell 21 22; ();1s;;;;;
+2025-10-05;16:57:22;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();439s (7m19s);;;;;
+2025-10-05;17:06:20;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();23s;;;;;
+2025-10-05;17:11:24;PartialOutage(Transmission);100% Lrat Cell 21 22 23; ();282s (4m42s);;;;;
+
+Node uptime since last restart: 145519 seconds (1 days, 16 hours, 25 minutes, 19 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                23              
+Total downtime       0s               0s               0s               0s               4491s (1h14m)   
+Downtime per day     0s               0s               0s               0s               150s (2m30s)    
+Downtime per outage  0s               0s               0s               0s               195s (3m15s)    
+
+CZ25L> lgac -m 30d
+
+251007-11:41:25+0200 19.31.2.183 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/919601
+
+Startdate=20250907.094125, Enddate=20251008.094125
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=6958
+..........
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 6958     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114054_919539/rcslogs/saLogAlarm_20250124__121522_20250224__231558.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114054_919539/rcslogs/saLogAlarm_20250224__231558_20250906__025213.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114054_919539/rcslogs/saLogAlarm_20250906__025213.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114054_919539/alarmLog919601.xml
+2025-09-07;10:37:38;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-07;22:41:03;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;01:13:27;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;01:16:01;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;02:09:52;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;02:25:14;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;02:34:06;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;02:36:20;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;02:54:27;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;02:56:31;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;03:46:13;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;04:00:09;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;06:03:13;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-08;23:09:38;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-09;02:54:15;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-09;02:59:35;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-09;03:51:27;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-09;03:51:37;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-09;06:03:13;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-09;23:01:29;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;01:50:14;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;01:50:55;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;01:54:44;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;01:54:51;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;02:01:43;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;02:06:08;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;02:51:34;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;02:52:20;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;03:14:20;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;03:18:30;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;03:23:29;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;06:03:13;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-10;13:22:47;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-10;13:22:47;AL  ;Minor ;EUtranCellFDD=CZ25L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;13:22:47;AL  ;Minor ;EUtranCellFDD=CZ25L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;13:22:47;AL  ;Minor ;EUtranCellFDD=CZ25L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;13:22:59;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;13:22:59;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;13:22:59;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;13:22:59;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-10;22:29:06;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-11;01:15:06;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-11;01:25:34;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-11;03:38:59;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-11;03:40:19;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-11;06:01:42;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:01:52;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:01:52;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:01:52;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:01:52;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:01:52;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:01:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-11;06:02:37;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;06:02:37;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-11;06:02:49;AL  ;Major ;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:02:49;AL  ;Major ;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:02:49;AL  ;Major ;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:25:36;AL  ;Cleared;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:25:36;AL  ;Cleared;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:25:36;AL  ;Cleared;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:25:37;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;06:25:37;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:25:37;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:25:37;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:25:37;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:25:41;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;06:27:38;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;06:27:38;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No granted service from PTP grandmaster
+2025-09-11;06:27:49;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;06:27:49;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:27:49;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:27:49;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:27:49;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:28:08;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:28:08;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:28:08;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:28:08;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:28:08;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:28:30;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;06:28:30;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:28:30;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:28:30;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:28:30;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:28:57;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;06:29:07;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;06:29:07;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:29:07;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:07;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:07;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:35;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;06:29:35;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:29:35;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:35;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:29:35;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:30:42;AL  ;Major ;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:30:43;AL  ;Major ;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:30:43;AL  ;Major ;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:37:35;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-11;06:37:35;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:37:35;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:37:35;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:37:35;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:37:36;AL  ;Cleared;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:37:36;AL  ;Cleared;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:37:36;AL  ;Cleared;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-11;06:38:05;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-11;06:39:37;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;06:40:21;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:40:28;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:40:28;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:40:28;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:40:28;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:40:28;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:41:01;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:41:01;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;06:41:01;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:41:01;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:41:01;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;06:41:31;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;06:49:28;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650569 PLMN ID-eNB ID 2 = 2221-209523 PLMN ID-eNB ID 3 = 2221-212115
+2025-09-11;07:15:30;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650569
+2025-09-11;07:46:12;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650569
+2025-09-11;22:47:38;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-12;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-12;19:13:58;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-13;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-13;19:11:53;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-14;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-14;07:35:28;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;07:59:29;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;08:00:06;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;21:07:02;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-15;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-15;19:12:52;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-16;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-16;09:58:54;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;09:59:24;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;21:06:59;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-17;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-17;17:03:33;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-17;17:04:12;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-17;22:52:30;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-18;02:07:29;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-18;02:08:48;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-18;03:17:50;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-18;03:20:07;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-18;03:27:53;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-18;03:29:51;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-18;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-18;22:00:34;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-19;01:32:26;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-19;01:39:27;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-19;01:58:37;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-19;02:02:30;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-19;02:19:58;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-19;02:21:34;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-19;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-19;21:40:14;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-20;03:16:54;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-20;03:21:04;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-20;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-20;22:54:10;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-21;02:57:27;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-21;02:58:40;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-21;03:11:38;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-21;03:18:14;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-21;03:52:23;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-21;03:55:16;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-21;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-21;07:32:54;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;23:27:37;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;00:21:00;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;00:21:55;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;00:48:32;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;00:52:34;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;01:01:36;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;01:15:11;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;01:38:18;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;01:42:41;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;02:19:11;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;02:20:42;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;02:24:38;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;02:49:48;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;02:53:45;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;02:57:20;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;03:02:04;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;03:04:26;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;03:10:13;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;03:11:33;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;03:22:53;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;03:23:42;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;03:32:47;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;03:36:00;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;03:51:46;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;03:54:42;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-22;21:48:38;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;01:47:59;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;01:57:15;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;02:14:03;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;02:39:53;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;02:43:46;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;02:45:12;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;02:48:52;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;02:57:10;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;03:13:44;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;03:14:00;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;03:17:23;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;03:21:35;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;03:32:32;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;03:38:10;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-23;22:25:07;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;01:23:02;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;01:24:48;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;01:32:39;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;02:14:30;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;02:22:36;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;02:38:10;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;02:40:58;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;03:11:22;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;03:13:52;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;03:23:18;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;03:26:09;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-24;22:15:20;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;02:27:29;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;02:40:32;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;02:44:14;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;02:55:56;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;03:01:08;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;03:12:42;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;03:27:35;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;03:30:51;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;03:46:03;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;03:50:10;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;03:53:39;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;03:55:16;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;03:58:40;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;03:59:04;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;04:05:07;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;04:21:25;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;04:25:15;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;04:32:26;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;19:18:15;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;23:54:50;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-25;23:55:42;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;00:14:26;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;00:16:44;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;00:29:23;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;00:30:14;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;00:36:04;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;00:37:42;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;00:51:39;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;01:00:52;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;01:06:34;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;01:30:56;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;01:38:41;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;01:57:22;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;02:01:04;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;02:01:17;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;02:06:15;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;02:44:40;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;03:00:11;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;03:12:31;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;03:42:22;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;03:43:03;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;04:02:17;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;04:05:52;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;04:09:17;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;04:18:32;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-26;08:40:15;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-26;08:40:15;AL  ;Minor ;EUtranCellFDD=CZ25L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;08:40:15;AL  ;Minor ;EUtranCellFDD=CZ25L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;08:40:15;AL  ;Minor ;EUtranCellFDD=CZ25L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;08:41:24;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-26;08:41:24;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;08:41:24;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;08:41:24;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;13:48:27;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-26;13:48:57;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-26;14:32:51;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-26;14:33:21;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-26;21:51:05;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;00:42:32;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;00:44:15;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;03:03:58;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;03:20:25;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;03:23:57;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;03:24:58;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;03:28:52;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;03:55:49;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;04:01:15;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;04:20:41;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-27;19:14:04;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;00:52:46;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;01:06:35;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;01:12:43;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;01:16:41;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;01:50:48;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;02:20:32;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;02:24:44;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;03:20:58;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;03:24:03;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;04:06:25;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;04:10:40;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;04:27:41;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;04:32:35;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;04:40:30;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;04:46:46;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;04:55:38;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;05:01:20;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;05:04:41;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;05:08:49;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;05:09:00;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-28;07:32:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;07:56:16;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;20:03:42;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650808;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;21:50:53;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;00:06:28;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;00:13:43;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;00:19:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;00:28:18;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;00:58:46;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;01:00:58;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;01:05:55;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;01:33:10;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;01:37:03;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;01:44:27;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;01:49:04;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;02:11:19;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;02:15:36;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;02:55:14;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;02:58:46;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;03:11:10;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;03:16:16;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;04:06:55;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;04:10:44;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;04:28:22;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;04:33:51;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;04:34:56;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-29;19:31:12;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;00:41:52;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;00:48:10;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;00:57:51;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;01:16:26;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;01:20:43;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;01:23:32;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;01:33:46;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;01:34:02;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;01:38:07;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;01:49:59;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;01:53:41;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;02:00:13;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;02:05:03;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;02:31:33;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;02:35:32;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;02:52:53;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;02:56:44;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;03:03:23;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;03:13:10;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;03:20:06;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;03:24:04;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;03:32:23;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;03:37:10;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;03:46:34;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;03:50:57;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;03:55:36;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;04:02:58;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;04:14:07;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;04:18:29;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;04:22:28;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;04:25:43;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;04:26:54;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-09-30;19:56:21;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;00:25:33;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;00:25:41;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;00:36:49;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;01:07:47;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;01:14:29;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;01:38:44;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;01:42:47;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:00:23;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:11:17;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:12:21;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:16:14;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:19:06;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:26:57;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:29:27;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:37:42;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:38:10;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:42:22;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:43:47;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;02:49:48;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;03:03:34;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;03:09:28;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;03:23:06;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;03:26:29;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;03:39:50;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;03:49:01;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;04:08:50;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;04:13:45;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;04:17:36;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;22:33:43;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;23:19:54;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;23:25:13;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;23:36:44;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;23:52:25;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;23:53:44;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-01;23:59:01;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;00:02:15;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;00:06:19;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;00:07:08;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;00:14:11;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;00:17:39;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;00:25:56;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;00:26:54;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;01:19:54;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;01:21:50;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;01:26:59;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;01:30:40;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;01:34:55;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;01:35:37;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;01:53:16;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;02:04:32;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;02:12:04;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;02:14:35;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;02:19:56;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;02:24:29;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;02:36:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;02:43:34;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;02:47:16;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;03:19:40;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;03:23:38;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;03:38:10;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;03:46:44;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;03:49:43;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;22:03:53;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;23:41:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;23:47:06;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;23:51:43;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-02;23:57:01;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;00:01:37;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;00:37:57;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;00:44:21;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;01:45:25;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;01:51:52;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;01:52:15;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;02:13:37;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;02:20:08;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;02:23:21;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;03:01:40;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;03:05:46;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;03:12:35;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;03:23:04;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;04:04:53;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;04:09:09;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;04:24:33;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;04:34:33;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;04:35:03;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-03;21:11:09;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;00:23:04;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;00:30:14;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;00:37:51;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;00:59:23;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;01:03:41;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;01:31:38;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;01:38:41;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;01:40:28;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;01:49:45;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;01:50:09;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;01:57:23;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;01:59:03;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;02:14:06;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;02:16:56;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;02:21:55;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;02:24:25;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;02:29:59;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;03:27:38;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;03:31:49;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;04:00:34;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;04:10:36;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;04:16:15;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;04:54:52;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;04:58:07;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;21:42:52;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;23:51:09;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-04;23:53:00;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;00:00:41;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;00:02:04;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;00:18:21;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;00:22:43;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;00:28:41;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;00:32:51;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;00:41:38;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;00:44:49;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;00:57:17;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;00:58:06;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;01:07:59;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;01:10:03;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;01:13:40;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;01:19:03;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;01:31:29;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;01:32:51;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;01:43:24;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;01:48:15;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;01:54:04;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;02:10:03;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;02:19:26;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;02:19:32;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;02:26:30;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;03:18:47;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;03:23:42;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;04:22:58;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;04:31:21;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;04:32:39;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;04:37:02;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;04:40:56;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;04:45:22;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;04:54:45;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-05;07:29:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;07:43:57;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650808;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;07:50:10;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;07:50:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;14:42:09;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;14:42:17;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;14:42:17;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:42:17;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:42:17;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:42:17;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:42:23;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;14:43:03;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;14:43:14;AL  ;Major ;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;14:43:14;AL  ;Major ;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;14:43:14;AL  ;Major ;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;14:43:36;AL  ;Cleared;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;14:43:36;AL  ;Cleared;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;14:43:36;AL  ;Cleared;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;14:43:52;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;14:43:52;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:43:52;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:43:52;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:43:52;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:44:01;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-10-05;14:44:57;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;14:45:07;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;14:45:07;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:45:07;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:45:07;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:45:07;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:45:27;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-10-05;14:45:27;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:45:27;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:45:27;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:45:27;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:45:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;14:45:37;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-10-05;14:45:37;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;15:26:05;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;15:26:15;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;15:26:15;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;15:26:15;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:26:15;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:26:15;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:26:21;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;15:27:01;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;15:27:14;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;15:27:14;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;15:27:14;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:27:14;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:27:14;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:27:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;15:27:22;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-10-05;15:29:15;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;15:33:13;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;15:33:18;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;15:33:18;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;15:33:18;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:33:18;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:33:18;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:33:18;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;15:34:43;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;15:34:55;AL  ;Major ;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;15:34:55;AL  ;Major ;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;15:34:55;AL  ;Major ;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;15:35:11;AL  ;Cleared;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;15:35:11;AL  ;Cleared;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;15:36:27;AL  ;Major ;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;15:36:27;AL  ;Major ;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;15:58:31;AL  ;Cleared;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;15:58:31;AL  ;Cleared;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;15:58:31;AL  ;Cleared;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;15:58:52;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;15:58:52;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;15:58:52;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:52;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:52;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:58:56;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;15:58:57;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-10-05;16:00:32;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;16:07:19;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650569 PLMN ID-eNB ID 2 = 2221-209523
+2025-10-05;16:09:48;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650569
+2025-10-05;16:10:27;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650569
+2025-10-05;16:57:11;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;16:57:22;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;16:57:22;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;16:57:22;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:57:22;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:57:22;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;16:57:27;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;16:58:03;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;16:58:14;AL  ;Major ;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;16:58:14;AL  ;Major ;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;16:58:15;AL  ;Major ;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;17:04:40;AL  ;Cleared;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;17:04:40;AL  ;Cleared;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;17:04:40;AL  ;Cleared;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;17:04:40;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;17:04:40;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;17:04:40;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:04:40;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:04:40;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:04:44;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;17:05:07;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-10-05;17:06:12;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;17:06:20;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;17:06:20;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;17:06:20;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:06:20;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:06:20;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:06:26;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;17:06:41;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;17:06:42;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;17:06:42;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;17:06:42;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:06:42;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:06:42;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:06:46;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;17:06:50;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-10-05;17:11:17;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;17:11:24;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-10-05;17:11:24;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;17:11:24;AL  ;Major ;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:11:24;AL  ;Major ;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:11:24;AL  ;Major ;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:11:30;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;17:12:10;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;17:12:22;AL  ;Major ;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;17:12:22;AL  ;Major ;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;17:12:22;AL  ;Major ;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;17:15:56;AL  ;Cleared;GsmSector=CZ25D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;17:15:56;AL  ;Cleared;GsmSector=CZ25D3,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;17:15:56;AL  ;Cleared;GsmSector=CZ25D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-10-05;17:16:05;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;17:16:05;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;17:16:05;AL  ;Cleared;EUtranCellFDD=CZ25L3;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:16:05;AL  ;Cleared;EUtranCellFDD=CZ25L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:16:05;AL  ;Cleared;EUtranCellFDD=CZ25L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;17:16:09;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650544;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;17:16:12;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-10-05;17:17:58;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;21:59:47;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;00:33:31;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;00:56:55;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;01:00:58;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;01:06:31;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;01:10:10;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;01:10:32;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;01:14:42;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;02:38:43;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;02:41:56;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;02:43:29;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;02:51:13;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;02:53:55;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;03:20:30;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;03:27:06;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;03:31:02;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;03:50:57;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;04:53:50;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;04:56:28;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-06;22:03:28;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-07;02:42:26;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-07;02:44:38;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-07;02:52:48;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-07;02:53:25;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-07;02:57:11;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-07;03:06:34;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-07;03:14:37;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-07;03:18:25;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+2025-10-07;06:03:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;High PDV detected on PTP messages
+
+
+CZ25L> lgec -m 30d
+
+251007-11:41:34+0200 19.31.2.183 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/919601
+
+Startdate=20250907.094134, Enddate=20251008.094134
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=6959
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 6959     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114054_919539/rcslogs/AlertLog_20230608__111652_20250224__231632.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114054_919539/rcslogs/AlertLog_20250224__231632.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-114054_919539/eventLog919601.xml
+2025-09-10;13:23:02;EV  ;Warning;RiLink=S180-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-10;13:23:02;EV  ;Warning;RiLink=S182-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET). SUPPRESSED
+2025-09-10;13:23:02;EV  ;Warning;RiLink=S222-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;13:23:02;EV  ;Warning;RiLink=S221-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;13:23:02;EV  ;Warning;RiLink=S220-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/CZ25L.log
