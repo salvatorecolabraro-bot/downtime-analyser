@@ -1,0 +1,754 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/SC14E.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 1253308
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+SC14E> lt all
+
+251007-12:22:38+0200 19.31.3.236 25.0h  stopfile=/tmp/1253137
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 1253929
+
+Connected to 19.31.3.236 (SubNetwork=BBMM_rckomc_R,MeContext=SC14E,ManagedElement=SC14E)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-122231_1253063/MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81.xml.cache.gz ......................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt ......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.3.236 (SubNetwork=BBMM_rckomc_R,MeContext=SC14E,ManagedElement=SC14E)
+
+Last MO: 17488. Loaded 17488 MOs. Total: 17489 MOs.
+
+SC14E> hget EUtranCellFDD ^cellid
+
+251007-12:22:57+0200 19.31.3.236 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1253137
+.
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=SC14E1 61    
+EUtranCellFDD=SC14E2 62    
+EUtranCellFDD=SC14M1 31    
+EUtranCellFDD=SC14M2 32    
+EUtranCellFDD=SC14T1 41    
+EUtranCellFDD=SC14T2 42    
+=================================================================================================================
+Total: 6 MOs
+
+Added 6 MOs to group: hget_group
+
+SC14E> hget NbIotCell ^cellid
+
+251007-12:22:57+0200 19.31.3.236 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1253137
+.
+=================================================================================================================
+MO               cellId
+=================================================================================================================
+NbIotCell=SC14N1 161   
+NbIotCell=SC14N2 162   
+=================================================================================================================
+Total: 2 MOs
+
+Added 2 MOs to group: hget_group
+
+SC14E> hget NRCellDU ^cellLocalId
+
+251007-12:22:58+0200 19.31.3.236 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1253137
+Total: 0 MOs
+
+SC14E> lgdc -m 30d
+
+251007-12:22:58+0200 19.31.3.236 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1253137
+
+Startdate=20250907.102258, Enddate=20251008.102258
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=51099
+......
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 51099    1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-122231_1253063/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007102303.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-122231_1253063/availabilityLog1253137.xml
+Parsing availabilityLog........Done.
+.....
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;03:34:55;PartialOutage(Manual);17% Lrat Cell 41; ();9s;;;;;
+2025-09-08;03:35:10;PartialOutage(Manual);17% Lrat Cell 42; ();12s;;;;;
+2025-09-08;03:35:26;PartialOutage(Manual);17% Lrat Cell 31; ();11s;;;;;
+2025-09-08;03:35:40;PartialOutage(Manual);17% Lrat Cell 32; ();10s;;;;;
+2025-09-08;03:35:52;PartialOutage(Manual);50% Lrat Cell 161; ();3s;;;;;
+2025-09-08;03:35:55;PartialOutage(Manual);17% Lrat Cell 61; ();5s;;;;;
+2025-09-08;03:36:04;PartialOutage(Manual);50% Lrat Cell 161 162; ();4s;;;;;
+2025-09-08;03:36:08;PartialOutage(Manual);17% Lrat Cell 62; ();5s;;;;;
+2025-09-08;03:36:18;PartialOutage(Manual);83% Lrat Cell 162; ();12s;;;;;
+2025-09-10;23:36:03;PartialOutage(System);100% Lrat Cell 161 162; ();1280s (21m20s);;;;;
+2025-09-11;00:05:05;PartialOutage(System);100% Lrat Cell 161 162; ();216s (3m36s);;;;;
+2025-09-11;00:08:42;PartialOutage(Transmission);100% Lrat Cell 31 32 42; ();1s;;;;;
+2025-09-11;03:12:30;PartialOutage(System);100% Lrat Cell 161 162; ();616s (10m16s);;;;;
+2025-09-11;03:24:52;PartialOutage(System);100% Lrat Cell 161 162; ();104s (1m44s);;;;;
+2025-09-11;03:26:37;PartialOutage(Transmission);100% Lrat Cell 31 32 42; ();1s;;;;;
+2025-09-11;03:57:37;PartialOutage(System);100% Lrat Cell 161 162; ();64s (1m4s);;;;;
+2025-09-11;03:58:42;PartialOutage(Transmission);100% Lrat Cell 31 41 42; ();1s;;;;;
+2025-09-11;04:00:33;PartialOutage(System);100% Lrat Cell 161 162; ();103s (1m43s);;;;;
+2025-09-11;04:08:29;PartialOutage(System);100% Lrat Cell 161 162; ();626s (10m26s);;;;;
+2025-09-11;04:19:16;PartialOutage(Transmission);67% Lrat Cell 31 32 41 42; ();1s;;;;;
+2025-09-11;04:19:17;PartialOutage(System);100% Lrat Cell 161 162; ();31s;;;;;
+2025-09-11;04:56:26;PartialOutage(System);100% Lrat Cell 161 162; ();138s (2m18s);;;;;
+2025-09-24;15:11:16;PartialOutage(System);100% Lrat Cell 161 162; ();75692s (21h1m);;;;;
+2025-10-05;14:21:21;PartialOutage(System);100% Lrat Cell 161 162; ();251s (4m11s);;;;;
+2025-10-05;14:30:18;PartialOutage(System);100% Lrat Cell 161 162; ();104s (1m44s);;;;;
+2025-10-05;14:32:03;PartialOutage(Transmission);100% Lrat Cell 31 32; ();1s;;;;;
+2025-10-05;14:36:51;PartialOutage(Transmission);83% Lrat Cell 62 31 32 41 42; ();1s;;;;;
+2025-10-05;14:36:52;PartialOutage(System);100% Lrat Cell 161 162; ();27s;;;;;
+2025-10-05;14:37:20;PartialOutage(Transmission);100% Lrat Cell 31 32 42; ();1s;;;;;
+2025-10-05;15:30:33;PartialOutage(System);50% Lrat Cell 161; ();1s;;;;;
+2025-10-05;15:30:34;PartialOutage(System);100% Lrat Cell 61 62 31 32 41 42; ();13s;;;;;
+2025-10-05;15:30:47;PartialOutage(System);100% Lrat Cell 62 31 32 41 42; ();1s;;;;;
+2025-10-05;15:30:50;PartialOutage(System);100% Lrat Cell 32 42; ();1s;;;;;
+2025-10-05;15:30:51;PartialOutage(System);100% Lrat Cell 42; ();2s;;;;;
+2025-10-06;02:22:56;PartialOutage(System);100% Lrat Cell 161 162; ();14s;;;;;
+2025-10-06;02:23:10;PartialOutage(System);100% Lrat Cell 162; ();1s;;;;;
+2025-10-06;02:23:12;PartialOutage(System);100% Lrat Cell 32 42; ();1s;;;;;
+2025-10-06;02:23:13;PartialOutage(System);100% Lrat Cell 42; ();1s;;;;;
+2025-10-06;23:49:42;PartialOutage(System);100% Lrat Cell 161 162; ();8s;;;;;
+2025-10-06;23:49:50;PartialOutage(System);100% Lrat Cell 162; ();1s;;;;;
+2025-10-06;23:49:51;PartialOutage(System);100% Lrat Cell 32 41 42; ();1s;;;;;
+2025-10-06;23:49:52;PartialOutage(System);100% Lrat Cell 42; ();1s;;;;;
+
+Node uptime since last restart: 37997 seconds (10 hours, 33 minutes, 17 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                42              
+Total downtime       0s               0s               0s               0s               79376s (22h2m)  
+Downtime per day     0s               0s               0s               0s               2646s (44m6s)   
+Downtime per outage  0s               0s               0s               0s               1890s (31m30s)  
+
+SC14E> lgac -m 30d
+
+251007-12:23:10+0200 19.31.3.236 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1253137
+
+Startdate=20250907.102310, Enddate=20251008.102311
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=51100
+..........
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 51100    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-122231_1253063/rcslogs/saLogAlarm_20241223__011316_20250107__194933.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-122231_1253063/rcslogs/saLogAlarm_20250107__194933_20250830__042205.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-122231_1253063/rcslogs/saLogAlarm_20250830__042205.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-122231_1253063/alarmLog1253137.xml
+2025-09-07;11:33:39;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-450288;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-07;11:33:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-07;11:33:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650387;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-09;13:36:13;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-10;23:08:02;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-10;23:11:59;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213264 PLMN ID-eNB ID 2 = 2221-400157
+2025-09-10;23:16:08;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-10;23:24:43;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213264 PLMN ID-eNB ID 2 = 2221-400157
+2025-09-10;23:36:02;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-10;23:36:03;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-10;23:36:03;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:36:03;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:36:03;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:36:03;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:36:03;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:36:03;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:36:03;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:36:03;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:36:04;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650387;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-10;23:36:09;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-400894;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-10;23:36:09;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-10;23:36:58;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-10;23:57:21;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-10;23:57:21;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:57:21;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:57:21;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:57:21;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:57:22;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:57:22;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:57:22;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:57:22;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:58:01;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-10;23:59:05;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;00:04:59;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-11;00:05:04;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;00:05:04;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;00:05:05;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:05:05;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:05:05;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:05:05;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:05:05;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:05:05;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:05:05;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:05:05;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:05:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;00:05:55;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;00:08:40;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;00:08:40;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:08:40;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:08:40;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:08:40;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:08:40;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:08:40;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:08:40;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:08:40;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;00:09:06;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;00:10:42;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;00:27:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-400894;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;00:27:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;01:32:02;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;01:34:05;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;01:47:15;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;02:03:00;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;02:16:01;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;02:17:15;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;02:30:13;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;02:31:45;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;02:44:39;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;02:45:55;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;02:58:57;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;03:00:19;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;03:12:26;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;03:12:30;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;03:12:30;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;03:12:30;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:12:30;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:12:30;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:12:30;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:12:30;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:12:30;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:12:30;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:12:30;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:12:36;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;03:12:36;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;03:12:36;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-400894;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;03:13:20;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages, No granted service from PTP grandmaster
+2025-09-11;03:22:45;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;03:22:45;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:22:45;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:22:45;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:22:45;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:22:45;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:22:45;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:22:45;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:22:45;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:23:26;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;03:24:48;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No granted service from PTP grandmaster
+2025-09-11;03:24:52;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;03:24:52;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:24:52;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:24:52;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:24:52;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:24:52;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:24:52;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:24:52;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:24:52;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:24:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;03:25:46;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;03:26:35;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;03:26:35;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:26:35;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:26:35;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:26:35;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:26:35;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:26:35;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:26:35;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:26:35;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:27:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;03:28:26;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;03:37:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-400894;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;03:37:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;03:42:18;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;03:43:40;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;03:56:40;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;03:57:33;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;03:57:37;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;03:57:37;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;03:57:37;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:57:37;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:57:37;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:57:37;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:57:37;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:57:37;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:57:37;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:57:37;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:57:43;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;03:57:43;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;03:57:43;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-400894;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;03:58:24;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;03:58:40;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;03:58:40;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:58:40;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:58:40;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:58:40;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:58:40;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:58:40;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:58:40;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:58:40;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;03:58:40;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;03:58:44;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;03:59:19;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;03:59:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;04:00:28;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No granted service from PTP grandmaster
+2025-09-11;04:00:32;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;04:00:32;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:00:33;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:00:33;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:00:33;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:00:33;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:00:33;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:00:33;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:00:33;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:00:33;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:01:28;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;04:02:15;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:02:15;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:02:15;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:02:15;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:02:15;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:02:15;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:02:15;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:02:15;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:02:15;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:02:41;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;04:04:04;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;04:08:25;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;04:08:29;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;04:08:29;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:08:29;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:08:29;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:08:29;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:08:29;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:08:29;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:08:29;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:08:29;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:08:29;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:08:36;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;04:09:20;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;04:18:54;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;04:18:54;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:18:54;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:18:54;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:18:54;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:18:54;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:18:54;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:18:54;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:18:54;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:18:54;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:16;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;04:19:16;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:19:16;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:16;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:16;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:16;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:16;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:16;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:17;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:17;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:47;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-11;04:19:47;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:19:47;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:47;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:47;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:47;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:47;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:47;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:47;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:19:47;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:20:27;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;04:20:28;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-11;04:21:35;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No granted service from PTP grandmaster
+2025-09-11;04:30:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;04:30:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-400894;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;04:40:35;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-11;04:56:26;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:56:26;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:56:26;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:56:26;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:56:26;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:56:26;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:56:26;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:56:26;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:56:26;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:56:32;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;04:56:32;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;04:56:32;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-400894;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;04:57:17;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;04:58:43;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:58:43;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:58:43;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:58:43;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:58:43;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:58:43;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:58:43;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:58:43;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:58:43;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:59:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-11;05:00:29;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;05:09:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;05:09:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-400894;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-11;11:40:42;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-14;11:41:52;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-14;11:42:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650387;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-16;06:41:26;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-400894;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-16;06:51:00;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400894
+2025-09-16;09:57:43;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;09:58:13;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;13:41:06;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400894
+2025-09-16;13:58:44;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-16;19:06:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-400894;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-17;16:07:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-17;16:17:06;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-17;23:50:23;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-400894;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-18;10:30:10;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-450385
+2025-09-18;10:39:39;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-450385
+2025-09-18;12:08:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-18;12:14:08;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-18;12:20:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-18;12:25:35;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-21;07:30:26;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650387;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;11:23:16;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-23;18:58:44;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-24;05:39:46;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;05:41:55;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;05:55:01;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;05:56:14;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;06:09:08;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;06:10:24;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;06:23:15;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;06:26:05;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;06:37:38;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;06:39:08;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;06:51:55;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;06:54:13;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;07:07:09;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;07:08:37;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;07:21:30;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;07:37:35;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;07:50:26;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;07:52:59;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;08:06:02;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;08:07:44;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;08:19:59;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;08:23:02;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;08:35:58;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;08:37:42;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;08:50:24;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;10:01:20;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400220
+2025-09-24;15:11:11;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-24;15:11:16;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-24;15:11:16;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-24;15:11:16;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;15:11:16;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;15:11:16;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;15:11:16;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;15:11:16;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;15:11:16;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;15:11:16;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;15:11:16;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-24;15:11:22;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-24;15:11:22;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-24;15:12:06;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-24;17:11:13;AL  ;Warning;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=NTP1;Sync Frequency Server Reachability Fault;No IP connectivity towards NTP server
+2025-09-24;20:33:06;AL  ;Warning;SysM=1,TimeM=1,Ntp=1,NtpServer=1;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock
+2025-09-24;20:33:06;AL  ;Warning;SysM=1,TimeM=1,Ntp=1,NtpServer=2;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock
+2025-09-24;20:35:06;AL  ;Minor ;SysM=1;Calendar Clock All NTP Servers Unavailable;No NTP server configured, or no NTP service available
+2025-09-25;12:12:46;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-25;12:12:46;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-25;12:12:46;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;12:12:46;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;12:12:46;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;12:12:46;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;12:12:46;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;12:12:46;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;12:12:47;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;12:12:47;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;12:12:47;AL  ;Cleared;SysM=1,TimeM=1,Ntp=1,NtpServer=1;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock
+2025-09-25;12:12:47;AL  ;Cleared;SysM=1,TimeM=1,Ntp=1,NtpServer=2;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock
+2025-09-25;12:12:47;AL  ;Cleared;SysM=1;Calendar Clock All NTP Servers Unavailable;No NTP server configured, or no NTP service available
+2025-09-25;12:12:51;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-25;12:13:29;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-25;12:14:34;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-25;12:17:33;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=NTP1;Sync Frequency Server Reachability Fault;No IP connectivity towards NTP server
+2025-09-25;12:17:33;AL  ;Warning;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=NTP1;Sync Frequency Reference Not Reliable;High NTP packet drop towards NTP server
+2025-09-25;12:31:03;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=NTP1;Sync Frequency Reference Not Reliable;High NTP packet drop towards NTP server
+2025-09-25;19:10:06;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-09-25;23:50:25;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-27;15:04:46;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400469
+2025-09-28;11:21:29;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-400469
+2025-09-28;11:22:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650387;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;14:12:47;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-09-30;06:54:53;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650449
+2025-09-30;21:42:54;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650449 PLMN ID-eNB ID 2 = 2221-450469 PLMN ID-eNB ID 3 = 2221-450285
+2025-10-01;15:54:26;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650449 PLMN ID-eNB ID 2 = 2221-450285
+2025-10-01;17:20:46;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650449
+2025-10-02;23:50:27;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-206745;Inconsistent Configuration;Elastic RAN cannot be activated towards remote eNodeB. VLAN IDs do not match. Expected Vlan Id: 3908, Please check the eRAN Vlan Id at the remote eNodeB
+2025-10-03;00:17:27;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650449 PLMN ID-eNB ID 2 = 2221-450285
+2025-10-03;06:39:05;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650449
+2025-10-03;07:38:49;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650449 PLMN ID-eNB ID 2 = 2221-650254
+2025-10-03;10:23:49;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650449
+2025-10-05;06:01:08;AL  ;Minor ;ENodeBFunction=1;External Link to GNodeB Failure;X2 link problem to one or several neighbouring gNodeBs. AI: PLMN ID-gNB ID 1 = 2221-1050719
+2025-10-05;07:27:02;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650387;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;07:29:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650387;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;11:07:21;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650387;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;11:07:32;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650449
+2025-10-05;11:47:43;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650599 PLMN ID-eNB ID 2 = 2221-213655
+2025-10-05;12:02:13;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650599 PLMN ID-eNB ID 2 = 2221-213655
+2025-10-05;12:23:05;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213655 PLMN ID-eNB ID 2 = 2221-650599
+2025-10-05;12:33:29;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650599
+2025-10-05;12:33:54;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650599
+2025-10-05;14:21:21;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:21:21;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:21:21;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:21:21;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:21:21;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:21:21;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:21:21;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:21:21;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:21:21;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:21:27;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;14:22:16;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;14:25:31;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:25:31;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:25:31;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:25:31;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:25:31;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:25:31;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:25:31;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:25:31;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:25:31;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:27:19;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;14:30:18;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:30:18;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:30:18;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:30:18;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:30:18;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:30:18;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:30:18;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:30:18;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:30:18;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:31:13;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;14:32:01;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:32:01;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:32:01;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:32:01;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:32:01;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:32:01;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:32:01;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:32:01;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:32:01;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:33:48;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;14:36:51;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:36:51;AL  ;Major ;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:36:51;AL  ;Major ;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:36:51;AL  ;Major ;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:36:51;AL  ;Major ;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:36:51;AL  ;Major ;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:36:51;AL  ;Major ;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:36:51;AL  ;Major ;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:36:51;AL  ;Major ;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:37:18;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:37:18;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:37:18;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:37:18;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:37:18;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:37:18;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:37:18;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:37:18;AL  ;Cleared;NbIotCell=SC14N2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:37:18;AL  ;Cleared;NbIotCell=SC14N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:59:39;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213655 PLMN ID-eNB ID 2 = 2221-650599
+2025-10-05;15:06:21;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213655 PLMN ID-eNB ID 2 = 2221-650599
+2025-10-05;15:29:58;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-05;15:29:58;AL  ;Minor ;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:29:58;AL  ;Minor ;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:29:58;AL  ;Minor ;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:29:58;AL  ;Minor ;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:29:58;AL  ;Minor ;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:29:58;AL  ;Minor ;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:30:33;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:30:34;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:30:34;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:30:34;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-450289;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB. SUPPRESSED
+2025-10-05;15:30:34;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:30:34;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:30:34;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;15:30:34;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-05;16:11:35;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213655 PLMN ID-eNB ID 2 = 2221-650599
+2025-10-05;16:13:13;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-213655 PLMN ID-eNB ID 2 = 2221-650599
+2025-10-05;21:45:14;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-05;21:45:14;AL  ;Minor ;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;21:45:14;AL  ;Minor ;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;21:45:14;AL  ;Minor ;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;21:45:14;AL  ;Minor ;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;21:45:16;AL  ;Minor ;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;21:45:16;AL  ;Minor ;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;22:08:07;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-05;22:08:07;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;22:08:07;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;22:08:07;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;22:08:07;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;22:08:07;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;22:08:07;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;23:24:09;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-05;23:24:09;AL  ;Minor ;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;23:24:09;AL  ;Minor ;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;23:24:09;AL  ;Minor ;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;23:24:09;AL  ;Minor ;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;23:24:12;AL  ;Minor ;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;23:24:12;AL  ;Minor ;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;02:22:56;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;02:22:56;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;02:22:56;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;02:22:56;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;02:22:56;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;02:22:56;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;02:22:56;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-06;06:45:08;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-06;06:45:08;AL  ;Minor ;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:45:08;AL  ;Minor ;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:45:08;AL  ;Minor ;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:45:08;AL  ;Minor ;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:45:08;AL  ;Minor ;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:45:08;AL  ;Minor ;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:51:38;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-06;06:51:38;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:51:38;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:51:38;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:51:38;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:51:38;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;06:51:38;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;11:47:01;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-06;11:47:01;AL  ;Minor ;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;11:47:01;AL  ;Minor ;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;11:47:01;AL  ;Minor ;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;11:47:01;AL  ;Minor ;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;11:47:01;AL  ;Minor ;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;11:47:01;AL  ;Minor ;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;12:18:01;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;RadioEquipmentClock::radioClockState TIME_OFFSET_LOCKED or RNT_TIME_LOCKED is not reached within expected locking period
+2025-10-06;12:48:01;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time PDV Problem;RadioEquipmentClock::radioClockState TIME_OFFSET_LOCKED or RNT_TIME_LOCKED is not reached within expected locking period
+2025-10-06;13:11:12;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-06;13:11:12;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;13:11:12;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;13:11:12;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;13:11:12;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;13:11:12;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;13:11:12;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;21:07:49;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-06;21:07:49;AL  ;Minor ;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;21:07:49;AL  ;Minor ;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;21:07:49;AL  ;Minor ;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;21:07:49;AL  ;Minor ;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;21:07:52;AL  ;Minor ;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;21:07:52;AL  ;Minor ;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;23:49:42;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;23:49:42;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;23:49:42;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;23:49:42;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;23:49:42;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;23:49:42;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-06;23:49:42;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-07;01:48:24;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-07;01:48:24;AL  ;Minor ;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;01:48:24;AL  ;Minor ;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;01:48:24;AL  ;Minor ;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;01:48:24;AL  ;Minor ;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;01:48:26;AL  ;Minor ;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;01:48:26;AL  ;Minor ;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;01:54:34;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-07;01:54:34;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;01:54:34;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;01:54:34;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;01:54:34;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;01:54:34;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;01:54:34;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:04:52;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-07;06:04:52;AL  ;Minor ;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:04:52;AL  ;Minor ;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:04:52;AL  ;Minor ;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:04:52;AL  ;Minor ;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:04:52;AL  ;Minor ;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:04:52;AL  ;Minor ;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:26:45;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-07;06:26:45;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:26:45;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:26:45;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:26:45;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:26:45;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;06:26:45;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:21:32;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-07;09:21:32;AL  ;Minor ;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:21:32;AL  ;Minor ;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:21:32;AL  ;Minor ;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:21:32;AL  ;Minor ;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:21:32;AL  ;Minor ;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:21:32;AL  ;Minor ;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:30:07;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-10-07;09:30:07;AL  ;Cleared;EUtranCellFDD=SC14E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:30:07;AL  ;Cleared;EUtranCellFDD=SC14E2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:30:07;AL  ;Cleared;EUtranCellFDD=SC14M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:30:07;AL  ;Cleared;EUtranCellFDD=SC14M2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:30:07;AL  ;Cleared;EUtranCellFDD=SC14T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-07;09:30:07;AL  ;Cleared;EUtranCellFDD=SC14T2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+
+
+SC14E> lgec -m 30d
+
+251007-12:23:20+0200 19.31.3.236 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1253137
+
+Startdate=20250907.102320, Enddate=20251008.102320
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=51101
+.............
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 51101    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-122231_1253063/rcslogs/AlertLog_20220629__085859_20240721__092726.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-122231_1253063/rcslogs/AlertLog_20240721__092726_20240824__091840.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-122231_1253063/rcslogs/AlertLog_20240824__091840.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-122231_1253063/eventLog1253137.xml
+2025-10-05;15:30:37;EV  ;Warning;EUtranCellFDD=SC14E1;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-10-05;15:30:38;EV  ;Warning;EUtranCellFDD=SC14E2;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-10-05;15:30:43;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-05;15:30:43;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-05;15:30:43;EV  ;Warning;RiLink=S100-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-10-05;15:30:47;EV  ;Warning;EUtranCellFDD=SC14E1;Cell Service Available Auto Recovery Successful Alert;
+2025-10-05;15:30:48;EV  ;Warning;EUtranCellFDD=SC14E2;Cell Service Available Auto Recovery Successful Alert;
+2025-10-06;02:23:00;EV  ;Warning;EUtranCellFDD=SC14E2;Cell Service Unavailable Auto Recovery Initiated Alert;
+2025-10-06;02:23:05;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-06;02:23:05;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-06;02:23:05;EV  ;Warning;RiLink=S100-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-10-06;02:23:10;EV  ;Warning;EUtranCellFDD=SC14E2;Cell Service Available Auto Recovery Successful Alert;
+2025-10-06;23:49:45;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-06;23:49:45;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-10-06;23:49:45;EV  ;Warning;RiLink=S100-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/SC14E.log

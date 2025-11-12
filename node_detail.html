@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downtime Analytics</title>
+    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
+    <meta name="dw-backend-url" content="">
+    <script>
+      (function(){
+        var backendUrl = null;
+        try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
+        if (!backendUrl) {
+          var m = document.querySelector('meta[name="dw-backend-url"]');
+          var c = m && m.getAttribute('content');
+          if (c) backendUrl = c;
+        }
+        var proto = (location && location.protocol || '').replace(':','');
+        if (!backendUrl && (proto === 'http' || proto === 'https')) {
+          backendUrl = location.origin;
+          try { localStorage.setItem('dw_backend_url', backendUrl); } catch(_) {}
+        }
+        if (backendUrl) { window.DW_BACKEND_URL = backendUrl.replace(/\/$/, ''); }
+      })();
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: var(--text);
+            background: var(--bg);
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3, h4, h5 {
+            color: #fff;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .back-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #0d1424;
+            border: 1px solid #263347;
+            border-radius: 12px;
+            color: var(--text);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            color: var(--text);
+            background: var(--bg);
+        }
+        th, td {
+            border: 1px solid #263347;
+            padding: 8px;
+            font-size: 0.95em;
+        }
+        th {
+            background: var(--bg);
+            text-align: left;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #ffe082;
+            color: #000;
+        }
+        tr:hover .severity-pill { color: #000 !important; }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .status.warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 16px;
+        }
+        .summary-item {
+            padding: 14px;
+            background: #0d1424;
+            color: var(--text);
+            border: 1px solid #263347;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .summary-item h3 {
+            margin: 0 0 8px 0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1em;
+        }
+        /* Accordion gruppi restart - tema scuro allineato ad alarm_detail */
+        .accordion-group { background: #0d1424; border: 1px solid #263347; border-left: 4px solid #2b3c55; border-radius: 12px; margin-bottom: 16px; }
+        .accordion-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 10px 12px; background: #16233a; color: var(--text); border-bottom: 1px solid #263347; }
+        .accordion-title { font-weight: 600; color: #fff; }
+        .accordion-meta { color: var(--muted); font-size: 0.9em; }
+        .accordion-caret { color: var(--muted); transition: transform 0.2s ease; margin-right: 8px; }
+        .accordion-content { display: none; padding: 8px 12px 12px 12px; background: #0d1424; }
+        .accordion-group.expanded .accordion-content { display: block; }
+        .accordion-group.expanded .accordion-caret { transform: rotate(90deg); }
+        /* Evidenziazione righe prima/dopo il restart (tema scuro) */
+        tr.row-before { background-color: rgba(13,71,161,0.14); }
+        tr.row-after { background-color: rgba(100,181,246,0.14); }
+        tr.row-before:hover { background-color: rgba(13,71,161,0.24); color: #000; }
+        tr.row-after:hover { background-color: rgba(100,181,246,0.24); color: #000; }
+        tr.row-before:hover .severity-pill, tr.row-after:hover .severity-pill { color: #000 !important; }
+        /* Riduzione font nelle righe correlate */
+        tr.row-before td, tr.row-after td { font-size: 0.85em; }
+        .delta-badge { display: inline-block; margin-left: 8px; padding: 2px 6px; border-radius: 10px; font-size: 12px; }
+        .badge-before { background: #ffe0b2; color: #ff0000; }
+        .badge-after { background: #c8e6c9; color: #2e7d32; }
+        /* Legenda (tema scuro) */
+        .legend { border: 1px dashed #263347; background: #1b2a44; border-radius: 12px; padding: 8px 10px; margin-bottom: 12px; color: var(--text); }
+        .legend-title { font-weight: 600; color: #fff; margin-bottom: 6px; }
+        .legend-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+        .legend-item { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); }
+        .legend-swatch { width: 12px; height: 12px; border-radius: 2px; border: 1px solid #263347; display: inline-block; }
+        .swatch-before { background-color: rgba(255,184,28,0.35); }
+        .swatch-after { background-color: rgba(76,175,80,0.35); }
+        /* Severity pill */
+        .severity-pill { display: inline-block; padding: 2px 6px; border-radius: 10px; font-size: 12px; border: 1px solid rgba(0,0,0,0.08); }
+        .sev-critical { background: #ffcdd2; color: #b71c1c; }
+        .sev-major { background: #ffe0b2; color: #e65100; }
+        .sev-warning { background: #fff8e1; color: #ff0000; }
+        .sev-minor { background: #fff9c4; color: #827717; }
+        .sev-info { background: #bbdefb; color: #0d47a1; }
+        .sev-clear { background: #c8e6c9; color: #2e7d32; }
+    /* --- Tema scuro coordinato --- */
+:root {
+    --bg: #0f172a;
+    --surface: #111827;
+    --card: #0d1424;
+    --border: #1f2937;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --accent: #1e88e5;
+}
+body { background: var(--bg); color: var(--text); }
+.container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+.header { background: var(--surface); color: var(--text); border-bottom: 1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding: 12px 16px; }
+.brand { font-size: 18px; font-weight: 600; letter-spacing: .2px; }
+.nav-tabs { display:flex; gap:10px; }
+.nav-tabs .tab { color: var(--text); text-decoration:none; border:1px solid #263347; padding: 8px 14px; border-radius: 12px; background: #0d1424; box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 2px rgba(0,0,0,0.25); }
+.nav-tabs .tab.active { background: #1b2a44; border-color: #2b3c55; }
+.content { color: var(--text); }
+.card, .table-card { background: #0d1424; color: var(--text); border: 1px solid #263347; border-radius: 12px; }
+th { background: #16233a; border-color: #263347; }
+td { border-color: #263347; }
+a { color: var(--accent); }
+.button, .btn, .export-btn { background: #16233a; color: var(--text); border: 1px solid #263347; border-radius: 10px; }
+.button:hover, .btn:hover, .export-btn:hover { background: #1b2a44; }
+.pagination button { background: #16233a; color: var(--text); border: 1px solid #263347; border-radius: 10px; }
+.pagination button.active { background: #1b2a44; }
+/* Barra avanzamento export */
+.progress-bar { position: relative; height: 10px; background: #1b2a44; border: 1px solid #263347; border-radius: 6px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #1e88e5 0%, #64b5f6 100%); transition: width 0.3s ease; }
+.progress-text { font-size: 12px; color: #666; }
+/* Consenti lo scroll orizzontale sulle tabelle larghe */
+.table-wrap { overflow-x: auto; }
+</style>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand"><img class="logo-icon" src="assets/logo.ico" alt="Downtime" /> Downtime Analytics</div>
+            <div class="nav-tabs">
+                <a href="index.html" class="tab">Dashboard</a>
+                <a href="stats.html" class="tab active">Analisi</a>
+            </div>
+        </div>
+        
+        <div id="status" class="status info">Caricamento dati...</div>
+        
+        <div class="section"><h2>Dettaglio Nodo: <span id="nodeName">-</span></h2></div>
+        <div class="section" id="filtersBar">
+            <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                <strong>Filtro date</strong>
+                <label for="dateFrom">Da</label>
+                <input type="date" id="dateFrom">
+                <label for="dateTo">A</label>
+                <input type="date" id="dateTo">
+                <button class="btn" id="clearDateFilters">Pulisci</button>
+            </div>
+        </div>
+        
+        <div class="summary" id="summary" style="display: none;">
+            <div class="summary-item">
+                <h3>Eventi Restart (LGD)</h3>
+                <p>Totale: <span id="totalLgd">0</span></p>
+            </div>
+            <div class="summary-item">
+                <h3>Allarmi (LGA)</h3>
+                <p>Totale: <span id="totalLga">0</span></p>
+            </div>
+            <div class="summary-item">
+                <h3>Eventi (LGE)</h3>
+                <p>Totale: <span id="totalLge">0</span></p>
+            </div>
+        </div>
+        
+        <div class="filters" id="exportControlsGlobal" style="display:none; gap:10px; align-items:center; flex-wrap:wrap;">
+            <div id="exportWrapLgd" style="display:none; gap:8px; align-items:center;">
+                <button id="exportLgdBtnGlobal" class="export-btn">⬇ Esporta CSV Downtime (tabella filtrata)</button>
+                <div id="exportProgressWrapLgdGlobal" style="display:none; align-items:center; gap:8px;">
+                    <div class="progress-bar" style="width:160px;">
+                        <div id="exportProgressFillLgdGlobal" class="progress-fill" style="width:0%"></div>
+                    </div>
+                    <span id="exportProgressTextLgdGlobal" class="progress-text">0%</span>
+                </div>
+            </div>
+            <div id="exportWrapLga" style="display:none; gap:8px; align-items:center;">
+                <button id="exportLgaBtnGlobal" class="export-btn">⬇ Esporta CSV Allarmi (tabella filtrata)</button>
+                <div id="exportProgressWrapLgaGlobal" style="display:none; align-items:center; gap:8px;">
+                    <div class="progress-bar" style="width:160px;">
+                        <div id="exportProgressFillLgaGlobal" class="progress-fill" style="width:0%"></div>
+                    </div>
+                    <span id="exportProgressTextLgaGlobal" class="progress-text">0%</span>
+                </div>
+            </div>
+            <div id="exportWrapLge" style="display:none; gap:8px; align-items:center;">
+                <button id="exportLgeBtnGlobal" class="export-btn">⬇ Esporta CSV Eventi(tabella filtrata)</button>
+                <div id="exportProgressWrapLgeGlobal" style="display:none; align-items:center; gap:8px;">
+                    <div class="progress-bar" style="width:160px;">
+                        <div id="exportProgressFillLgeGlobal" class="progress-fill" style="width:0%"></div>
+                    </div>
+                    <span id="exportProgressTextLgeGlobal" class="progress-text">0%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section" id="lgdSection" style="display: none;">
+            <h2>Eventi Restart (LGD)</h2>
+            <div id="exportControlsLgd" style="display:none; gap:10px; align-items:center;">
+                <button id="exportLgdBtn" class="export-btn">Scarica ZIP</button>
+                <div id="exportProgressWrapLgd" style="display:none; align-items:center; gap:8px;">
+                    <div class="progress-bar" style="width:160px;">
+                        <div id="exportProgressFillLgd" class="progress-fill" style="width:0%"></div>
+                    </div>
+                    <span id="exportProgressTextLgd" class="progress-text">0%</span>
+                </div>
+            </div>
+            <table id="lgdTable">
+                <thead>
+                    <tr>
+                        <th>Tipo/Ragione</th>
+                        <th>Data</th>
+                        <th>Ora</th>
+                        <th>Durata</th>
+                    </tr>
+                </thead>
+                <tbody id="lgdTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Sezioni raggruppate: per ogni LGD mostra LGA/LGE entro ±2 minuti -->
+        <div class="section" id="restartGroupsSection">
+            <h2>Correlazioni Restart: LGA/LGE entro ±2 minuti</h2>
+            <div id="restartGroupsContainer"></div>
+        </div>
+        
+        <div class="section" id="lgaSection" style="display: none;">
+            <h2>Allarmi (LGA)</h2>
+            <div id="exportControlsLga" style="display:none; gap:10px; align-items:center;">
+                <button id="exportLgaBtn" class="export-btn">Scarica ZIP</button>
+                <div id="exportProgressWrapLga" style="display:none; align-items:center; gap:8px;">
+                    <div class="progress-bar" style="width:160px;">
+                        <div id="exportProgressFillLga" class="progress-fill" style="width:0%"></div>
+                    </div>
+                    <span id="exportProgressTextLga" class="progress-text">0%</span>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <style>
+                    /* Nasconde la colonna Titolo nelle tabelle LGA mantenendo i dati in memoria */
+                    .lga-table th:nth-child(2), .lga-table td:nth-child(2) { display: none; }
+                </style>
+                <table id="lgaTable" class="lga-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Titolo</th>
+                            <th>Oggetto</th>
+                            <th>Descrizione</th>
+                            <th>Dettaglio</th>
+                            <th>Severità</th>
+                            <th>Data</th>
+                            <th>Ora</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lgaTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section" id="lgeSection" style="display: none;">
+            <h2>Eventi (LGE)</h2>
+            <div id="exportControlsLge" style="display:none; gap:10px; align-items:center;">
+                <button id="exportLgeBtn" class="export-btn">Scarica ZIP</button>
+                <div id="exportProgressWrapLge" style="display:none; align-items:center; gap:8px;">
+                    <div class="progress-bar" style="width:160px;">
+                        <div id="exportProgressFillLge" class="progress-fill" style="width:0%"></div>
+                    </div>
+                    <span id="exportProgressTextLge" class="progress-text">0%</span>
+                </div>
+            </div>
+            <table id="lgeTable">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Severità</th>
+                        <th>Oggetto</th>
+                        <th>Titolo</th>
+                        <th>Dettaglio</th>
+                        <th>Data</th>
+                        <th>Ora</th>
+                    </tr>
+                </thead>
+                <tbody id="lgeTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Util per formattare date in DD/MM/YYYY da vari formati
+        function formatItDate(isoLike) {
+            const s = String(isoLike || '').trim();
+            if (!s) return '';
+            const mIso = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+            if (mIso) return `${mIso[3]}/${mIso[2]}/${mIso[1]}`;
+            const mIt = s.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+            if (mIt) return s;
+            return s;
+        }
+
+        // Util per convertire data/ora in millisecondi (robusto)
+        function toMsDateTime(d, t) {
+            const date = (d || '').trim();
+            const time = (t || '').trim();
+            if (!date) return 0;
+            let h = 0, mi = 0, s = 0;
+            const tm = time.match(/^(\d{2}):(\d{2})(?::(\d{2}))?$/);
+            if (tm) { h = +tm[1]; mi = +tm[2]; s = +(tm[3] || 0); }
+            const dmIso = date.match(/^(\d{4})-(\d{2})-(\d{2})(?:\b|\s|T|$)/);
+            if (dmIso) return Date.UTC(+dmIso[1], +dmIso[2]-1, +dmIso[3], h, mi, s, 0);
+            const dmIt = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+            if (dmIt) return Date.UTC(+dmIt[3], +dmIt[2]-1, +dmIt[1], h, mi, s, 0);
+            const mCombined = date.match(/^(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2})(?::(\d{2}))?$/);
+            if (mCombined) return Date.UTC(+mCombined[1], +mCombined[2]-1, +mCombined[3], +mCombined[4], +mCombined[5], +(mCombined[6]||0), 0);
+            const composed = tm ? `${date}T${String(h).padStart(2,'0')}:${String(mi).padStart(2,'0')}:${String(s).padStart(2,'0')}` : date;
+            const ms = new Date(composed).getTime();
+            return isNaN(ms) ? 0 : ms;
+        }
+
+        // Filtro date: ottiene i bounds solo dagli input (niente preset iniziale)
+        function getDateBounds() {
+            const dateFromEl = document.getElementById('dateFrom');
+            const dateToEl = document.getElementById('dateTo');
+            const fromVal = ((dateFromEl ? dateFromEl.value : '') || '').trim();
+            const toVal = ((dateToEl ? dateToEl.value : '') || '').trim();
+            const fromMs = fromVal ? toMsDateTime(fromVal, '00:00:00') : -Infinity;
+            const toMs = toVal ? toMsDateTime(toVal, '23:59:59') : Infinity;
+            return [fromMs, toMs];
+        }
+        function inBounds(dateIsoOrYmd, timeStr, bounds) {
+            const [fromMs, toMs] = Array.isArray(bounds) ? bounds : getDateBounds();
+            const ms = toMsDateTime(dateIsoOrYmd || '', timeStr || '');
+            return ms > 0 && ms >= fromMs && ms <= toMs;
+        }
+
+        // Helper per ottenere le classi CSS per la severità (memoizzato)
+        const severityCache = new Map();
+        function getSeverityMeta(sevRaw) {
+            if (severityCache.has(sevRaw)) {
+                return severityCache.get(sevRaw);
+            }
+            const s = (sevRaw || '').toString().toLowerCase();
+            let result;
+            if (/crit|emerg|fatal|sev[5-9]/.test(s)) result = { className: 'sev-critical', icon: '❗' };
+            else if (/maj|high|alto|sev[3-4]/.test(s)) result = { className: 'sev-major', icon: '⚠' };
+            else if (/warn|atten|avviso/.test(s)) result = { className: 'sev-warning', icon: '⚠' };
+            else if (/min|medium|medio|sev[2]/.test(s)) result = { className: 'sev-minor', icon: '▲' };
+            else if (/info|notice|log/.test(s)) result = { className: 'sev-info', icon: 'ℹ' };
+            else if (/clear|ok|norm|none/.test(s)) result = { className: 'sev-clear', icon: '✔' };
+            else result = { className: 'sev-info', icon: 'ℹ' };
+            severityCache.set(sevRaw, result);
+            return result;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let nodeData = { lgdEvents: [], lgaEvents: [], lgeEvents: [] };
+            // Precedenza al parametro URL ?node; se assente, usa localStorage
+            let nodeName = '';
+            {
+                const params = new URLSearchParams(window.location.search);
+                const nodeParam = (params.get('node') || '').trim();
+                if (nodeParam) {
+                    const fileName = /\.log$/i.test(nodeParam) ? nodeParam : `${nodeParam}.log`;
+                    try { localStorage.setItem('selected_node_name', fileName); } catch (_) {}
+                    nodeName = fileName;
+                } else {
+                    nodeName = localStorage.getItem('selected_node_name') || '';
+                }
+            }
+            const nodeNameFull = /\.log$/i.test(nodeName) ? nodeName : (nodeName ? nodeName + '.log' : '');
+            // Modalità solo-backend: ignora completamente cache locale e ricostruzione
+            
+            if (!nodeName) {
+                const s = document.getElementById('status');
+                s.className = 'status error';
+                s.textContent = 'Errore: Nessun nodo selezionato. Torna alle statistiche.';
+                return;
+            }
+
+            // Inizializza UI filtro date senza precompilare valori
+            (function initDateFilters(){
+                const dfEl = document.getElementById('dateFrom');
+                const dtEl = document.getElementById('dateTo');
+                const clearBtn = document.getElementById('clearDateFilters');
+                if (dfEl) {
+                    dfEl.addEventListener('change', (e) => {
+                        try { localStorage.setItem('node_detail_date_from', e.target.value || ''); } catch(_){}
+                        renderFromNodeData();
+                    });
+                }
+                if (dtEl) {
+                    dtEl.addEventListener('change', (e) => {
+                        try { localStorage.setItem('node_detail_date_to', e.target.value || ''); } catch(_){}
+                        renderFromNodeData();
+                    });
+                }
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', () => {
+                        try { localStorage.removeItem('node_detail_date_from'); localStorage.removeItem('node_detail_date_to'); } catch(_){}
+                        if (dfEl) dfEl.value = '';
+                        if (dtEl) dtEl.value = '';
+                        renderFromNodeData();
+                    });
+                }
+            })();
+
+            // Placeholder: verrà rimpiazzata con render completo senza reload
+            function renderFromNodeData() {
+                let [fromMs, toMs] = getDateBounds();
+                let filteredLgd = (nodeData.lgdEvents || []).filter(e => inBounds(e.dateIso || e.date || '', e.time || '', [fromMs, toMs]));
+                let filteredLga = (nodeData.lgaEvents || []).filter(a => inBounds(a.dateIso || a.date || '', a.time || '', [fromMs, toMs]));
+                let filteredLge = (nodeData.lgeEvents || []).filter(e => inBounds(e.dateIso || e.date || '', e.time || '', [fromMs, toMs]));
+
+                // Se i filtri correnti danno zero risultati ma ci sono eventi, applica auto-range min/max una sola volta
+                try {
+                    const totalAll = (nodeData.lgdEvents?.length || 0) + (nodeData.lgaEvents?.length || 0) + (nodeData.lgeEvents?.length || 0);
+                    const totalFiltered = (filteredLgd.length + filteredLga.length + filteredLge.length);
+                    const autoKey = 'node_detail_auto_range_applied';
+                    const alreadyApplied = localStorage.getItem(autoKey) === '1';
+                    if (!alreadyApplied && totalAll > 0 && totalFiltered === 0) {
+                        const msList = [];
+                        (nodeData.lgaEvents || []).forEach(e => { const ms = toMsDateTime(e.dateIso || e.date || '', e.time || ''); if (ms > 0) msList.push(ms); });
+                        (nodeData.lgeEvents || []).forEach(e => { const ms = toMsDateTime(e.dateIso || e.date || '', e.time || ''); if (ms > 0) msList.push(ms); });
+                        (nodeData.lgdEvents || []).forEach(e => { const ms = toMsDateTime(e.dateIso || e.date || '', e.time || ''); if (ms > 0) msList.push(ms); });
+                        if (msList.length) {
+                            const minMs = Math.min.apply(null, msList);
+                            const maxMs = Math.max.apply(null, msList);
+                            const dfEl = document.getElementById('dateFrom');
+                            const dtEl = document.getElementById('dateTo');
+                            const fmtYmd = (ms) => { const d = new Date(ms); const y = d.getUTCFullYear(); const m = String(d.getUTCMonth()+1).padStart(2,'0'); const dd = String(d.getUTCDate()).padStart(2,'0'); return `${y}-${m}-${dd}`; };
+                            const newFrom = fmtYmd(minMs);
+                            const newTo = fmtYmd(maxMs);
+                            if (dfEl) dfEl.value = newFrom;
+                            if (dtEl) dtEl.value = newTo;
+                            try { localStorage.setItem('node_detail_date_from', newFrom); localStorage.setItem('node_detail_date_to', newTo); localStorage.setItem(autoKey, '1'); } catch(_){}
+                            // Aggiorna bounds e ricalcola filtri
+                            fromMs = minMs; toMs = maxMs;
+                            filteredLgd = (nodeData.lgdEvents || []).filter(e => inBounds(e.dateIso || e.date || '', e.time || '', [fromMs, toMs]));
+                            filteredLga = (nodeData.lgaEvents || []).filter(a => inBounds(a.dateIso || a.date || '', a.time || '', [fromMs, toMs]));
+                            filteredLge = (nodeData.lgeEvents || []).filter(e => inBounds(e.dateIso || e.date || '', e.time || '', [fromMs, toMs]));
+                        }
+                    }
+                } catch(_){}
+
+                function stripLogExt(name) { return (name || '').replace(/\.log$/i, ''); }
+                const nodeLabel = stripLogExt(nodeNameFull || nodeName);
+                const nodeEl = document.getElementById('nodeName');
+                if (nodeEl) nodeEl.textContent = nodeLabel;
+                document.title = 'Dettaglio Nodo: ' + nodeLabel;
+
+                const totalLgdEl = document.getElementById('totalLgd');
+                const totalLgaEl = document.getElementById('totalLga');
+                const totalLgeEl = document.getElementById('totalLge');
+                if (totalLgdEl) totalLgdEl.textContent = filteredLgd.length;
+                if (totalLgaEl) totalLgaEl.textContent = filteredLga.length;
+                if (totalLgeEl) totalLgeEl.textContent = filteredLge.length;
+                const summaryEl = document.getElementById('summary');
+                if (summaryEl) summaryEl.style.display = 'flex';
+                const statusEl = document.getElementById('status');
+                if (statusEl) statusEl.style.display = 'none';
+
+                // Tabella LGD
+                const lgdTableBody = document.getElementById('lgdTableBody');
+                if (lgdTableBody) {
+                    lgdTableBody.innerHTML = '';
+                    if (filteredLgd.length > 0) {
+                        const sorted = [...filteredLgd].sort((a, b) => {
+                            const msA = toMsDateTime(a.dateIso || a.date || '', a.time || '');
+                            const msB = toMsDateTime(b.dateIso || b.date || '', b.time || '');
+                            return msB - msA;
+                        });
+                        sorted.forEach(event => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${event.typeReason || ''}</td>
+                                <td>${formatItDate(event.dateIso || event.date || '')}</td>
+                                <td>${event.time || ''}</td>
+                                <td>${event.duration || ''}</td>
+                            `;
+                            lgdTableBody.appendChild(row);
+                        });
+                    } else {
+                        const row = document.createElement('tr');
+                        row.innerHTML = '<td colspan="4">Nessun evento restart nel periodo selezionato</td>';
+                        lgdTableBody.appendChild(row);
+                    }
+                }
+
+                // Delta rispetto ai restart
+                const lgdTimesMs = filteredLgd
+                    .map(e => toMsDateTime(e.dateIso || e.date || '', e.time || ''))
+                    .filter(ms => ms > 0);
+
+                // Raggruppi per restart
+                renderRestartGroups(filteredLgd, filteredLga, filteredLge);
+
+                // Tabella LGA globale
+                const lgaTableBody = document.getElementById('lgaTableBody');
+                if (lgaTableBody) {
+                    lgaTableBody.innerHTML = '';
+                    const filteredLga2 = filteredLga
+                        .filter(alarm => {
+                            const ms = toMsDateTime(alarm.dateIso || alarm.date || '', alarm.time || '');
+                            return ms > 0;
+                        })
+                        .sort((a, b) => {
+                            const msA = toMsDateTime(a.dateIso || a.date || '', a.time || '');
+                            const msB = toMsDateTime(b.dateIso || b.date || '', b.time || '');
+                            return msB - msA;
+                        });
+                    if (filteredLga2.length > 0) {
+                        filteredLga2.forEach(alarm => {
+                            const row = document.createElement('tr');
+                            const sevMeta = getSeverityMeta(alarm.severity);
+                            const ms = toMsDateTime(alarm.dateIso || alarm.date || '', alarm.time || '');
+                            let deltaBadge = '';
+                            if (lgdTimesMs && lgdTimesMs.length) {
+                                let best = null;
+                                for (const lgdMs of lgdTimesMs) {
+                                    const d = ms - lgdMs;
+                                    if (best === null || Math.abs(d) < Math.abs(best)) best = d;
+                                }
+                                if (best !== null && Math.abs(best) <= 120000) {
+                                    const deltaSec = Math.round(best / 1000);
+                                    const isAfter = deltaSec >= 0;
+                                    deltaBadge = ` <span class="delta-badge ${isAfter ? 'badge-after' : 'badge-before'}">${isAfter ? '+' : ''}${deltaSec}s</span>`;
+                                }
+                            }
+                            row.innerHTML = `
+                                <td>${alarm.type || ''}</td>
+                                <td>${alarm.title || ''}</td>
+                                <td>${alarm.object || ''}</td>
+                                <td>${alarm.title || alarm.object || ''}</td>
+                                <td>${alarm.detail || ''}</td>
+                                <td><span class="severity-pill ${sevMeta.className}" title="${alarm.severity || ''}">${sevMeta.icon} ${alarm.severity || ''}</span></td>
+                                <td>${formatItDate(alarm.dateIso || alarm.date || '')}</td>
+                                <td>${(alarm.time || '') + deltaBadge}</td>
+                            `;
+                            lgaTableBody.appendChild(row);
+                        });
+                    } else {
+                        const row = document.createElement('tr');
+                        row.innerHTML = '<td colspan="8">Nessun allarme nel periodo selezionato</td>';
+                        lgaTableBody.appendChild(row);
+                    }
+                }
+
+                // Tabella LGE globale
+                const lgeTableBody = document.getElementById('lgeTableBody');
+                if (lgeTableBody) {
+                    lgeTableBody.innerHTML = '';
+                    const filteredLge2 = filteredLge
+                        .filter(event => {
+                            const ms = toMsDateTime(event.dateIso || event.date || '', event.time || '');
+                            return ms > 0;
+                        })
+                        .sort((a, b) => {
+                            const msA = toMsDateTime(a.dateIso || a.date || '', a.time || '');
+                            const msB = toMsDateTime(b.dateIso || b.date || '', b.time || '');
+                            return msB - msA;
+                        });
+                    if (filteredLge2.length > 0) {
+                        filteredLge2.forEach(event => {
+                            const row = document.createElement('tr');
+                            const ms = toMsDateTime(event.dateIso || event.date || '', event.time || '');
+                            let deltaBadge = '';
+                            if (lgdTimesMs && lgdTimesMs.length) {
+                                let best = null;
+                                for (const lgdMs of lgdTimesMs) {
+                                    const d = ms - lgdMs;
+                                    if (best === null || Math.abs(d) < Math.abs(best)) best = d;
+                                }
+                                if (best !== null && Math.abs(best) <= 120000) {
+                                    const deltaSec = Math.round(best / 1000);
+                                    const isAfter = deltaSec >= 0;
+                                    deltaBadge = ` <span class="delta-badge ${isAfter ? 'badge-after' : 'badge-before'}">${isAfter ? '+' : ''}${deltaSec}s</span>`;
+                                }
+                            }
+                            row.innerHTML = `
+                                <td>${event.type || ''}</td>
+                                <td>${event.title || ''}</td>
+                                <td>${event.object || ''}</td>
+                                <td>${event.detail || ''}</td>
+                                <td>${formatItDate(event.dateIso || event.date || '')}</td>
+                                <td>${(event.time || '') + deltaBadge}</td>
+                            `;
+                            lgeTableBody.appendChild(row);
+                        });
+                    } else {
+                        const row = document.createElement('tr');
+                        row.innerHTML = '<td colspan="6">Nessun evento generale nel periodo selezionato</td>';
+                        lgeTableBody.appendChild(row);
+                    }
+                }
+
+                // Aggiorna controlli di esportazione in base ai filtri correnti
+                const exportLgdControls = document.getElementById('exportControlsLgd');
+                const exportLgaControls = document.getElementById('exportControlsLga');
+                const exportLgeControls = document.getElementById('exportControlsLge');
+                const lgaForExport = filteredLga.filter(alarm => {
+                    const ms = toMsDateTime(alarm.dateIso || alarm.date || '', alarm.time || '');
+                    return ms > 0;
+                });
+                const lgeForExport = filteredLge.filter(event => {
+                    const ms = toMsDateTime(event.dateIso || event.date || '', event.time || '');
+                    return ms > 0;
+                });
+                if (exportLgdControls) exportLgdControls.style.display = (filteredLgd && filteredLgd.length > 0) ? 'flex' : 'none';
+                if (exportLgaControls) exportLgaControls.style.display = (lgaForExport && lgaForExport.length > 0) ? 'flex' : 'none';
+                if (exportLgeControls) exportLgeControls.style.display = (lgeForExport && lgeForExport.length > 0) ? 'flex' : 'none';
+
+                const expGlobal = document.getElementById('exportControlsGlobal');
+                const wrapLgd = document.getElementById('exportWrapLgd');
+                const wrapLga = document.getElementById('exportWrapLga');
+                const wrapLge = document.getElementById('exportWrapLge');
+                const countLgd = (filteredLgd || []).length;
+                const countLga = (lgaForExport || []).length;
+                const countLge = (lgeForExport || []).length;
+                if (expGlobal) expGlobal.style.display = (countLgd + countLga + countLge) > 0 ? 'flex' : 'none';
+                if (wrapLgd) wrapLgd.style.display = countLgd > 0 ? 'flex' : 'none';
+                if (wrapLga) wrapLga.style.display = countLga > 0 ? 'flex' : 'none';
+                if (wrapLge) wrapLge.style.display = countLge > 0 ? 'flex' : 'none';
+            }
+            
+            // Backend-only: carica sempre dal server e poi renderizza
+            (function fetchBackendAndRender(){
+                const s = document.getElementById('status');
+                if (s) { s.className = 'status info'; s.textContent = 'Caricamento dati dal backend…'; s.style.display = ''; }
+            const base = (window.DW_BACKEND_URL || location.origin);
+                const url = base.replace(/\/$/, '') + '/api/node/summary?node=' + encodeURIComponent(nodeNameFull);
+                fetch(url, { mode: 'cors' })
+                    .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+                    .then(resp => {
+                        nodeData = {
+                            lgdEvents: (resp && Array.isArray(resp.lgdRestarts)) ? resp.lgdRestarts : [],
+                            lgaEvents: (resp && Array.isArray(resp.lga)) ? resp.lga : [],
+                            lgeEvents: (resp && Array.isArray(resp.lge)) ? resp.lge : []
+                        };
+                        // Non impostare automaticamente i filtri data all'inizializzazione
+                        try { /* comportamento voluto: lasciare campi vuoti finché l'utente non seleziona */ } catch(_){}
+                        renderFromNodeData();
+                    })
+                    .catch(err => {
+                        const s2 = document.getElementById('status');
+                        if (s2) { s2.className = 'status error'; s2.textContent = 'Errore nel caricamento dal backend: ' + (err && err.message ? err.message : err); s2.style.display = ''; }
+                    });
+            })();
+
+            // Render raggruppato per ogni LGD: sotto ciascun restart, LGA e LGE entro ±2 minuti
+            function renderRestartGroups(lgdEvents, lgaEvents, lgeEvents) {
+                const container = document.getElementById('restartGroupsContainer');
+                // Assicura che le sezioni globali esistano nel contesto
+                const lgaSection = document.getElementById('lgaSection');
+                const lgeSection = document.getElementById('lgeSection');
+                if (!container) return;
+                container.innerHTML = '';
+
+                if (!lgdEvents || lgdEvents.length === 0) {
+                    // Se non ci sono LGD, mostra le sezioni globali LGA/LGE
+                    if (lgaSection) lgaSection.style.display = '';
+                    if (lgeSection) lgeSection.style.display = '';
+                    return;
+                }
+
+                // Ci sono LGD: mostra i raggruppamenti, mantenendo visibili le sezioni globali LGA/LGE
+                if (lgaSection) lgaSection.style.display = '';
+                if (lgeSection) lgeSection.style.display = '';
+
+                // Ordina gli LGD per data/ora decrescente
+                const sortedLgd = [...lgdEvents].sort((a, b) => {
+                    const msA = toMsDateTime(a.dateIso || a.date || '', a.time || '');
+                    const msB = toMsDateTime(b.dateIso || b.date || '', b.time || '');
+                    return msB - msA;
+                });
+
+                // Stato accordion per nodo e legenda
+                const nodeName = localStorage.getItem('selected_node_name') || '';
+                const stateKey = 'restartAccordionState::' + (nodeNameFull || nodeName);
+                let accordionState = {};
+                try { accordionState = JSON.parse(localStorage.getItem(stateKey) || '{}'); } catch (e) { accordionState = {}; }
+
+                // Legenda compatta
+                const legend = document.createElement('div');
+                legend.className = 'legend';
+                legend.innerHTML = `
+                    <div class="legend-title">Legenda</div>
+                    <div class="legend-row">
+                        <div class="legend-item"><span class="delta-badge badge-before">-12s</span><span>Δ tempo rispetto al restart</span></div>
+                        <div class="legend-item">
+                            <span class="severity-pill sev-critical" title="Critico">❗ Critico</span>
+                            <span class="severity-pill sev-major" title="Maggiore">⚠ Maggiore</span>
+                            <span class="severity-pill sev-minor" title="Minore">▲ Minore</span>
+                            <span class="severity-pill sev-info" title="Info">ℹ Info</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(legend);
+                // Azioni globali per espandere/comprimere tutti i gruppi
+                const actions = document.createElement('div');
+                actions.style.cssText = 'display:flex; gap:8px; margin:8px 0;';
+                const btnExpandAll = document.createElement('button');
+                btnExpandAll.className = 'export-btn';
+                btnExpandAll.textContent = 'Espandi tutti';
+                btnExpandAll.addEventListener('click', () => {
+                    [...container.querySelectorAll('.accordion-group')].forEach(g => {
+                        g.classList.add('expanded');
+                        const key = g.getAttribute('data-key');
+                        if (key) accordionState[key] = true;
+                    });
+                    try { localStorage.setItem(stateKey, JSON.stringify(accordionState)); } catch (_) {}
+                });
+                const btnCollapseAll = document.createElement('button');
+                btnCollapseAll.className = 'export-btn';
+                btnCollapseAll.textContent = 'Comprimi tutti';
+                btnCollapseAll.addEventListener('click', () => {
+                    [...container.querySelectorAll('.accordion-group')].forEach(g => {
+                        g.classList.remove('expanded');
+                        const key = g.getAttribute('data-key');
+                        if (key) accordionState[key] = false;
+                    });
+                    try { localStorage.setItem(stateKey, JSON.stringify(accordionState)); } catch (_) {}
+                });
+                actions.appendChild(btnExpandAll);
+                actions.appendChild(btnCollapseAll);
+                container.appendChild(actions);
+
+                const makeGroupKey = (lgd) => `${lgd.typeReason || ''}|${lgd.dateIso || lgd.date || ''}|${lgd.time || ''}|${lgd.duration || ''}`;
+
+                const getSeverityMeta = (sevRaw) => {
+                    const s = (sevRaw || '').toString().toLowerCase();
+                    if (/crit|emerg|fatal|sev[5-9]/.test(s)) return { className: 'sev-critical', icon: '❗' };
+                    if (/maj|high|alto|sev[3-4]/.test(s)) return { className: 'sev-major', icon: '⚠' };
+                    if (/warn|atten|avviso/.test(s)) return { className: 'sev-warning', icon: '⚠' };
+                    if (/min|medium|medio|sev[2]/.test(s)) return { className: 'sev-minor', icon: '▲' };
+                    if (/info|notice|log/.test(s)) return { className: 'sev-info', icon: 'ℹ' };
+                    if (/clear|ok|norm|none/.test(s)) return { className: 'sev-clear', icon: '✔' };
+                    return { className: 'sev-info', icon: 'ℹ' };
+                };
+
+                // Render gruppi
+                sortedLgd.forEach((lgd, idx) => {
+                    const msLgd = toMsDateTime(lgd.dateIso || lgd.date || '', lgd.time || '');
+                    // Contenitore del gruppo
+                    const group = document.createElement('div');
+                    group.className = 'accordion-group';
+                    const groupKey = makeGroupKey(lgd);
+                    group.setAttribute('data-key', groupKey);
+                    if (Object.prototype.hasOwnProperty.call(accordionState, groupKey)) {
+                        if (accordionState[groupKey]) group.classList.add('expanded');
+                    } else {
+                        // Espandi di default se non è stato salvato uno stato
+                        group.classList.add('expanded');
+                    }
+
+                    // Intestazione del gruppo (info restart) con toggle
+                    const header = document.createElement('div');
+                    header.className = 'accordion-header';
+                    const caret = document.createElement('span');
+                    caret.className = 'accordion-caret';
+                    caret.textContent = '▶';
+                    const title = document.createElement('div');
+                    title.className = 'accordion-title';
+                    const dateStr = formatItDate(lgd.dateIso || lgd.date || '');
+                    const timeStr = lgd.time || '';
+                    const durStr = lgd.duration ? ` ${lgd.duration}` : '';
+                    title.textContent = `${lgd.typeReason || ''}  ${dateStr}  ${timeStr}  ${durStr}`;
+                    const meta = document.createElement('div');
+                    meta.className = 'accordion-meta';
+                    meta.textContent = '';
+                    header.appendChild(caret);
+                    header.appendChild(title);
+                    header.appendChild(meta);
+                    header.addEventListener('click', () => {
+                        group.classList.toggle('expanded');
+                        const isExpanded = group.classList.contains('expanded');
+                        accordionState[groupKey] = isExpanded;
+                        try { localStorage.setItem(stateKey, JSON.stringify(accordionState)); } catch (e) {}
+                    });
+                    group.appendChild(header);
+
+                    // Contenuto del gruppo
+                    const content = document.createElement('div');
+                    content.className = 'accordion-content';
+
+                    // Tabella aggregata LGA/LGE (cluster entro ±2 minuti)
+                    const aggTitle = document.createElement('h4');
+                    aggTitle.textContent = 'Eventi correlati (LGA/LGE) raggruppati per ±2 minuti';
+                    content.appendChild(aggTitle);
+
+                    // Costruisce array combinato LGA+LGE entro ±2 minuti dal restart
+                    const lgaFilteredAgg = (lgaEvents || [])
+                        .filter(a => {
+                            const ms = toMsDateTime(a.dateIso || a.date || '', a.time || '');
+                            return ms > 0 && Math.abs(ms - msLgd) <= 2 * 60 * 1000;
+                        })
+                        .sort((a, b) => {
+                            const msA = toMsDateTime(a.dateIso || a.date || '', a.time || '');
+                            const msB = toMsDateTime(b.dateIso || b.date || '', b.time || '');
+                            return msA - msB; // ordinati per tempo crescente per clustering
+                        });
+                    const lgeFilteredAgg = (lgeEvents || [])
+                        .filter(e => {
+                            const ms = toMsDateTime(e.dateIso || e.date || '', e.time || '');
+                            return ms > 0 && Math.abs(ms - msLgd) <= 2 * 60 * 1000;
+                        })
+                        .sort((a, b) => {
+                            const msA = toMsDateTime(a.dateIso || a.date || '', a.time || '');
+                            const msB = toMsDateTime(b.dateIso || b.date || '', b.time || '');
+                            return msA - msB;
+                        });
+
+                    const combinedAgg = [
+                        ...lgaFilteredAgg.map(e => ({ ...e, _kind: 'LGA' })),
+                        ...lgeFilteredAgg.map(e => ({ ...e, _kind: 'LGE' }))
+                    ].sort((a, b) => {
+                        const msA = toMsDateTime(a.dateIso || a.date || '', a.time || '');
+                        const msB = toMsDateTime(b.dateIso || b.date || '', b.time || '');
+                        return msA - msB;
+                    });
+
+                    // Sezione aggregata LGA/LGE rimossa
+
+                    // Tabella LGA del gruppo
+                    const lgaTitle = document.createElement('h4');
+                    lgaTitle.textContent = 'Allarmi (LGA)';
+                    content.appendChild(lgaTitle);
+
+                    const lgaTable = document.createElement('table');
+                    lgaTable.className = 'lga-table';
+                    lgaTable.innerHTML = `
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Titolo</th>
+                                <th>Oggetto</th>
+                                <th>Descrizione</th>
+                                <th>Dettaglio</th>
+                                <th>Severità</th>
+                                <th>Data</th>
+                                <th>Ora</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    `;
+                    const lgaTbody = lgaTable.querySelector('tbody');
+                    const lgaFiltered = (lgaEvents || [])
+                        .filter(a => {
+                            const ms = toMsDateTime(a.dateIso || a.date || '', a.time || '');
+                            return ms > 0 && Math.abs(ms - msLgd) <= 2 * 60 * 1000;
+                        })
+                        .sort((a, b) => {
+                            const msA = toMsDateTime(a.dateIso || a.date || '', a.time || '');
+                            const msB = toMsDateTime(b.dateIso || b.date || '', b.time || '');
+                            return msB - msA;
+                        });
+                    if (lgaFiltered.length === 0) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = '<td colspan="8">Nessun allarme nel range ±2 minuti</td>';
+                        lgaTbody.appendChild(row);
+                    } else {
+                         lgaFiltered.forEach(alarm => {
+                             const row = document.createElement('tr');
+                             const ms = toMsDateTime(alarm.dateIso || alarm.date || '', alarm.time || '');
+                             const deltaSec = Math.round((ms - msLgd) / 1000);
+                             const isAfter = deltaSec >= 0;
+                             row.className = isAfter ? 'row-after' : 'row-before';
+                            const sevMeta = getSeverityMeta(alarm.severity);
+                             row.innerHTML = `
+                                 <td>${alarm.type || ''}</td>
+                                 <td>${alarm.title || ''}</td>
+                                 <td>${alarm.object || ''}</td>
+                                 <td>${alarm.title || alarm.object || ''}</td>
+                                 <td>${alarm.detail || ''}</td>
+                                 <td><span class="severity-pill ${sevMeta.className}" title="${alarm.severity || ''}">${sevMeta.icon} ${alarm.severity || ''}</span></td>
+                                 <td>${formatItDate(alarm.dateIso || alarm.date || '')}</td>
+                                 <td>${alarm.time || ''} <span class="delta-badge ${isAfter ? 'badge-after' : 'badge-before'}">${isAfter ? '+' : ''}${deltaSec}s</span></td>
+                             `;
+                             lgaTbody.appendChild(row);
+                         });
+                    }
+                    content.appendChild(lgaTable);
+
+                    // Tabella LGE del gruppo
+                    const lgeTitle = document.createElement('h4');
+                    lgeTitle.textContent = 'Eventi (LGE)';
+                    content.appendChild(lgeTitle);
+
+                    const lgeTable = document.createElement('table');
+                    lgeTable.innerHTML = `
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Severità</th>
+                                <th>Oggetto</th>
+                                <th>Titolo</th>
+                                <th>Dettaglio</th>
+                                <th>Data</th>
+                                <th>Ora</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    `;
+                    const lgeTbody = lgeTable.querySelector('tbody');
+                    const lgeFiltered = (lgeEvents || [])
+                        .filter(e => {
+                            const ms = toMsDateTime(e.dateIso || e.date || '', e.time || '');
+                            return ms > 0 && Math.abs(ms - msLgd) <= 2 * 60 * 1000;
+                        })
+                        .sort((a, b) => {
+                            const msA = toMsDateTime(a.dateIso || a.date || '', a.time || '');
+                            const msB = toMsDateTime(b.dateIso || b.date || '', b.time || '');
+                            return msB - msA;
+                        });
+                    if (lgeFiltered.length === 0) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = '<td colspan="7">Nessun evento nel range ±2 minuti</td>';
+                        lgeTbody.appendChild(row);
+                    } else {
+                        lgeFiltered.forEach(event => {
+                            const row = document.createElement('tr');
+                            const ms = toMsDateTime(event.dateIso || event.date || '', event.time || '');
+                            const deltaSec = Math.round((ms - msLgd) / 1000);
+                            const isAfter = deltaSec >= 0;
+                            row.className = isAfter ? 'row-after' : 'row-before';
+                            const sevMeta = getSeverityMeta(event.severity);
+                            row.innerHTML = `
+                                <td>${event.type || ''}</td>
+                                <td><span class="severity-pill ${sevMeta.className}" title="${event.severity || ''}">${sevMeta.icon} ${event.severity || ''}</span></td>
+                                <td>${event.object || ''}</td>
+                                <td>${event.title || ''}</td>
+                                <td>${event.detail || ''}</td>
+                                <td>${formatItDate(event.dateIso || event.date || '')}</td>
+                                <td>${event.time || ''} <span class="delta-badge ${isAfter ? 'badge-after' : 'badge-before'}">${isAfter ? '+' : ''}${deltaSec}s</span></td>
+                            `;
+                            lgeTbody.appendChild(row);
+                        });
+                    }
+                    content.appendChild(lgeTable);
+
+                    // Aggiorna meta con conteggi
+                    meta.textContent = `LGA: ${lgaFiltered.length} · LGE: ${lgeFiltered.length}`;
+
+                    group.appendChild(content);
+                container.appendChild(group);
+                });
+            }
+
+            // Nota: il render dei gruppi e delle tabelle globali viene già eseguito dentro renderFromNodeData()
+            // Qui non serve alcun render aggiuntivo.
+
+            // Base per servizi di export
+        const exportServerBase = (typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin);
+
+            function showExportProgress(ids) {
+                if (!ids) return;
+                const wrap = document.getElementById(ids.wrapId);
+                const fill = document.getElementById(ids.fillId);
+                const text = document.getElementById(ids.textId);
+                if (wrap && fill && text) {
+                    wrap.style.display = 'inline-flex';
+                    fill.style.width = '0%';
+                    text.textContent = '0%';
+                }
+            }
+
+            function setExportProgress(percent, message, ids) {
+                if (!ids) return;
+                const fill = document.getElementById(ids.fillId);
+                const text = document.getElementById(ids.textId);
+                if (fill) fill.style.width = (typeof percent === 'number') ? `${Math.max(0, Math.min(100, percent))}%` : fill.style.width;
+                if (text) text.textContent = (message || '').trim() + (typeof percent === 'number' ? ` (${percent}%)` : '');
+            }
+
+            function hideExportProgressAfterDelay(ids, delay = 1500) {
+                setTimeout(() => {
+                    if (!ids) return;
+                    const wrap = document.getElementById(ids.wrapId);
+                    const text = document.getElementById(ids.textId);
+                    if (wrap) wrap.style.display = 'none';
+                    if (text) text.textContent = '';
+                }, delay);
+            }
+
+            function startExport(jobType, payload, ids, btn) {
+                if (btn) btn.disabled = true;
+                showExportProgress(ids);
+                setExportProgress(0, 'Avvio esportazione...', ids);
+                fetch(exportServerBase + '/export/start', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: jobType, data: payload })
+                }).then(r => {
+                    if (!r.ok) throw new Error('Server export non raggiungibile');
+                    return r.json();
+                }).then(resp => {
+                    const jobId = resp.job_id;
+                    if (!jobId) throw new Error('Job ID non ricevuto');
+                    let tries = 0;
+                    const maxTries = 60;
+                    const timer = setInterval(() => {
+                        tries++;
+                        fetch(exportServerBase + '/export/status?id=' + encodeURIComponent(jobId))
+                          .then(r => r.json())
+                          .then(info => {
+                              const percent = (typeof info.percent === 'number') ? info.percent : undefined;
+                              const msg = info.message || ('Stato: ' + info.status);
+                              setExportProgress(percent, msg, ids);
+                              if (info.status === 'done') {
+                                  clearInterval(timer);
+                                  setExportProgress(100, 'Completato', ids);
+                                  const dlUrl = exportServerBase + '/export/download?id=' + encodeURIComponent(jobId);
+                                  window.open(dlUrl, '_blank');
+                                  if (btn) btn.disabled = false;
+                                  hideExportProgressAfterDelay(ids, 1000);
+                              } else if (info.status === 'error') {
+                                  clearInterval(timer);
+                                  setExportProgress(undefined, 'Errore esportazione', ids);
+                                  if (btn) btn.disabled = false;
+                                  hideExportProgressAfterDelay(ids, 2000);
+                              } else if (tries >= maxTries) {
+                                  clearInterval(timer);
+                                  setExportProgress(undefined, 'Timeout export; uso CSV locale.', ids);
+                                  try {
+                                      if (jobType === 'LGD_RESTARTS') clientCsvFallbackLGD(payload.lgdRestarts || []);
+                                      else if (jobType === 'LGA') clientCsvFallbackLGA(payload.lga || []);
+                                      else if (jobType === 'LGE') clientCsvFallbackLGE(payload.lge || []);
+                                  } catch (_) {}
+                                  if (btn) btn.disabled = false;
+                                  hideExportProgressAfterDelay(ids, 2500);
+                              }
+                          }).catch(() => {});
+                    }, 800);
+                }).catch(() => {
+                    setExportProgress(undefined, 'Server export non disponibile; uso CSV locale.', ids);
+                    try {
+                        if (jobType === 'LGD_RESTARTS') clientCsvFallbackLGD(payload.lgdRestarts || []);
+                        else if (jobType === 'LGA') clientCsvFallbackLGA(payload.lga || []);
+                        else if (jobType === 'LGE') clientCsvFallbackLGE(payload.lge || []);
+                    } catch (_) {}
+                    if (btn) btn.disabled = false;
+                    hideExportProgressAfterDelay(ids, 2500);
+                });
+            }
+
+            function clientCsvFallbackLGD(items) {
+                const headers = ['File Name','Data','Ora','Tipo/Ragione','Valore','Commento','Durata'];
+                const esc = s => String(s || '').replace(/"/g, '""');
+                const lines = [headers.join(',')].concat(items.map(it => {
+                    const cols = [
+                        esc(it.fileName), esc(it.dateIso || it.date), esc(it.time), esc(it.typeReason || it.type || it.reason),
+                        esc(it.value || ''), esc(it.comment || ''), esc(it.duration || '')
+                    ];
+                    return '"' + cols.join('","') + '"';
+                }));
+                const csv = lines.join('\r\n');
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const a = document.createElement('a');
+                const now = new Date();
+                const fn = `LGD_export_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}.csv`;
+                a.href = URL.createObjectURL(blob);
+                a.download = fn;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+            }
+
+            function clientCsvFallbackLGA(items) {
+                const headers = ['File Name','Data','Ora','Type','Sev','Oggetto','Descrizione','Dettaglio'];
+                const esc = s => String(s || '').replace(/"/g, '""');
+                const lines = [headers.join(',')].concat(items.map(it => {
+                    const cols = [
+                        esc(it.fileName), esc(it.dateIso || it.date), esc(it.time), esc(it.type),
+                        esc(it.severity || ''), esc(it.object || ''), esc(it.title || ''), esc(it.detail || '')
+                    ];
+                    return '"' + cols.join('","') + '"';
+                }));
+                const csv = lines.join('\r\n');
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const a = document.createElement('a');
+                const now = new Date();
+                const fn = `LGA_export_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}.csv`;
+                a.href = URL.createObjectURL(blob);
+                a.download = fn;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+            }
+
+            function clientCsvFallbackLGE(items) {
+                const headers = ['File Name','Data','Ora','Type','Sev','Oggetto','Descrizione','Dettaglio'];
+                const esc = s => String(s || '').replace(/"/g, '""');
+                const lines = [headers.join(',')].concat(items.map(it => {
+                    const cols = [
+                        esc(it.fileName), esc(it.dateIso || it.date), esc(it.time), esc(it.type),
+                        esc(it.severity || ''), esc(it.object || ''), esc(it.title || ''), esc(it.detail || '')
+                    ];
+                    return '"' + cols.join('","') + '"';
+                }));
+                const csv = lines.join('\r\n');
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const a = document.createElement('a');
+                const now = new Date();
+                const fn = `LGE_export_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}.csv`;
+                a.href = URL.createObjectURL(blob);
+                a.download = fn;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+            }
+
+            const exportLgdBtn = document.getElementById('exportLgdBtn');
+            const exportLgaBtn = document.getElementById('exportLgaBtn');
+            const exportLgeBtn = document.getElementById('exportLgeBtn');
+            const exportLgdBtnGlobal = document.getElementById('exportLgdBtnGlobal');
+            const exportLgaBtnGlobal = document.getElementById('exportLgaBtnGlobal');
+            const exportLgeBtnGlobal = document.getElementById('exportLgeBtnGlobal');
+
+            if (exportLgdBtn) {
+                exportLgdBtn.addEventListener('click', () => {
+                    const ids = { wrapId: 'exportProgressWrapLgd', fillId: 'exportProgressFillLgd', textId: 'exportProgressTextLgd' };
+                    const [fromMs, toMs] = getDateBounds();
+                    const filteredLgd = (nodeData.lgdEvents || []).filter(e => inBounds(e.dateIso || e.date || '', e.time || '', [fromMs, toMs]));
+                    const items = filteredLgd.map(it => ({
+                        fileName: it.fileName || (nodeNameFull || nodeName),
+                        dateIso: it.dateIso || it.date || '',
+                        time: it.time || '',
+                        typeReason: it.typeReason || it.type || it.reason || '',
+                        value: it.value || '',
+                        comment: it.comment || '',
+                        duration: it.duration || ''
+                    }));
+                    startExport('LGD_RESTARTS', { lgdRestarts: items }, ids, exportLgdBtn);
+                });
+            }
+            if (exportLgaBtn) {
+                exportLgaBtn.addEventListener('click', () => {
+                    const ids = { wrapId: 'exportProgressWrapLga', fillId: 'exportProgressFillLga', textId: 'exportProgressTextLga' };
+                    const [fromMs, toMs] = getDateBounds();
+                    const filteredLga = (nodeData.lgaEvents || []).filter(a => inBounds(a.dateIso || a.date || '', a.time || '', [fromMs, toMs]));
+                    const lgaForExport = filteredLga.filter(alarm => toMsDateTime(alarm.dateIso || alarm.date || '', alarm.time || '') > 0);
+                    const items = lgaForExport.map(it => ({
+                        fileName: it.fileName || (nodeNameFull || nodeName),
+                        dateIso: it.dateIso || it.date || '',
+                        time: it.time || '',
+                        type: it.type || '',
+                        severity: it.severity || '',
+                        object: it.object || '',
+                        title: it.title || '',
+                        detail: it.detail || ''
+                    }));
+                    startExport('LGA', { lga: items }, ids, exportLgaBtn);
+                });
+            }
+            if (exportLgeBtn) {
+                exportLgeBtn.addEventListener('click', () => {
+                    const ids = { wrapId: 'exportProgressWrapLge', fillId: 'exportProgressFillLge', textId: 'exportProgressTextLge' };
+                    const [fromMs, toMs] = getDateBounds();
+                    const filteredLge = (nodeData.lgeEvents || []).filter(e => inBounds(e.dateIso || e.date || '', e.time || '', [fromMs, toMs]));
+                    const lgeForExport = filteredLge.filter(event => toMsDateTime(event.dateIso || event.date || '', event.time || '') > 0);
+                    const items = lgeForExport.map(it => ({
+                        fileName: it.fileName || (nodeNameFull || nodeName),
+                        dateIso: it.dateIso || it.date || '',
+                        time: it.time || '',
+                        type: it.type || '',
+                        severity: it.severity || '',
+                        object: it.object || '',
+                        title: it.title || '',
+                        detail: it.detail || ''
+                    }));
+                    startExport('LGE', { lge: items }, ids, exportLgeBtn);
+                });
+            }
+
+            if (exportLgdBtnGlobal) {
+                exportLgdBtnGlobal.addEventListener('click', () => {
+                    const ids = { wrapId: 'exportProgressWrapLgdGlobal', fillId: 'exportProgressFillLgdGlobal', textId: 'exportProgressTextLgdGlobal' };
+                    const [fromMs, toMs] = getDateBounds();
+                    const filteredLgd = (nodeData.lgdEvents || []).filter(e => inBounds(e.dateIso || e.date || '', e.time || '', [fromMs, toMs]));
+                    const items = filteredLgd.map(it => ({
+                        fileName: it.fileName || (nodeNameFull || nodeName),
+                        dateIso: it.dateIso || it.date || '',
+                        time: it.time || '',
+                        typeReason: it.typeReason || it.type || it.reason || '',
+                        value: it.value || '',
+                        comment: it.comment || '',
+                        duration: it.duration || ''
+                    }));
+                    startExport('LGD_RESTARTS', { lgdRestarts: items }, ids, exportLgdBtnGlobal);
+                });
+            }
+            if (exportLgaBtnGlobal) {
+                exportLgaBtnGlobal.addEventListener('click', () => {
+                    const ids = { wrapId: 'exportProgressWrapLgaGlobal', fillId: 'exportProgressFillLgaGlobal', textId: 'exportProgressTextLgaGlobal' };
+                    const [fromMs, toMs] = getDateBounds();
+                    const filteredLga = (nodeData.lgaEvents || []).filter(a => inBounds(a.dateIso || a.date || '', a.time || '', [fromMs, toMs]));
+                    const lgaForExport = filteredLga.filter(alarm => toMsDateTime(alarm.dateIso || alarm.date || '', alarm.time || '') > 0);
+                    const items = lgaForExport.map(it => ({
+                        fileName: it.fileName || (nodeNameFull || nodeName),
+                        dateIso: it.dateIso || it.date || '',
+                        time: it.time || '',
+                        type: it.type || '',
+                        severity: it.severity || '',
+                        object: it.object || '',
+                        title: it.title || '',
+                        detail: it.detail || ''
+                    }));
+                    startExport('LGA', { lga: items }, ids, exportLgaBtnGlobal);
+                });
+            }
+            if (exportLgeBtnGlobal) {
+                exportLgeBtnGlobal.addEventListener('click', () => {
+                    const ids = { wrapId: 'exportProgressWrapLgeGlobal', fillId: 'exportProgressFillLgeGlobal', textId: 'exportProgressTextLgeGlobal' };
+                    const [fromMs, toMs] = getDateBounds();
+                    const filteredLge = (nodeData.lgeEvents || []).filter(e => inBounds(e.dateIso || e.date || '', e.time || '', [fromMs, toMs]));
+                    const lgeForExport = filteredLge.filter(event => toMsDateTime(event.dateIso || event.date || '', event.time || '') > 0);
+                    const items = lgeForExport.map(it => ({
+                        fileName: it.fileName || (nodeNameFull || nodeName),
+                        dateIso: it.dateIso || it.date || '',
+                        time: it.time || '',
+                        type: it.type || '',
+                        severity: it.severity || '',
+                        object: it.object || '',
+                        title: it.title || '',
+                        detail: it.detail || ''
+                    }));
+                    startExport('LGE', { lge: items }, ids, exportLgeBtnGlobal);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

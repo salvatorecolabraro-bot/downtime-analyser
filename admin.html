@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestione Amministratore</title>
+  <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
+  <meta name="dw-backend-url" content="">
+  <script>
+    (function(){
+      var backendUrl = null;
+      try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
+      if (!backendUrl) {
+        var m = document.querySelector('meta[name="dw-backend-url"]');
+        var c = m && m.getAttribute('content');
+        if (c) backendUrl = c;
+      }
+      var proto = (location && location.protocol || '').replace(':','');
+      if (!backendUrl && (proto === 'http' || proto === 'https')) {
+        backendUrl = location.origin;
+        try { localStorage.setItem('dw_backend_url', backendUrl); } catch(_) {}
+      }
+      if (backendUrl) { window.DW_BACKEND_URL = backendUrl.replace(/\/$/, ''); }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #3b82f6;
+      --danger: #ef4444;
+      --ok: #22c55e;
+      --border: #1f2937;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: .2px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .card h2 { margin: 0 0 12px; font-size: 18px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid var(--border); padding: 8px; text-align: left; }
+    th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+    tr:hover td { background: rgba(255,255,255,0.03); }
+    .actions { display: flex; gap: 8px; }
+    button, .btn {
+      appearance: none; border: none; outline: none; cursor: pointer; border-radius: 8px;
+      padding: 8px 12px; font-weight: 600; font-size: 14px; letter-spacing: .2px;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-muted { background: #374151; color: var(--text); }
+    .field { margin-bottom: 10px; }
+    .field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    .field input, .field select {
+      width: 100%; background: #0b1220; color: var(--text); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px; font-size: 14px;
+    }
+    .row { display: flex; gap: 10px; }
+    .row .field { flex: 1; }
+    .status { margin-top: 10px; font-size: 13px; }
+    .status.ok { color: var(--ok); }
+    .status.err { color: var(--danger); }
+    .toolbar { display: flex; gap: 8px; }
+    .muted { color: var(--muted); font-size: 13px; }
+    a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gestione Amministratore</h1>
+    <nav class="toolbar">
+      <a href="index.html" class="muted">Dashboard</a>
+      <a href="stats.html" class="muted">Statistiche</a>
+      <span class="muted">Admin</span>
+    </nav>
+  </header>
+  <div class="container">
+    <div class="grid">
+      <section class="card">
+        <h2>Utenti</h2>
+        <table id="users-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Ruolo</th>
+              <th>Attivo</th>
+              <th>Azioni</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody">
+          </tbody>
+        </table>
+      </section>
+      <section class="card">
+        <h2 id="form-title">Crea nuova utenza</h2>
+        <form id="user-form">
+          <input type="hidden" id="user-id" />
+          <div class="field">
+            <label for="username">Nome utente</label>
+            <input id="username" name="username" type="text" placeholder="Es. m.rossi" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="nome@azienda.it" required />
+          </div>
+          <div class="field">
+            <label for="password">Password (in chiaro)</label>
+            <input id="password" name="password" type="text" placeholder="Imposta password per user/viewer" />
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="role">Ruolo</label>
+              <select id="role" name="role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+                <option value="viewer">Viewer</option>
+              </select>
+            </div>
+            <div class="field" style="display:flex;align-items:center;gap:8px;">
+              <input id="active" name="active" type="checkbox" checked />
+              <label for="active">Attivo</label>
+            </div>
+          </div>
+          <div class="toolbar">
+            <button type="submit" class="btn btn-primary" id="submit-btn">Crea utente</button>
+            <button type="button" class="btn btn-muted" id="reset-btn">Reset</button>
+          </div>
+          <div class="status" id="status"></div>
+        </form>
+      </section>
+    </div>
+    <!-- Gestione file DW -->
+    <section class="card" style="margin-top:18px;">
+      <h2>File caricati (DW)</h2>
+      <div class="toolbar" style="margin-bottom:10px; align-items:center;">
+        <label style="display:flex;align-items:center;gap:8px;">
+          <input type="checkbox" id="dw-select-all" />
+          <span>Seleziona tutti</span>
+        </label>
+        <button class="btn btn-danger" id="dw-delete-selected">Rimuovi selezionati</button>
+        <span class="muted" id="dw-count" style="margin-left:auto;">0 file</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:40px;">Sel</th>
+            <th>Nome file</th>
+            <th style="width:140px;">Dimensione</th>
+            <th style="width:180px;">Ultima modifica</th>
+            <th style="width:120px;">Azioni</th>
+          </tr>
+        </thead>
+        <tbody id="dw-files-tbody"></tbody>
+      </table>
+      <div class="status" id="dw-status"></div>
+    </section>
+  </div>
+
+  <script>
+            const API_BASE = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+    let editingId = null;
+
+    async function loadUsers() {
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/users`);
+        const data = await res.json();
+        const users = Array.isArray(data.users) ? data.users : [];
+        renderUsers(users);
+      } catch (e) {
+        setStatus('Errore nel caricamento utenti', true);
+      }
+    }
+
+    function renderUsers(users) {
+      const tbody = document.getElementById('users-tbody');
+      tbody.innerHTML = '';
+      if (!users.length) {
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = 5;
+        td.className = 'muted';
+        td.textContent = 'Nessun utente presente';
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+        return;
+      }
+      users.forEach(u => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHtml(u.username || '')}</td>
+          <td>${escapeHtml(u.email || '')}</td>
+          <td>${escapeHtml(u.role || 'user')}</td>
+          <td>${u.active ? 'Sì' : 'No'}</td>
+          <td class="actions"></td>
+        `;
+        const actions = tr.querySelector('.actions');
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn btn-muted';
+        editBtn.textContent = 'Modifica';
+        editBtn.onclick = () => startEdit(u);
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn btn-danger';
+        delBtn.textContent = 'Elimina';
+        delBtn.onclick = () => deleteUser(u.id);
+        actions.appendChild(editBtn);
+        actions.appendChild(delBtn);
+        tbody.appendChild(tr);
+      });
+    }
+
+    function startEdit(u) {
+      editingId = u.id;
+      document.getElementById('user-id').value = u.id || '';
+      document.getElementById('username').value = u.username || '';
+      document.getElementById('email').value = u.email || '';
+      document.getElementById('role').value = u.role || 'user';
+      document.getElementById('password').value = u.password || '';
+      document.getElementById('active').checked = !!u.active;
+      document.getElementById('form-title').textContent = 'Modifica utenza';
+      document.getElementById('submit-btn').textContent = 'Salva modifiche';
+      updatePasswordFieldState();
+      setStatus('');
+    }
+
+    function resetForm() {
+      editingId = null;
+      document.getElementById('user-id').value = '';
+      document.getElementById('username').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('role').value = 'user';
+      document.getElementById('password').value = '';
+      document.getElementById('active').checked = true;
+      document.getElementById('form-title').textContent = 'Crea nuova utenza';
+      document.getElementById('submit-btn').textContent = 'Crea utente';
+      updatePasswordFieldState();
+      setStatus('');
+    }
+
+    function updatePasswordFieldState() {
+      const role = document.getElementById('role').value;
+      const pwd = document.getElementById('password');
+      const isAdmin = role === 'admin';
+      pwd.disabled = isAdmin;
+      if (isAdmin) { pwd.placeholder = 'Password non modificabile per amministratore'; }
+      else { pwd.placeholder = 'Imposta password per user/viewer'; }
+    }
+    document.getElementById('role').addEventListener('change', updatePasswordFieldState);
+
+    async function deleteUser(id) {
+      if (!id) return;
+      const ok = confirm('Confermi l\'eliminazione dell\'utente?');
+      if (!ok) return;
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/users/delete`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id })
+        });
+        const data = await res.json();
+        if (data && data.ok) {
+          setStatus('Utente eliminato', false);
+          await loadUsers();
+          if (editingId === id) resetForm();
+        } else {
+          throw new Error(data && data.error || 'Errore eliminazione');
+        }
+      } catch (e) {
+        setStatus(e.message || 'Errore eliminazione', true);
+      }
+    }
+
+    function setStatus(msg, isErr = false) {
+      const el = document.getElementById('status');
+      el.textContent = msg || '';
+      el.className = 'status' + (isErr ? ' err' : ' ok');
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    }
+
+    document.getElementById('reset-btn').addEventListener('click', resetForm);
+    document.getElementById('user-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const role = document.getElementById('role').value;
+      const active = document.getElementById('active').checked;
+      const password = document.getElementById('password').value;
+      if (!username || !email) {
+        setStatus('Inserisci username ed email', true);
+        return;
+      }
+      try {
+        if (!editingId) {
+          const payload = { username, email, role, active };
+          if (role !== 'admin') { payload.password = password; }
+          const res = await fetch(`${API_BASE}/api/admin/users/create`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json();
+          if (data && data.ok) {
+            setStatus('Utente creato', false);
+            resetForm();
+            await loadUsers();
+          } else {
+            throw new Error(data && data.error || 'Errore creazione');
+          }
+        } else {
+          const id = editingId;
+          const payload = { id, username, email, role, active };
+          if (role !== 'admin') { payload.password = password; }
+          const res = await fetch(`${API_BASE}/api/admin/users/update`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json();
+          if (data && data.ok) {
+            setStatus('Utenza aggiornata', false);
+            resetForm();
+            await loadUsers();
+          } else {
+            throw new Error(data && data.error || 'Errore aggiornamento');
+          }
+        }
+      } catch (e) {
+        setStatus(e.message || 'Errore', true);
+      }
+    });
+
+    // Init
+    loadUsers();
+    updatePasswordFieldState();
+
+    // ===== File DW =====
+    const dwStatusEl = document.getElementById('dw-status');
+    const dwCountEl = document.getElementById('dw-count');
+    const dwSelectAllEl = document.getElementById('dw-select-all');
+    const dwDeleteBtn = document.getElementById('dw-delete-selected');
+    const dwTbody = document.getElementById('dw-files-tbody');
+
+    function setDwStatus(msg, isErr = false) {
+      if (!dwStatusEl) return;
+      dwStatusEl.textContent = msg || '';
+      dwStatusEl.className = 'status' + (isErr ? ' err' : ' ok');
+    }
+
+    function formatSize(bytes) {
+      if (typeof bytes !== 'number') return '';
+      const k = 1024; const sizes = ['Bytes','KB','MB','GB'];
+      const i = Math.floor(Math.log(bytes)/Math.log(k));
+      return `${(bytes/Math.pow(k,i)).toFixed(2)} ${sizes[i]}`;
+    }
+    function formatDate(ts) {
+      if (!ts && ts !== 0) return '';
+      const d = new Date(ts*1000);
+      return d.toLocaleString();
+    }
+
+    async function loadDwFiles() {
+      try {
+        const res = await fetch(`${API_BASE}/api/files/list`, { mode: 'cors' });
+        const data = await res.json();
+        const files = Array.isArray(data.files) ? data.files : [];
+        renderDwFiles(files);
+        setDwStatus('Elenco file aggiornato', false);
+      } catch (e) {
+        renderDwFiles([]);
+        setDwStatus('Errore nel caricamento file', true);
+      }
+    }
+
+    function renderDwFiles(files) {
+      dwTbody.innerHTML = '';
+      const count = files.length;
+      if (dwCountEl) dwCountEl.textContent = `${count} file`;
+      if (!count) {
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = 5; td.className = 'muted'; td.textContent = 'Nessun file presente in DW';
+        tr.appendChild(td); dwTbody.appendChild(tr); return;
+      }
+      files.sort((a,b) => String(a.name).localeCompare(String(b.name)));
+      files.forEach(f => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><input type="checkbox" class="dw-row-check" data-name="${escapeHtml(f.name)}" /></td>
+          <td>${escapeHtml(f.name)}</td>
+          <td>${formatSize(f.size)}</td>
+          <td>${formatDate(f.mtime)}</td>
+          <td class="actions"></td>
+        `;
+        const actions = tr.querySelector('.actions');
+        const del = document.createElement('button');
+        del.className = 'btn btn-danger'; del.textContent = 'Rimuovi';
+        del.onclick = () => deleteDwFiles([f.name]);
+        actions.appendChild(del);
+        dwTbody.appendChild(tr);
+      });
+      // Gestione select all
+      if (dwSelectAllEl) {
+        dwSelectAllEl.checked = false;
+      }
+    }
+
+    function getSelectedDwFiles() {
+      return Array.from(document.querySelectorAll('.dw-row-check'))
+        .filter(ch => ch.checked)
+        .map(ch => ch.getAttribute('data-name'));
+    }
+
+    async function deleteDwFiles(names) {
+      if (!Array.isArray(names) || !names.length) return;
+      const ok = confirm(`Confermi la rimozione di ${names.length} file?`);
+      if (!ok) return;
+      try {
+        const res = await fetch(`${API_BASE}/api/files/delete`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, mode: 'cors',
+          body: JSON.stringify({ files: names })
+        });
+        const data = await res.json();
+        if (data && data.ok) {
+          setDwStatus(`Rimossi ${data.deletedCount} file`, false);
+          await loadDwFiles();
+        } else {
+          throw new Error(data && data.error || 'Errore rimozione');
+        }
+      } catch (e) {
+        setDwStatus(e.message || 'Errore rimozione', true);
+      }
+    }
+
+    // Eventi toolbar
+    if (dwDeleteBtn) {
+      dwDeleteBtn.addEventListener('click', () => {
+        const sel = getSelectedDwFiles();
+        deleteDwFiles(sel);
+      });
+    }
+    if (dwSelectAllEl) {
+      dwSelectAllEl.addEventListener('change', (e) => {
+        const checked = e.target.checked;
+        document.querySelectorAll('.dw-row-check').forEach(ch => { ch.checked = checked; });
+      });
+    }
+
+    // Avvio
+    loadDwFiles();
+  </script>
+</body>
+</html>

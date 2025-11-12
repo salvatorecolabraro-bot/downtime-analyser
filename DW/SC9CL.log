@@ -1,0 +1,832 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/SC9CL.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 765248
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+SC9CL> lt all
+
+251007-11:23:04+0200 19.31.3.182 25.0h  stopfile=/tmp/765033
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 766463
+
+Connected to 19.31.3.182 (SubNetwork=BBMM_rckomc_R,MeContext=SC9CL,ManagedElement=SC9CL)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112257_764887/MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81.xml.cache.gz ......................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt ......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.3.182 (SubNetwork=BBMM_rckomc_R,MeContext=SC9CL,ManagedElement=SC9CL)
+
+Last MO: 17139. Loaded 17139 MOs. Total: 17140 MOs.
+
+SC9CL> hget EUtranCellFDD ^cellid
+
+251007-11:23:23+0200 19.31.3.182 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/765033
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=SC9CL1 21    
+EUtranCellFDD=SC9CL2 22    
+EUtranCellFDD=SC9CL3 23    
+=================================================================================================================
+Total: 3 MOs
+
+Added 3 MOs to group: hget_group
+
+SC9CL> hget NbIotCell ^cellid
+
+251007-11:23:24+0200 19.31.3.182 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/765033
+Total: 0 MOs
+
+SC9CL> hget NRCellDU ^cellLocalId
+
+251007-11:23:24+0200 19.31.3.182 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/765033
+Total: 0 MOs
+
+SC9CL> lgdc -m 30d
+
+251007-11:23:24+0200 19.31.3.182 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/765033
+
+Startdate=20250907.092324, Enddate=20251008.092324
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=56373
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 56373    1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112257_764887/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007092327.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112257_764887/availabilityLog765033.xml
+Parsing availabilityLog....Done.
+.
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;03:04:16;PartialOutage(Manual);33% Lrat Cell 23; ();9s;;;;;
+2025-09-08;03:04:29;PartialOutage(Manual);33% Lrat Cell 22; ();10s;;;;;
+2025-09-08;03:04:43;PartialOutage(Manual);33% Lrat Cell 21; ();11s;;;;;
+2025-09-10;14:36:45;SpontaneousCold(Other:PowerReset);CXP9024418/16_R8D21;CXP9024418/16_R8D21 (RCG123.3-3);22s;18245s (5h4m);33s;L=18245s G=18251s ;Requested: RankCold Other PowerReset Performed: RankCold Other PowerReset;Lrat LRAT Traffic Control active, Grat GRAT Traffic Control active
+2025-09-10;19:40:50;PartialOutage(System);100% Lrat Cell 21 22;CXP9024418/16_R8D21 (RCG123.3-3);1s;;;;;
+2025-09-10;19:40:51;PartialOutage(Manual);100% Lrat Cell 22;CXP9024418/16_R8D21 (RCG123.3-3);3s;;;;;
+2025-09-10;19:40:55;PartialOutage(System);33% Lrat Cell 22;CXP9024418/16_R8D21 (RCG123.3-3);21s;;;;;
+
+Node uptime since last restart: 2295764 seconds (26 days, 13 hours, 42 minutes, 44 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                1                1                6               
+Total downtime       0s               0s               18245s (5h4m)    18245s (5h4m)    55s             
+Downtime per day     0s               0s               608s (10m8s)     608s (10m8s)     2s              
+Downtime per outage  0s               0s               18245s (5h4m)    18245s (5h4m)    9s              
+
+SC9CL> lgac -m 30d
+
+251007-11:23:34+0200 19.31.3.182 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/765033
+
+Startdate=20250907.092334, Enddate=20251008.092334
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=56374
+......
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 56374    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112257_764887/rcslogs/saLogAlarm_20231128__112244_20250220__180306.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112257_764887/rcslogs/saLogAlarm_20250220__180306.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112257_764887/alarmLog765033.xml
+2025-09-07;18:17:06;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-07;18:18:05;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;03:04:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;03:04:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;03:04:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;06:01:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;06:01:39;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;06:01:40;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;07:02:15;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;07:02:30;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;08:55:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;08:56:36;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;09:39:43;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;09:42:10;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;10:01:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;10:01:53;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;10:19:41;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;10:19:41;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;10:19:41;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;10:19:41;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;11:17:43;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;11:18:18;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;11:29:45;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;11:29:45;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;11:32:27;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;11:32:27;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;11:41:43;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;11:42:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;13:53:12;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;13:56:00;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;17:25:04;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;17:25:31;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;18:23:46;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;18:23:46;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;18:25:57;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;18:25:57;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;18:59:44;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;18:59:44;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;19:00:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;19:00:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;19:47:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;19:50:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;19:55:45;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;19:56:18;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;20:59:22;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;20:59:22;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;21:00:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-08;21:00:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;06:01:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;06:01:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;06:01:55;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;06:01:55;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;06:27:04;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;06:29:37;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;09:25:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-09;09:35:54;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;09:38:34;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;11:01:24;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;11:01:24;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;11:05:54;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;11:05:54;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;12:36:09;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;12:39:03;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;14:26:28;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;14:45:09;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;18:01:24;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;18:01:24;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;18:01:24;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;18:05:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;18:05:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;18:05:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;18:05:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-09;21:54:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;06:01:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;06:01:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;06:01:34;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;06:01:34;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;06:01:39;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;12:47:02;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;12:47:02;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;12:48:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;12:48:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;19:40:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;19:40:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213790;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;19:40:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;19:40:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;19:40:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;19:40:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;19:40:54;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;19:40:56;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-10;19:45:27;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650451
+2025-09-10;19:45:50;AL  ;Minor ;AntennaUnitGroup=181,AntennaNearUnit=TMA_2600;SW Error;Contact next level of support and provide log files required by Data Collection Guideline.
+2025-09-10;19:45:51;AL  ;Minor ;EUtranCellFDD=SC9CL2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;19:46:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-10;19:52:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;00:50:03;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;06:02:29;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;06:02:29;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;06:11:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;06:13:31;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;06:20:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;06:21:21;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;06:26:34;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;06:39:37;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;07:15:52;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;07:15:52;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;07:16:34;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;07:16:34;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;07:28:42;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;07:37:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;07:47:27;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;07:52:27;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;12:01:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;12:01:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;12:01:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;12:01:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;12:05:27;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;12:05:27;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;12:05:27;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;12:05:27;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;12:53:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;12:56:41;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:18:09;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:18:09;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:20:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:20:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:30:09;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:30:09;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:31:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:31:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:42:08;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:44:52;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:54:08;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;13:56:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;14:05:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;14:05:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;14:05:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;14:05:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;15:17:34;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;15:17:38;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;17:46:57;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;17:49:41;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;19:00:34;AL  ;Minor ;FieldReplaceableUnit=Radio-S212-1,RfPort=A;VSWR Over Threshold;ReturnLoss 3.4 dB, VSWR 5.2, Sensitivity 1%, Fault on DL FrequencyRange 925000 - 960000 kHz, ReturnLoss 4.0 dB, VSWR 4.4, Sensitivity 1%, Fault on DL FrequencyRange 791000 - 821000 kHz
+2025-09-11;19:06:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-11;20:36:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;06:01:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;06:01:51;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;06:46:57;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;06:49:40;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;06:59:07;AL  ;Cleared;FieldReplaceableUnit=Radio-S212-1,RfPort=A;VSWR Over Threshold;ReturnLoss 3.4 dB, VSWR 5.2, Sensitivity 1%, Fault on DL FrequencyRange 925000 - 960000 kHz
+2025-09-12;10:01:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;10:01:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;10:08:35;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;10:08:35;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;11:36:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;11:36:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;11:38:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;11:38:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;12:23:48;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;12:25:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;15:18:52;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;15:28:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;16:00:48;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;16:09:06;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;16:17:51;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650451 PLMN ID-eNB ID 2 = 2221-207924
+2025-09-12;16:41:46;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650451 PLMN ID-eNB ID 2 = 2221-207923
+2025-09-12;16:44:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;19:07:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:01:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:01:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:01:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:03:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:03:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:03:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:03:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:11:17;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:11:54;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:36:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:36:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:45:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;20:45:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;21:01:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;21:01:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;21:01:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;21:01:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;21:03:13;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;21:03:13;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;21:03:13;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;21:03:13;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-12;22:58:08;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;05:47:05;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650451
+2025-09-13;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;06:01:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;10:05:42;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;10:08:13;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;13:04:46;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;13:04:46;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;13:07:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;13:07:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;16:45:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;16:45:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;16:46:42;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;16:46:42;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;17:55:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;17:56:26;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;19:16:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;19:17:00;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;19:42:37;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;19:44:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;20:36:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;20:37:28;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-13;21:45:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;05:14:41;AL  ;Minor ;FieldReplaceableUnit=Radio-S212-1,RfPort=A;VSWR Over Threshold;ReturnLoss 5.9 dB, VSWR 3.1, Sensitivity 1%, Fault on DL FrequencyRange 925000 - 960000 kHz
+2025-09-14;05:24:56;AL  ;Cleared;FieldReplaceableUnit=Radio-S212-1,RfPort=A;VSWR Over Threshold;ReturnLoss 5.9 dB, VSWR 3.1, Sensitivity 1%, Fault on DL FrequencyRange 925000 - 960000 kHz
+2025-09-14;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;06:01:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;07:21:30;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-14;07:21:30;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;07:21:30;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;07:22:30;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;07:22:30;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;08:23:51;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;08:26:37;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;09:35:46;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;09:35:46;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;09:36:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;09:36:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;12:27:41;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;12:30:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;19:07:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;19:11:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;19:11:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;19:12:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;19:12:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;20:36:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;20:36:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;20:38:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-14;21:17:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;00:30:32;AL  ;Minor ;FieldReplaceableUnit=Radio-S212-1,RfPort=A;VSWR Over Threshold;ReturnLoss 5.2 dB, VSWR 3.4, Sensitivity 1%, Fault on DL FrequencyRange 925000 - 960000 kHz
+2025-09-15;00:44:27;AL  ;Cleared;FieldReplaceableUnit=Radio-S212-1,RfPort=A;VSWR Over Threshold;ReturnLoss 5.2 dB, VSWR 3.4, Sensitivity 1%, Fault on DL FrequencyRange 925000 - 960000 kHz
+2025-09-15;01:01:22;AL  ;Minor ;FieldReplaceableUnit=Radio-S212-1,RfPort=A;VSWR Over Threshold;ReturnLoss 5.6 dB, VSWR 3.2, Sensitivity 1%, Fault on DL FrequencyRange 925000 - 960000 kHz
+2025-09-15;02:23:07;AL  ;Cleared;FieldReplaceableUnit=Radio-S212-1,RfPort=A;VSWR Over Threshold;ReturnLoss 5.6 dB, VSWR 3.2, Sensitivity 1%, Fault on DL FrequencyRange 925000 - 960000 kHz
+2025-09-15;02:31:02;AL  ;Minor ;FieldReplaceableUnit=Radio-S212-1,RfPort=A;VSWR Over Threshold;ReturnLoss 6.0 dB, VSWR 3.0, Sensitivity 1%, Fault on DL FrequencyRange 925000 - 960000 kHz
+2025-09-15;03:04:37;AL  ;Cleared;FieldReplaceableUnit=Radio-S212-1,RfPort=A;VSWR Over Threshold;ReturnLoss 6.0 dB, VSWR 3.0, Sensitivity 1%, Fault on DL FrequencyRange 925000 - 960000 kHz
+2025-09-15;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;13:15:54;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;13:15:54;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;13:17:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;13:17:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;17:11:46;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;20:36:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;20:36:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-213153;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;20:44:29;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;20:44:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-15;22:22:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-16;04:25:55;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-16;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-16;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-16;08:28:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-16;09:56:32;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;09:57:05;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;09:57:43;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;09:58:13;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-17;08:06:56;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650095 PLMN ID-eNB ID 2 = 2221-212197
+2025-09-17;08:07:57;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650095
+2025-09-17;08:08:30;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650095
+2025-09-19;16:01:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-19;16:11:36;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-19;16:11:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-19;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-19;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-19;20:12:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-19;20:14:48;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-19;20:56:43;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-19;20:56:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-19;21:51:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;06:01:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;06:31:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;06:40:09;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;11:14:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;11:25:03;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;11:25:03;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;11:27:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;11:27:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;11:37:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;11:39:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;11:49:01;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;11:49:01;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;11:51:44;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;11:51:44;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;12:40:47;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;12:40:47;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;12:41:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;12:41:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;13:41:41;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;13:42:32;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;14:01:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;14:01:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;14:10:08;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;14:10:08;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;16:13:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;18:55:02;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;18:55:02;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;18:57:28;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;18:57:28;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-20;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;06:01:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;07:20:12;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;07:20:12;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;07:20:12;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;07:21:12;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;07:21:12;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;09:43:10;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;09:45:55;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;10:24:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;10:27:40;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;10:50:35;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;10:50:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;10:51:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;10:51:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;10:51:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;10:51:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;10:53:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;10:53:19;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;12:52:14;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;12:52:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;14:04:14;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;14:04:14;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;14:04:30;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;14:04:30;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;14:37:47;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;14:37:47;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;14:37:54;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;14:37:54;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;16:49:10;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;16:50:38;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;17:25:10;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;17:25:10;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;17:25:16;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;17:25:16;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;17:36:29;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;17:36:29;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;17:38:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;17:38:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-21;21:11:12;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;07:25:08;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;07:25:36;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;07:37:09;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;07:37:41;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;09:25:29;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-22;12:55:52;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;12:57:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;15:19:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;15:20:32;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;15:43:17;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;15:45:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;20:41:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;20:41:15;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;20:42:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;20:42:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-22;21:46:27;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;06:01:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;07:28:25;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;07:30:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;07:31:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;07:33:44;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;08:02:54;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;09:26:44;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;09:27:00;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;11:13:23;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;11:14:43;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;13:58:22;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;14:01:06;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;14:56:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;20:52:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;20:52:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;20:55:03;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;20:55:03;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;21:16:22;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;21:16:22;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;21:16:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;21:16:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;22:28:23;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;22:31:04;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-23;22:46:12;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;06:01:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;09:39:54;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;09:44:02;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;15:11:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;15:11:47;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;15:21:21;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650189
+2025-09-24;18:18:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;18:19:10;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;18:58:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;18:59:55;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;19:59:11;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;20:01:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-24;21:43:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;09:34:29;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;09:37:13;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;12:13:42;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;12:14:13;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;12:14:13;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;12:14:28;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650189
+2025-09-25;12:14:43;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;12:23:20;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;12:23:20;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;12:25:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;12:25:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;16:02:30;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;17:16:38;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;17:18:22;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;17:40:38;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;17:43:23;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;17:52:39;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;17:55:21;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;19:06:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;20:37:09;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;20:37:29;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:18:27;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:18:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:24:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:24:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-213790;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:24:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:24:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:24:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:30:03;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:30:03;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:30:03;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:30:03;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-213790;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-25;22:35:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;11:32:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;11:49:24;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;15:22:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;15:22:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;15:22:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;15:25:22;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;15:25:22;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;15:25:22;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-26;21:13:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;06:10:48;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;06:11:32;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;09:01:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;09:20:28;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;09:20:28;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;09:56:44;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;09:59:02;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;10:41:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;10:41:15;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;11:00:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;11:00:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;14:46:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;14:51:24;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;16:23:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;16:31:12;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;16:31:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;19:06:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;19:06:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-27;21:52:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;07:20:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-28;07:20:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;07:20:01;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;07:21:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;07:21:01;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;07:42:57;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;07:48:52;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;17:59:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;17:59:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;18:02:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;18:02:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;20:58:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;20:59:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-28;22:01:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;06:01:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;06:52:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;06:54:38;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;07:16:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;07:20:22;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;07:22:11;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;07:22:11;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;07:32:45;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650096
+2025-09-29;12:05:47;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;12:08:13;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;13:25:29;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-29;14:15:56;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650096
+2025-09-29;14:16:12;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;14:16:12;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;14:21:23;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;14:21:39;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;19:26:34;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-202605;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-29;20:37:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-29;22:29:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;00:10:06;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-450179
+2025-09-30;00:47:34;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-450179
+2025-09-30;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;10:21:54;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-202605;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-30;10:23:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;10:26:10;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;10:32:30;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209983
+2025-09-30;13:34:42;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-209983
+2025-09-30;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;19:08:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;19:09:47;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;21:41:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;21:41:15;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;21:42:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;21:42:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-09-30;21:52:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;04:20:09;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;08:42:03;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;08:44:28;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;09:34:08;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;09:40:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;09:40:55;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-202605;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-01;10:58:05;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;11:00:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;13:11:05;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;13:13:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;13:23:04;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;13:25:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;14:23:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;14:25:52;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;15:57:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-202605;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-01;16:00:01;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;16:00:01;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;16:02:17;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;16:02:17;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;16:02:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-202605;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-01;17:23:08;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-202605;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-01;17:27:57;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-202605;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-01;20:41:03;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;20:43:51;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;21:51:20;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-202605;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-01;21:53:20;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;21:53:20;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;21:53:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;21:53:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;21:56:08;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-202605;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-01;22:19:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;22:46:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650096;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;22:46:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;22:46:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;22:47:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-01;22:47:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;00:40:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;00:41:27;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;01:01:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;06:57:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-202605;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-02;11:13:16;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;11:13:16;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;11:15:36;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;11:15:36;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;11:15:58;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;11:53:11;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;11:56:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;18:47:11;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;18:48:01;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;18:59:09;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;19:02:00;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-02;21:16:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;06:18:00;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;06:20:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;09:47:21;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;09:48:53;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;10:11:20;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;10:14:08;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;16:13:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;16:15:30;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;17:05:20;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;17:08:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;18:05:20;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;18:07:43;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-03;21:42:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;07:29:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;07:32:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;07:41:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;07:41:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;07:44:09;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;07:44:09;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;07:53:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;07:53:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;07:56:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;07:56:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;08:23:39;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;08:23:39;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;08:33:05;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-207651 PLMN ID-eNB ID 2 = 2221-650089
+2025-10-04;08:34:34;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-650089
+2025-10-04;08:35:36;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;08:35:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;17:28:11;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;17:30:34;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;19:31:42;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;19:33:59;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;20:37:04;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;20:40:02;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;20:41:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-04;20:41:15;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;07:18:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;07:18:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;07:18:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;07:19:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;07:19:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650088;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;09:14:16;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;09:31:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;09:51:39;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;10:21:22;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;10:36:18;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;11:28:31;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-10-05;11:28:31;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650089;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;11:28:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;11:29:31;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;11:42:46;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;13:47:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;15:52:44;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-05;15:53:44;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;06:57:03;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;06:57:05;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;09:21:10;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;09:21:44;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;09:50:36;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;09:51:45;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;19:01:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;19:01:49;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;19:04:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;19:04:07;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650189;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-06;21:24:01;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-07;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-07;06:01:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650316;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+2025-10-07;06:01:50;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650471;Inter Node Feature Incompatibility;Inter eNodeB CA feature is not activated in remote eNodeB
+
+
+SC9CL> lgec -m 30d
+
+251007-11:23:42+0200 19.31.3.182 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/765033
+
+Startdate=20250907.092342, Enddate=20251008.092342
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=56375
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 56375    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112257_764887/rcslogs/AlertLog_20231128__112333.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-112257_764887/eventLog765033.xml
+2025-09-10;19:37:47;EV  ;Warning;FieldReplaceableUnit=Radio-S211-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] :SUPPRESSED
+2025-09-10;19:37:48;EV  ;Warning;FieldReplaceableUnit=Radio-S210-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] :SUPPRESSED
+2025-09-10;19:37:52;EV  ;Warning;FieldReplaceableUnit=Radio-S212-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] :SUPPRESSED
+2025-09-10;19:37:52;EV  ;Warning;ManagedElement=SC9CL;System Restart Alert;Requested Restart Category: Other, Requested Restart Type: Power, Performed Restart Category: Other, Performed Restart Type: Power. AI: SystemRestart=[{"RRC":"Other","RRT":"Power","PRC":"Other","PRT":"Power"}]
+2025-09-10;19:38:43;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;19:38:43;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;19:38:52;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;19:39:58;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;19:40:00;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;19:40:17;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;19:40:39;EV  ;Warning;RiLink=S210-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;19:40:39;EV  ;Warning;RiLink=S211-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-10;19:40:39;EV  ;Warning;RiLink=S180-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-10;19:40:39;EV  ;Warning;RiLink=S182-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=E (transportType=NOT_SET). SUPPRESSED
+2025-09-12;06:59:08;EV  ;Warning;RiLink=S212-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=C (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-12;07:00:22;EV  ;Warning;FieldReplaceableUnit=Radio-S212-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"Operator Initiated","RT":"Cold","ERI":"FALSE"}] :SUPPRESSED
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/SC9CL.log

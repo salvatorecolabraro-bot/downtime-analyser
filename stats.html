@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downtime Analytics</title>
+    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
+    <meta name="dw-backend-url" content="">
+    <script>
+      (function(){
+        var backendUrl = null;
+        try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
+        if (!backendUrl) {
+          var m = document.querySelector('meta[name="dw-backend-url"]');
+          var c = m && m.getAttribute('content');
+          if (c) backendUrl = c;
+        }
+        var proto = (location && location.protocol || '').replace(':','');
+        if (!backendUrl && (proto === 'http' || proto === 'https')) {
+          backendUrl = location.origin;
+          try { localStorage.setItem('dw_backend_url', backendUrl); } catch(_) {}
+        }
+        if (backendUrl) { window.DW_BACKEND_URL = backendUrl.replace(/\/$/, ''); }
+      })();
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 24px 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 400;
+        }
+        .header .nav {
+            margin-top: 8px;
+        }
+        .header a {
+            color: #083b66;
+            background: #ffffff;
+            border-radius: 6px;
+            padding: 6px 10px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .content { padding: 24px 30px; }
+        .status { margin: 10px 0; padding: 10px; border-radius: 6px; }
+        .status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .card { background: #f8f9fa; border-radius: 10px; padding: 16px; }
+        h3 { margin: 0 0 8px 0; font-size: 1.2em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; font-size: 0.95em; }
+        th { background: #072d58; text-align: left; }
+        .pair { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 12px; align-items: start; }
+        .table-wrap { overflow-x: auto; }
+        .chart-wrap { position: relative; }
+        .chart-wrap .chart { cursor: zoom-in; }
+        .chart-wrap:hover::after {
+            content: '🔍';
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            pointer-events: none;
+        }
+        @media (max-width: 960px) { .pair { grid-template-columns: 1fr; } }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .stat-card { background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .stat-number { font-size: 1.6em; font-weight: bold; color: #4facfe; }
+        .stat-label { color: #666; margin-top: 5px; }
+        canvas.chart { width: 100%; height: 220px; }
+        .controls { display: flex; justify-content: flex-end; align-items: center; gap: 6px; margin-top: 6px; }
+        .controls label { font-size: 0.9em; color: #555; }
+        .controls input[type=number] { width: 68px; padding: 4px; }
+        
+        /* Stile per il popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+        }
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        .popup-title {
+            margin-top: 0;
+            color: #4facfe;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .node-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .node-list li {
+            padding: 8px 10px;
+            margin-bottom: 5px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            /* bordo sinistro rimosso */
+        }
+    /* --- Tema scuro coordinato --- */
+:root {
+    --bg: #0f172a;
+    --surface: #111827;
+    --card: #0d1424;
+    --border: #1f2937;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --accent: #1e88e5;
+}
+body { background: var(--bg); color: var(--text); }
+.container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+.header { background: var(--surface); color: var(--text); border-bottom: 1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding: 12px 16px; }
+.brand { font-size: 18px; font-weight: 600; letter-spacing: .2px; }
+.nav-tabs { display:flex; gap:10px; }
+.nav-tabs .tab { color: var(--text); text-decoration:none; border:1px solid #263347; padding: 8px 14px; border-radius: 12px; background: #0d1424; box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 2px rgba(0,0,0,0.25); }
+.nav-tabs .tab.active { background: #1b2a44; border-color: #2b3c55; }
+.content { color: var(--text); }
+.card { background: #0d1424; color: var(--text); border: 1px solid #263347; }
+.chart-card, .stat-card { background: #0d1424; color: var(--text); border: 1px solid #263347; }
+.stat-number { color: var(--accent); }
+.status.info { background: #0d2b45; color: #cfe4f6; border-color: #153a59; }
+.status.success { background: #103a28; color: #cfeedd; border-color: #1e5a3f; }
+.status.error { background: #401b1b; color: #f3c3c3; border-color: #7a2c2c; }
+.table-card { background: #0d1424; color: var(--text); border: 1px solid #263347; }
+th { background: #16233a; border-color: #263347; }
+td { border-color: #263347; }
+a { color: var(--accent); }
+.popup-content { background: var(--surface); color: var(--text); }
+.popup-title { color: var(--accent); border-bottom-color: #263347; }
+</style>
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand"><img class="logo-icon" src="assets/logo.ico" alt="Downtime" /> Downtime Analytics</div>
+            <div style="display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;">
+  <div id="dataSourceBadge" style="font-size: 0.8em; padding: 4px 8px; border-radius: 4px; background: #1e88e5; color: white; display: inline-block;">Backend</div>
+            </div>
+            <div class="nav-tabs">
+                <a href="index.html" class="tab">Dashboard</a>
+                <a href="stats.html" class="tab active">Analisi</a>
+                <a href="admin.html" id="adminTab" class="tab" style="display:none;">Admin</a>
+            </div>
+            <div id="userAuthBox" style="margin-top:8px; display:flex; gap:8px; align-items:center; justify-content:center; flex-wrap:wrap;">
+                <span id="currentUserLabel" style="display:none; font-size:12px; background:#fff3cd; color:#856404; padding:3px 8px; border-radius:6px;"></span>
+                <input id="usernameInput" placeholder="Username" style="padding:6px 8px; border-radius:6px; border:1px solid #ddd; max-width:140px;">
+                <input id="passwordInput" placeholder="Password" type="password" style="padding:6px 8px; border-radius:6px; border:1px solid #ddd; max-width:140px;">
+                <button id="loginBtn" class="tab" style="padding:8px 14px;">Login</button>
+                <button id="logoutBtn" class="tab" style="display:none; padding:8px 14px; background:#dc3545; color:white;">Logout</button>
+            </div>
+        </div>
+        <div class="content">
+            <div id="status" class="status info">Carica i file nella pagina principale per vedere le statistiche.</div>
+
+            <div id="totals" class="stats-grid" style="display:none;">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLga">0</div>
+                    <div class="stat-label" style="font-size: 1.1em; color: #ffffff;">Allarmi</div>
+                    <div class="stat-label" style="font-size: 0.8em;">(Numero totale di allarmi estratti da tutti i file)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLge">0</div>
+                    <div class="stat-label" style="font-size: 1.1em; color: #ffffff;">Eventi</div>
+                    <div class="stat-label" style="font-size: 0.8em;">(Numero totale di eventi estratti da tutti i file)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLgd">0</div>
+                    <div class="stat-label" style="font-size: 1.1em; color: #ffffff;">Statistiche Restart</div>
+                    <div class="stat-label" style="font-size: 0.8em;">(Numero di righe di statistiche sui restart estratte dai file)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLgdEvents">0</div>
+                    <div class="stat-label" style="font-size: 1.1em; color: #ffffff;">Eventi Restart</div>
+                    <div class="stat-label" style="font-size: 0.8em;">(Numero totale di singoli eventi di restart registrati)</div>
+                </div>
+            </div>
+
+            <div class="controls" id="globalControls" style="margin: 10px 0 20px;">
+                <label>Filtro globale Nodo:
+                    <input list="globalNodeList" id="globalNodeSelect" placeholder="Tutti i nodi">
+                    <datalist id="globalNodeList"></datalist>
+                </label>
+                <label style="margin-left:12px;">Da data:
+                    <input type="date" id="globalDateFrom" />
+                </label>
+                <label style="margin-left:8px;">A data:
+                    <input type="date" id="globalDateTo" />
+                </label>
+                <span style="margin-left:8px;color:#666;font-size:12px;">Applica a tutti i pannelli</span>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Eventi Restart per nodo</h3>
+                    <div class="controls"><label>Top N: <input type="number" id="lgdTopByFileN" min="5" max="20" step="5" value="5"></label></div>
+                    <div class="pair">
+                        <div class="table-wrap"><div id="lgdTopByFile"></div></div>
+                        <div class="chart-wrap"><canvas id="lgdTopByFileChart" class="chart"></canvas></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Top Allarmi per Titolo</h3>
+                    <div class="controls">
+                        <label>Top N: <input type="number" id="lgaTopN" min="5" max="20" step="5" value="10"></label>
+                        <label style="margin-left:12px;">Nodo: 
+                            <input list="lgaNodeList" id="lgaNodeSelect" placeholder="Tutti i nodi">
+                            <datalist id="lgaNodeList"></datalist>
+                        </label>
+                    </div>
+                    <div class="pair">
+                        <div class="table-wrap"><div id="lgaTop"></div></div>
+                        <div class="chart-wrap"><canvas id="lgaTopChart" class="chart"></canvas></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Top Eventi per Titolo</h3>
+                    <div class="controls">
+                        <label>Top N: <input type="number" id="lgeTopN" min="5" max="20" step="5" value="10"></label>
+                        <label style="margin-left:12px;">Nodo:
+                            <input list="lgeNodeList" id="lgeNodeSelect" placeholder="Tutti i nodi">
+                            <datalist id="lgeNodeList"></datalist>
+                        </label>
+                    </div>
+                    <div class="pair">
+                        <div class="table-wrap"><div id="lgeTop"></div></div>
+                        <div class="chart-wrap"><canvas id="lgeTopChart" class="chart"></canvas></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Top Eventi Restart per Tipo</h3>
+                    <div class="controls">
+                        <label>Top N: <input type="number" id="lgdTopN" min="5" max="20" step="5" value="10"></label>
+                        <label style="margin-left:12px;">Nodo:
+                            <input list="lgdNodeList" id="lgdNodeSelect" placeholder="Tutti i nodi">
+                            <datalist id="lgdNodeList"></datalist>
+                        </label>
+                    </div>
+                    <div class="pair">
+                        <div class="table-wrap"><div id="lgdTop"></div></div>
+                        <div class="chart-wrap"><canvas id="lgdTopChart" class="chart"></canvas></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Durata Totale per Tipo (secondi)</h3>
+                    <div class="controls">
+                        <label>Top N: <input type="number" id="lgdDurN" min="5" max="20" step="5" value="10"></label>
+                        <label style="margin-left:12px;">Nodo:
+                            <input list="lgdDurNodeList" id="lgdDurNodeSelect" placeholder="Tutti i nodi">
+                            <datalist id="lgdDurNodeList"></datalist>
+                        </label>
+                    </div>
+                    <div class="pair">
+                        <div class="table-wrap"><div id="lgdDur"></div></div>
+                        <div class="chart-wrap"><canvas id="lgdDurChart" class="chart"></canvas></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Distribuzione Severità</h3>
+                    <div class="controls">
+                        <label style="margin-left:12px;">Nodo:
+                            <input list="lgaSevNodeList" id="lgaSevNodeSelect" placeholder="Tutti i nodi">
+                            <datalist id="lgaSevNodeList"></datalist>
+                        </label>
+                    </div>
+                    <div class="pair">
+                        <div class="table-wrap"><div id="lgaSev"></div></div>
+                        <div class="chart-wrap"><canvas id="lgaSevChart" class="chart"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Helper globale: rimuove il suffisso .log dalla visualizzazione
+        function stripLogExt(name) {
+            return (name || '').replace(/\.log$/i, '');
+        }
+        // Helper globale: formatta YYYY-MM-DD in DD/MM/YYYY
+        function formatItDate(iso) {
+            const m = typeof iso === 'string' && iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            if (!m) return iso || '';
+            return `${m[3]}/${m[2]}/${m[1]}`;
+        }
+        // Helper: sostituisce i numeri dopo "Cell" con il suffisso MO (node+ultima cifra)
+        function formatLgdValueWithMo(value, fileName) {
+            const v = value || '';
+            const node = stripLogExt(fileName || '');
+            if (!node || !/\bCell\b/i.test(v)) return v;
+            return v.replace(/(\bCell\b)([\s,]+)(.*)$/i, (full, cellWord, sep, rest) => {
+                const mapped = rest.replace(/\b(\d+)\b/g, (m, num) => node + String(num).slice(-1));
+                return cellWord + sep + mapped;
+            });
+        }
+        function makeTable(containerId, headers, rows, options = {}) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            if (!rows || rows.length === 0) {
+                container.innerHTML = '<div class="status info">Nessun dato disponibile</div>';
+                return;
+            }
+            // Rimuove il suffisso .log dalla visualizzazione del file name
+            const stripLogExt = (name) => (name || '').replace(/\.log$/i, '');
+            let html = '<table><thead><tr>' + headers.map(h => `<th>${h}</th>`).join('') + '</tr></thead><tbody>';
+            rows.forEach(r => {
+                if (containerId === 'lgaTop' && options.clickable) {
+                    // Link diretto alla pagina dettaglio allarmi LGA
+                    const title = r[0];
+                    const href = `alarm_detail.html?title=${encodeURIComponent(title)}`;
+                    html += '<tr>' + 
+                        `<td><a href="${href}" style="color: #0066cc; text-decoration: underline; cursor: pointer;">${title}</a></td>` +
+                        r.slice(1).map(c => `<td>${c}</td>`).join('') + 
+                    '</tr>';
+                } else if (containerId === 'lgaSev' && options.clickable) {
+                    // Delego via JS: niente inline onclick; uso data-attribute
+                    const severity = r[0];
+                    html += '<tr>' + 
+                        `<td><a href="#" data-severity="${severity}" class="sev-link" style="color: #0066cc; text-decoration: underline; cursor: pointer;">${severity}</a></td>` +
+                        r.slice(1).map(c => `<td>${c}</td>`).join('') + 
+                    '</tr>';
+                } else if (containerId === 'lgeTop' && options.clickable) {
+                    // Link diretto alla pagina dettaglio eventi LGE
+                    const title = r[0];
+                    const href = `event_detail.html?title=${encodeURIComponent(title)}`;
+                    html += '<tr>' + 
+                        `<td><a href="${href}" style="color: #0066cc; text-decoration: underline; cursor: pointer;">${title}</a></td>` +
+                        r.slice(1).map(c => `<td>${c}</td>`).join('') + 
+                    '</tr>';
+                } else if (containerId === 'lgdTop' && options.clickable) {
+                    // Link diretto alla pagina dettaglio restart LGD per tipo/ragione
+                    const typeReason = r[0];
+                    const href = `lgd_detail.html?typeReason=${encodeURIComponent(typeReason)}`;
+                    html += '<tr>' + 
+                        `<td><a href="${href}" style="color: #0066cc; text-decoration: underline; cursor: pointer;">${typeReason}</a></td>` +
+                        r.slice(1).map(c => `<td>${c}</td>`).join('') + 
+                    '</tr>';
+                } else if (containerId === 'lgdDur' && options.clickable) {
+                    // Link diretto alla pagina dettaglio durata totale (stesso filtro typeReason)
+                    const typeReason = r[0];
+                    const formattedCells = r.slice(1).map(c => {
+                        const sec = Number(c) || 0;
+                        return `<td>${formatSecondsToDHMS(sec)}</td>`;
+                    }).join('');
+                    const href = `lgd_detail.html?typeReason=${encodeURIComponent(typeReason)}`;
+                    html += '<tr>' + 
+                        `<td><a href="${href}" style="color: #0066cc; text-decoration: underline; cursor: pointer;">${typeReason}</a></td>` +
+                        formattedCells + 
+                    '</tr>';
+                } else if (containerId === 'lgdTopByFile' && options.clickable) {
+                    // Link diretto alla pagina dettaglio nodo
+                    const fileName = r[0];
+                    const displayName = stripLogExt(fileName);
+                    const href = `node_detail.html?node=${encodeURIComponent(fileName)}`;
+                    html += '<tr>' + 
+                        `<td><a href="${href}" style="color: #0066cc; text-decoration: underline; cursor: pointer;">${displayName}</a></td>` +
+                        r.slice(1).map(c => `<td>${c}</td>`).join('') + 
+                    '</tr>';
+                } else {
+                    const isFileNameFirstCol = (headers && headers[0] || '').toLowerCase().includes('file name');
+                    html += '<tr>' + r.map((c, idx) => {
+                        const val = (idx === 0 && isFileNameFirstCol) ? stripLogExt(c) : c;
+                        return `<td>${val}</td>`;
+                    }).join('') + '</tr>';
+                }
+            });
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        // Chart helpers
+        const charts = {};
+        function makeBarChart(canvasId, labels, values, title) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas || !labels || labels.length === 0) return;
+            if (charts[canvasId]) charts[canvasId].destroy();
+            // Altezza dinamica e label compatte
+            const fullLabels = labels.slice();
+            const isDurChart = (canvasId === 'lgdDurChart');
+            const shortLabels = fullLabels.map(l => {
+                const s = (l || '').trim();
+                return s.length > 24 ? (s.slice(0, 21) + '…') : s;
+            });
+            canvas.style.height = Math.max(160, shortLabels.length * 22) + 'px';
+            charts[canvasId] = new Chart(canvas.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: shortLabels,
+                    datasets: [{
+                        label: title || '',
+                        data: values,
+                        backgroundColor: shortLabels.map((_, i) => `hsla(${(i*47)%360}, 70%, 55%, 0.7)`),
+                        borderColor: shortLabels.map((_, i) => `hsl(${(i*47)%360}, 70%, 45%)`),
+                        borderWidth: 1,
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.6,
+                        maxBarThickness: 20
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    layout: { padding: { top: 4, right: 8, bottom: 4, left: 8 } },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: { display: false },
+                            ticks: {
+                                color: '#fff',
+                                font: { size: 11 },
+                                callback: (value) => new Intl.NumberFormat('it-IT').format(value)
+                            }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: '#fff', font: { size: 11 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: '#1b2a44',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: '#263347',
+                            borderWidth: 1,
+                            callbacks: {
+                                title: (items) => {
+                                    const i = items[0].dataIndex;
+                                    return fullLabels[i];
+                                },
+                                label: (context) => {
+                                    const v = context.raw;
+                                    if (isDurChart) {
+                                        return formatSecondsToDHMS(v);
+                                    }
+                                    const dsLabel = context.dataset && context.dataset.label ? context.dataset.label + ': ' : '';
+                                    return dsLabel + new Intl.NumberFormat('it-IT').format(v);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            // Conserva metadati per popup
+            charts[canvasId]._fullLabels = fullLabels;
+            charts[canvasId]._title = title || '';
+            charts[canvasId]._values = values;
+            // Clic per aprire popup ingrandito (evita doppi binding)
+            if (!canvas.dataset.popupBound) {
+                canvas.addEventListener('click', function() { openChartPopup(canvasId); });
+                canvas.dataset.popupBound = '1';
+            }
+        }
+        function makePieChart(canvasId, labels, values, title) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas || !labels || labels.length === 0) return;
+            if (charts[canvasId]) charts[canvasId].destroy();
+            canvas.style.height = '200px';
+            // Mappa colori severità (case-insensitive)
+            const severityColorMap = {
+                'CRITICAL': '#ff3b30', // rosso
+                'MAJOR': '#ff9500',    // arancione
+                'MINOR': '#ffcc00',    // giallo
+                'WARNING': '#00a2ff',  // azzurro
+                'CLEARED': '#34c759'   // verde
+            };
+            function normLabel(l) { return String(l || '').trim().toUpperCase(); }
+            const isSevChart = canvasId === 'lgaSevChart';
+            const colors = isSevChart
+                ? labels.map(l => severityColorMap[normLabel(l)] || '#667eea')
+                : labels.map((_, i) => `hsl(${(i*47)%360} 70% 60%)`);
+            charts[canvasId] = new Chart(canvas.getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: title || '',
+                        data: values,
+                        backgroundColor: colors,
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '55%',
+                    plugins: { legend: { display: false }, tooltip: { enabled: true, backgroundColor: '#1b2a44', titleColor: '#fff', bodyColor: '#fff', borderColor: '#263347', borderWidth: 1 } }
+                }
+            });
+            charts[canvasId]._fullLabels = labels.slice();
+            charts[canvasId]._title = title || '';
+            charts[canvasId]._values = values;
+            if (!canvas.dataset.popupBound) {
+                canvas.addEventListener('click', function() { openChartPopup(canvasId); });
+                canvas.dataset.popupBound = '1';
+            }
+        }
+
+        // Popup con grafico ingrandito
+        function openChartPopup(canvasId) {
+            const chart = charts[canvasId];
+            if (!chart) return;
+            const overlay = document.createElement('div');
+            overlay.className = 'popup-overlay';
+            const content = document.createElement('div');
+            content.className = 'popup-content';
+            content.style.maxWidth = '1000px';
+            content.style.width = '90%';
+
+            const closeBtn = document.createElement('span');
+            closeBtn.className = 'popup-close';
+            closeBtn.innerHTML = '&times;';
+            closeBtn.onclick = function() { document.body.removeChild(overlay); };
+
+            const titleEl = document.createElement('h3');
+            titleEl.className = 'popup-title';
+            titleEl.textContent = 'Grafico: ' + (chart._title || '');
+
+            const canvas = document.createElement('canvas');
+            canvas.style.height = '520px';
+            canvas.style.width = '100%';
+
+            content.appendChild(closeBtn);
+            content.appendChild(titleEl);
+            content.appendChild(canvas);
+            overlay.appendChild(content);
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) { document.body.removeChild(overlay); }
+            });
+            document.body.appendChild(overlay);
+
+            // Ricrea il grafico con dati completi
+            const type = chart.config.type || (chart.config._config && chart.config._config.type) || 'bar';
+            const dataClone = JSON.parse(JSON.stringify(chart.data || {}));
+            // Usa label complete se disponibili
+            if (chart._fullLabels && Array.isArray(chart._fullLabels)) {
+                dataClone.labels = chart._fullLabels.slice();
+            }
+            const optionsClone = JSON.parse(JSON.stringify(chart.options || chart.config.options || {}));
+            optionsClone.responsive = true;
+            optionsClone.maintainAspectRatio = false;
+            // Aumenta dimensioni font
+            optionsClone.scales = optionsClone.scales || {};
+            if (optionsClone.scales.x && optionsClone.scales.x.ticks) {
+                optionsClone.scales.x.ticks.font = Object.assign({}, optionsClone.scales.x.ticks.font || {}, { size: 14 });
+                optionsClone.scales.x.ticks.color = '#fff';
+            }
+            if (optionsClone.scales.y && optionsClone.scales.y.ticks) {
+                optionsClone.scales.y.ticks.font = Object.assign({}, optionsClone.scales.y.ticks.font || {}, { size: 14 });
+                optionsClone.scales.y.ticks.color = '#fff';
+            }
+            optionsClone.plugins = optionsClone.plugins || {};
+            optionsClone.plugins.tooltip = optionsClone.plugins.tooltip || {};
+            optionsClone.plugins.tooltip.titleFont = Object.assign({}, optionsClone.plugins.tooltip.titleFont || {}, { size: 14 });
+            optionsClone.plugins.tooltip.bodyFont = Object.assign({}, optionsClone.plugins.tooltip.bodyFont || {}, { size: 14 });
+            optionsClone.plugins.tooltip.backgroundColor = '#1b2a44';
+            optionsClone.plugins.tooltip.titleColor = '#fff';
+            optionsClone.plugins.tooltip.bodyColor = '#fff';
+            optionsClone.plugins.tooltip.borderColor = '#263347';
+            optionsClone.plugins.tooltip.borderWidth = 1;
+            // Disabilita la legenda per tutti i tipi (richiesta utente)
+            optionsClone.plugins.legend = optionsClone.plugins.legend || {};
+            optionsClone.plugins.legend.display = false;
+            // Tooltip: mostra solo il valore della barra
+            optionsClone.plugins.tooltip.callbacks = optionsClone.plugins.tooltip.callbacks || {};
+            optionsClone.plugins.tooltip.callbacks.label = function(ctx) {
+                const v = (ctx.parsed && (typeof ctx.parsed.y === 'number' ? ctx.parsed.y : ctx.parsed.x)) ?? ctx.raw;
+                return new Intl.NumberFormat('it-IT', { maximumFractionDigits: 2 }).format(v || 0);
+            };
+            optionsClone.plugins.tooltip.displayColors = false;
+
+            // Plugin per scrivere il solo valore sopra ogni barra
+            const valueLabelPlugin = {
+                id: 'barValueLabels',
+                afterDatasetsDraw(ch, args) {
+                    const { ctx } = ch;
+                    ctx.save();
+                    const nf = new Intl.NumberFormat('it-IT', { maximumFractionDigits: 2 });
+                    ch.data.datasets.forEach((dataset, di) => {
+                        const meta = ch.getDatasetMeta(di);
+                        if (!meta || !meta.data) return;
+                        meta.data.forEach((barElem, i) => {
+                            const raw = Array.isArray(dataset.data) ? dataset.data[i] : undefined;
+                            const pos = barElem.tooltipPosition();
+                            const text = nf.format(raw || 0);
+                            ctx.fillStyle = '#fff';
+                            ctx.font = 'bold 14px sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom';
+                            ctx.fillText(text, pos.x, pos.y - 4);
+                        });
+                    });
+                    ctx.restore();
+                }
+            };
+
+            // Plugin per mostrare il valore centrato su ogni spicchio della torta
+            const arcValueLabels = {
+                id: 'arcValueLabels',
+                afterDatasetsDraw(ch) {
+                    const { ctx } = ch;
+                    ctx.save();
+                    const nf = new Intl.NumberFormat('it-IT', { maximumFractionDigits: 2 });
+                    ch.data.datasets.forEach((dataset, di) => {
+                        const meta = ch.getDatasetMeta(di);
+                        if (!meta || !meta.data) return;
+                        meta.data.forEach((arcElem, i) => {
+                            const raw = Array.isArray(dataset.data) ? dataset.data[i] : undefined;
+                            const pos = arcElem.tooltipPosition();
+                            const text = nf.format(raw || 0);
+                            ctx.fillStyle = '#fff';
+                            ctx.font = 'bold 14px sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText(text, pos.x, pos.y);
+                        });
+                    });
+                    ctx.restore();
+                }
+            };
+
+            try {
+                new Chart(canvas.getContext('2d'), {
+                    type,
+                    data: dataClone,
+                    options: optionsClone,
+                    plugins: type === 'bar' ? [valueLabelPlugin] : ((type === 'doughnut' || type === 'pie') ? [arcValueLabels] : [])
+                });
+            } catch (e) { console.warn('Errore nel rendering del popup chart:', e); }
+        }
+
+        function countBy(items, keyFn) {
+            const map = new Map();
+            items.forEach(it => {
+                const k = keyFn(it);
+                if (!k) return;
+                map.set(k, (map.get(k) || 0) + 1);
+            });
+            return Array.from(map.entries()).sort((a,b)=> b[1]-a[1]);
+        }
+
+        function parseDurationToSeconds(str) {
+            if (!str || typeof str !== 'string') return 0;
+            let s = str.toLowerCase().replace(/[()]/g,'').trim();
+            // Pattern tipo: "5 days, 22 hours, 44 minutes, 12 seconds"
+            let total = 0;
+            const day = (s.match(/(\d+)\s*days?/)||[])[1]; if (day) total += parseInt(day,10)*86400;
+            const hour = (s.match(/(\d+)\s*hours?/)||[])[1]; if (hour) total += parseInt(hour,10)*3600;
+            const minute = (s.match(/(\d+)\s*minutes?/)||[])[1]; if (minute) total += parseInt(minute,10)*60;
+            const second = (s.match(/(\d+)\s*seconds?/)||[])[1]; if (second) total += parseInt(second,10);
+            if (total > 0) return total;
+            // Pattern composti tipo: "1d 2h 3m 4s"
+            const re = /(\d+)\s*([dhms])/g;
+            let m;
+            while ((m = re.exec(s)) !== null) {
+                const val = parseInt(m[1],10);
+                const unit = m[2];
+                if (unit === 'd') total += val*86400;
+                else if (unit === 'h') total += val*3600;
+                else if (unit === 'm') total += val*60;
+                else if (unit === 's') total += val;
+            }
+            if (total > 0) return total;
+            // Solo numero
+            const plain = parseInt(s,10);
+            return isNaN(plain) ? 0 : plain;
+        }
+
+        // Format seconds to "gg hh mm ss"
+        function formatSecondsToDHMS(totalSeconds) {
+            const sec = Math.max(0, Math.floor(Number(totalSeconds) || 0));
+            const d = Math.floor(sec / 86400);
+            const h = Math.floor((sec % 86400) / 3600);
+            const m = Math.floor((sec % 3600) / 60);
+            const s = sec % 60;
+            const pad = (n) => String(n).padStart(2, '0');
+            return `${pad(d)} gg ${pad(h)} hh ${pad(m)} mm ${pad(s)} ss`;
+        }
+
+        // --- Filtro globale per data: helpers ---
+        function getGlobalDateBounds() {
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const from = (df && df.value ? df.value.trim() : '');
+            const to = (dt && dt.value ? dt.value.trim() : '');
+            function toMsDateOnly(iso) {
+                const m = typeof iso === 'string' && iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+                if (!m) return NaN;
+                return Date.UTC(+m[1], +m[2]-1, +m[3], 0, 0, 0, 0);
+            }
+            const fromMsRaw = from ? toMsDateOnly(from) : NaN;
+            const toMsStart = to ? toMsDateOnly(to) : NaN;
+            const toMsRaw = isNaN(toMsStart) ? NaN : (toMsStart + 24*60*60*1000 - 1);
+            const active = !!from || !!to;
+            return {
+                active,
+                fromMs: isNaN(fromMsRaw) ? null : fromMsRaw,
+                toMs: isNaN(toMsRaw) ? null : toMsRaw
+            };
+        }
+        function toMsDateTimeSafe(dateStr, timeStr) {
+            const date = (dateStr || '').trim();
+            if (!date) return NaN;
+            const dm = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            let h=0, mi=0, s=0;
+            const t = (timeStr || '').trim();
+            const tm = t.match(/^(\d{2}):(\d{2})(?::(\d{2}))?$/);
+            if (tm) { h = +tm[1]; mi = +tm[2]; s = +(tm[3] || 0); }
+            if (dm) {
+                return Date.UTC(+dm[1], +dm[2]-1, +dm[3], h, mi, s, 0);
+            }
+            const composed = tm ? `${date}T${String(h).padStart(2,'0')}:${String(mi).padStart(2,'0')}:${String(s).padStart(2,'0')}` : date;
+            const d = new Date(composed);
+            const ms = d.getTime();
+            return isNaN(ms) ? NaN : ms;
+        }
+        function inBounds(item, bounds) {
+            if (!bounds || !bounds.active) return true;
+            const ms = toMsDateTimeSafe(item.dateIso || item.date || '', item.time || '');
+            if (isNaN(ms)) return true; // Non escludere elementi senza data/time
+            if (bounds.fromMs != null && ms < bounds.fromMs) return false;
+            if (bounds.toMs != null && ms > bounds.toMs) return false;
+            return true;
+        }
+
+        // Badge origine dati: fisso su Backend
+        function setDataSourceBadge() {
+            const badge = document.getElementById('dataSourceBadge');
+            if (!badge) return;
+            badge.textContent = 'Backend';
+            badge.style.background = '#1e88e5';
+            badge.style.display = 'inline-block';
+        }
+
+        // Autenticazione locale e namespace storage
+        function getCurrentUser() { return localStorage.getItem('dw_current_user') || ''; }
+        function nsKey(base) {
+            const u = getCurrentUser();
+            if (u) {
+                if (base.startsWith('dw_')) base = base.slice(3);
+                return 'dw_' + u + '_' + base;
+            }
+            return 'dw_' + base;
+        }
+        // Preferenze origine dati rimosse: si usa sempre Backend
+        function updateUserUI() {
+            const u = getCurrentUser();
+            const userLabel = document.getElementById('currentUserLabel');
+            const loginBtn = document.getElementById('loginBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const usernameInput = document.getElementById('usernameInput');
+            const passwordInput = document.getElementById('passwordInput');
+            if (u) {
+                if (userLabel) { userLabel.textContent = 'Utente: ' + u; userLabel.style.display = 'inline-block'; }
+                if (logoutBtn) logoutBtn.style.display = 'inline-block';
+                if (loginBtn) loginBtn.style.display = 'none';
+                if (usernameInput) usernameInput.style.display = 'none';
+                if (passwordInput) passwordInput.style.display = 'none';
+            } else {
+                if (userLabel) userLabel.style.display = 'none';
+                if (logoutBtn) logoutBtn.style.display = 'none';
+                if (loginBtn) loginBtn.style.display = 'inline-block';
+                if (usernameInput) { usernameInput.style.display = 'inline-block'; usernameInput.value = ''; }
+                if (passwordInput) { passwordInput.style.display = 'inline-block'; passwordInput.value = ''; }
+            }
+        }
+        function isAdmin() {
+            try {
+                const info = JSON.parse(localStorage.getItem('dw_current_user_info') || 'null');
+                return info && info.role === 'admin';
+            } catch(_) { return false; }
+        }
+        function loginUser() {
+            const usernameInput = document.getElementById('usernameInput');
+            const u = (usernameInput && usernameInput.value || '').trim();
+            if (!u) { showStatus('Inserisci username', 'error'); return; }
+            const base = (window.DW_BACKEND_URL || location.origin);
+            fetch(base.replace(/\/$/, '') + '/api/auth/login', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: u })
+            })
+            .then(r => r.ok ? r.json() : r.json().then(x => Promise.reject(x)))
+            .then(data => {
+                const info = data && data.user;
+                if (!info) throw new Error('Login non valido');
+                try { localStorage.setItem('dw_current_user', String(info.username || u)); } catch(_) {}
+                try { localStorage.setItem('dw_current_user_info', JSON.stringify(info)); } catch(_) {}
+                updateUserUI();
+                const adminTab = document.getElementById('adminTab');
+                if (adminTab) adminTab.style.display = isAdmin() ? 'inline-block' : 'none';
+                showStatus('Accesso eseguito come ' + (info.username || u), 'success');
+            })
+            .catch(err => {
+                showStatus((err && err.error) || 'Login fallito', 'error');
+            });
+        }
+        function logoutUser() {
+            try { localStorage.removeItem('dw_current_user'); } catch(_) {}
+            try { localStorage.removeItem('dw_current_user_info'); } catch(_) {}
+            updateUserUI();
+            showStatus('Logout eseguito', 'info');
+        }
+        setTimeout(() => {
+            const loginBtn = document.getElementById('loginBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (loginBtn) loginBtn.addEventListener('click', loginUser);
+            if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);
+            updateUserUI();
+            const adminTab = document.getElementById('adminTab');
+            if (adminTab) adminTab.style.display = isAdmin() ? 'inline-block' : 'none';
+        }, 0);
+
+        // Integrazione: totals da backend per mostrare le card anche senza dati locali
+        function fetchAndRenderTotalsFromBackend() {
+            const base = (window.DW_BACKEND_URL || location.origin);
+            const url = base.replace(/\/$/, '') + '/api/stats/header';
+            return fetch(url, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+                .then(data => {
+                    const totals = document.getElementById('totals');
+                    const status = document.getElementById('status');
+                    const elLga = document.getElementById('totalLga');
+                    const elLge = document.getElementById('totalLge');
+                    const elLgd = document.getElementById('totalLgd');
+                    const elLgdEvents = document.getElementById('totalLgdEvents');
+                    if (elLga && data && typeof data.lgaCount !== 'undefined') elLga.textContent = String(data.lgaCount);
+                    if (elLge && data && typeof data.lgeCount !== 'undefined') elLge.textContent = String(data.lgeCount);
+                    if (elLgd && data && typeof data.lgdCount !== 'undefined') elLgd.textContent = String(data.lgdCount);
+                    if (elLgdEvents && data && typeof data.lgdRestartsCount !== 'undefined') elLgdEvents.textContent = String(data.lgdRestartsCount);
+                    if (totals) totals.style.display = 'grid';
+                    if (status) status.style.display = 'none';
+                    setDataSourceBadge();
+                })
+                .catch(err => { console.warn('Backend totals non disponibili:', err); });
+        }
+
+        // Nuovo: rendering grafici/tabelle da backend (senza dati locali)
+        function fetchAndRenderChartsFromBackend() {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const topNMax = 20; // chiedi il massimo e poi applica clamp client-side
+            const url = `${base}/api/charts/summary?n=${encodeURIComponent(topNMax)}`;
+            return fetch(url, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+                .then(charts => {
+                    // Helpers locali
+                    function clampN(el, def, maxOverride) {
+                        let n = parseInt((el && el.value) || def, 10);
+                        if (isNaN(n)) n = def;
+                        const min = parseInt((el && el.min) || '5', 10);
+                        const maxAttr = parseInt((el && el.max) || '20', 10);
+                        const max = Number.isFinite(maxOverride) ? maxOverride : maxAttr;
+                        n = Math.floor(n / 5) * 5;
+                        if (el) { el.step = '5'; el.max = String(max); }
+                        return Math.max(min, Math.min(max, n));
+                    }
+                    function rowsFrom(labels, data) {
+                        const rows = [];
+                        const L = Math.min(labels.length, data.length);
+                        for (let i = 0; i < L; i++) rows.push([labels[i], data[i]]);
+                        return rows;
+                    }
+                    // Elementi N
+                    const elLgaTopN = document.getElementById('lgaTopN');
+                    const elLgaSevNodeSelect = document.getElementById('lgaSevNodeSelect'); // non usato in backend
+                    const elLgeTopN = document.getElementById('lgeTopN');
+                    const elLgdTopN = document.getElementById('lgdTopN');
+                    const elLgdTopByFileN = document.getElementById('lgdTopByFileN');
+                    const elLgdDurN = document.getElementById('lgdDurN');
+
+                    // LGA Top per titolo
+                    if (charts && charts.lgaTopByTitle) {
+                        const rows = rowsFrom(charts.lgaTopByTitle.labels || [], charts.lgaTopByTitle.data || []);
+                        const n = clampN(elLgaTopN, 10, rows.length || 5);
+                        const vis = rows.slice(0, Math.min(n, rows.length || 5));
+                        makeTable('lgaTop', ['Titolo', 'Conteggio'], vis, { clickable: true });
+                        makeBarChart('lgaTopChart', vis.map(r => r[0]), vis.map(r => r[1]), 'Top Allarmi LGA');
+                    }
+
+                    // LGA Severità (tabella + pie)
+                    if (charts && charts.lgaSeverity) {
+                        const rows = rowsFrom(charts.lgaSeverity.labels || [], charts.lgaSeverity.data || []);
+                        makeTable('lgaSev', ['Severità', 'Conteggio'], rows, { clickable: true });
+                        makePieChart('lgaSevChart', rows.map(r => r[0]), rows.map(r => r[1]), 'Distribuzione Severità LGA');
+                    }
+
+                    // LGE Top per titolo
+                    if (charts && charts.lgeTopByTitle) {
+                        const rows = rowsFrom(charts.lgeTopByTitle.labels || [], charts.lgeTopByTitle.data || []);
+                        const n = clampN(elLgeTopN, 10, rows.length || 5);
+                        const vis = rows.slice(0, Math.min(n, rows.length || 5));
+                        makeTable('lgeTop', ['Titolo', 'Conteggio'], vis, { clickable: true });
+                        makeBarChart('lgeTopChart', vis.map(r => r[0]), vis.map(r => r[1]), 'Top Eventi LGE');
+                    }
+
+                    // LGD Top per Tipo/Ragione
+                    if (charts && charts.lgdTopByTypeReason) {
+                        const rows = rowsFrom(charts.lgdTopByTypeReason.labels || [], charts.lgdTopByTypeReason.data || []);
+                        const n = clampN(elLgdTopN, 10, rows.length || 5);
+                        const vis = rows.slice(0, Math.min(n, rows.length || 5));
+                        makeTable('lgdTop', ['Tipo/Ragione', 'Conteggio'], vis, { clickable: true });
+                        makeBarChart('lgdTopChart', vis.map(r => r[0]), vis.map(r => r[1]), 'Top Restart LGD');
+                    }
+
+                    // LGD Top per File Name
+                    if (charts && charts.lgdTopByFileName) {
+                        const rows = rowsFrom(charts.lgdTopByFileName.labels || [], charts.lgdTopByFileName.data || []);
+                        const n = clampN(elLgdTopByFileN, 5, rows.length || 5);
+                        const vis = rows.slice(0, Math.min(n, rows.length || 5));
+                        makeTable('lgdTopByFile', ['File Name', 'Conteggio'], vis, { clickable: true });
+                        const labelsDisplay = vis.map(r => (stripLogExt(r[0])));
+                        makeBarChart('lgdTopByFileChart', labelsDisplay, vis.map(r => r[1]), 'Top Restart per nodo');
+                    }
+
+                    // LGD Durata totale per Tipo/Ragione
+                    if (charts && charts.lgdDurationByTypeReason) {
+                        const rows = rowsFrom(charts.lgdDurationByTypeReason.labels || [], charts.lgdDurationByTypeReason.data || []);
+                        const n = clampN(elLgdDurN, 10, rows.length || 5);
+                        const vis = rows.slice(0, Math.min(n, rows.length || 5));
+                        makeTable('lgdDur', ['Tipo/Ragione', 'Durata Totale (s)'], vis, { clickable: true });
+                        makeBarChart('lgdDurChart', vis.map(r => r[0]), vis.map(r => r[1]), 'Durata totale (s)');
+                    }
+
+                    const status = document.getElementById('status');
+                    if (status) status.style.display = 'none';
+                    setDataSourceBadge();
+                })
+                .catch(err => { console.warn('Backend charts non disponibili:', err); });
+        }
+
+        // Navigazione backend-only: passa parametri via query string
+        window.showAlarmDetails = function(alarmTitle) {
+            const title = decodeURIComponent(alarmTitle || '');
+            const url = 'alarm_detail.html?title=' + encodeURIComponent(title);
+            window.location.href = url;
+        };
+        window.showEventDetails = function(eventTitle) {
+            const title = decodeURIComponent(eventTitle || '');
+            const url = 'event_detail.html?title=' + encodeURIComponent(title);
+            window.location.href = url;
+        };
+        window.showLgdDetailsPage = function(typeReasonValue) {
+            const rawTypeReason = decodeURIComponent(typeReasonValue || '');
+            const url = 'lgd_detail.html?typeReason=' + encodeURIComponent(rawTypeReason);
+            window.location.href = url;
+        };
+        window.showLgdDurDetailsPage = function(typeReasonValue) {
+            const typeReason = decodeURIComponent(typeReasonValue || '');
+            const url = 'lgd_detail.html?typeReason=' + encodeURIComponent(typeReason);
+            window.location.href = url;
+        };
+        window.showNodeDetails = function(nodeName) {
+            const fileName = decodeURIComponent(nodeName || '');
+            const url = 'node_detail.html?node=' + encodeURIComponent(fileName);
+            window.location.href = url;
+        };
+        window.showSeverityDetails = function(severityValue) {
+            const severity = decodeURIComponent(severityValue || '').trim().toUpperCase();
+            const overlay = document.createElement('div');
+            overlay.className = 'popup-overlay';
+            const content = document.createElement('div');
+            content.className = 'popup-content';
+            const closeBtn = document.createElement('span');
+            closeBtn.className = 'popup-close';
+            closeBtn.innerHTML = '&times;';
+            closeBtn.onclick = function() { document.body.removeChild(overlay); };
+            const title = document.createElement('h3');
+            title.textContent = `Dettagli severità: ${severity || 'N/D'}`;
+            content.appendChild(closeBtn);
+            content.appendChild(title);
+
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const nodeSel = document.getElementById('globalNodeSelect');
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const nodeRaw = (nodeSel && nodeSel.value) ? (nodeSel.value || '') : '';
+            const node = (nodeRaw && !/^tutti$/i.test(nodeRaw)) ? nodeRaw : '';
+            const qs = [];
+            if (severity) qs.push('severity=' + encodeURIComponent(severity));
+            if (node) qs.push('node=' + encodeURIComponent(node));
+            const dfv = (df && df.value) ? df.value.trim() : '';
+            const dtv = (dt && dt.value) ? dt.value.trim() : '';
+            if (dfv) qs.push('from=' + encodeURIComponent(dfv));
+            if (dtv) qs.push('to=' + encodeURIComponent(dtv));
+
+            const table = document.createElement('table');
+            table.style.width = '100%';
+            const thead = document.createElement('thead');
+            thead.innerHTML = '<tr><th>File</th><th>Severità</th><th>Titolo</th><th>Data</th><th>Ora</th></tr>';
+            const tbody = document.createElement('tbody');
+            table.appendChild(thead);
+            table.appendChild(tbody);
+            content.appendChild(table);
+            overlay.appendChild(content);
+            overlay.addEventListener('click', function(e){ if (e.target === overlay) { document.body.removeChild(overlay); } });
+            document.body.appendChild(overlay);
+
+            const url = `${base}/api/lga${qs.length ? ('?' + qs.join('&')) : ''}`;
+            fetch(url, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+                .then(data => {
+                    const items = (data && data.lga) || [];
+                    tbody.innerHTML = '';
+                    items.slice(0, 200).forEach(it => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `<td>${stripLogExt(it.fileName||'')}</td><td>${it.severity||''}</td><td>${it.title||''}</td><td>${formatItDate(it.dateIso||it.date||'')}</td><td>${it.time||''}</td>`;
+                        tbody.appendChild(tr);
+                    });
+                    if (!items.length) {
+                        const em = document.createElement('p');
+                        em.textContent = 'Nessun elemento trovato per i filtri selezionati.';
+                        content.appendChild(em);
+                    }
+                })
+                .catch(err => {
+                    const em = document.createElement('p');
+                    em.textContent = 'Dettagli non disponibili dal backend: ' + (err && err.message ? err.message : String(err));
+                    content.appendChild(em);
+                });
+        };
+
+        function init() {
+            // Modalità backend-only
+            fetchAndRenderTotalsFromBackend()
+                .then(() => renderAllPanelsForCurrentFilters())
+                .catch(() => {
+                    const hint = (location.protocol === 'file:') ? ' Verifica che il backend sia attivo, oppure usa un server locale per servire la pagina.' : '';
+                    document.getElementById('status').innerHTML = '<div class="status info">Backend non disponibile. Torna alla pagina principale e verifica la configurazione.' + hint + '</div>';
+                });
+            // Wiring filtri nodo e popolamento liste
+            setupNodeFilters();
+
+            // Delegazione click per link severità nella tabella LGA Severità
+            const lgaSevEl = document.getElementById('lgaSev');
+            if (lgaSevEl) {
+                lgaSevEl.addEventListener('click', function(e) {
+                    const anchor = e.target.closest('a.sev-link');
+                    if (!anchor) return;
+                    e.preventDefault();
+                    const severity = anchor.getAttribute('data-severity') || '';
+                    try {
+                        showSeverityDetails(severity);
+                    } catch (err) {
+                        console.error('Errore apertura dettagli severità:', err);
+                    }
+                });
+            }
+        }
+
+        init();
+
+        // Modalità backend-only: nessun selettore origine dati
+
+        // --- Nuovo: supporto filtri per nodo ---
+        function setupNodeFilters() {
+            // Popola datalist nodi leggendo da LGA/LGE del backend
+            populateNodeLists();
+            // Global node propagates to specific panels
+            const globalNode = document.getElementById('globalNodeSelect');
+            if (globalNode) {
+                globalNode.addEventListener('change', () => {
+                    const val = (globalNode.value || '').trim();
+                    const elLga = document.getElementById('lgaNodeSelect');
+                    const elLgaSev = document.getElementById('lgaSevNodeSelect');
+                    const elLge = document.getElementById('lgeNodeSelect');
+                    const elLgd = document.getElementById('lgdNodeSelect');
+                    const elLgdDur = document.getElementById('lgdDurNodeSelect');
+                    if (elLga) { elLga.value = val; elLga.dispatchEvent(new Event('change')); }
+                    if (elLgaSev) { elLgaSev.value = val; elLgaSev.dispatchEvent(new Event('change')); }
+                    if (elLge) { elLge.value = val; elLge.dispatchEvent(new Event('change')); }
+                    if (elLgd) { elLgd.value = val; elLgd.dispatchEvent(new Event('change')); }
+                    if (elLgdDur) { elLgdDur.value = val; elLgdDur.dispatchEvent(new Event('change')); }
+                    renderAllPanelsForCurrentFilters();
+                });
+            }
+            // Global date filters
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            if (df) df.addEventListener('change', renderAllPanelsForCurrentFilters);
+            if (dt) dt.addEventListener('change', renderAllPanelsForCurrentFilters);
+            // LGA per titolo
+            const lgaNode = document.getElementById('lgaNodeSelect');
+            if (lgaNode) {
+                lgaNode.addEventListener('change', () => {
+                    const node = (lgaNode.value || '').trim();
+                    if (!node || /^tutti$/i.test(node)) { renderAllPanelsForCurrentFilters(); return; }
+                    renderLgaTopForNode(node);
+                });
+                // Cambi del Top N
+                const elLgaTopN = document.getElementById('lgaTopN');
+                if (elLgaTopN) elLgaTopN.addEventListener('change', () => {
+                    const node = (lgaNode.value || '').trim();
+                    if (node && !/^tutti$/i.test(node)) renderLgaTopForNode(node); else renderAllPanelsForCurrentFilters();
+                });
+            }
+            // LGE per titolo
+            const lgeNode = document.getElementById('lgeNodeSelect');
+            if (lgeNode) {
+                lgeNode.addEventListener('change', () => {
+                    const node = (lgeNode.value || '').trim();
+                    if (!node || /^tutti$/i.test(node)) { renderAllPanelsForCurrentFilters(); return; }
+                    renderLgeTopForNode(node);
+                });
+                const elLgeTopN = document.getElementById('lgeTopN');
+                if (elLgeTopN) elLgeTopN.addEventListener('change', () => {
+                    const node = (lgeNode.value || '').trim();
+                    if (node && !/^tutti$/i.test(node)) renderLgeTopForNode(node); else renderAllPanelsForCurrentFilters();
+                });
+            }
+            // LGD Top per Tipo/Ragione
+            const lgdNode = document.getElementById('lgdNodeSelect');
+            if (lgdNode) {
+                lgdNode.addEventListener('change', () => {
+                    const node = (lgdNode.value || '').trim();
+                    if (!node || /^tutti$/i.test(node)) { renderAllPanelsForCurrentFilters(); return; }
+                    renderLgdTopForNode(node);
+                });
+                const elLgdTopN = document.getElementById('lgdTopN');
+                if (elLgdTopN) elLgdTopN.addEventListener('change', () => {
+                    const node = (lgdNode.value || '').trim();
+                    if (node && !/^tutti$/i.test(node)) renderLgdTopForNode(node); else renderAllPanelsForCurrentFilters();
+                });
+            }
+            // LGA Distribuzione Severità (aggregato o per nodo)
+            const lgaSevNode = document.getElementById('lgaSevNodeSelect');
+            if (lgaSevNode) {
+                lgaSevNode.addEventListener('change', () => {
+                    const node = (lgaSevNode.value || '').trim();
+                    if (!node || /^tutti$/i.test(node)) { renderAllPanelsForCurrentFilters(); return; }
+                    renderLgaSeverityForNode(node);
+                });
+            }
+            // LGD Durata Totale per Tipo
+            const lgdDurNode = document.getElementById('lgdDurNodeSelect');
+            if (lgdDurNode) {
+                lgdDurNode.addEventListener('change', () => {
+                    const node = (lgdDurNode.value || '').trim();
+                    if (!node || /^tutti$/i.test(node)) { renderAllPanelsForCurrentFilters(); return; }
+                    renderLgdDurForNode(node);
+                });
+                const elLgdDurN = document.getElementById('lgdDurN');
+                if (elLgdDurN) elLgdDurN.addEventListener('change', () => {
+                    const node = (lgdDurNode.value || '').trim();
+                    if (node && !/^tutti$/i.test(node)) renderLgdDurForNode(node); else renderAllPanelsForCurrentFilters();
+                });
+            }
+            // LGD Top per nodo (card Eventi Restart per nodo): aggiorna su cambio Top N
+            const elLgdTopByFileN = document.getElementById('lgdTopByFileN');
+            if (elLgdTopByFileN) {
+                elLgdTopByFileN.addEventListener('change', () => {
+                    // Questo pannello è aggregato (non filtrato per nodo specifico)
+                    renderAllPanelsForCurrentFilters();
+                });
+            }
+        }
+
+        // Decide cosa renderizzare in base ai filtri correnti (nodo e date)
+        function renderAllPanelsForCurrentFilters() {
+            const nodeSel = document.getElementById('globalNodeSelect');
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const nodeRaw = (nodeSel && nodeSel.value) ? nodeSel.value.trim() : '';
+            const node = (nodeRaw && !/^tutti$/i.test(nodeRaw)) ? nodeRaw : '';
+            // Se è selezionato un nodo specifico
+            if (node) {
+                renderLgaTopForNode(node);
+                renderLgaSeverityForNode(node);
+                renderLgeTopForNode(node);
+                renderLgdTopForNode(node);
+                renderLgdDurForNode(node);
+                // Top per file resta aggregato; possiamo mostrare comunque con date
+                renderLgdTopByFileAll();
+                return;
+            }
+            // Aggregato su tutti i nodi, con date se presenti
+            renderLgaTopAll();
+            renderLgaSeverityAll();
+            renderLgeTopAll();
+            renderLgdTopAll();
+            renderLgdDurAll();
+            renderLgdTopByFileAll();
+        }
+
+        // Aggregato: LGA Top per titolo
+        function renderLgaTopAll() {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const qs = [];
+            const dfv = (df && df.value) ? df.value.trim() : '';
+            const dtv = (dt && dt.value) ? dt.value.trim() : '';
+            if (dfv) qs.push('from=' + encodeURIComponent(dfv));
+            if (dtv) qs.push('to=' + encodeURIComponent(dtv));
+            qs.push('limit=100000');
+            fetch(`${base}/api/lga${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
+                .then(resp => {
+                    const items = Array.isArray(resp.lga) ? resp.lga : [];
+                    const rows = groupCountBy(items, 'title');
+                    const elN = document.getElementById('lgaTopN');
+                    let n = parseInt((elN && elN.value)||'10',10); if (isNaN(n)) n=10; n = Math.max(5, Math.min(20, Math.floor(n/5)*5));
+                    const vis = rows.slice(0, Math.min(n, rows.length||5));
+                    makeTable('lgaTop', ['Titolo', 'Conteggio'], vis, { clickable: true });
+                    makeBarChart('lgaTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), 'Top Allarmi LGA (Tutti)');
+                }).catch(()=>{/*ignore*/});
+        }
+
+        // Aggregato: LGA Distribuzione Severità
+        function renderLgaSeverityAll() {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const qs = [];
+            const dfv = (df && df.value) ? df.value.trim() : '';
+            const dtv = (dt && dt.value) ? dt.value.trim() : '';
+            if (dfv) qs.push('from=' + encodeURIComponent(dfv));
+            if (dtv) qs.push('to=' + encodeURIComponent(dtv));
+            qs.push('limit=100000');
+            fetch(`${base}/api/lga${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
+                .then(resp => {
+                    const items = Array.isArray(resp.lga) ? resp.lga : [];
+                    const normalized = items.map(it => ({ ...it, severity: String(it.severity||'').trim().toUpperCase() }));
+                    const rows = groupCountBy(normalized, 'severity');
+                    makeTable('lgaSev', ['Severità', 'Conteggio'], rows, { clickable: true });
+                    makePieChart('lgaSevChart', rows.map(r=>r[0]), rows.map(r=>r[1]), 'Distribuzione Severità LGA (Tutti)');
+                }).catch(()=>{/*ignore*/});
+        }
+
+        // Aggregato: LGE Top per titolo
+        function renderLgeTopAll() {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const qs = [];
+            const dfv = (df && df.value) ? df.value.trim() : '';
+            const dtv = (dt && dt.value) ? dt.value.trim() : '';
+            if (dfv) qs.push('from=' + encodeURIComponent(dfv));
+            if (dtv) qs.push('to=' + encodeURIComponent(dtv));
+            qs.push('limit=100000');
+            fetch(`${base}/api/lge${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
+                .then(resp => {
+                    const items = Array.isArray(resp.lge) ? resp.lge : [];
+                    const rows = groupCountBy(items, 'title');
+                    const elN = document.getElementById('lgeTopN');
+                    let n = parseInt((elN && elN.value)||'10',10); if (isNaN(n)) n=10; n = Math.max(5, Math.min(20, Math.floor(n/5)*5));
+                    const vis = rows.slice(0, Math.min(n, rows.length||5));
+                    makeTable('lgeTop', ['Titolo', 'Conteggio'], vis, { clickable: true });
+                    makeBarChart('lgeTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), 'Top Eventi LGE (Tutti)');
+                }).catch(()=>{/*ignore*/});
+        }
+
+        // Aggregato: LGD Top per Tipo/Ragione
+        function renderLgdTopAll() {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const qs = [];
+            const dfv = (df && df.value) ? df.value.trim() : '';
+            const dtv = (dt && dt.value) ? dt.value.trim() : '';
+            if (dfv) qs.push('from=' + encodeURIComponent(dfv));
+            if (dtv) qs.push('to=' + encodeURIComponent(dtv));
+            qs.push('limit=100000');
+            fetch(`${base}/api/lgd${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
+                .then(resp => {
+                    const items = Array.isArray(resp.lgdRestarts) ? resp.lgdRestarts : [];
+                    const rows = groupCountBy(items, 'typeReason');
+                    const elN = document.getElementById('lgdTopN');
+                    let n = parseInt((elN && elN.value)||'10',10); if (isNaN(n)) n=10; n = Math.max(5, Math.min(20, Math.floor(n/5)*5));
+                    const vis = rows.slice(0, Math.min(n, rows.length||5));
+                    makeTable('lgdTop', ['Tipo/Ragione', 'Conteggio'], vis, { clickable: true });
+                    makeBarChart('lgdTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), 'Top Restart LGD (Tutti)');
+                }).catch(()=>{/*ignore*/});
+        }
+
+        // Aggregato: LGD Durata totale per Tipo/Ragione
+        function renderLgdDurAll() {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const qs = [];
+            const dfv = (df && df.value) ? df.value.trim() : '';
+            const dtv = (dt && dt.value) ? dt.value.trim() : '';
+            if (dfv) qs.push('from=' + encodeURIComponent(dfv));
+            if (dtv) qs.push('to=' + encodeURIComponent(dtv));
+            qs.push('limit=100000');
+            fetch(`${base}/api/lgd${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
+                .then(resp => {
+                    const items = Array.isArray(resp.lgdRestarts) ? resp.lgdRestarts : [];
+                    const rows = groupSumBy(items, 'typeReason', 'duration');
+                    const elN = document.getElementById('lgdDurN');
+                    let n = parseInt((elN && elN.value)||'10',10); if (isNaN(n)) n=10; n = Math.max(5, Math.min(20, Math.floor(n/5)*5));
+                    const vis = rows.slice(0, Math.min(n, rows.length||5));
+                    makeTable('lgdDur', ['Tipo/Ragione', 'Durata Totale (s)'], vis, { clickable: true });
+                    makeBarChart('lgdDurChart', vis.map(r=>r[0]), vis.map(r=>r[1]), 'Durata totale (s) (Tutti)');
+                }).catch(()=>{/*ignore*/});
+        }
+
+        // Aggregato: LGD Top per File Name
+        function renderLgdTopByFileAll() {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const qs = [];
+            const dfv = (df && df.value) ? df.value.trim() : '';
+            const dtv = (dt && dt.value) ? dt.value.trim() : '';
+            if (dfv) qs.push('from=' + encodeURIComponent(dfv));
+            if (dtv) qs.push('to=' + encodeURIComponent(dtv));
+            qs.push('limit=100000');
+            fetch(`${base}/api/lgd${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
+                .then(resp => {
+                    const items = Array.isArray(resp.lgdRestarts) ? resp.lgdRestarts : [];
+                    const rows = groupCountBy(items, 'fileName');
+                    const elN = document.getElementById('lgdTopByFileN');
+                    let n = parseInt((elN && elN.value)||'5',10); if (isNaN(n)) n=5; n = Math.max(5, Math.min(20, Math.floor(n/5)*5));
+                    const vis = rows.slice(0, Math.min(n, rows.length||5));
+                    // Tabella con sigle senza .log
+                    makeTable('lgdTopByFile', ['File Name', 'Conteggio'], vis.map(([name,count]) => [stripLogExt(name), count]), { clickable: true });
+                    const labelsDisplay = vis.map(r => stripLogExt(r[0]));
+                    makeBarChart('lgdTopByFileChart', labelsDisplay, vis.map(r => r[1]), 'Top Restart per nodo (Tutti)');
+                }).catch(()=>{/*ignore*/});
+        }
+
+        function populateNodeLists() {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const lists = ['globalNodeList','lgaNodeList','lgeNodeList','lgdNodeList','lgdDurNodeList','lgaSevNodeList'];
+            const setNodes = (nodes) => {
+                const options = ['<option value="Tutti">Tutti</option>'];
+                for (const n of nodes) {
+                    const s = stripLogExt(n);
+                    options.push(`<option value="${s}">${s}</option>`);
+                }
+                const optionsHtml = options.join('');
+                for (const id of lists) {
+                    const dl = document.getElementById(id);
+                    if (dl) dl.innerHTML = optionsHtml;
+                }
+            };
+            Promise.all([
+                fetch(`${base}/api/lga?limit=100000`, { mode: 'cors' }).then(r => r.ok ? r.json() : { lga: [] }),
+                fetch(`${base}/api/lge?limit=100000`, { mode: 'cors' }).then(r => r.ok ? r.json() : { lge: [] })
+            ]).then(([lgaResp, lgeResp]) => {
+                const nodes = new Set();
+                (Array.isArray(lgaResp.lga) ? lgaResp.lga : []).forEach(it => { const f = (it.fileName||'').trim(); if (f) nodes.add(f); });
+                (Array.isArray(lgeResp.lge) ? lgeResp.lge : []).forEach(it => { const f = (it.fileName||'').trim(); if (f) nodes.add(f); });
+                const list = Array.from(nodes).sort((a,b)=>a.localeCompare(b,'it',{sensitivity:'base'}));
+                setNodes(list);
+            }).catch(() => { /* ignore populate errors */ });
+        }
+
+        function parseDurationSec(s) {
+            const m = String(s||'').trim().match(/^(\d{1,2}):(\d{2}):(\d{2})$/);
+            if (!m) return 0;
+            return (+m[1])*3600 + (+m[2])*60 + (+m[3]);
+        }
+        function groupCountBy(items, key) {
+            const map = new Map();
+            for (const it of items||[]) {
+                const k = String(it[key]||'N/D').trim();
+                map.set(k, (map.get(k)||0) + 1);
+            }
+            const arr = Array.from(map.entries()).sort((a,b)=>b[1]-a[1]);
+            return arr.map(([k,v]) => [k,v]);
+        }
+        function groupSumBy(items, key, valueKey) {
+            const map = new Map();
+            for (const it of items||[]) {
+                const k = String(it[key]||'N/D').trim();
+                // Usa il parser robusto che supporta "10s", "20m29s", "1h 2m 3s", ecc.
+                const v = parseDurationToSeconds(it[valueKey]);
+                map.set(k, (map.get(k)||0) + v);
+            }
+            const arr = Array.from(map.entries()).sort((a,b)=>b[1]-a[1]);
+            return arr.map(([k,v]) => [k,v]);
+        }
+
+        function renderLgaTopForNode(node) {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const qs = [`node=${encodeURIComponent(node)}`];
+            const dfv = (df && df.value) ? df.value.trim() : '';
+            const dtv = (dt && dt.value) ? dt.value.trim() : '';
+            if (dfv) qs.push('from=' + encodeURIComponent(dfv));
+            if (dtv) qs.push('to=' + encodeURIComponent(dtv));
+            fetch(`${base}/api/lga?${qs.join('&')}`, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
+                .then(resp => {
+                    const items = Array.isArray(resp.lga) ? resp.lga : [];
+                    const rows = groupCountBy(items, 'title');
+                    const elN = document.getElementById('lgaTopN');
+                    let n = parseInt((elN && elN.value)||'10',10); if (isNaN(n)) n=10; n = Math.max(5, Math.min(20, Math.floor(n/5)*5));
+                    const vis = rows.slice(0, Math.min(n, rows.length||5));
+                    makeTable('lgaTop', ['Titolo', 'Conteggio'], vis, { clickable: true });
+                    makeBarChart('lgaTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), `Top Allarmi LGA (${stripLogExt(node)})`);
+                }).catch(()=>{/*ignore*/});
+        }
+
+        function renderLgaSeverityForNode(node) {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const qs = [`node=${encodeURIComponent(node)}`];
+            const dfv = (df && df.value) ? df.value.trim() : '';
+            const dtv = (dt && dt.value) ? dt.value.trim() : '';
+            if (dfv) qs.push('from=' + encodeURIComponent(dfv));
+            if (dtv) qs.push('to=' + encodeURIComponent(dtv));
+            fetch(`${base}/api/lga?${qs.join('&')}`, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
+                .then(resp => {
+                    const items = Array.isArray(resp.lga) ? resp.lga : [];
+                    const normalized = items.map(it => ({ ...it, severity: String(it.severity||'').trim().toUpperCase() }));
+                    const rows = groupCountBy(normalized, 'severity');
+                    makeTable('lgaSev', ['Severità', 'Conteggio'], rows, { clickable: true });
+                    makePieChart('lgaSevChart', rows.map(r=>r[0]), rows.map(r=>r[1]), `Distribuzione Severità LGA (${stripLogExt(node)})`);
+                }).catch(()=>{/*ignore*/});
+        }
+
+        function renderLgeTopForNode(node) {
+            const base = (window.DW_BACKEND_URL || 'http://localhost:9000').replace(/\/$/, '');
+            const df = document.getElementById('globalDateFrom');
+            const dt = document.getElementById('globalDateTo');
+            const qs = [`node=${encodeURIComponent(node)}`];
+            const dfv = (df && df.value) ? df.value.trim() : '';
+            const dtv = (dt && dt.value) ? dt.value.trim() : '';
+            if (dfv) qs.push('from=' + encodeURIComponent(dfv));
+            if (dtv) qs.push('to=' + encodeURIComponent(dtv));
+            fetch(`${base}/api/lge?${qs.join('&')}`, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
+                .then(resp => {
+                    const items = Array.isArray(resp.lge) ? resp.lge : [];
+                    const rows = groupCountBy(items, 'title');
+                    const elN = document.getElementById('lgeTopN');
+                    let n = parseInt((elN && elN.value)||'10',10); if (isNaN(n)) n=10; n = Math.max(5, Math.min(20, Math.floor(n/5)*5));
+                    const vis = rows.slice(0, Math.min(n, rows.length||5));
+                    makeTable('lgeTop', ['Titolo', 'Conteggio'], vis, { clickable: true });
+                    makeBarChart('lgeTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), `Top Eventi LGE (${stripLogExt(node)})`);
+                }).catch(()=>{/*ignore*/});
+        }
+
+        function ensureLogSuffix(node) {
+            return /\.log$/i.test(node) ? node : `${node}.log`;
+        }
+        function renderLgdTopForNode(node) {
+            const base = (window.DW_BACKEND_URL || 'http://localhost:9000').replace(/\/$/, '');
+            const fileName = ensureLogSuffix(node);
+            fetch(`${base}/api/node/summary?node=${encodeURIComponent(fileName)}`, { mode: 'cors' })
+                .then(r=> r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
+                .then(resp => {
+                    const items = Array.isArray(resp.lgdRestarts) ? resp.lgdRestarts : [];
+                    const rows = groupCountBy(items, 'typeReason');
+                    const elN = document.getElementById('lgdTopN');
+                    let n = parseInt((elN && elN.value)||'10',10); if (isNaN(n)) n=10; n = Math.max(5, Math.min(20, Math.floor(n/5)*5));
+                    const vis = rows.slice(0, Math.min(n, rows.length||5));
+                    makeTable('lgdTop', ['Tipo/Ragione', 'Conteggio'], vis, { clickable: true });
+                    makeBarChart('lgdTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), `Top Restart LGD (${stripLogExt(fileName)})`);
+                }).catch(()=>{/*ignore*/});
+        }
+        function renderLgdDurForNode(node) {
+            const base = (window.DW_BACKEND_URL || 'http://localhost:9000').replace(/\/$/, '');
+            const fileName = ensureLogSuffix(node);
+            fetch(`${base}/api/node/summary?node=${encodeURIComponent(fileName)}`, { mode: 'cors' })
+                .then(r=> r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
+                .then(resp => {
+                    const items = Array.isArray(resp.lgdRestarts) ? resp.lgdRestarts : [];
+                    const rows = groupSumBy(items, 'typeReason', 'duration');
+                    const elN = document.getElementById('lgdDurN');
+                    let n = parseInt((elN && elN.value)||'10',10); if (isNaN(n)) n=10; n = Math.max(5, Math.min(20, Math.floor(n/5)*5));
+                    const vis = rows.slice(0, Math.min(n, rows.length||5));
+                    makeTable('lgdDur', ['Tipo/Ragione', 'Durata Totale (s)'], vis, { clickable: true });
+                    makeBarChart('lgdDurChart', vis.map(r=>r[0]), vis.map(r=>r[1]), `Durata totale (s) (${stripLogExt(fileName)})`);
+                }).catch(()=>{/*ignore*/});
+        }
+    </script>
+</body>
+</html>

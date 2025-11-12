@@ -1,0 +1,279 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/SC17E.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 1224368
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+SC17E> lt all
+
+251007-12:18:48+0200 19.31.6.239 25.0h  stopfile=/tmp/1224238
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 1225200
+
+Connected to 19.31.6.239 (SubNetwork=BBMM_rckomc_R,MeContext=SC17E,ManagedElement=SC17E)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-121842_1224180/MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81.xml.cache.gz ......................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBSG2_25.Q1.txt ......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.6.239 (SubNetwork=BBMM_rckomc_R,MeContext=SC17E,ManagedElement=SC17E)
+
+Last MO: 16453. Loaded 16453 MOs. Total: 16454 MOs.
+
+SC17E> hget EUtranCellFDD ^cellid
+
+251007-12:19:06+0200 19.31.6.239 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1224238
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=SC17E1 61    
+EUtranCellFDD=SC17M1 31    
+EUtranCellFDD=SC17T1 41    
+=================================================================================================================
+Total: 3 MOs
+
+Added 3 MOs to group: hget_group
+
+SC17E> hget NbIotCell ^cellid
+
+251007-12:19:07+0200 19.31.6.239 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1224238
+
+=================================================================================================================
+MO               cellId
+=================================================================================================================
+NbIotCell=SC17N1 161   
+=================================================================================================================
+Total: 1 MOs
+
+Added 1 MOs to group: hget_group
+
+SC17E> hget NRCellDU ^cellLocalId
+
+251007-12:19:08+0200 19.31.6.239 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1224238
+Total: 0 MOs
+
+SC17E> lgdc -m 30d
+
+251007-12:19:08+0200 19.31.6.239 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1224238
+
+Startdate=20250907.101908, Enddate=20251008.101908
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=51064
+......
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 51064    1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-121842_1224180/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007101913.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-121842_1224180/availabilityLog1224238.xml
+Parsing availabilityLog........Done.
+.....
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;05:29:08;PartialOutage(Manual);33% Lrat Cell 41; ();8s;;;;;
+2025-09-08;05:29:23;PartialOutage(Manual);33% Lrat Cell 31; ();8s;;;;;
+2025-09-08;05:29:35;PartialOutage(Manual);33% Lrat Cell 61; ();8s;;;;;
+2025-09-10;23:39:44;PartialOutage(System);100% Lrat Cell 161; ();543s (9m3s);;;;;
+2025-09-10;23:48:47;PartialOutage(Transmission);100% Lrat Cell 31; ();1s;;;;;
+2025-09-10;23:51:35;PartialOutage(System);100% Lrat Cell 161; ();362s (6m2s);;;;;
+2025-09-10;23:57:37;PartialOutage(Transmission);100% Lrat Cell 31; ();1s;;;;;
+2025-09-11;04:44:19;PartialOutage(System);100% Lrat Cell 161; ();31s;;;;;
+2025-09-11;04:45:33;PartialOutage(System);100% Lrat Cell 161; ();250s (4m10s);;;;;
+2025-10-05;14:16:09;PartialOutage(System);100% Lrat Cell 161; ();144s (2m24s);;;;;
+2025-10-05;14:18:34;PartialOutage(Transmission);100% Lrat Cell 31; ();1s;;;;;
+
+Node uptime since last restart: 158445 seconds (1 days, 20 hours, 0 minutes, 45 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                0                0                11              
+Total downtime       0s               0s               0s               0s               1357s (22m37s)  
+Downtime per day     0s               0s               0s               0s               45s             
+Downtime per outage  0s               0s               0s               0s               123s (2m3s)     
+
+SC17E> lgac -m 30d
+
+251007-12:19:20+0200 19.31.6.239 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1224238
+
+Startdate=20250907.101920, Enddate=20251008.101920
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=51065
+.............
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 51065    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-121842_1224180/rcslogs/saLogAlarm_20250206__092137_20250314__110418.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-121842_1224180/rcslogs/saLogAlarm_20250314__110418_20250520__141211.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-121842_1224180/rcslogs/saLogAlarm_20250520__141211.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-121842_1224180/alarmLog1224238.xml
+2025-09-10;17:50:45;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600554
+2025-09-10;23:39:44;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-10;23:39:44;AL  ;Major ;EUtranCellFDD=SC17T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:39:44;AL  ;Major ;EUtranCellFDD=SC17M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:39:44;AL  ;Major ;EUtranCellFDD=SC17E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:39:44;AL  ;Major ;NbIotCell=SC17N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:40:37;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-10;23:41:38;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-10;23:41:43;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-09-10;23:41:46;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-10;23:48:45;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-10;23:48:45;AL  ;Cleared;EUtranCellFDD=SC17T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:48:45;AL  ;Cleared;EUtranCellFDD=SC17M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:48:45;AL  ;Cleared;EUtranCellFDD=SC17E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:48:46;AL  ;Cleared;NbIotCell=SC17N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:50:33;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-10;23:51:35;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-10;23:51:35;AL  ;Major ;EUtranCellFDD=SC17T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:51:35;AL  ;Major ;EUtranCellFDD=SC17M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:51:35;AL  ;Major ;EUtranCellFDD=SC17E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:51:35;AL  ;Major ;NbIotCell=SC17N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:52:30;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-10;23:57:35;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-10;23:57:36;AL  ;Cleared;EUtranCellFDD=SC17T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:57:36;AL  ;Cleared;EUtranCellFDD=SC17M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:57:36;AL  ;Cleared;EUtranCellFDD=SC17E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:57:36;AL  ;Cleared;NbIotCell=SC17N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-10;23:59:21;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;04:44:19;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:44:19;AL  ;Major ;EUtranCellFDD=SC17T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:44:19;AL  ;Major ;EUtranCellFDD=SC17M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:44:19;AL  ;Major ;EUtranCellFDD=SC17E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:44:19;AL  ;Major ;NbIotCell=SC17N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:44:48;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:44:48;AL  ;Cleared;EUtranCellFDD=SC17T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:44:48;AL  ;Cleared;EUtranCellFDD=SC17M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:44:48;AL  ;Cleared;EUtranCellFDD=SC17E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:44:48;AL  ;Cleared;NbIotCell=SC17N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:45:33;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:45:33;AL  ;Major ;EUtranCellFDD=SC17T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:45:33;AL  ;Major ;EUtranCellFDD=SC17M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:45:33;AL  ;Major ;EUtranCellFDD=SC17E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:45:33;AL  ;Major ;NbIotCell=SC17N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:46:20;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;04:49:42;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-11;04:49:42;AL  ;Cleared;EUtranCellFDD=SC17T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:49:42;AL  ;Cleared;EUtranCellFDD=SC17M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:49:42;AL  ;Cleared;EUtranCellFDD=SC17E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:49:42;AL  ;Cleared;NbIotCell=SC17N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-11;04:51:17;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-11;05:15:38;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-11;05:15:41;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-09-11;05:15:45;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-11;05:17:23;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-09-11;05:17:42;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-09-11;05:17:42;AL  ;Major ;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-11;05:17:43;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-11;05:17:47;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-09-11;05:18:15;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-11;05:18:19;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-11;05:18:58;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-09-11;05:18:58;AL  ;Major ;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-11;05:18:59;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-11;05:19:03;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-09-11;05:21:25;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-11;05:21:27;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-13;14:58:04;AL  ;Cleared;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-600554
+2025-09-15;13:52:58;AL  ;Major ;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-15;13:52:59;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-15;14:07:59;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-15;14:08:02;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-15;14:27:33;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-15;14:27:33;AL  ;Major ;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-15;14:28:30;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-15;14:28:35;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-15;14:37:17;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-15;14:37:17;AL  ;Major ;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-15;14:37:54;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-15;14:37:57;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-16;09:57:08;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;09:57:38;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:01:15;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-16;10:01:45;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,
+2025-09-24;06:16:26;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-09-24;06:16:27;AL  ;Major ;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-24;06:16:29;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-24;06:16:33;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-09-24;06:17:09;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-24;06:17:13;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-24;11:33:44;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-24;11:33:44;AL  ;Major ;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-24;11:34:05;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-09-24;11:34:09;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-09-25;11:34:54;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-25;11:34:54;AL  ;Minor ;EUtranCellFDD=SC17E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;11:34:54;AL  ;Minor ;EUtranCellFDD=SC17M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;11:34:54;AL  ;Minor ;EUtranCellFDD=SC17T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;11:37:49;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-25;11:37:49;AL  ;Cleared;EUtranCellFDD=SC17E1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;11:37:49;AL  ;Cleared;EUtranCellFDD=SC17M1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-25;11:37:49;AL  ;Cleared;EUtranCellFDD=SC17T1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-01;17:29:18;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-10-01;17:29:33;AL  ;Major ;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-10-01;17:29:34;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-10-01;17:29:38;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-10-01;17:31:11;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-10-01;17:31:15;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-10-01;17:41:57;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-10-01;17:42:12;AL  ;Major ;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-10-01;17:42:16;AL  ;Critical;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-10-01;17:42:20;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=1;External Alarm;ALLARME ANOMALIA E GUASTO
+2025-10-01;17:42:45;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-10-01;17:42:51;AL  ;Major ;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-10-01;17:43:37;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=5;External Alarm;ALLARME PICCOLO CONDIZIONATORE
+2025-10-01;17:43:41;AL  ;Cleared;FieldReplaceableUnit=BB-1,AlarmPort=2;External Alarm;ALLARME FASE E RETE
+2025-10-05;14:16:09;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:16:09;AL  ;Major ;EUtranCellFDD=SC17T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:16:09;AL  ;Major ;EUtranCellFDD=SC17M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:16:09;AL  ;Major ;EUtranCellFDD=SC17E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:16:09;AL  ;Major ;NbIotCell=SC17N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:17:32;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-10-05;14:18:32;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-10-05;14:18:32;AL  ;Cleared;EUtranCellFDD=SC17T1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:18:32;AL  ;Cleared;EUtranCellFDD=SC17M1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:18:32;AL  ;Cleared;EUtranCellFDD=SC17E1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:18:32;AL  ;Cleared;NbIotCell=SC17N1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-10-05;14:20:34;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+
+
+SC17E> lgec -m 30d
+
+251007-12:19:31+0200 19.31.6.239 25.0h MSRBS_NODE_MODEL_25.Q1_198665.224.73_bf81 stopfile=/tmp/1224238
+
+Startdate=20250907.101931, Enddate=20251008.101931
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=51066
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 51066    1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-121842_1224180/rcslogs/AlertLog_20220802__095352.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-121842_1224180/eventLog1224238.xml
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/SC17E.log

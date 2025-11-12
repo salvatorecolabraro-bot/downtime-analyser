@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downtime Analytics</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 24px 30px; }
+        .header h1 { margin: 0; font-size: 2em; font-weight: 400; }
+        .header .nav { margin-top: 8px; }
+        .header a { color: #083b66; background: #ffffff; border-radius: 6px; padding: 6px 10px; text-decoration: none; font-weight: 600; margin-right: 8px; }
+        .content { padding: 24px 30px; }
+        .status { margin: 10px 0; padding: 10px; border-radius: 6px; }
+        .status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .status.warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .card { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-bottom: 20px; font-size: 1.06em; }
+        h3 { margin: 0 0 8px 0; font-size: 1.3em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; font-size: 1.05em; }
+        th { background: #eef6ff; text-align: left; }
+        tr:hover { background-color: #f5f5f5; }
+        .table-wrap { overflow-x: auto; }
+        /* Paginazione */
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 20px 0; padding: 10px; }
+        .pagination button { padding: 8px 12px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 4px; }
+        .pagination button:hover:not(:disabled) { background: #f0f0f0; }
+        .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .pagination .pagination-info { color: #666; font-size: 14px; }
+        /* Severity pill */
+        .severity-pill { display: inline-block; padding: 2px 6px; border-radius: 10px; font-size: 12px; border: 1px solid rgba(0,0,0,0.08); }
+        .sev-critical { background: #ffcdd2; color: #b71c1c; }
+        .sev-major { background: #ffe0b2; color: #e65100; }
+        .sev-warning { background: #fff8e1; color: #8d6e63; }
+        .sev-minor { background: #fff9c4; color: #827717; }
+        .sev-info { background: #bbdefb; color: #0d47a1; }
+        .sev-clear { background: #c8e6c9; color: #2e7d32; }
+        /* Filtro per nodo */
+        .filters { display: flex; gap: 10px; align-items: center; margin: 10px 0; }
+        .filters label { color: #333; }
+        .filters select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 4px; }
+    /* --- Tema scuro coordinato --- */
+:root {
+    --bg: #0f172a;
+    --surface: #111827;
+    --card: #0d1424;
+    --border: #1f2937;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --accent: #1e88e5;
+}
+body { background: var(--bg); color: var(--text); }
+.container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+.header { background: var(--surface); color: var(--text); border-bottom: 1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding: 12px 16px; }
+.brand { font-size: 18px; font-weight: 600; letter-spacing: .2px; }
+.brand .logo-icon { width:32px; height:32px; display:inline-block; border-radius:6px; box-shadow: 0 1px 2px rgba(0,0,0,0.2); vertical-align: middle; }
+.nav-tabs { display:flex; gap:10px; }
+.nav-tabs .tab { color: var(--text); text-decoration:none; border:1px solid #263347; padding: 8px 14px; border-radius: 12px; background: #0d1424; box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 2px rgba(0,0,0,0.25); }
+.nav-tabs .tab.active { background: #1b2a44; border-color: #2b3c55; }
+.content { color: var(--text); }
+.card, .table-card { background: #0d1424; color: var(--text); border: 1px solid #263347; border-radius: 12px; }
+th { background: #16233a; border-color: #263347; }
+td { border-color: #263347; }
+/* Hover righe tabella coerente con alarm_detail */
+tr:hover { background-color: #ffe082; color: #333; }
+a { color: var(--accent); }
+.button, .btn, .export-btn { background: #16233a; color: var(--text); border: 1px solid #263347; border-radius: 10px; }
+.button:hover, .btn:hover, .export-btn:hover { background: #1b2a44; }
+.pagination button { background: #16233a; color: var(--text); border: 1px solid #263347; border-radius: 10px; }
+.pagination button.active { background: #1b2a44; }
+/* Summary cards coordinato con alarm_detail */
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 16px; }
+.summary-item { padding: 14px; background: #0d1424; color: var(--text); border: 1px solid #263347; border-radius: 12px; text-align: center; }
+.summary-item h3 { margin: 0 0 8px 0; color: var(--text); font-weight: 600; font-size: 1.15em; }
+#totalCount, #nodeCount { font-size: 1.8em; font-weight: 700; color: var(--accent); }
+#alarmTitleText { font-size: 1.2em; color: var(--text); }
+/* Barra avanzamento export */
+.progress-bar { position: relative; height: 10px; background: #1b2a44; border: 1px solid #263347; border-radius: 6px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #1e88e5 0%, #64b5f6 100%); transition: width 0.3s ease; }
+.progress-text { font-size: 12px; color: #666; }
+</style>
+    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
+    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
+    <meta name="dw-backend-url" content="">
+    <script>
+    (function(){
+        var backendUrl = null;
+        try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
+        if (!backendUrl) {
+            var m = document.querySelector('meta[name="dw-backend-url"]');
+            var c = m && m.getAttribute('content');
+            if (c) backendUrl = c;
+        }
+        var proto = (location && location.protocol || '').replace(':','');
+        if (!backendUrl && (proto === 'http' || proto === 'https')) {
+            backendUrl = location.origin;
+            try { localStorage.setItem('dw_backend_url', backendUrl); } catch(_) {}
+        }
+        if (backendUrl) { window.DW_BACKEND_URL = backendUrl.replace(/\/$/, ''); }
+    })();
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand"><img class="logo-icon" src="assets/logo.ico" alt="Downtime" /> Downtime Analytics</div>
+            <div class="nav-tabs">
+                <a href="index.html" class="tab">Dashboard</a>
+                <a href="stats.html" class="tab active">Analisi</a>
+            </div>
+        </div>
+        <div class="content">
+            <div id="status" class="status info">Caricamento dettagli restart...</div>
+            <div class="summary" id="summary" style="display:none;">
+                <div class="summary-item">
+                    <h3>Titolo Allarme</h3>
+                    <p id="alarmTitleText">-</p>
+                </div>
+                <div class="summary-item">
+                    <h3>Numero Totale</h3>
+                    <p id="totalCount">0</p>
+                </div>
+                <div class="summary-item">
+                    <h3>Nodi Coinvolti</h3>
+                    <p id="nodeCount">0</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Filtro: <span id="typeReasonTitle">-</span></h3>
+                <!-- Filtro per nodo -->
+                <div class="filters">
+                    <label for="nodeFilter"><strong>Filtro nodo:</strong></label>
+                    <select id="nodeFilter">
+                        <option value="__ALL__">Tutti i nodi</option>
+                    </select>
+                    <label style="margin-left:12px;"><strong>Da data:</strong>
+                        <input type="date" id="dateFrom" />
+                    </label>
+                    <label style="margin-left:8px;"><strong>A data:</strong>
+                        <input type="date" id="dateTo" />
+                    </label>
+                </div>
+                <div class="filters" id="exportControls" style="display:none; gap:10px; align-items:center;">
+                    <button id="exportBtn" class="export-btn">⬇ Esporta CSV (tabella filtrata)</button>
+                    <div id="exportProgressWrap" style="display:none; align-items:center; gap:8px;">
+                        <div class="progress-bar" style="width:160px;">
+                            <div id="exportProgressFill" class="progress-fill" style="width:0%"></div>
+                        </div>
+                        <span id="exportProgressText" class="progress-text">0%</span>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table id="lgdTable">
+                        <thead>
+                            <tr>
+                                <th>Nodo</th>
+                                <th>Data</th>
+                                <th>Ora</th>
+                                <th>Tipo/Ragione</th>
+                                <th>Valore</th>
+                                <th>Commento</th>
+                                <th>Durata</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lgdTableBody"></tbody>
+                    </table>
+                </div>
+                <div id="pagination" class="pagination" style="display:none;">
+                    <button onclick="goToPage(1)">⏮ Prima</button>
+                    <button onclick="goToPreviousPage()">◀ Precedente</button>
+                    <span class="pagination-info" id="pageInfo"></span>
+                    <button onclick="goToNextPage()">Successiva ▶</button>
+                    <button onclick="goToLastPage()">Ultima ⏭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allRows = [];
+        let sourceRows = [];
+        let currentPage = 1;
+        const itemsPerPage = 100;
+        let totalPages = 1;
+        let currentNodeFilter = '__ALL__';
+
+        function stripLogExt(name) { return (name || '').replace(/\.log$/i, ''); }
+        function formatItDate(iso) {
+            const m = typeof iso === 'string' && iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            if (!m) return iso || '';
+            return `${m[3]}/${m[2]}/${m[1]}`;
+        }
+        function formatLgdValueWithMo(value, fileName) {
+            const v = value || '';
+            const node = stripLogExt(fileName || '');
+            if (!node || !/\bCell\b/i.test(v)) return v;
+            return v.replace(/(\bCell\b)([\s,]+)(.*)$/i, (full, cellWord, sep, rest) => {
+                const mapped = rest.replace(/\b(\d+)\b/g, (m, num) => node + String(num).slice(-1));
+                return cellWord + sep + mapped;
+            });
+        }
+
+        function renderPage(n) {
+            const tbody = document.getElementById('lgdTableBody');
+            const start = (n - 1) * itemsPerPage;
+            const end = Math.min(start + itemsPerPage, allRows.length);
+            const chunk = allRows.slice(start, end);
+            const frag = document.createDocumentFragment();
+            chunk.forEach(ev => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${stripLogExt(ev.fileName || '')}</td>
+                    <td>${formatItDate(ev.dateIso || ev.date || '')}</td>
+                    <td>${ev.time || ''}</td>
+                    <td>${ev.typeReason || ev.restartTypeReason || ''}</td>
+                    <td>${formatLgdValueWithMo(ev.value || '', ev.fileName || '')}</td>
+                    <td>${ev.comment || ''}</td>
+                    <td>${ev.duration || ''}</td>
+                `;
+                frag.appendChild(tr);
+            });
+            tbody.innerHTML = '';
+            tbody.appendChild(frag);
+            document.getElementById('pageInfo').textContent = `Pagina ${n} di ${totalPages} (${allRows.length} righe)`;
+        }
+        function goToPage(n) { if (n>=1 && n<=totalPages) { currentPage=n; renderPage(n); } }
+        function goToPreviousPage() { goToPage(currentPage-1); }
+        function goToNextPage() { goToPage(currentPage+1); }
+        function goToLastPage() { goToPage(totalPages); }
+
+        // Applica filtro per nodo e aggiorna tabella/paginazione
+        function applyNodeFilter(nodeName) {
+            const selected = nodeName || '__ALL__';
+            const df = document.getElementById('dateFrom');
+            const dt = document.getElementById('dateTo');
+            const fromVal = (df && df.value) || '';
+            const toVal = (dt && dt.value) || '';
+            const toMs = (d,t)=>{ if(!d) return 0; const ms=Date.parse(`${d}T${t||'00:00:00'}`); return isNaN(ms)?0:ms; };
+            let base = sourceRows.slice();
+            if (fromVal || toVal) {
+                const fromMs = fromVal ? Date.parse(`${fromVal}T00:00:00`) : 0;
+                const toMsBound = toVal ? Date.parse(`${toVal}T23:59:59`) : Number.MAX_SAFE_INTEGER;
+                base = base.filter(ev => {
+                    const ms = toMs(ev.dateIso||ev.date||'', ev.time||'');
+                    return ms >= fromMs && ms <= toMsBound;
+                });
+            }
+            if (selected === '__ALL__') {
+                allRows = base.slice();
+            } else {
+                allRows = base.filter(ev => (ev.fileName || '') === selected);
+            }
+            totalPages = Math.ceil(allRows.length / itemsPerPage) || 1;
+            currentPage = 1;
+            // Mostra/Nascondi paginazione
+            document.getElementById('pagination').style.display = totalPages > 1 ? 'flex' : 'none';
+            // Render
+            renderPage(1);
+            // Aggiorna conteggi
+            const nodesSet = new Set(allRows.map(ev => (ev.fileName||'').trim()).filter(Boolean));
+            const nodeCountEl = document.getElementById('nodeCount');
+            if (nodeCountEl) nodeCountEl.textContent = nodesSet.size;
+            const totalEl = document.getElementById('totalCount');
+            if (totalEl) totalEl.textContent = allRows.length;
+            // Mostra/Nascondi export controls
+            const exportCtrl = document.getElementById('exportControls');
+            if (exportCtrl) exportCtrl.style.display = allRows.length > 0 ? 'flex' : 'none';
+        }
+
+        async function fetchFromBackend(typeReason) {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const params = new URLSearchParams();
+            if (typeReason) params.set('typeReason', typeReason);
+            const url = base + '/api/lgd?' + params.toString();
+            try {
+                const r = await fetch(url);
+                const j = await r.json();
+                return Array.isArray(j.lgdRestarts) ? j.lgdRestarts : [];
+            } catch (_) {
+                return [];
+            }
+        }
+
+        function init_removed() {
+            const typeReason = localStorage.getItem('selected_lgd_type_reason');
+            if (!typeReason) {
+                const s = document.getElementById('status');
+                s.className = 'status warning';
+                s.textContent = 'Nessun filtro Tipo/Ragione selezionato.';
+                return;
+            }
+            document.getElementById('typeReasonTitle').textContent = typeReason;
+            document.title = 'Dettaglio Restart LGD: ' + typeReason;
+
+            // Recupera i dati completi con fallback (chunked e window.name per file://)
+            let fmt = localStorage.getItem('dw_parsed_data_format') || 'json';
+            let rawStored = localStorage.getItem('dw_parsed_data');
+
+            // Ricostruzione da chunk se necessario
+            if (!rawStored) {
+                const ccStr = localStorage.getItem('dw_parsed_data_chunk_count');
+                const chunkCount = parseInt(ccStr || '0', 10) || 0;
+                if (chunkCount > 0) {
+                    const chunks = [];
+                    let missing = false;
+                    for (let i = 0; i < chunkCount; i++) {
+                        const c = localStorage.getItem(`dw_parsed_data_chunk_${i}`);
+                        if (typeof c !== 'string' || c.length === 0) { missing = true; break; }
+                        chunks.push(c);
+                    }
+                    if (!missing) {
+                        rawStored = chunks.join('');
+                        if (!fmt || fmt === 'error') { fmt = localStorage.getItem('dw_parsed_data_format') || 'json'; }
+                    }
+                }
+            }
+
+            // Fallback per file:// — stessa scheda: recupera da window.name
+            if (!rawStored) {
+                try {
+                    const wn = window.name || '';
+                    if (wn && wn.length > 0) {
+                        const wnObj = JSON.parse(wn);
+                        if (wnObj && (wnObj.dw_parsed_data || wnObj.dw_parsed_data_chunked)) {
+                            fmt = wnObj.dw_parsed_data_format || fmt || 'json';
+                            rawStored = wnObj.dw_parsed_data || (Array.isArray(wnObj.dw_parsed_data_chunked) ? wnObj.dw_parsed_data_chunked.join('') : null);
+                        }
+                    }
+                } catch (e) {
+                    console.warn('window.name non parsabile come JSON:', e);
+                }
+            }
+
+            if (!rawStored) {
+                const s = document.getElementById('status');
+                if (window.DW_BACKEND_URL) {
+                    s.className = 'status info';
+                    s.textContent = 'Caricamento dal backend...';
+                    fetchFromBackend(typeReason).then(rows => {
+                        if (!rows || rows.length === 0) {
+                            s.className = 'status warning';
+                            s.textContent = 'Nessun evento trovato per questo Tipo/Ragione.';
+                            return;
+                        }
+                        // Usa i dati dal backend e costruisci UI
+                        sourceRows = rows;
+                        const nodeFilterSelect = document.getElementById('nodeFilter');
+                        const uniqueNodes = new Set(sourceRows.map(ev => ev.fileName || '').filter(Boolean));
+                        const alarmTitleEl = document.getElementById('alarmTitleText');
+                        const totalCountEl = document.getElementById('totalCount');
+                        const nodeCountEl = document.getElementById('nodeCount');
+                        const summaryEl = document.getElementById('summary');
+                        if (alarmTitleEl) alarmTitleEl.textContent = typeReason;
+                        if (totalCountEl) totalCountEl.textContent = sourceRows.length;
+                        if (nodeCountEl) nodeCountEl.textContent = uniqueNodes.size;
+                        if (summaryEl) summaryEl.style.display = 'grid';
+                        const nodes = Array.from(uniqueNodes).sort((a,b)=>a.localeCompare(b,'it',{sensitivity:'base'}));
+                        let optionsHtml = '<option value="__ALL__">Tutti i nodi</option>';
+                        optionsHtml += nodes.map(n => `<option value="${n}">${stripLogExt(n)}</option>`).join('');
+                        nodeFilterSelect.innerHTML = optionsHtml;
+                        const savedKey = `lgd_detail_node_filter_${typeReason}`;
+                        const savedVal = localStorage.getItem(savedKey);
+                        if (savedVal && (savedVal === '__ALL__' || uniqueNodes.has(savedVal))) {
+                            currentNodeFilter = savedVal;
+                            nodeFilterSelect.value = savedVal;
+                        } else {
+                            currentNodeFilter = '__ALL__';
+                            nodeFilterSelect.value = '__ALL__';
+                        }
+                        nodeFilterSelect.addEventListener('change', (e)=>{
+                            currentNodeFilter = e.target.value || '__ALL__';
+                            localStorage.setItem(savedKey, currentNodeFilter);
+                            applyNodeFilter(currentNodeFilter);
+                        });
+                        const df = document.getElementById('dateFrom');
+                        const dt = document.getElementById('dateTo');
+                        if (df) df.addEventListener('change', ()=> applyNodeFilter(nodeFilterSelect.value||'__ALL__'));
+                        if (dt) dt.addEventListener('change', ()=> applyNodeFilter(nodeFilterSelect.value||'__ALL__'));
+                        document.getElementById('status').style.display = 'none';
+                        applyNodeFilter(currentNodeFilter);
+                    });
+                    return;
+                } else {
+                    s.className = 'status error';
+                    s.textContent = 'Nessun dato disponibile. Se usi file:// apri stats nella stessa scheda, oppure usa un server locale.';
+                    return;
+                }
+            }
+
+            let raw;
+            try {
+                if (fmt === 'lzutf16' && typeof LZString !== 'undefined' && LZString.decompressFromUTF16) {
+                    raw = LZString.decompressFromUTF16(rawStored);
+                    if (!raw || typeof raw !== 'string') {
+                        throw new Error('Decompressione LZString nulla/invalid');
+                    }
+                } else {
+                    raw = rawStored;
+                }
+            } catch (e) {
+                console.warn('Decompressione fallita, provo fallback window.name:', e);
+                try {
+                    const wn = window.name || '';
+                    if (wn && wn.length > 0) {
+                        const wnObj = JSON.parse(wn);
+                        const altFmt = wnObj.dw_parsed_data_format || fmt;
+                        let altRawStored = wnObj.dw_parsed_data || (Array.isArray(wnObj.dw_parsed_data_chunked) ? wnObj.dw_parsed_data_chunked.join('') : null);
+                        if (altRawStored) {
+                            fmt = altFmt || fmt;
+                            if (fmt === 'lzutf16' && typeof LZString !== 'undefined' && LZString.decompressFromUTF16) {
+                                raw = LZString.decompressFromUTF16(altRawStored) || altRawStored;
+                            } else {
+                                raw = altRawStored;
+                            }
+                        } else {
+                            raw = rawStored;
+                        }
+                    } else {
+                        raw = rawStored;
+                    }
+                } catch (ef) {
+                    console.warn('Fallback window.name non disponibile:', ef);
+                    raw = rawStored;
+                }
+            }
+
+            let data;
+            try { data = JSON.parse(raw); } catch (e) {
+                const s = document.getElementById('status');
+                s.className = 'status error';
+                s.textContent = 'Dati non validi o troppo grandi. Se usi file:// apri stats nella stessa scheda, oppure usa un server locale.';
+                return;
+            }
+            const lgdEvents = data.lgdRestarts || [];
+            const normWanted = typeReason.replace(/\s+/g,'').toLowerCase();
+            const filtered = lgdEvents.filter(ev => {
+                const evType = (ev.typeReason || ev.restartTypeReason || '').trim();
+                return evType && evType.replace(/\s+/g,'').toLowerCase() === normWanted;
+            });
+            if (filtered.length === 0) {
+                const s = document.getElementById('status');
+                if (window.DW_BACKEND_URL) {
+                    s.className = 'status info';
+                    s.textContent = 'Carico dettagli dal backend...';
+                    fetchFromBackend(typeReason).then(rows => {
+                        if (!rows || rows.length === 0) {
+                            s.className = 'status warning';
+                            s.textContent = 'Nessun evento trovato per questo Tipo/Ragione.';
+                            return;
+                        }
+                        sourceRows = rows;
+                        const nodeFilterSelect = document.getElementById('nodeFilter');
+                        const uniqueNodes = new Set(sourceRows.map(ev => ev.fileName || '').filter(Boolean));
+                        const alarmTitleEl = document.getElementById('alarmTitleText');
+                        const totalCountEl = document.getElementById('totalCount');
+                        const nodeCountEl = document.getElementById('nodeCount');
+                        const summaryEl = document.getElementById('summary');
+                        if (alarmTitleEl) alarmTitleEl.textContent = typeReason;
+                        if (totalCountEl) totalCountEl.textContent = sourceRows.length;
+                        if (nodeCountEl) nodeCountEl.textContent = uniqueNodes.size;
+                        if (summaryEl) summaryEl.style.display = 'grid';
+                        const nodes = Array.from(uniqueNodes).sort((a,b)=>a.localeCompare(b,'it',{sensitivity:'base'}));
+                        let optionsHtml = '<option value="__ALL__">Tutti i nodi</option>';
+                        optionsHtml += nodes.map(n => `<option value="${n}">${stripLogExt(n)}</option>`).join('');
+                        nodeFilterSelect.innerHTML = optionsHtml;
+                        const savedKey = `lgd_detail_node_filter_${typeReason}`;
+                        const savedVal = localStorage.getItem(savedKey);
+                        if (savedVal && (savedVal === '__ALL__' || uniqueNodes.has(savedVal))) {
+                            currentNodeFilter = savedVal;
+                            nodeFilterSelect.value = savedVal;
+                        } else {
+                            currentNodeFilter = '__ALL__';
+                            nodeFilterSelect.value = '__ALL__';
+                        }
+                        nodeFilterSelect.addEventListener('change', (e)=>{
+                            currentNodeFilter = e.target.value || '__ALL__';
+                            localStorage.setItem(savedKey, currentNodeFilter);
+                            applyNodeFilter(currentNodeFilter);
+                        });
+                        const df = document.getElementById('dateFrom');
+                        const dt = document.getElementById('dateTo');
+                        if (df) df.addEventListener('change', ()=> applyNodeFilter(nodeFilterSelect.value||'__ALL__'));
+                        if (dt) dt.addEventListener('change', ()=> applyNodeFilter(nodeFilterSelect.value||'__ALL__'));
+                        document.getElementById('status').style.display = 'none';
+                        applyNodeFilter(currentNodeFilter);
+                    });
+                    return;
+                }
+                s.className = 'status warning';
+                s.textContent = 'Nessun evento trovato per questo Tipo/Ragione.';
+                return;
+            }
+            // Ordina per data/ora decrescente
+            filtered.sort((a,b)=>{
+                const toMs = (d,t)=>{ if(!d) return 0; const ms=Date.parse(`${d}T${t||'00:00:00'}`); return isNaN(ms)?0:ms; };
+                return toMs(b.dateIso||b.date||'', b.time||'') - toMs(a.dateIso||a.date||'', a.time||'');
+            });
+            // Imposta sorgente e costruisci filtro nodi
+            sourceRows = filtered;
+            const nodeFilterSelect = document.getElementById('nodeFilter');
+            const uniqueNodes = new Set(sourceRows.map(ev => ev.fileName || '').filter(Boolean));
+            // Popola card riepilogo
+            const alarmTitleEl = document.getElementById('alarmTitleText');
+            const totalCountEl = document.getElementById('totalCount');
+            const nodeCountEl = document.getElementById('nodeCount');
+            const summaryEl = document.getElementById('summary');
+            if (alarmTitleEl) alarmTitleEl.textContent = typeReason;
+            if (totalCountEl) totalCountEl.textContent = sourceRows.length;
+            if (nodeCountEl) nodeCountEl.textContent = uniqueNodes.size;
+            if (summaryEl) summaryEl.style.display = 'grid';
+            const nodes = Array.from(uniqueNodes).sort((a,b)=>a.localeCompare(b,'it',{sensitivity:'base'}));
+            let optionsHtml = '<option value="__ALL__">Tutti i nodi</option>';
+            optionsHtml += nodes.map(n => `<option value="${n}">${stripLogExt(n)}</option>`).join('');
+            nodeFilterSelect.innerHTML = optionsHtml;
+            // Ripristina filtro salvato
+            const savedKey = `lgd_detail_node_filter_${typeReason}`;
+            const savedVal = localStorage.getItem(savedKey);
+            if (savedVal && (savedVal === '__ALL__' || uniqueNodes.has(savedVal))) {
+                currentNodeFilter = savedVal;
+                nodeFilterSelect.value = savedVal;
+            } else {
+                currentNodeFilter = '__ALL__';
+                nodeFilterSelect.value = '__ALL__';
+            }
+            // Listener cambio filtro
+            nodeFilterSelect.addEventListener('change', (e)=>{
+                currentNodeFilter = e.target.value || '__ALL__';
+                localStorage.setItem(savedKey, currentNodeFilter);
+                applyNodeFilter(currentNodeFilter);
+            });
+            const df = document.getElementById('dateFrom');
+            const dt = document.getElementById('dateTo');
+            if (df) df.addEventListener('change', ()=> applyNodeFilter(nodeFilterSelect.value||'__ALL__'));
+            if (dt) dt.addEventListener('change', ()=> applyNodeFilter(nodeFilterSelect.value||'__ALL__'));
+
+            document.getElementById('status').style.display = 'none';
+            applyNodeFilter(currentNodeFilter);
+        }
+
+        const exportServerBase = (typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin);
+        // Helpers barra di avanzamento export
+        let exportProgressHideTimer = null;
+        function showExportProgress(initialText){
+            const wrap = document.getElementById('exportProgressWrap');
+            const fill = document.getElementById('exportProgressFill');
+            const txt = document.getElementById('exportProgressText');
+            if (wrap) wrap.style.display = 'inline-flex';
+            if (fill) fill.style.width = '0%';
+            if (txt) txt.textContent = initialText ? `${initialText} (0%)` : '0%';
+        }
+        function setExportProgress(percent, message){
+            const p = Math.max(0, Math.min(100, Number(percent)||0));
+            const fill = document.getElementById('exportProgressFill');
+            const txt = document.getElementById('exportProgressText');
+            if (fill) fill.style.width = p + '%';
+            if (txt) txt.textContent = (message ? `${message} (${p}%)` : `${p}%`);
+        }
+        function hideExportProgressAfterDelay(ms=1200){
+            if (exportProgressHideTimer) clearTimeout(exportProgressHideTimer);
+            exportProgressHideTimer = setTimeout(()=>{
+                const wrap = document.getElementById('exportProgressWrap');
+                if (wrap) wrap.style.display = 'none';
+            }, ms);
+        }
+
+        function startExport(jobType, payload, btn) {
+            if (btn) btn.disabled = true;
+            showExportProgress('Avvio esportazione...');
+            fetch(exportServerBase + '/export/start', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: jobType, data: payload })
+            }).then(r => {
+                if (!r.ok) throw new Error('Server export non raggiungibile');
+                return r.json();
+            }).then(resp => {
+                const jobId = resp.job_id;
+                if (!jobId) throw new Error('Job ID non ricevuto');
+                let tries = 0;
+                const maxTries = 60;
+                const timer = setInterval(() => {
+                    tries++;
+                    fetch(exportServerBase + '/export/status?id=' + encodeURIComponent(jobId))
+                      .then(r => r.json())
+                      .then(info => {
+                          const pct = (typeof info.percent === 'number') ? info.percent : 0;
+                          setExportProgress(pct, info.message || ('Stato: ' + info.status));
+                          if (info.status === 'done') {
+                              clearInterval(timer);
+                              setExportProgress(100, 'Completato');
+                              const dlUrl = exportServerBase + '/export/download?id=' + encodeURIComponent(jobId);
+                              try { window.open(dlUrl, '_blank'); } catch(_) {}
+                              hideExportProgressAfterDelay(1200);
+                              if (btn) btn.disabled = false;
+                          } else if (info.status === 'error') {
+                              clearInterval(timer);
+                              setExportProgress(0, 'Errore export');
+                              hideExportProgressAfterDelay(2000);
+                              if (btn) btn.disabled = false;
+                          } else if (tries >= maxTries) {
+                              clearInterval(timer);
+                              setExportProgress(pct, 'Timeout export; fallback CSV');
+                              try {
+                                  if (jobType === 'LGD_RESTARTS') clientCsvFallbackLGD(payload.lgdRestarts || []);
+                              } catch (_) {}
+                              hideExportProgressAfterDelay(2000);
+                              if (btn) btn.disabled = false;
+                          }
+                      }).catch(() => {});
+                }, 800);
+            }).catch((err) => {
+                setExportProgress(0, 'Server export non disponibile; fallback CSV');
+                try {
+                    if (jobType === 'LGD_RESTARTS') clientCsvFallbackLGD(payload.lgdRestarts || []);
+                } catch (_) {}
+                hideExportProgressAfterDelay(2000);
+                if (btn) btn.disabled = false;
+            });
+        }
+
+        function exportFilteredLgdDetail() {
+            const btn = document.getElementById('exportBtn');
+            const items = (allRows || []).map(it => ({
+                fileName: it.fileName || '',
+                dateIso: it.dateIso || it.date || '',
+                time: it.time || '',
+                typeReason: it.typeReason || it.type || it.reason || '',
+                value: it.value || '',
+                comment: it.comment || '',
+                duration: it.duration || ''
+            }));
+            if (!items || items.length === 0) {
+                // Mostra una notifica visiva generale
+                const status = document.getElementById('status');
+                if (status) {
+                    status.className = 'status warning';
+                    status.textContent = 'Nessuna riga filtrata da esportare.';
+                    status.style.display = 'block';
+                }
+                return;
+            }
+            startExport('LGD_RESTARTS', { lgdRestarts: items }, btn);
+        }
+
+        function clientCsvFallbackLGD(items) {
+            const headers = ['File Name','Data','Ora','Tipo/Ragione','Valore','Commento','Durata'];
+            const esc = s => String(s || '').replace(/"/g, '""');
+            const lines = [headers.join(',')].concat(items.map(it => {
+                const cols = [
+                    esc(it.fileName), esc(it.dateIso), esc(it.time), esc(it.typeReason),
+                    esc(it.value), esc(it.comment), esc(it.duration)
+                ];
+                return '"' + cols.join('","') + '"';
+            }));
+            const csv = lines.join('\r\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const a = document.createElement('a');
+            const now = new Date();
+            const fn = `LGD_export_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}.csv`;
+            a.href = URL.createObjectURL(blob);
+            a.download = fn;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                URL.revokeObjectURL(a.href);
+                a.remove();
+            }, 0);
+        }
+
+        // Inizializzazione backend-only: carica restart LGD da /api/lgd usando ?typeReason
+        function backendInit() {
+            const statusEl = document.getElementById('status');
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const typeReason = (params.get('typeReason') || '').trim();
+                if (!typeReason) {
+                    statusEl.className = 'status warning';
+                    statusEl.textContent = 'Parametro typeReason mancante. Apri dalla pagina Analisi (stats).';
+                    return;
+                }
+                document.getElementById('typeReasonTitle').textContent = typeReason;
+                document.title = 'Dettaglio Restart LGD: ' + typeReason;
+
+                statusEl.className = 'status info';
+                statusEl.textContent = 'Caricamento dal backend...';
+
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+                const url = base + '/api/lgd?typeReason=' + encodeURIComponent(typeReason) + '&limit=10000';
+                fetch(url)
+                  .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+                  .then(data => {
+                      const rows = Array.isArray(data.lgdRestarts) ? data.lgdRestarts : [];
+                      if (!rows.length) {
+                          statusEl.className = 'status warning';
+                          statusEl.textContent = 'Nessun evento trovato per questo Tipo/Ragione.';
+                          return;
+                      }
+                      // Ordina per data/ora decrescente
+                      rows.sort((a,b)=>{
+                          const toMs = (d,t)=>{ if(!d) return 0; const ms=Date.parse(`${d}T${t||'00:00:00'}`); return isNaN(ms)?0:ms; };
+                          return toMs(b.dateIso||b.date||'', b.time||'') - toMs(a.dateIso||a.date||'', a.time||'');
+                      });
+                      sourceRows = rows;
+                      // Riepilogo
+                      const uniqueNodes = new Set(sourceRows.map(ev => (ev.fileName||'').trim()).filter(Boolean));
+                      const totalCountEl = document.getElementById('totalCount');
+                      const nodeCountEl = document.getElementById('nodeCount');
+                      const summaryEl = document.getElementById('summary');
+                      if (totalCountEl) totalCountEl.textContent = sourceRows.length;
+                      if (nodeCountEl) nodeCountEl.textContent = uniqueNodes.size;
+                      if (summaryEl) summaryEl.style.display = 'grid';
+                      // Filtro nodo
+                      const nodeFilterSelect = document.getElementById('nodeFilter');
+                      const nodes = Array.from(uniqueNodes).sort((a,b)=>a.localeCompare(b,'it',{sensitivity:'base'}));
+                      let optionsHtml = '<option value="__ALL__">Tutti i nodi</option>';
+                      optionsHtml += nodes.map(n => `<option value="${n}">${stripLogExt(n)}</option>`).join('');
+                      nodeFilterSelect.innerHTML = optionsHtml;
+                      nodeFilterSelect.value = '__ALL__';
+                      nodeFilterSelect.addEventListener('change', (e)=>{
+                          const sel = e.target.value || '__ALL__';
+                          applyNodeFilter(sel);
+                      });
+                      const df = document.getElementById('dateFrom');
+                      const dt = document.getElementById('dateTo');
+                      if (df) df.addEventListener('change', ()=> applyNodeFilter(nodeFilterSelect.value||'__ALL__'));
+                      if (dt) dt.addEventListener('change', ()=> applyNodeFilter(nodeFilterSelect.value||'__ALL__'));
+                      // Export controls
+                      const exportCtrl = document.getElementById('exportControls');
+                      if (exportCtrl) exportCtrl.style.display = 'flex';
+                      const exportBtn = document.getElementById('exportBtn');
+                      if (exportBtn) exportBtn.addEventListener('click', exportFilteredLgdDetail);
+                      // Applica filtro iniziale
+                      applyNodeFilter('__ALL__');
+                      statusEl.style.display = 'none';
+                  })
+                  .catch(err => {
+                      statusEl.className = 'status error';
+                      statusEl.textContent = 'Errore nel caricamento dal backend: ' + (err && err.message ? err.message : err);
+                  });
+            } catch (error) {
+                statusEl.className = 'status error';
+                statusEl.textContent = `Errore durante l'inizializzazione: ${error && error.message ? error.message : error}`;
+            }
+        }
+        window.onload = backendInit;
+    </script>
+</body>
+</html>

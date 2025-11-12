@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downtime Analytics</title>
+    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
+    <meta name="dw-backend-url" content="">
+    <script>
+      (function(){
+        var backendUrl = null;
+        try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
+        if (!backendUrl) {
+          var m = document.querySelector('meta[name="dw-backend-url"]');
+          var c = m && m.getAttribute('content');
+          if (c) backendUrl = c;
+        }
+        var proto = (location && location.protocol || '').replace(':','');
+        if (!backendUrl && (proto === 'http' || proto === 'https')) {
+          backendUrl = location.origin;
+          try { localStorage.setItem('dw_backend_url', backendUrl); } catch(_) {}
+        }
+        if (backendUrl) { window.DW_BACKEND_URL = backendUrl.replace(/\/$/, ''); }
+      })();
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 24px 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 400;
+        }
+        .header .nav {
+            margin-top: 8px;
+        }
+        .header a {
+            color: #083b66;
+            background: #ffffff;
+            border-radius: 6px;
+            padding: 6px 10px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        .content { padding: 24px 30px; }
+        .status { margin: 10px 0; padding: 10px; border-radius: 6px; }
+        .status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .status.warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .card { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-bottom: 20px; }
+        h3 { margin: 0 0 8px 0; font-size: 1.2em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; font-size: 0.95em; }
+        th { background: #eef6ff; text-align: left; }
+        tr:hover { background-color: #ffe082; color: #333; }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 16px;
+        }
+        .summary-item {
+            padding: 14px;
+            background: #0d1424;
+            color: var(--text);
+            border: 1px solid #263347;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .summary-item h3 {
+            margin: 0 0 8px 0;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1em;
+        }
+        .table-wrap { overflow-x: auto; }
+        /* Stile valori riepilogo, coerente con index */
+        #totalCount, #nodeCount { font-size: 1.6em; font-weight: 700; color: var(--accent); }
+        #alarmTitleText { font-size: 1.1em; color: var(--text); }
+        /* Severity pill */
+        .severity-pill { display: inline-block; padding: 2px 6px; border-radius: 10px; font-size: 12px; border: 1px solid rgba(0,0,0,0.08); }
+        .sev-critical { background: #ffcdd2; color: #b71c1c; }
+        .sev-major { background: #ffe0b2; color: #e65100; }
+        .sev-warning { background: #fff8e1; color: #8d6e63; }
+        .sev-minor { background: #fff9c4; color: #827717; }
+        .sev-info { background: #bbdefb; color: #0d47a1; }
+        .sev-clear { background: #c8e6c9; color: #2e7d32; }
+        
+        /* Paginazione */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 10px;
+        }
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .pagination button:hover:not(:disabled) {
+            background: #f0f0f0;
+        }
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .pagination .current-page {
+            background: #4facfe;
+            color: white;
+            border-color: #4facfe;
+        }
+        .pagination-info {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Loading indicator */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #4facfe;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Performance indicator */
+        .performance-info {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #2e7d32;
+        }
+    /* --- Tema scuro coordinato --- */
+:root {
+    --bg: #0f172a;
+    --surface: #111827;
+    --card: #0d1424;
+    --border: #1f2937;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --accent: #1e88e5;
+}
+body { background: var(--bg); color: var(--text); }
+.container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+.header { background: var(--surface); color: var(--text); border-bottom: 1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding: 12px 16px; }
+.brand { font-size: 18px; font-weight: 600; letter-spacing: .2px; }
+.nav-tabs { display:flex; gap:10px; }
+.nav-tabs .tab { color: var(--text); text-decoration:none; border:1px solid #263347; padding: 8px 14px; border-radius: 12px; background: #0d1424; box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 2px rgba(0,0,0,0.25); }
+.nav-tabs .tab.active { background: #1b2a44; border-color: #2b3c55; }
+.content { color: var(--text); }
+.card, .table-card { background: #0d1424; color: var(--text); border: 1px solid #263347; border-radius: 12px; }
+th { background: #16233a; border-color: #263347; }
+td { border-color: #263347; }
+a { color: var(--accent); }
+.button, .btn, .export-btn { background: #16233a; color: var(--text); border: 1px solid #263347; border-radius: 10px; }
+.button:hover, .btn:hover, .export-btn:hover { background: #1b2a44; }
+.pagination button { background: #16233a; color: var(--text); border: 1px solid #263347; border-radius: 10px; }
+.pagination button.active { background: #1b2a44; }
+        /* Barra di avanzamento export */
+        .progress-bar { display:inline-block; width: 220px; height: 10px; background: #16233a; border: 1px solid #263347; border-radius: 6px; overflow: hidden; vertical-align: middle; }
+        .progress-fill { width: 0%; height: 100%; background: var(--accent); transition: width 0.3s ease; }
+    </style>
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand"><img class="logo-icon" src="assets/logo.ico" alt="Downtime" /> Downtime Analytics</div>
+            <div class="nav-tabs">
+                <a href="index.html" class="tab">Dashboard</a>
+                <a href="stats.html" class="tab active">Analisi</a>
+            </div>
+        </div>
+        <div class="content">
+            <div id="status" class="status info">Caricamento dettagli allarme...</div>
+
+            <div class="summary" id="summary" style="display: none;">
+                <div class="summary-item">
+                    <h3>Titolo Allarme</h3>
+                    <p id="alarmTitleText">-</p>
+                </div>
+                <div class="summary-item">
+                    <h3>Numero Totale</h3>
+                    <p id="totalCount">0</p>
+                </div>
+                <div class="summary-item">
+                    <h3>Nodi Coinvolti</h3>
+                    <p id="nodeCount">0</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Tutti gli Allarmi con questo Titolo</h3>
+                
+                <!-- Performance info -->
+                <div id="performanceInfo" class="performance-info" style="display: none;">
+                    <span id="performanceText"></span>
+                </div>
+                
+                <!-- Filtro Nodo -->
+                <div id="nodeFilterWrap" style="display: none; margin: 8px 0 4px 0;">
+                    <label style="font-size:14px;color:#444;">Nodo: 
+                        <select id="nodeFilterSelect">
+                            <option value="">Tutti i nodi</option>
+                        </select>
+                    </label>
+                    <label style="margin-left:12px;font-size:14px;color:#444;">Da data:
+                        <input type="date" id="dateFrom" />
+                    </label>
+                    <label style="margin-left:8px;font-size:14px;color:#444;">A data:
+                        <input type="date" id="dateTo" />
+                    </label>
+                </div>
+                
+                <!-- Controlli Export -->
+                <div id="exportControls" style="display: none; margin: 8px 0 10px 0;">
+                    <button id="exportBtn" class="export-btn" onclick="exportFiltered()">⬇ Esporta CSV (tabella filtrata)</button>
+                    <div id="exportProgressWrap" style="display:none; margin-left:8px; align-items:center;">
+                        <div class="progress-bar"><div id="exportProgressFill" class="progress-fill"></div></div>
+                        <span id="exportProgressText" style="margin-left:8px; font-size: 12px; color: var(--text);">0%</span>
+                    </div>
+                </div>
+                
+                <!-- Paginazione superiore -->
+                <div id="paginationTop" class="pagination" style="display: none;">
+                    <button id="firstPageBtn" onclick="goToPage(1)">⏮ Prima</button>
+                    <button id="prevPageBtn" onclick="goToPreviousPage()">◀ Precedente</button>
+                    <span id="pageInfo" class="pagination-info"></span>
+                    <button id="nextPageBtn" onclick="goToNextPage()">Successiva ▶</button>
+                    <button id="lastPageBtn" onclick="goToLastPage()">Ultima ⏭</button>
+                </div>
+                
+                <div class="table-wrap">
+                    <table id="alarmsTable">
+                        <thead>
+                            <tr>
+                                <th>Nodo</th>
+                                <th>Data</th>
+                                <th>Ora</th>
+                                <th>Type</th>
+                                <th>Severità</th>
+                                <th>Oggetto</th>
+                                <th>Dettaglio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="alarmsTableBody">
+                            <!-- Gli allarmi verranno inseriti qui dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Paginazione inferiore -->
+                <div id="paginationBottom" class="pagination" style="display: none;">
+                    <button onclick="goToPage(1)">⏮ Prima</button>
+                    <button onclick="goToPreviousPage()">◀ Precedente</button>
+                    <span class="pagination-info"></span>
+                    <button onclick="goToNextPage()">Successiva ▶</button>
+                    <button onclick="goToLastPage()">Ultima ⏭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variabili globali per la paginazione
+        let allAlarms = [];
+        let filteredByNode = [];
+        let currentPage = 1;
+        const itemsPerPage = 100; // Mostra 100 righe per pagina
+        let totalPages = 1;
+        let isLoading = false;
+
+        // Helper per rimuovere il suffisso .log dalla visualizzazione
+        function stripLogExt(name) {
+            return (name || '').replace(/\.log$/i, '');
+        }
+
+        // Helper per formattare YYYY-MM-DD in DD/MM/YYYY
+        function formatItDate(iso) {
+            const m = typeof iso === 'string' && iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            if (!m) return iso || '';
+            return `${m[3]}/${m[2]}/${m[1]}`;
+        }
+
+        // Helper per ottenere le classi CSS per la severità (memoizzato)
+        const severityCache = new Map();
+        function getSeverityMeta(sevRaw) {
+            if (severityCache.has(sevRaw)) {
+                return severityCache.get(sevRaw);
+            }
+            
+            const s = (sevRaw || '').toString().toLowerCase();
+            let result;
+            if (/crit|emerg|fatal|sev[5-9]/.test(s)) result = { className: 'sev-critical', icon: '❗' };
+            else if (/maj|high|alto|sev[3-4]/.test(s)) result = { className: 'sev-major', icon: '⚠' };
+            else if (/warn|atten|avviso/.test(s)) result = { className: 'sev-warning', icon: '⚠' };
+            else if (/min|medium|medio|sev[2]/.test(s)) result = { className: 'sev-minor', icon: '▲' };
+            else if (/info|notice|log/.test(s)) result = { className: 'sev-info', icon: 'ℹ' };
+            else if (/clear|ok|norm|none/.test(s)) result = { className: 'sev-clear', icon: '✔' };
+            else result = { className: 'sev-info', icon: 'ℹ' };
+            
+            severityCache.set(sevRaw, result);
+            return result;
+        }
+
+        // Funzione per mostrare il loading
+        function showLoading() {
+            const statusEl = document.getElementById('status');
+            statusEl.innerHTML = '<div class="loading"></div> Caricamento in corso...';
+            statusEl.className = 'status info';
+            statusEl.style.display = 'block';
+        }
+
+        // Funzione per nascondere il loading
+        function hideLoading() {
+            document.getElementById('status').style.display = 'none';
+        }
+
+        // Funzione per renderizzare una pagina di allarmi
+        function renderPage(pageNumber) {
+            if (isLoading) return;
+            isLoading = true;
+            
+            const startTime = performance.now();
+            const startIndex = (pageNumber - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, filteredByNode.length);
+            const pageAlarms = filteredByNode.slice(startIndex, endIndex);
+            
+            const tableBody = document.getElementById('alarmsTableBody');
+            
+            // Usa DocumentFragment per migliorare le performance
+            const fragment = document.createDocumentFragment();
+            
+            pageAlarms.forEach(alarm => {
+                const row = document.createElement('tr');
+                const sevMeta = getSeverityMeta(alarm.severity);
+                
+                row.innerHTML = `
+                    <td>${stripLogExt(alarm.fileName || '')}</td>
+                    <td>${formatItDate(alarm.dateIso || alarm.date || '')}</td>
+                    <td>${alarm.time || ''}</td>
+                    <td>${alarm.type || ''}</td>
+                    <td><span class="severity-pill ${sevMeta.className}" title="${alarm.severity || ''}">${sevMeta.icon} ${alarm.severity || ''}</span></td>
+                    <td>${alarm.object || ''}</td>
+                    <td>${alarm.detail || ''}</td>
+                `;
+                fragment.appendChild(row);
+            });
+            
+            // Sostituisce tutto il contenuto in una sola operazione
+            tableBody.innerHTML = '';
+            tableBody.appendChild(fragment);
+            
+            // Aggiorna i controlli di paginazione
+            updatePaginationControls(pageNumber);
+            
+            const endTime = performance.now();
+            const renderTime = Math.round(endTime - startTime);
+            
+            // Mostra info sulle performance
+            const performanceEl = document.getElementById('performanceInfo');
+            const performanceText = document.getElementById('performanceText');
+            performanceText.textContent = `Pagina ${pageNumber} di ${totalPages} - ${pageAlarms.length} elementi renderizzati in ${renderTime}ms`;
+            performanceEl.style.display = 'block';
+            
+            isLoading = false;
+        }
+
+        // Funzione per aggiornare i controlli di paginazione
+        function updatePaginationControls(pageNumber) {
+            const pageInfo = document.getElementById('pageInfo');
+            pageInfo.textContent = `Pagina ${pageNumber} di ${totalPages} (${filteredByNode.length} elementi totali)`;
+            
+            // Aggiorna stati dei pulsanti
+            document.getElementById('firstPageBtn').disabled = pageNumber === 1;
+            document.getElementById('prevPageBtn').disabled = pageNumber === 1;
+            document.getElementById('nextPageBtn').disabled = pageNumber === totalPages;
+            document.getElementById('lastPageBtn').disabled = pageNumber === totalPages;
+            
+            // Aggiorna classe pagina corrente
+            document.querySelectorAll('.pagination button').forEach(btn => {
+                btn.classList.remove('current-page');
+            });
+        }
+
+        // Funzioni di navigazione paginazione
+        function goToPage(pageNumber) {
+            if (pageNumber >= 1 && pageNumber <= totalPages && !isLoading) {
+                currentPage = pageNumber;
+                renderPage(pageNumber);
+            }
+        }
+
+        function goToPreviousPage() {
+            if (currentPage > 1) goToPage(currentPage - 1);
+        }
+
+        function goToNextPage() {
+            if (currentPage < totalPages) goToPage(currentPage + 1);
+        }
+
+        function goToLastPage() {
+            goToPage(totalPages);
+        }
+
+        function init_removed() {
+            showLoading();
+            
+            // Usa setTimeout per permettere al loading di essere visibile
+            setTimeout(() => {
+                try {
+                    // Recupera il titolo dell'allarme selezionato
+                    const alarmTitle = localStorage.getItem('selected_alarm_title');
+                    if (!alarmTitle) {
+                        document.getElementById('status').className = 'status warning';
+                        document.getElementById('status').textContent = 'Nessun allarme selezionato. Torna alla pagina delle statistiche e seleziona un allarme.';
+                        return;
+                    }
+
+                    // Recupera i dati completi con fallback (chunked e window.name per file://)
+                    let fmt = localStorage.getItem('dw_parsed_data_format') || 'json';
+                    let rawStored = localStorage.getItem('dw_parsed_data');
+
+                    // Ricostruzione da chunk se necessario
+                    if (!rawStored) {
+                        const ccStr = localStorage.getItem('dw_parsed_data_chunk_count');
+                        const chunkCount = parseInt(ccStr || '0', 10) || 0;
+                        if (chunkCount > 0) {
+                            const chunks = [];
+                            let missing = false;
+                            for (let i = 0; i < chunkCount; i++) {
+                                const c = localStorage.getItem(`dw_parsed_data_chunk_${i}`);
+                                if (typeof c !== 'string' || c.length === 0) { missing = true; break; }
+                                chunks.push(c);
+                            }
+                            if (!missing) {
+                                rawStored = chunks.join('');
+                                if (!fmt || fmt === 'error') { fmt = localStorage.getItem('dw_parsed_data_format') || 'json'; }
+                            }
+                        }
+                    }
+
+                    // Fallback per file:// — stessa scheda: recupera da window.name
+                    if (!rawStored) {
+                        try {
+                            const wn = window.name || '';
+                            if (wn && wn.length > 0) {
+                                const wnObj = JSON.parse(wn);
+                                if (wnObj && (wnObj.dw_parsed_data || wnObj.dw_parsed_data_chunked)) {
+                                    fmt = wnObj.dw_parsed_data_format || fmt || 'json';
+                                    rawStored = wnObj.dw_parsed_data || (Array.isArray(wnObj.dw_parsed_data_chunked) ? wnObj.dw_parsed_data_chunked.join('') : null);
+                                }
+                            }
+                        } catch (e) {
+                            console.warn('window.name non parsabile come JSON:', e);
+                        }
+                    }
+
+                    if (!rawStored) {
+                        const statusEl = document.getElementById('status');
+                        statusEl.className = 'status error';
+                        statusEl.textContent = 'Nessun dato disponibile. Se stai usando file:// apri stats dalla stessa scheda, oppure usa un server locale.';
+                        return;
+                    }
+
+                    let raw;
+                    try {
+                        if (fmt === 'lzutf16' && typeof LZString !== 'undefined' && LZString.decompressFromUTF16) {
+                            raw = LZString.decompressFromUTF16(rawStored);
+                            if (!raw || typeof raw !== 'string') {
+                                throw new Error('Decompressione LZString nulla/invalid');
+                            }
+                            console.log('Dati decompressi con LZString');
+                        } else {
+                            raw = rawStored;
+                            console.log('Uso dati grezzi (formato:', fmt, ')');
+                        }
+                    } catch (e) {
+                        console.warn('Decompressione fallita, provo fallback window.name:', e);
+                        // ultimo tentativo: riprova con window.name se possibile
+                        try {
+                            const wn = window.name || '';
+                            if (wn && wn.length > 0) {
+                                const wnObj = JSON.parse(wn);
+                                const altFmt = wnObj.dw_parsed_data_format || fmt;
+                                let altRawStored = wnObj.dw_parsed_data || (Array.isArray(wnObj.dw_parsed_data_chunked) ? wnObj.dw_parsed_data_chunked.join('') : null);
+                                if (altRawStored) {
+                                    fmt = altFmt || fmt;
+                                    if (fmt === 'lzutf16' && typeof LZString !== 'undefined' && LZString.decompressFromUTF16) {
+                                        raw = LZString.decompressFromUTF16(altRawStored) || altRawStored;
+                                    } else {
+                                        raw = altRawStored;
+                                    }
+                                } else {
+                                    raw = rawStored;
+                                }
+                            } else {
+                                raw = rawStored;
+                            }
+                        } catch (ef) {
+                            console.warn('Fallback window.name non disponibile:', ef);
+                            raw = rawStored;
+                        }
+                    }
+
+                    let data;
+                    try {
+                        data = JSON.parse(raw);
+                        console.log('Dati JSON parsati con successo. Struttura:', Object.keys(data));
+                    } catch (e) {
+                        console.error('Errore nel parsing JSON:', e);
+                        console.log('Raw data preview:', (raw || '').substring(0, 200) + '...');
+                        const statusEl = document.getElementById('status');
+                        statusEl.className = 'status error';
+                        statusEl.textContent = 'Dati non validi o troppo grandi. Se usi file:// apri stats nella stessa scheda, oppure usa un server.';
+                        return;
+                    }
+
+                    // Verifica che i dati abbiano la struttura corretta
+                    if (!data || typeof data !== 'object') {
+                        const statusEl = document.getElementById('status');
+                        statusEl.className = 'status error';
+                        statusEl.textContent = 'Struttura dati non valida. I dati devono essere un oggetto JSON.';
+                        return;
+                    }
+
+                    // Filtra gli allarmi per il titolo selezionato
+                    const lga = data.lga || [];
+                    console.log('Allarmi LGA trovati:', lga.length);
+                    console.log('Titolo allarme cercato:', alarmTitle);
+                    
+                    const filteredAlarms = lga.filter(alarm => (alarm.title || '').trim() === alarmTitle);
+                    console.log('Allarmi filtrati per titolo:', filteredAlarms.length);
+
+                    if (filteredAlarms.length === 0) {
+                        document.getElementById('status').className = 'status warning';
+                        document.getElementById('status').textContent = 'Nessun allarme trovato per questo titolo.';
+                        return;
+                    }
+
+                    // Ordina gli allarmi per data e ora (più recenti prima) - ottimizzato
+                    console.time('Ordinamento allarmi');
+                    filteredAlarms.sort((a, b) => {
+                        const toMs = (d, t) => {
+                            if (!d) return 0;
+                            const iso = `${d}T${(t || '00:00:00')}`;
+                            const ms = Date.parse(iso);
+                            return isNaN(ms) ? 0 : ms;
+                        };
+                        const msA = toMs(a.dateIso || a.date || '', a.time || '');
+                        const msB = toMs(b.dateIso || b.date || '', b.time || '');
+                        return msB - msA;
+                    });
+                    console.timeEnd('Ordinamento allarmi');
+
+                    // Calcola statistiche
+                    const uniqueNodes = new Set(filteredAlarms.map(alarm => alarm.fileName || '').filter(Boolean));
+                    const nodeCount = uniqueNodes.size;
+
+                    // Aggiorna l'interfaccia
+                    document.getElementById('alarmTitleText').textContent = alarmTitle;
+                    document.getElementById('totalCount').textContent = filteredAlarms.length;
+                    document.getElementById('nodeCount').textContent = nodeCount;
+                    document.getElementById('summary').style.display = 'flex';
+                    
+                    // Aggiorna il titolo della pagina
+                    document.title = `Dettaglio Allarme: ${alarmTitle}`;
+
+                    // Configura dataset e filtro per nodo
+                    allAlarms = filteredAlarms;
+                    const nodeSelect = document.getElementById('nodeFilterSelect');
+                    const nodeWrap = document.getElementById('nodeFilterWrap');
+                    if (nodeSelect && nodeWrap) {
+                        const nodes = Array.from(new Set(allAlarms.map(a => (a.fileName||'').trim()).filter(Boolean))).sort();
+                        nodeSelect.innerHTML = '<option value="">Tutti i nodi</option>' + nodes.map(n => `<option value="${n}">${n}</option>`).join('');
+                        nodeWrap.style.display = 'block';
+                        nodeSelect.onchange = function(){
+                            const sel = (nodeSelect.value||'').trim();
+                            applyNodeFilter(sel);
+                        };
+                        const df = document.getElementById('dateFrom');
+                        const dt = document.getElementById('dateTo');
+                        if (df) df.addEventListener('change', () => applyNodeFilter((nodeSelect.value||'').trim()));
+                        if (dt) dt.addEventListener('change', () => applyNodeFilter((nodeSelect.value||'').trim()));
+                    }
+
+                    // Mostra controlli Export
+                    const exportControls = document.getElementById('exportControls');
+                    if (exportControls) exportControls.style.display = 'block';
+
+                    // Applica filtro iniziale (nessun nodo => tutti)
+                    applyNodeFilter('');
+
+                    // Mostra i controlli di paginazione se necessario
+                    if (totalPages > 1) {
+                        document.getElementById('paginationTop').style.display = 'flex';
+                        document.getElementById('paginationBottom').style.display = 'flex';
+                    }
+
+                    hideLoading();
+
+                } catch (error) {
+                    console.error('Errore durante l\'inizializzazione:', error);
+                    document.getElementById('status').className = 'status error';
+                    document.getElementById('status').textContent = `Errore durante il caricamento: ${error.message}`;
+                }
+            }, 50); // Piccolo delay per mostrare il loading
+        }
+
+        // Inizializza la pagina (backend-only)
+        function backendInit() {
+            showLoading();
+            setTimeout(() => {
+                const statusEl = document.getElementById('status');
+                try {
+                    const params = new URLSearchParams(window.location.search);
+                    const alarmTitle = (params.get('title') || '').trim();
+                    if (!alarmTitle) {
+                        statusEl.className = 'status warning';
+                        statusEl.textContent = 'Titolo allarme mancante. Apri dalla pagina Analisi (stats).';
+                        return;
+                    }
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+                    fetch(`${base}/api/lga?limit=10000`)
+                        .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+                        .then(resp => {
+                            const lga = Array.isArray(resp.lga) ? resp.lga : [];
+                            const filteredAlarms = lga.filter(alarm => (alarm.title || '').trim() === alarmTitle);
+                            if (!filteredAlarms.length) {
+                                statusEl.className = 'status warning';
+                                statusEl.textContent = 'Nessun allarme trovato per questo titolo.';
+                                return;
+                            }
+                            filteredAlarms.sort((a, b) => {
+                                const toMs = (d, t) => {
+                                    if (!d) return 0;
+                                    const ms = Date.parse(`${d}T${t || '00:00:00'}`);
+                                    return isNaN(ms) ? 0 : ms;
+                                };
+                                const msA = toMs(a.dateIso || a.date || '', a.time || '');
+                                const msB = toMs(b.dateIso || b.date || '', b.time || '');
+                                return msB - msA;
+                            });
+                            document.getElementById('alarmTitleText').textContent = alarmTitle;
+                            document.getElementById('totalCount').textContent = filteredAlarms.length;
+                            const nodesSet = new Set(filteredAlarms.map(a => (a.fileName || '').trim()).filter(Boolean));
+                            document.getElementById('nodeCount').textContent = nodesSet.size;
+                            document.getElementById('summary').style.display = 'flex';
+                            document.title = `Dettaglio Allarme: ${alarmTitle}`;
+                            allAlarms = filteredAlarms;
+                            const nodeSelect = document.getElementById('nodeFilterSelect');
+                            const nodeWrap = document.getElementById('nodeFilterWrap');
+                            if (nodeSelect && nodeWrap) {
+                                const nodes = Array.from(nodesSet).sort();
+                                nodeSelect.innerHTML = '<option value="">Tutti i nodi</option>' + nodes.map(n => `<option value="${n}">${n}</option>`).join('');
+                                nodeWrap.style.display = 'block';
+                                nodeSelect.onchange = function(){
+                                    const sel = (nodeSelect.value||'').trim();
+                                    applyNodeFilter(sel);
+                                };
+                                const df = document.getElementById('dateFrom');
+                                const dt = document.getElementById('dateTo');
+                                if (df) df.addEventListener('change', () => applyNodeFilter((nodeSelect.value||'').trim()));
+                                if (dt) dt.addEventListener('change', () => applyNodeFilter((nodeSelect.value||'').trim()));
+                            }
+                            const exportControls = document.getElementById('exportControls');
+                            if (exportControls) exportControls.style.display = 'block';
+                            applyNodeFilter('');
+                            if (totalPages > 1) {
+                                document.getElementById('paginationTop').style.display = 'flex';
+                                document.getElementById('paginationBottom').style.display = 'flex';
+                            }
+                            hideLoading();
+                        })
+                        .catch(err => {
+                            statusEl.className = 'status error';
+                            statusEl.textContent = 'Errore nel caricamento dal backend: ' + (err && err.message ? err.message : err);
+                        });
+                } catch (error) {
+                    statusEl.className = 'status error';
+                    statusEl.textContent = `Errore durante l'inizializzazione: ${error && error.message ? error.message : error}`;
+                }
+            }, 50);
+        }
+        window.onload = backendInit;
+
+        // Applica filtro per nodo e aggiorna paginazione + conteggi
+        function applyNodeFilter(selectedNode){
+            const df = document.getElementById('dateFrom');
+            const dt = document.getElementById('dateTo');
+            const fromVal = (df && df.value) || '';
+            const toVal = (dt && dt.value) || '';
+            const toMs = (d,t)=>{ if(!d) return 0; const ms=Date.parse(`${d}T${t||'00:00:00'}`); return isNaN(ms)?0:ms; };
+            let base = allAlarms.slice();
+            if (fromVal || toVal) {
+                const fromMs = fromVal ? Date.parse(`${fromVal}T00:00:00`) : 0;
+                const toMsBound = toVal ? Date.parse(`${toVal}T23:59:59`) : Number.MAX_SAFE_INTEGER;
+                base = base.filter(a => {
+                    const ms = toMs(a.dateIso||a.date||'', a.time||'');
+                    return ms >= fromMs && ms <= toMsBound;
+                });
+            }
+            if (selectedNode) {
+                filteredByNode = base.filter(a => (a.fileName||'').trim() === selectedNode);
+            } else {
+                filteredByNode = base.slice();
+            }
+            // Aggiorna conteggi in UI
+            const totalEl = document.getElementById('totalCount');
+            if (totalEl) totalEl.textContent = filteredByNode.length;
+            const nodesSet = new Set(filteredByNode.map(a => (a.fileName||'').trim()).filter(Boolean));
+            const nodeCountEl = document.getElementById('nodeCount');
+            if (nodeCountEl) nodeCountEl.textContent = nodesSet.size;
+
+            // Reimposta paginazione
+            currentPage = 1;
+            totalPages = Math.ceil(Math.max(filteredByNode.length,1) / itemsPerPage);
+            // Mostra o nasconde la paginazione in base ai dati filtrati
+            const top = document.getElementById('paginationTop');
+            const bottom = document.getElementById('paginationBottom');
+            const show = totalPages > 1;
+            if (top) top.style.display = show ? 'flex' : 'none';
+            if (bottom) bottom.style.display = show ? 'flex' : 'none';
+
+            // Mostra/nasconde controlli export
+            const expCtrl = document.getElementById('exportControls');
+            if (expCtrl) expCtrl.style.display = filteredByNode.length > 0 ? 'block' : 'none';
+
+            // Render
+            renderPage(1);
+        }
+
+        // Helpers barra di avanzamento export
+        let exportProgressHideTimer = null;
+        function showExportProgress(initialText){
+            const wrap = document.getElementById('exportProgressWrap');
+            const fill = document.getElementById('exportProgressFill');
+            const txt = document.getElementById('exportProgressText');
+            if (wrap) wrap.style.display = 'inline-flex';
+            if (fill) fill.style.width = '0%';
+            if (txt) txt.textContent = initialText ? `${initialText} (0%)` : '0%';
+        }
+        function setExportProgress(percent, message){
+            const p = Math.max(0, Math.min(100, Number(percent)||0));
+            const fill = document.getElementById('exportProgressFill');
+            const txt = document.getElementById('exportProgressText');
+            if (fill) fill.style.width = p + '%';
+            if (txt) txt.textContent = message ? `${message} (${p}%)` : `${p}%`;
+        }
+        function hideExportProgressAfterDelay(ms){
+            const wrap = document.getElementById('exportProgressWrap');
+            if (!wrap) return;
+            if (exportProgressHideTimer) clearTimeout(exportProgressHideTimer);
+            exportProgressHideTimer = setTimeout(() => {
+                wrap.style.display = 'none';
+                const fill = document.getElementById('exportProgressFill');
+                const txt = document.getElementById('exportProgressText');
+                if (fill) fill.style.width = '0%';
+                if (txt) txt.textContent = '0%';
+            }, ms || 1200);
+        }
+
+        async function exportFiltered() {
+            const btn = document.getElementById('exportBtn');
+            try {
+                const count = (filteredByNode || []).length;
+                if (!count) {
+                    const statusTop = document.getElementById('status');
+                    if (statusTop) {
+                        statusTop.style.display = 'block';
+                        statusTop.className = 'status warning';
+                        statusTop.textContent = 'Nessun dato da esportare (tabella vuota).';
+                    }
+                    return;
+                }
+                if (btn) btn.disabled = true;
+                showExportProgress('Avvio esportazione...');
+                setExportProgress(2, 'Avvio esportazione...');
+                const items = filteredByNode.map(it => ({
+                    fileName: it.fileName || '',
+                    dateIso: it.dateIso || it.date || '',
+                    time: it.time || '',
+                    type: it.type || '',
+                    severity: it.severity || '',
+                    object: it.object || '',
+                    title: it.title || '',
+                    detail: it.detail || ''
+                }));
+                const resp = await fetch(((typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin)) + '/export/start', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'LGA', data: { lga: items } })
+                });
+                if (!resp.ok) throw new Error('Server export non raggiungibile');
+                const json = await resp.json();
+                const jobId = json.job_id;
+                if (!jobId) throw new Error('Job ID non ricevuto');
+                // Poll dello stato
+                let tries = 0;
+                const maxTries = 60;
+                while (tries < maxTries) {
+                    await new Promise(r => setTimeout(r, 800));
+                    const st = await fetch(((typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin)) + `/export/status?id=${encodeURIComponent(jobId)}`);
+                    if (!st.ok) break;
+                    const info = await st.json();
+                    setExportProgress(info.percent || 0, info.message || 'Esportazione...');
+                    if (info.status === 'done') {
+                        const base = (typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin);
+                        const dlUrl = `${base}/export/download?id=${encodeURIComponent(jobId)}`;
+                        setExportProgress(100, 'Completato');
+                        window.open(dlUrl, '_blank');
+                        hideExportProgressAfterDelay(1500);
+                        if (btn) btn.disabled = false;
+                        return;
+                    }
+                    if (info.status === 'error') {
+                        clientCsvFallback(items);
+                        setExportProgress(100, 'Completato');
+                        hideExportProgressAfterDelay(1500);
+                        if (btn) btn.disabled = false;
+                        return;
+                    }
+                    tries++;
+                }
+                // Timeout: fallback CSV client-side
+                clientCsvFallback(items);
+                setExportProgress(100, 'Completato');
+                hideExportProgressAfterDelay(1500);
+                if (btn) btn.disabled = false;
+            } catch (e) {
+                try {
+                    const items = (filteredByNode || []).map(it => ({
+                        fileName: it.fileName || '',
+                        dateIso: it.dateIso || it.date || '',
+                        time: it.time || '',
+                        type: it.type || '',
+                        severity: it.severity || '',
+                        object: it.object || '',
+                        title: it.title || '',
+                        detail: it.detail || ''
+                    }));
+                    clientCsvFallback(items);
+                } catch (_) {}
+                setExportProgress(100, 'Completato');
+                hideExportProgressAfterDelay(1500);
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        function clientCsvFallback(items) {
+            const headers = ['File Name','Data','Ora','Type','Sev','Oggetto','Descrizione','Dettaglio'];
+            const esc = s => String(s || '').replace(/"/g, '""');
+            const lines = [headers.join(',')].concat(items.map(it => {
+                const cols = [
+                    esc(it.fileName), esc(it.dateIso), esc(it.time), esc(it.type),
+                    esc(it.severity), esc(it.object), esc(it.title), esc(it.detail)
+                ];
+                return '"' + cols.join('","') + '"';
+            }));
+            const csv = lines.join('\r\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const a = document.createElement('a');
+            const now = new Date();
+            const fn = `LGA_export_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}.csv`;
+            a.href = URL.createObjectURL(blob);
+            a.download = fn;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                URL.revokeObjectURL(a.href);
+                a.remove();
+            }, 0);
+        }
+    </script>
+</body>
+</html>

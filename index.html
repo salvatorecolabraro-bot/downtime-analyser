@@ -1,0 +1,2248 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downtime Analytics</title>
+    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
+    <meta name="dw-backend-url" content="">
+    <script>
+      (function(){
+        var backendUrl = null;
+        try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
+        if (!backendUrl) {
+          var m = document.querySelector('meta[name="dw-backend-url"]');
+          var c = m && m.getAttribute('content');
+          if (c) backendUrl = c;
+        }
+        var proto = (location && location.protocol || '').replace(':','');
+        if (!backendUrl && (proto === 'http' || proto === 'https')) {
+          backendUrl = location.origin;
+          try { localStorage.setItem('dw_backend_url', backendUrl); } catch(_) {}
+        }
+        if (backendUrl) { window.DW_BACKEND_URL = backendUrl.replace(/\/$/, ''); }
+      })();
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+    <!-- Chart.js per grafici -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .upload-section {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-section:hover {
+            border-color: #4facfe;
+            background: #f0f8ff;
+        }
+        
+        .upload-section.dragover {
+            border-color: #00f2fe;
+            background: #e6f7ff;
+            transform: scale(1.02);
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .upload-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+        }
+        
+        .export-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+            min-width: 200px;
+        }
+        
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        }
+        
+        .export-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .file-list {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .file-name {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .file-size {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        
+        .remove-btn:hover {
+            background: #c82333;
+        }
+        
+        .export-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .export-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+        }
+        
+        .export-card h3 {
+            margin: 0 0 15px 0;
+            color: var(--text);
+            font-size: 1.3em;
+        }
+        
+        .export-card p {
+            color: var(--text);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4facfe;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Charts section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .chart-card {
+            background: #f8f9fa;
+            padding: 14px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .chart-card h4 {
+            margin: 0 0 8px 0;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        .chart-canvas {
+            width: 100%;
+            /* Altezza rimossa: usiamo aspectRatio per proporzioni costanti */
+        }
+        .chart-card .chart-canvas { cursor: zoom-in; }
+        .chart-card:hover::after {
+            content: '🔍';
+            position: absolute;
+            right: 10px;
+            top: 8px;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            padding: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            pointer-events: none;
+        }
+        .chart-card.opaque { filter: blur(3px); opacity: 0.5; transition: all 0.2s ease-in-out; }
+        /* Popup per grafici ingranditi (stile condiviso con stats.html) */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+        }
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        .popup-title {
+            margin-top: 0;
+            color: #4facfe;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+/* --- Tema scuro coordinato --- */
+:root {
+    --bg: #0f172a;
+    --surface: #111827;
+    --card: #0d1424;
+    --border: #1f2937;
+    --text: #ffffff;
+    --muted: #94a3b8;
+    --accent: #1e88e5;
+}
+body { background: var(--bg); color: var(--text); }
+.container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+.header { background: var(--surface); color: var(--text); border-bottom: 1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding: 12px 16px; }
+.brand { font-size: 18px; font-weight: 600; letter-spacing: .2px; }
+.nav-tabs { display:flex; gap:10px; }
+.nav-tabs .tab { color: var(--text); text-decoration:none; border:1px solid #263347; padding: 8px 14px; border-radius: 12px; background: #0d1424; box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 2px rgba(0,0,0,0.25); }
+.nav-tabs .tab.active { background: #1b2a44; border-color: #2b3c55; }
+.content { color: var(--text); }
+.upload-section { background: #0d1424; border: 2px dashed #263347; color: var(--muted); }
+.upload-section .cloud { font-size: 40px; margin-bottom: 10px; color: var(--accent); }
+.upload-btn, .export-btn { background: #16233a; color: var(--text); border: 1px solid #263347; }
+.upload-btn:hover, .export-btn:hover { background: #1b2a44; }
+.file-list, .export-card, .chart-card, .stat-card, .card { background: #0d1424; color: var(--text); }
+.stat-number { color: var(--accent); }
+/* Opacità card in fase di elaborazione/salvataggio */
+.stat-card.opaque { filter: blur(3px); opacity: 0.5; transition: all 0.2s ease-in-out; }
+.status.info { background: #0d2b45; color: #cfe4f6; border-color: #153a59; }
+.status.success { background: #103a28; color: #cfeedd; border-color: #1e5a3f; }
+.status.error { background: #401b1b; color: #f3c3c3; border-color: #7a2c2c; }
+table { color: var(--text); }
+th { background: #16233a; border-color: #263347; }
+td { border-color: #263347; }
+.popup-content { background: var(--surface); color: var(--text); }
+.popup-title { color: var(--accent); border-bottom-color: #263347; }
+a { color: var(--accent); }
+.processing-popup {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    background: #1b2a44;
+    color: var(--text);
+    border: 1px solid #2b3c55;
+    padding: 10px 14px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    z-index: 2000;
+    font-size: 0.95em;
+}
+</style>
+    
+    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand"><img class="logo-icon" src="assets/logo.ico" alt="Downtime" /> Downtime Analytics</div>
+            <div class="nav-tabs">
+                <a href="index.html" class="tab active">Dashboard</a>
+                <a href="stats.html" class="tab">Analisi</a>
+                <a href="admin.html" id="adminTab" class="tab" style="display:none;">Admin</a>
+            </div>
+            <div style="margin-top:6px; display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;">
+                <div id="dataSourceBadge" style="font-size:12px; opacity:0.9;">Origine dati: Backend</div>
+            </div>
+            <div id="userAuthBox" style="margin-top:8px; display:flex; gap:8px; align-items:center; justify-content:center; flex-wrap:wrap;">
+                <span id="currentUserLabel" style="display:none; font-size:12px; background:#fff3cd; color:#856404; padding:3px 8px; border-radius:6px;"></span>
+                <input id="usernameInput" placeholder="Username" style="padding:6px 8px; border-radius:6px; border:1px solid #ddd; max-width:140px;">
+                <input id="passwordInput" placeholder="Password" type="password" style="padding:6px 8px; border-radius:6px; border:1px solid #ddd; max-width:140px;">
+                <button id="loginBtn" class="upload-btn" style="padding:8px 14px;">Login</button>
+                <button id="logoutBtn" class="remove-btn" style="display:none; padding:8px 14px;">Logout</button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="upload-section" id="uploadSection">
+                <div class="cloud">☁</div>
+                <h3>Trascina qui il file CSV</h3>
+                <p>oppure <a href="#" onclick="document.getElementById('fileInput').click()">clicca per selezionare</a></p>
+                <p class="small">Formato supportato: TXT (max 50MB)</p>
+                <input type="file" id="fileInput" class="file-input" multiple accept=".csv,.txt,.log">
+            </div>
+            <!-- Barra di progresso elaborazione upload -->
+            <div id="uploadProgressContainer" style="display:none; text-align:left; margin: -10px 0 20px 0;">
+                <div style="font-weight:600; color:#333; margin: 6px 0;">Elaborazione upload</div>
+                <div class="progress-bar">
+                    <div id="uploadProgressFill" class="progress-fill"></div>
+                </div>
+                <div id="uploadProgressText" style="font-size:0.95em; color:#666;">0% (0/0)</div>
+            </div>
+            
+            <!-- File Caricati spostati sotto tutte le card -->
+            
+            <div id="statsSection" class="stats-grid" style="display: none;">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalFiles">0</div>
+                    <div class="stat-label">File Caricati</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="lgaCount">0</div>
+                    <div class="stat-label">Sezioni LGA</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="lgeCount">0</div>
+                    <div class="stat-label">Sezioni LGE</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="lgdCount">0</div>
+                    <div class="stat-label">Sezioni LGD</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="lgdRestartsCount">0</div>
+                    <div class="stat-label">Eventi Restart LGD</div>
+                </div>
+            </div>
+
+            <!-- Card Grafici Top 5 -->
+            <div id="chartsSection" style="display: none; margin-top: 10px;">
+                <h3>📈 Grafici Top 5</h3>
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h4>Top 5 Allarmi per Titolo (LGA) </h4>
+                        <canvas id="chartTopLGAByTitle" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h4>Top 5 Distribuzione Severità (LGA)</h4>
+                        <canvas id="chartLGASeverity" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h4>Top 5 Eventi Restart per Tipo (LGD) </h4>
+                        <canvas id="chartTopLGDByTypeReason" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h4>Top 5 Eventi Restart per Nodo  (LGD)</h4>
+                        <canvas id="chartTopLGDByFileName" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="previewSection" style="display: none; margin-top: 20px;">
+                <h3>👀 Anteprima Dati (prime 20 righe)</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div>
+                        <h4>LGA/LGAC</h4>
+                        <div id="previewLGA"></div>
+                    </div>
+                    <div>
+                        <h4>LGE/LGEC</h4>
+                        <div id="previewLGE"></div>
+                    </div>
+                    <div>
+                        <h4>LGD/LGDC</h4>
+                        <div id="previewLGD"></div>
+                    </div>
+                    <div>
+                        <h4>LGD Eventi (LGDC)</h4>
+                        <div id="previewLGDEvents"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="export-section">
+                <div class="export-card">
+                    <h3>📡 Carica dati dal backend</h3>
+                    <p>Recupera LGA, LGE e eventi LGD dal backend per abilitare gli export.</p>
+                    <button class="export-btn" id="loadFromBackend" onclick="loadDataFromBackend()">
+                        Carica dati dal backend
+                    </button>
+                </div>
+                <div class="export-card">
+                    <h3>📊 Esporta LGA (Allarmi)</h3>
+                    <p>Genera file Excel con tutti gli allarmi dalle sezioni LGA nel formato: Data, Ora, Type, Sev, Oggetto, Descrizione, Dettaglio</p>
+                    <button class="export-btn" id="exportLGA" onclick="exportLGA()" disabled>
+                        Esporta LGA Excel
+                    </button>
+                </div>
+                
+                <div class="export-card">
+                    <h3>⚠️ Esporta LGE (Eventi)</h3>
+                    <p>Genera file Excel con tutti gli eventi dalle sezioni LGE nel formato: Data, Ora, Type, Sev, Oggetto, Descrizione, Dettaglio</p>
+                    <button class="export-btn" id="exportLGE" onclick="exportLGE()" disabled>
+                        Esporta LGE Excel
+                    </button>
+                </div>
+                
+                <div class="export-card">
+                    <h3>📈 Esporta LGD (Statistiche)</h3>
+                    <p>Genera file Excel con le statistiche Period=30 days dalle sezioni LGD</p>
+                    <button class="export-btn" id="exportLGD" onclick="exportLGD()" disabled>
+                        Esporta LGD Excel
+                    </button>
+                </div>
+                
+                <div class="export-card">
+                    <h3>📊 Conteggio PartialOutages</h3>
+                    <p>Genera tabella di conteggio per Number Of outages di PartialOutages</p>
+                    <button class="export-btn" id="exportOutagesCount" onclick="exportOutagesCount()" disabled>
+                        Esporta Conteggio Outages
+                    </button>
+                </div>
+                
+                <div class="export-card">
+                    <h3>⏱️ Downtime PartialOutages</h3>
+                    <p>Genera tabella per Total downtime con conteggio PartialOutages</p>
+                    <button class="export-btn" id="exportDowntimeCount" onclick="exportDowntimeCount()" disabled>
+                        Esporta Conteggio Downtime
+                    </button>
+                </div>
+                
+                <div class="export-card">
+                    <h3>🔄 Eventi Restart LGD</h3>
+                    <p>Genera file Excel con eventi LGD (LGDC) nel formato: Data, Ora, Tipo/Ragione, Valore, Commento, Durata</p>
+                    <button class="export-btn" id="exportLGDRestarts" onclick="exportLGDRestarts()" disabled>
+                        Esporta Eventi Restart LGD
+                    </button>
+                </div>
+
+                <!-- Barra avanzamento export asincrono -->
+                <div id="exportProgressContainer" style="display:none; text-align:left; margin-top: 10px;">
+                    <div style="font-weight:600; color: var(--text); margin: 6px 0;">Salvataggio risultati in corso...</div>
+                    <div class="progress-bar">
+                        <div id="exportProgressFill" class="progress-fill"></div>
+                    </div>
+                    <div id="exportProgressText" style="font-size:0.95em; color:#94a3b8;">0% — In attesa…</div>
+                </div>
+            </div>
+            
+            <div id="fileList" class="file-list" style="display: none;">
+                <h3>📋 File Caricati</h3>
+                <div id="fileItems"></div>
+            </div>
+            
+            <div id="statusMessage"></div>
+            <div id="processingPopup" class="processing-popup" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+        let uploadedFiles = [];
+        let parsedData = {
+            lga: [],
+            lge: [],
+            lgd: [],
+            lgdRestarts: []
+        };
+
+        // Web Worker per parsing pesante
+        let parserWorker = null;
+        let workerReqId = 0;
+        const workerResolvers = new Map();
+        function ensureParserWorker() {
+            if (!parserWorker) {
+                try {
+                    parserWorker = new Worker('parser-worker.js');
+                    parserWorker._supportsParse = true;
+                    parserWorker._supportsCompress = true;
+                    parserWorker.onmessage = (e) => {
+                        const d = e.data || {};
+                        if (d && d.id != null && workerResolvers.has(d.id)) {
+                            const resolve = workerResolvers.get(d.id);
+                            workerResolvers.delete(d.id);
+                            resolve(d);
+                        }
+                    };
+                    parserWorker.onerror = (e) => {
+                        console.error('Errore nel parser worker:', e);
+                    };
+                } catch (e) {
+                    console.warn('Impossibile inizializzare Web Worker via file, provo fallback inline Blob:', e);
+                    try {
+                        const blobCode = `try{importScripts('https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js');}catch(_){};self.onmessage=function(e){try{const d=e.data||{};const id=d.id;const type=d.type; if(type==='compress'){var fmt='json';var out=null;try{if(typeof LZString!=='undefined'&&LZString.compressToUTF16){out=LZString.compressToUTF16(String(d.content||''));fmt='lzutf16';}}catch(err){} if(!out){out=String(d.content||'');fmt='json';} self.postMessage({id:id,status:'ok',compressed:out,format:fmt});}else if(type==='parse'){self.postMessage({id:id,status:'no_worker'});} }catch(err){try{self.postMessage({id:(e&&e.data&&e.data.id)||0,status:'error',message:String(err&&err.message||err)})}catch(_){} } };`;
+                        const blob = new Blob([blobCode], { type: 'application/javascript' });
+                        const url = URL.createObjectURL(blob);
+                        parserWorker = new Worker(url);
+                        parserWorker._supportsParse = false;
+                        parserWorker._supportsCompress = true;
+                        parserWorker.onmessage = (e) => {
+                            const d = e.data || {};
+                            if (d && d.id != null && workerResolvers.has(d.id)) {
+                                const resolve = workerResolvers.get(d.id);
+                                workerResolvers.delete(d.id);
+                                resolve(d);
+                            }
+                        };
+                        parserWorker.onerror = (err) => { console.error('Errore nel parser worker (Blob):', err); };
+                    } catch (e2) {
+                        console.warn('Fallback inline Blob worker fallito, uso parsing in main thread:', e2);
+                    }
+                }
+            }
+            return parserWorker;
+        }
+        function parseWithWorker(fileName, content) {
+            return new Promise((resolve) => {
+                const w = ensureParserWorker();
+                if (!w || w._supportsParse === false) {
+                    // Fallback: parsing in main thread
+                    Promise.resolve(parseFileContent(content, fileName)).then(() => {
+                        resolve({ status: 'ok', result: null });
+                    });
+                    return;
+                }
+                const id = ++workerReqId;
+                workerResolvers.set(id, resolve);
+                w.postMessage({ type: 'parse', id, fileName, content });
+            });
+        }
+
+        // Progress helpers
+        function showUploadProgress() {
+            const c = document.getElementById('uploadProgressContainer');
+            if (c) c.style.display = 'block';
+            setUploadProgress(0, 0, uploadedFiles.length || 0);
+        }
+        function hideUploadProgress() {
+            const c = document.getElementById('uploadProgressContainer');
+            if (c) c.style.display = 'none';
+            stopUploadHeartbeat();
+        }
+        function setUploadProgress(percent, current, total, label) {
+            const fill = document.getElementById('uploadProgressFill');
+            const txt = document.getElementById('uploadProgressText');
+            const p = Math.max(0, Math.min(100, Math.round(percent)));
+            if (fill) fill.style.width = p + '%';
+            if (txt) txt.textContent = `${p}% (${current}/${total})${label ? ' — ' + label : ''}`;
+        }
+
+        // Heartbeat avanzamento dopo 55%
+        let uploadHeartbeatTimer = null;
+        let uploadHeartbeatPercent = 0;
+        function startUploadHeartbeat(startPercent, total) {
+            try { stopUploadHeartbeat(); } catch(_) {}
+            uploadHeartbeatPercent = Math.max(55, Math.min(98, Math.round(startPercent || 55)));
+            setUploadProgress(uploadHeartbeatPercent, total, total, 'salvataggio risultati in corso...');
+            // Mostra subito il popup, poi ripeti ogni 10s
+            showProcessingPopup();
+            uploadHeartbeatTimer = setInterval(() => {
+                uploadHeartbeatPercent = Math.min(98, uploadHeartbeatPercent + 2);
+                setUploadProgress(uploadHeartbeatPercent, total, total, 'salvataggio risultati in corso...');
+                showProcessingPopup();
+            }, 10000);
+        }
+        function stopUploadHeartbeat() {
+            if (uploadHeartbeatTimer) { clearInterval(uploadHeartbeatTimer); uploadHeartbeatTimer = null; }
+            hideProcessingPopup();
+        }
+
+        // Popup di processo dopo 80%: compare ogni 10s e si chiude dopo 5s
+        let processingPopupHideTimer = null;
+        function showProcessingPopup() {
+            const el = document.getElementById('processingPopup');
+            if (!el) return;
+            el.textContent = 'sto elaborando , attendi perfavore';
+            el.style.display = 'block';
+            if (processingPopupHideTimer) { clearTimeout(processingPopupHideTimer); }
+            processingPopupHideTimer = setTimeout(() => {
+                el.style.display = 'none';
+                processingPopupHideTimer = null;
+            }, 5000);
+        }
+        function hideProcessingPopup() {
+            const el = document.getElementById('processingPopup');
+            if (!el) return;
+            el.style.display = 'none';
+            if (processingPopupHideTimer) { clearTimeout(processingPopupHideTimer); processingPopupHideTimer = null; }
+        }
+
+        // Piccolo helper per cedere il controllo al main thread
+        function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+        // Imposta opacità/sfocatura sulle card di testata durante elaborazione/salvataggio
+        function setStatsCardsOpacity(active) {
+            const ids = ['totalFiles','lgaCount','lgeCount','lgdCount','lgdRestartsCount'];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const card = el.closest('.stat-card');
+                if (!card) return;
+                if (active) { card.classList.add('opaque'); } else { card.classList.remove('opaque'); }
+            });
+        }
+
+        // Imposta sfocatura sulle card dei grafici durante elaborazione/salvataggio
+        function setChartCardsOpacity(active) {
+            const cards = document.querySelectorAll('.chart-card');
+            cards.forEach(card => {
+                if (active) { card.classList.add('opaque'); } else { card.classList.remove('opaque'); }
+            });
+        }
+
+        function formatItDate(isoDate) {
+            const m = typeof isoDate === 'string' && isoDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            if (!m) return isoDate || '';
+            return `${m[3]}/${m[2]}/${m[1]}`;
+        }
+
+        // Rimuove il suffisso .log dal nome file
+        function stripLogExt(name) {
+            return (name || '').replace(/\.log$/i, '');
+        }
+
+        // Sostituisce i numeri dopo "Cell" con il suffisso MO (node+ultima cifra)
+        // Esempio: "Lrat Cell 21 22" -> "Lrat Cell CS0AL1 CS0AL2" se fileName è "CS0AL.log"
+        function formatLgdValueWithMo(value, fileName) {
+            const v = value || '';
+            const node = stripLogExt(fileName || '');
+            if (!node || !/\bCell\b/i.test(v)) return v;
+            return v.replace(/(\bCell\b)([\s,]+)(.*)$/i, (full, cellWord, sep, rest) => {
+                const mapped = rest.replace(/\b(\d+)\b/g, (m, num) => node + String(num).slice(-1));
+                return cellWord + sep + mapped;
+            });
+        }
+
+        // Drag and drop functionality
+        const uploadSection = document.getElementById('uploadSection');
+        const fileInput = document.getElementById('fileInput');
+
+        uploadSection.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadSection.classList.add('dragover');
+        });
+
+        uploadSection.addEventListener('dragleave', () => {
+            uploadSection.classList.remove('dragover');
+        });
+
+        uploadSection.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadSection.classList.remove('dragover');
+            const files = Array.from(e.dataTransfer.files);
+            handleFiles(files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            handleFiles(files);
+        });
+
+        function handleFiles(files) {
+            const txtFiles = files.filter(file => 
+                file.name.toLowerCase().endsWith('.txt') || 
+                file.name.toLowerCase().endsWith('.log')
+            );
+            
+            if (txtFiles.length === 0) {
+                showStatus('Seleziona solo file .txt o .log', 'error');
+                return;
+            }
+
+            // Sostituisci l'elenco dei file con il nuovo upload (non accumulare)
+            uploadedFiles = txtFiles;
+            updateFileList();
+            // Se utente admin, invia i file al backend per copiarli in DW
+            if (isAdmin()) {
+                uploadFilesToBackend(txtFiles);
+            } else {
+                processFiles();
+            }
+        }
+
+        function updateFileList() {
+            const fileList = document.getElementById('fileList');
+            const fileItems = document.getElementById('fileItems');
+            
+            if (uploadedFiles.length === 0) {
+                fileList.style.display = 'none';
+                return;
+            }
+            
+            fileList.style.display = 'block';
+            fileItems.innerHTML = '';
+            
+            uploadedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div>
+                        <span class="file-name">${file.name}</span>
+                        <span class="file-size">(${formatFileSize(file.size)})</span>
+                    </div>
+                    <button class="remove-btn" onclick="removeFile(${index})">Rimuovi</button>
+                `;
+                fileItems.appendChild(fileItem);
+            });
+        }
+
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+            processFiles();
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        async function processFiles() {
+            if (uploadedFiles.length === 0) {
+                // Nessun file selezionato: mantieni i dati precedenti in memoria locale
+                hideUploadProgress();
+                setStatsCardsOpacity(false);
+                setChartCardsOpacity(false);
+                // Aggiorna interfaccia in base ai dati già presenti
+                updateStats();
+                updateExportButtons();
+                // Mantieni grafici e tabelle basati sui dati persistiti
+                await computeAndRenderCharts();
+                renderPreviewTables();
+                return;
+            }
+
+            showStatus('Elaborazione file in corso...', 'info');
+            showUploadProgress();
+            setStatsCardsOpacity(true);
+            setChartCardsOpacity(true);
+            
+            // Reset parsed data
+            parsedData = { lga: [], lge: [], lgd: [], lgdRestarts: [] };
+            const total = uploadedFiles.length;
+            setUploadProgress(0, 0, total);
+            // Frequenza di yielding adattiva per grandi import
+            const yieldEvery = total > 1000 ? 3 : (total > 500 ? 5 : 10);
+            
+            for (let i = 0; i < uploadedFiles.length; i++) {
+                const file = uploadedFiles[i];
+                try {
+                    const content = await readFileContent(file);
+                    const res = await parseWithWorker(file.name, content);
+                    if (res && res.status === 'ok' && res.result) {
+                        // Accumula risultati dal worker
+                        const r = res.result;
+                        if (r.lga && r.lga.length) parsedData.lga.push(...r.lga);
+                        if (r.lge && r.lge.length) parsedData.lge.push(...r.lge);
+                        if (r.lgd && r.lgd.length) parsedData.lgd.push(...r.lgd);
+                        if (r.lgdRestarts && r.lgdRestarts.length) parsedData.lgdRestarts.push(...r.lgdRestarts);
+                    }
+                    const percent = Math.min(55, Math.round(((i+1) / total) * 55));
+                    const label = 'elaborazione file';
+                    setUploadProgress(percent, i+1, total, label);
+                    // Cedi il controllo periodicamente per evitare freeze con migliaia di file
+                    if ((i+1) % yieldEvery === 0) { await sleep(0); }
+                } catch (error) {
+                    console.error(`Errore nella lettura del file ${file.name}:`, error);
+                }
+            }
+            
+            updateStats();
+            updateExportButtons();
+            // Salva i dati analizzati in localStorage per la pagina statistiche
+            // Cedi il controllo prima del salvataggio (compressione può essere corposa)
+            showStatus('Salvataggio risultati', 'info');
+            await sleep(0);
+            startUploadHeartbeat(55, total);
+            await persistParsedData();
+            // Calcola e renderizza i grafici Top 5 con yielding per evitare blocchi
+            await sleep(0);
+            await computeAndRenderCharts();
+            await sleep(0);
+            renderPreviewTables();
+            // Imposta 100% solo dopo che grafici e card sono pronti
+            stopUploadHeartbeat();
+            setUploadProgress(100, total, total, 'Grafici e card pronti');
+            showStatus(`Elaborati ${uploadedFiles.length} file con successo!`, 'success');
+            setStatsCardsOpacity(false);
+            setChartCardsOpacity(false);
+            // Completa e nasconde la barra
+            setTimeout(() => { hideUploadProgress(); }, 1200);
+            // Mantieni visibile la card "File Caricati" dopo l'upload
+        }
+
+        // Upload al backend per copiare i file nella cartella DW
+        async function uploadFilesToBackend(files) {
+            try {
+                if (!files || files.length === 0) {
+                    showStatus('Nessun file da caricare', 'error');
+                    return;
+                }
+                const base = (window.DW_BACKEND_URL || location.origin);
+                const url = base.replace(/\/$/, '') + '/api/files/upload';
+                showStatus('Caricamento su backend in corso…', 'info');
+                showUploadProgress();
+                setStatsCardsOpacity(true);
+                setChartCardsOpacity(true);
+                const form = new FormData();
+                const total = files.length;
+                for (let i = 0; i < files.length; i++) {
+                    const f = files[i];
+                    form.append('file', f, f.name);
+                    const percent = Math.min(20, Math.round(((i+1) / total) * 20));
+                    setUploadProgress(percent, i+1, total, 'preparazione upload');
+                    await sleep(0);
+                }
+                startUploadHeartbeat(20, total);
+                const resp = await fetch(url, { method: 'POST', body: form, mode: 'cors' });
+                stopUploadHeartbeat();
+                if (!resp.ok) {
+                    const txt = await resp.text().catch(() => '');
+                    throw new Error('HTTP ' + resp.status + (txt ? (': ' + txt) : ''));
+                }
+                const data = await resp.json().catch(() => ({}));
+                // Aggiorna le card statistiche con i dati del backend
+                const s = data && data.stats || null;
+                if (s) {
+                    const tf = document.getElementById('totalFiles'); if (tf) tf.textContent = String(s.totalFiles ?? '');
+                    const lga = document.getElementById('lgaCount'); if (lga) lga.textContent = String(s.lgaCount ?? '');
+                    const lge = document.getElementById('lgeCount'); if (lge) lge.textContent = String(s.lgeCount ?? '');
+                    const lgd = document.getElementById('lgdCount'); if (lgd) lgd.textContent = String(s.lgdCount ?? '');
+                    const rs = document.getElementById('lgdRestartsCount'); if (rs) rs.textContent = String(s.lgdRestartsCount ?? '');
+                } else {
+                    try { await fetchAndRenderHeaderStatsFromBackend(); } catch (_) {}
+                }
+                // Aggiorna grafici dal backend
+                try { await fetchAndRenderChartsFromBackend(5); } catch (_) {}
+                setDataSourcePreference('backend');
+                setDataSourceBadge('backend');
+                setUploadProgress(100, total, total, 'File copiati in DW');
+                const savedCount = (data && typeof data.savedCount === 'number') ? data.savedCount : files.length;
+                showStatus(`Copiati ${savedCount} file nella cartella DW`, 'success');
+            } catch (e) {
+                stopUploadHeartbeat();
+                showStatus('Upload backend fallito: ' + (e && e.message ? e.message : String(e)), 'error');
+            } finally {
+                setStatsCardsOpacity(false);
+                setChartCardsOpacity(false);
+                setTimeout(() => { hideUploadProgress(); }, 1200);
+            }
+        }
+
+        function readFileContent(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.onerror = (e) => reject(e);
+                reader.readAsText(file);
+            });
+        }
+
+        async function parseFileContent(content, fileName) {
+            // Scansione riga-per-riga per LGA/LGAC, LGE/LGEC e LGD/LGDC (eventi)
+            const rawLines = content.split('\n');
+            let currentSection = null; // 'lga' | 'lge' | 'lgdEvents' | null
+            const seenLga = new Set();
+            const seenLge = new Set();
+            const seenLgdEvents = new Set();
+            for (let idx = 0; idx < rawLines.length; idx++) {
+                const line = rawLines[idx].trim();
+
+                // Cedi il controllo ogni ~2000 righe
+                if (idx > 0 && idx % 2000 === 0) { await sleep(0); }
+
+                // Enter sections when command line appears
+                if (/^(?:lga|lgac)\s+-m\s+30d?/i.test(line)) { currentSection = 'lga'; continue; }
+                if (/^(?:lge|lgec)\s+-m\s+30d?/i.test(line)) { currentSection = 'lge'; continue; }
+                if (/^(?:lgd|lgdc)\s+-m\s+30d?/i.test(line)) { currentSection = 'lgdEvents'; continue; }
+
+                // Exit section when prompt or another command appears
+                if (/^[A-Z]{2}\w+>/.test(line) || /^(?:lga|lgac|lge|lgec|lgd|lgdc)\s+-m\s+\d+/i.test(line)) { currentSection = null; continue; }
+
+                if (!currentSection) { continue; }
+
+                // Skip header/decorative lines
+                if (/^=+$/.test(line) || (/Timestamp/i.test(line) && !/^\d{4}-\d{2}-\d{2}/.test(line))) { continue; }
+                if (!line) { continue; }
+
+                // Nuovo formato: riga delimitata da ';'
+                if (line.includes(';')) {
+                    const parts = line.split(';').map(p => p.trim());
+                    // LGA/LGE con data e ora separate: YYYY-MM-DD;HH:MM:SS;TYPE;SEV;OBJECT;TITLE;DETAIL
+                    if ((currentSection === 'lga' || currentSection === 'lge') &&
+                        parts.length >= 6 &&
+                        /^\d{4}-\d{2}-\d{2}$/.test(parts[0]) &&
+                        /^\d{2}:\d{2}:\d{2}$/.test(parts[1])) {
+                        const detail = (parts[6] || '').replace(/\s*SUPPRESSED\s*$/i, '').trim();
+                        const item = {
+                            fileName: fileName,
+                            dateIso: parts[0],
+                            time: parts[1],
+                            type: (parts[2] || '').replace(/\s+/g, ''),
+                            severity: parts[3] || '',
+                            object: parts[4] || '',
+                            title: parts[5] || '',
+                            detail: detail
+                        };
+                        const key = `${item.fileName}|${item.dateIso}|${item.time}|${item.type}|${item.severity}|${item.object}|${item.title}|${item.detail}`;
+                        if (currentSection === 'lga') {
+                            if (!seenLga.has(key)) { seenLga.add(key); parsedData.lga.push(item); }
+                        } else {
+                            if (!seenLge.has(key)) { seenLge.add(key); parsedData.lge.push(item); }
+                        }
+                        continue;
+                    }
+
+                    // LGD/LGDC eventi: YYYY-MM-DD;HH:MM:SS;Type/Reason;Value;Comment;Duration;...
+                    if (currentSection === 'lgdEvents' &&
+                        parts.length >= 6 &&
+                        /^\d{4}-\d{2}-\d{2}$/.test(parts[0]) &&
+                        /^\d{2}:\d{2}:\d{2}$/.test(parts[1])) {
+                        const ev = {
+                            fileName: fileName,
+                            dateIso: parts[0],
+                            time: parts[1],
+                            typeReason: parts[2] || '',
+                            value: parts[3] || '',
+                            comment: parts[4] || '',
+                            duration: parts[5] || ''
+                        };
+                        const key = `${ev.fileName}|${ev.dateIso}|${ev.time}|${ev.typeReason}|${ev.value}|${ev.comment}|${ev.duration}`;
+                        if (!seenLgdEvents.has(key)) { seenLgdEvents.add(key); parsedData.lgdRestarts.push(ev); }
+                        continue;
+                    }
+                }
+
+                // Fallback: vecchio formato delimitato da spazi
+                const match = line.match(/^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})\s+(AL|EV)\s+([*mMw])\s+(.+)$/);
+                if (match) {
+                    const item = {
+                        fileName: fileName,
+                        dateIso: match[1],
+                        time: match[2],
+                        type: match[3],
+                        severity: match[4],
+                        object: '',
+                        title: match[5].trim(),
+                        detail: ''
+                    };
+                    const key = `${item.fileName}|${item.dateIso}|${item.time}|${item.type}|${item.severity}|${item.object}|${item.title}|${item.detail}`;
+                    if (currentSection === 'lga') {
+                        if (!seenLga.has(key)) { seenLga.add(key); parsedData.lga.push(item); }
+                    } else if (currentSection === 'lge') {
+                        if (!seenLge.has(key)) { seenLge.add(key); parsedData.lge.push(item); }
+                    }
+                }
+            }
+
+            // Parse LGD/LGDC statistics (support both old and new formats)
+            // Prefer scanning lines to catch semicolon-delimited rows as well
+            const allLines = content.split('\n').map(l => l.trim()).filter(l => l);
+            for (let j = 0; j < allLines.length; j++) {
+                const line = allLines[j];
+                if (j > 0 && j % 1000 === 0) { await sleep(0); }
+                if (line.startsWith('Number Of outages') ||
+                    line.startsWith('Total downtime') ||
+                    line.startsWith('Downtime per day') ||
+                    line.startsWith('Downtime per outage')) {
+                    if (line.includes(';')) {
+                        const parts = line.split(';').map(p => p.trim());
+                        if (parts.length >= 6) {
+                            parsedData.lgd.push({
+                                fileName: fileName,
+                                metric: parts[0],
+                                nodeUpgrade: parts[1],
+                                nodeManual: parts[2],
+                                nodeSpontaneous: parts[3],
+                                allNodeRestarts: parts[4],
+                                partialOutages: parts[5]
+                            });
+                        }
+                    } else {
+                        const parts = line.split(/\s{2,}/);
+                        if (parts.length >= 6) {
+                            parsedData.lgd.push({
+                                fileName: fileName,
+                                metric: parts[0].trim(),
+                                nodeUpgrade: parts[1].trim(),
+                                nodeManual: parts[2].trim(),
+                                nodeSpontaneous: parts[3].trim(),
+                                allNodeRestarts: parts[4].trim(),
+                                partialOutages: parts[5].trim()
+                            });
+                        }
+                    }
+                }
+            }
+
+            // Parse LGD Restart Events Table (support semicolon-delimited rows) - fallback
+            const lgdRestartMatch = content.match(/=+\s*Timestamp \(UTC\)\s+RestartType\/Reason\s+SwVersion\s+SwRelease\s+RCS Downtime\s+Appl\. Downtime\s+TN Downtime\s+RATs Downtime\s*=+([\s\S]*?)(?=Node uptime since last restart:|$)/i);
+            if (lgdRestartMatch) {
+                const restartContent = lgdRestartMatch[1];
+                const restartLines = restartContent.split('\n').filter(line => line.trim() && !line.match(/^=+$/));
+                
+                for (let k = 0; k < restartLines.length; k++) {
+                    const line = restartLines[k];
+                    if (k > 0 && k % 1000 === 0) { await sleep(0); }
+                    if (line.includes(';')) {
+                        const parts = line.split(';').map(p => p.trim());
+                        // Support sia timestamp unico che data/ora separati
+                        let dateIso = '', time = '';
+                        if (/^\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}$/.test(parts[0])) {
+                            dateIso = parts[0].slice(0,10);
+                            time = parts[0].slice(11);
+                            const ev = {
+                                fileName: fileName,
+                                dateIso,
+                                time,
+                                typeReason: parts[1] || '',
+                                value: parts[2] || '',
+                                comment: parts[3] || '',
+                                duration: parts[4] || ''
+                            };
+                            const key = `${ev.fileName}|${ev.dateIso}|${ev.time}|${ev.typeReason}|${ev.value}|${ev.comment}|${ev.duration}`;
+                            if (!seenLgdEvents.has(key)) { seenLgdEvents.add(key); parsedData.lgdRestarts.push(ev); }
+                            continue;
+                        }
+                        if (parts.length >= 6 && /^\d{4}-\d{2}-\d{2}$/.test(parts[0]) && /^\d{2}:\d{2}:\d{2}$/.test(parts[1])) {
+                            dateIso = parts[0];
+                            time = parts[1];
+                            const ev2 = {
+                                fileName: fileName,
+                                dateIso,
+                                time,
+                                typeReason: parts[2] || '',
+                                value: parts[3] || '',
+                                comment: parts[4] || '',
+                                duration: parts[5] || ''
+                            };
+                            const key2 = `${ev2.fileName}|${ev2.dateIso}|${ev2.time}|${ev2.typeReason}|${ev2.value}|${ev2.comment}|${ev2.duration}`;
+                            if (!seenLgdEvents.has(key2)) { seenLgdEvents.add(key2); parsedData.lgdRestarts.push(ev2); }
+                            continue;
+                        }
+                    }
+
+                    // Fallback to old format parsing
+                    const timestampMatch = line.match(/^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})\s+(.+)$/);
+                    if (timestampMatch) {
+                        const dateIso = timestampMatch[1];
+                        const time = timestampMatch[2];
+                        const restOfLine = timestampMatch[3];
+                        const reasonMatch = restOfLine.match(/^([^)]+\))\s*(.*)$/);
+                        if (reasonMatch) {
+                            const typeReason = reasonMatch[1];
+                            const remainingFields = reasonMatch[2].trim();
+                            const fields = remainingFields.split(/\s{2,}/);
+                            const ev3 = {
+                                fileName: fileName,
+                                dateIso,
+                                time,
+                                typeReason,
+                                value: fields[0] || '',
+                                comment: fields[1] || '',
+                                duration: fields[2] || ''
+                            };
+                            const key3 = `${ev3.fileName}|${ev3.dateIso}|${ev3.time}|${ev3.typeReason}|${ev3.value}|${ev3.comment}|${ev3.duration}`;
+                            if (!seenLgdEvents.has(key3)) { seenLgdEvents.add(key3); parsedData.lgdRestarts.push(ev3); }
+                        }
+                    }
+                }
+            }
+
+            // Global scan: cattura righe semicolonate LGA/LGE/LGDC ovunque nel file
+            for (let i = 0; i < rawLines.length; i++) {
+                const line = rawLines[i].trim();
+                if (i > 0 && i % 2000 === 0) { await sleep(0); }
+                if (!line || !line.includes(';') || /^=+$/.test(line)) continue;
+                const parts = line.split(';').map(p => p.trim());
+                if (parts.length < 6) continue;
+                const isDate = /^\d{4}-\d{2}-\d{2}$/.test(parts[0]);
+                const isTime = /^\d{2}:\d{2}:\d{2}$/.test(parts[1]);
+                if (!isDate || !isTime) continue;
+
+                const typeField = (parts[2] || '').replace(/\s+/g, '');
+                if (typeField === 'AL' || typeField === 'EV') {
+                    const detail = (parts[6] || '').replace(/\s*SUPPRESSED\s*$/i, '').trim();
+                    const item = {
+                        fileName: fileName,
+                        dateIso: parts[0],
+                        time: parts[1],
+                        type: typeField,
+                        severity: parts[3] || '',
+                        object: parts[4] || '',
+                        title: parts[5] || '',
+                        detail: detail
+                    };
+                    const key = `${item.fileName}|${item.dateIso}|${item.time}|${item.type}|${item.severity}|${item.object}|${item.title}|${item.detail}`;
+                    if (typeField === 'AL') {
+                        if (!seenLga.has(key)) { seenLga.add(key); parsedData.lga.push(item); }
+                    } else {
+                        if (!seenLge.has(key)) { seenLge.add(key); parsedData.lge.push(item); }
+                    }
+                } else {
+                    // Trattiamo come LGD Event se non è AL/EV
+                    const ev = {
+                        fileName: fileName,
+                        dateIso: parts[0],
+                        time: parts[1],
+                        typeReason: parts[2] || '',
+                        value: parts[3] || '',
+                        comment: parts[4] || '',
+                        duration: parts[5] || ''
+                    };
+                    const key = `${ev.fileName}|${ev.dateIso}|${ev.time}|${ev.typeReason}|${ev.value}|${ev.comment}|${ev.duration}`;
+                    if (!seenLgdEvents.has(key)) { seenLgdEvents.add(key); parsedData.lgdRestarts.push(ev); }
+                }
+            }
+        }
+
+        function updateStats() {
+            // Origine dati sempre backend: sincronizza le card con /api/stats/header
+            try {
+                fetchAndRenderHeaderStatsFromBackend();
+            } catch (_) {}
+            const statsSection = document.getElementById('statsSection');
+            if (statsSection) statsSection.style.display = 'grid';
+        }
+
+        function updateExportButtons() {
+            const hasData = (parsedData.lga.length + parsedData.lge.length + parsedData.lgd.length + parsedData.lgdRestarts.length) > 0;
+            document.getElementById('exportLGA').disabled = !hasData || parsedData.lga.length === 0;
+            document.getElementById('exportLGE').disabled = !hasData || parsedData.lge.length === 0;
+            document.getElementById('exportLGD').disabled = !hasData || parsedData.lgd.length === 0;
+            document.getElementById('exportOutagesCount').disabled = !hasData || parsedData.lgd.length === 0;
+            document.getElementById('exportDowntimeCount').disabled = !hasData || parsedData.lgd.length === 0;
+            document.getElementById('exportLGDRestarts').disabled = !hasData || parsedData.lgdRestarts.length === 0;
+        }
+
+        // ===== Grafici Top 5 =====
+        let charts = {};
+        function hideChartsSection() {
+            const el = document.getElementById('chartsSection');
+            if (el) el.style.display = 'none';
+            // distrugge grafici esistenti
+            Object.values(charts).forEach(c => { try { c.destroy(); } catch(_){} });
+            charts = {};
+        }
+
+        function computeTopCounts(items, keySelector, topN = 5) {
+            const counter = {};
+            items.forEach(it => {
+                const k = keySelector(it);
+                const key = (k && String(k).trim()) || 'N/D';
+                counter[key] = (counter[key] || 0) + 1;
+            });
+            const sorted = Object.entries(counter).sort((a,b) => b[1]-a[1]).slice(0, topN);
+            return { labels: sorted.map(e => e[0]), data: sorted.map(e => e[1]) };
+        }
+
+        async function computeTopCountsAsync(items, keySelector, topN = 5) {
+            const counter = {};
+            for (let i = 0; i < items.length; i++) {
+                const it = items[i];
+                const k = keySelector(it);
+                const key = (k && String(k).trim()) || 'N/D';
+                counter[key] = (counter[key] || 0) + 1;
+                if (i > 0 && i % 2000 === 0) { await sleep(0); }
+            }
+            const sorted = Object.entries(counter).sort((a,b) => b[1]-a[1]).slice(0, topN);
+            return { labels: sorted.map(e => e[0]), data: sorted.map(e => e[1]) };
+        }
+
+        const defaultColors = ['#667eea', '#4facfe', '#00c2ff', '#76c7c0', '#f7b267'];
+        const severityColorMap = {
+            'CRITICAL': '#e53935', 'MAJOR': '#fb8c00', 'MINOR': '#43a047', 'WARNING': '#fdd835', 'ERROR': '#d81b60',
+            '*': '#43a047', 'M': '#fb8c00', 'm': '#76c7c0', 'w': '#fdd835'
+        };
+
+        function truncateLabel(str, maxLen = 22) {
+            const s = (str ?? '').toString();
+            if (!s) return 'N/D';
+            return s.length > maxLen ? (s.slice(0, Math.max(0, maxLen - 1)) + '…') : s;
+        }
+
+        async function renderBarChart(canvasId, labels, data, colors, originalLabels) {
+            await sleep(0);
+            const el = document.getElementById(canvasId);
+            if (!el || typeof Chart === 'undefined') return;
+            const ctx = el.getContext('2d');
+            if (charts[canvasId]) { try { charts[canvasId].destroy(); } catch(_){} }
+            // Conserva etichette originali per tooltip
+            el._originalLabels = originalLabels || labels;
+            charts[canvasId] = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        data,
+                        backgroundColor: (colors && colors.length ? colors : defaultColors).slice(0, labels.length),
+                        borderWidth: 0,
+                        maxBarThickness: 20
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: 1.6,
+                    indexAxis: 'y',
+                    layout: { padding: 4 },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1b2a44',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: '#263347',
+                            borderWidth: 1,
+                            callbacks: {
+                                title: (items) => {
+                                    try {
+                                        const idx = items && items.length ? items[0].dataIndex : 0;
+                                        const orig = el._originalLabels;
+                                        return (orig && orig[idx]) ? orig[idx] : (items[0].label || '');
+                                    } catch(_) { return items[0].label || ''; }
+                                },
+                                label: (item) => `Conteggio: ${item.raw}`
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { ticks: { color: '#fff', font: { size: 11 } }, grid: { color: '#263347' }, beginAtZero: true },
+                        y: { ticks: { color: '#fff', font: { size: 11 } }, grid: { display: false } }
+                    }
+                }
+            });
+
+            // Metadati per popup ingrandito
+            try {
+                charts[canvasId]._fullLabels = (el._originalLabels || labels).slice();
+                charts[canvasId]._values = Array.isArray(data) ? data.slice() : data;
+                let titleText = '';
+                try {
+                    const card = el.closest('.chart-card');
+                    const h4 = card && card.querySelector('h4');
+                    titleText = h4 && h4.textContent ? h4.textContent : '';
+                } catch(_) {}
+                charts[canvasId]._title = titleText;
+            } catch(_) {}
+            // Click per aprire popup (evita duplicati)
+            if (!el.dataset.popupBound) {
+                el.addEventListener('click', function() { openChartPopup(canvasId); });
+                el.dataset.popupBound = '1';
+            }
+        }
+
+        // Popup con grafico ingrandito (no legenda, valori sopra barre)
+        function openChartPopup(canvasId) {
+            const chart = charts[canvasId];
+            if (!chart) return;
+            const overlay = document.createElement('div');
+            overlay.className = 'popup-overlay';
+            const content = document.createElement('div');
+            content.className = 'popup-content';
+            content.style.maxWidth = '1000px';
+            content.style.width = '90%';
+
+            const closeBtn = document.createElement('span');
+            closeBtn.className = 'popup-close';
+            closeBtn.innerHTML = '&times;';
+            closeBtn.onclick = function() { document.body.removeChild(overlay); };
+
+            const titleEl = document.createElement('h3');
+            titleEl.className = 'popup-title';
+            titleEl.textContent = 'Grafico: ' + (chart._title || '');
+
+            const canvas = document.createElement('canvas');
+            canvas.style.height = '520px';
+            canvas.style.width = '100%';
+
+            content.appendChild(closeBtn);
+            content.appendChild(titleEl);
+            content.appendChild(canvas);
+            overlay.appendChild(content);
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) { document.body.removeChild(overlay); }
+            });
+            document.body.appendChild(overlay);
+
+            // Ricrea il grafico con etichette complete
+            const type = chart.config.type || (chart.config._config && chart.config._config.type) || 'bar';
+            const dataClone = JSON.parse(JSON.stringify(chart.data || {}));
+            if (chart._fullLabels && Array.isArray(chart._fullLabels)) {
+                dataClone.labels = chart._fullLabels.slice();
+            }
+            const optionsClone = JSON.parse(JSON.stringify(chart.options || chart.config.options || {}));
+            optionsClone.responsive = true;
+            optionsClone.maintainAspectRatio = false;
+            // Font più grandi
+            optionsClone.scales = optionsClone.scales || {};
+            if (optionsClone.scales.x && optionsClone.scales.x.ticks) {
+                optionsClone.scales.x.ticks.font = Object.assign({}, optionsClone.scales.x.ticks.font || {}, { size: 14 });
+                optionsClone.scales.x.ticks.color = '#fff';
+            }
+            if (optionsClone.scales.y && optionsClone.scales.y.ticks) {
+                optionsClone.scales.y.ticks.font = Object.assign({}, optionsClone.scales.y.ticks.font || {}, { size: 14 });
+                optionsClone.scales.y.ticks.color = '#fff';
+            }
+            optionsClone.plugins = optionsClone.plugins || {};
+            optionsClone.plugins.tooltip = optionsClone.plugins.tooltip || {};
+            optionsClone.plugins.tooltip.titleFont = Object.assign({}, optionsClone.plugins.tooltip.titleFont || {}, { size: 14 });
+            optionsClone.plugins.tooltip.bodyFont = Object.assign({}, optionsClone.plugins.tooltip.bodyFont || {}, { size: 14 });
+            optionsClone.plugins.tooltip.backgroundColor = '#1b2a44';
+            optionsClone.plugins.tooltip.titleColor = '#fff';
+            optionsClone.plugins.tooltip.bodyColor = '#fff';
+            optionsClone.plugins.tooltip.borderColor = '#263347';
+            optionsClone.plugins.tooltip.borderWidth = 1;
+            // Niente legenda
+            optionsClone.plugins.legend = optionsClone.plugins.legend || {};
+            optionsClone.plugins.legend.display = false;
+            // Tooltip: mostra solo il valore
+            optionsClone.plugins.tooltip.callbacks = optionsClone.plugins.tooltip.callbacks || {};
+            optionsClone.plugins.tooltip.callbacks.label = function(ctx) {
+                const v = (ctx.parsed && (typeof ctx.parsed.y === 'number' ? ctx.parsed.y : ctx.parsed.x)) ?? ctx.raw;
+                return new Intl.NumberFormat('it-IT', { maximumFractionDigits: 2 }).format(v || 0);
+            };
+            optionsClone.plugins.tooltip.displayColors = false;
+
+            // Plugin valori sopra barre
+            const valueLabelPlugin = {
+                id: 'barValueLabels',
+                afterDatasetsDraw(ch, args) {
+                    const { ctx } = ch;
+                    ctx.save();
+                    const nf = new Intl.NumberFormat('it-IT', { maximumFractionDigits: 2 });
+                    ch.data.datasets.forEach((dataset, di) => {
+                        const meta = ch.getDatasetMeta(di);
+                        if (!meta || !meta.data) return;
+                        meta.data.forEach((barElem, i) => {
+                            const raw = Array.isArray(dataset.data) ? dataset.data[i] : undefined;
+                            const pos = barElem.tooltipPosition();
+                            const text = nf.format(raw || 0);
+                            ctx.fillStyle = '#fff';
+                            ctx.font = 'bold 14px sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom';
+                            ctx.fillText(text, pos.x, pos.y - 4);
+                        });
+                    });
+                    ctx.restore();
+                }
+            };
+
+            try {
+                new Chart(canvas.getContext('2d'), {
+                    type,
+                    data: dataClone,
+                    options: optionsClone,
+                    plugins: type === 'bar' ? [valueLabelPlugin] : []
+                });
+            } catch (e) { console.warn('Errore nel rendering del popup chart:', e); }
+        }
+
+        async function computeAndRenderCharts() {
+            const section = document.getElementById('chartsSection');
+            if (!section) return;
+            const hasAny = (parsedData.lga && parsedData.lga.length) || (parsedData.lgdRestarts && parsedData.lgdRestarts.length);
+            if (!hasAny) { hideChartsSection(); return; }
+            section.style.display = 'block';
+
+            // Top 5 LGA per Titolo
+            const lgaTitleTop = await computeTopCountsAsync(parsedData.lga || [], it => it.title || it.detail || '');
+            const lgaTitleLabelsOrig = lgaTitleTop.labels;
+            const lgaTitleLabelsTrunc = lgaTitleLabelsOrig.map(l => truncateLabel(l, 22));
+            await renderBarChart('chartTopLGAByTitle', lgaTitleLabelsTrunc, lgaTitleTop.data, null, lgaTitleLabelsOrig);
+            await sleep(0);
+
+            // Top 5 Severità LGA
+            const lgaSevTop = await computeTopCountsAsync(parsedData.lga || [], it => (it.severity || '').toUpperCase());
+            const sevColors = lgaSevTop.labels.map(l => severityColorMap[l] || '#667eea');
+            await renderBarChart('chartLGASeverity', lgaSevTop.labels, lgaSevTop.data, sevColors, lgaSevTop.labels);
+            await sleep(0);
+
+            // Top 5 LGD eventi per Tipo/Ragione
+            const lgdTypeTop = await computeTopCountsAsync(parsedData.lgdRestarts || [], it => it.typeReason || it.restartTypeReason || '');
+            const lgdTypeLabelsOrig = lgdTypeTop.labels;
+            const lgdTypeLabelsTrunc = lgdTypeLabelsOrig.map(l => truncateLabel(l, 24));
+            await renderBarChart('chartTopLGDByTypeReason', lgdTypeLabelsTrunc, lgdTypeTop.data, null, lgdTypeLabelsOrig);
+            await sleep(0);
+
+            // Top 5 LGD eventi per Nodo (File Name)
+            const lgdNodeTop = await computeTopCountsAsync(parsedData.lgdRestarts || [], it => it.fileName || '');
+            // Rimuovi visualmente il suffisso .log dai label dei grafici
+            const lgdNodeLabelsOrig = lgdNodeTop.labels.map(l => (l || '').replace(/\.log$/i, ''));
+            const lgdNodeLabelsTrunc = lgdNodeLabelsOrig.map(l => truncateLabel(l, 18));
+            await renderBarChart('chartTopLGDByFileName', lgdNodeLabelsTrunc, lgdNodeTop.data, null, lgdNodeLabelsOrig);
+            await sleep(0);
+        }
+
+        // Backend charts (senza parsing locale)
+        async function fetchAndRenderChartsFromBackend(topN = 5) {
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const url = `${base}/api/charts/summary?n=${encodeURIComponent(topN)}`;
+            try {
+                const res = await fetch(url, { mode: 'cors' });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                const section = document.getElementById('chartsSection');
+                if (section) section.style.display = 'block';
+                const a = data.lgaTopByTitle || { labels: [], data: [] };
+                const aLabelsTrunc = (a.labels||[]).map(l => truncateLabel(l, 22));
+                await renderBarChart('chartTopLGAByTitle', aLabelsTrunc, a.data||[], null, a.labels||[]);
+                await sleep(0);
+                const b = data.lgaSeverity || { labels: [], data: [] };
+                const bColors = (b.labels||[]).map(l => severityColorMap[l] || '#667eea');
+                await renderBarChart('chartLGASeverity', b.labels||[], b.data||[], bColors, b.labels||[]);
+                await sleep(0);
+                const c = data.lgdTopByTypeReason || { labels: [], data: [] };
+                const cLabelsTrunc = (c.labels||[]).map(l => truncateLabel(l, 24));
+                await renderBarChart('chartTopLGDByTypeReason', cLabelsTrunc, c.data||[], null, c.labels||[]);
+                await sleep(0);
+                const d = data.lgdTopByFileName || { labels: [], data: [] };
+                const dLabelsOrig = (d.labels||[]).map(l => (l||'').replace(/\.log$/i, ''));
+                const dLabelsTrunc = dLabelsOrig.map(l => truncateLabel(l, 18));
+                await renderBarChart('chartTopLGDByFileName', dLabelsTrunc, d.data||[], null, dLabelsOrig);
+                setDataSourceBadge('backend');
+            } catch (e) {
+                console.warn('Grafici backend non disponibili:', e);
+            }
+        }
+
+        function setDataSourceBadge() {
+            const el = document.getElementById('dataSourceBadge');
+            if (!el) return;
+            el.textContent = 'Origine dati: Backend';
+        }
+
+        function renderPreviewTables() {
+            const previewSection = document.getElementById('previewSection');
+            // Richiesta utente: mantieni i dati in memoria, nascondi anteprima
+            previewSection.style.display = 'none';
+            const lgaEl = document.getElementById('previewLGA');
+            const lgeEl = document.getElementById('previewLGE');
+            const lgdEl = document.getElementById('previewLGD');
+            const lgdEventsEl = document.getElementById('previewLGDEvents');
+            if (lgaEl) lgaEl.innerHTML = '';
+            if (lgeEl) lgeEl.innerHTML = '';
+            if (lgdEl) lgdEl.innerHTML = '';
+            if (lgdEventsEl) lgdEventsEl.innerHTML = '';
+            return;
+        }
+
+        // Autenticazione locale e namespace storage
+        function getCurrentUser() { return localStorage.getItem('dw_current_user') || ''; }
+        function nsKey(base) {
+            const u = getCurrentUser();
+            if (u) {
+                if (base.startsWith('dw_')) base = base.slice(3);
+                return 'dw_' + u + '_' + base;
+            }
+            return 'dw_' + base;
+        }
+        // Preferenze origine dati rimosse: si usa sempre Backend
+        function updateUserUI() {
+            const u = getCurrentUser();
+            const userLabel = document.getElementById('currentUserLabel');
+            const loginBtn = document.getElementById('loginBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const usernameInput = document.getElementById('usernameInput');
+            const passwordInput = document.getElementById('passwordInput');
+            if (u) {
+                if (userLabel) { userLabel.textContent = 'Utente: ' + u; userLabel.style.display = 'inline-block'; }
+                if (logoutBtn) logoutBtn.style.display = 'inline-block';
+                if (loginBtn) loginBtn.style.display = 'none';
+                if (usernameInput) usernameInput.style.display = 'none';
+                if (passwordInput) passwordInput.style.display = 'none';
+            } else {
+                if (userLabel) userLabel.style.display = 'none';
+                if (logoutBtn) logoutBtn.style.display = 'none';
+                if (loginBtn) loginBtn.style.display = 'inline-block';
+                if (usernameInput) { usernameInput.style.display = 'inline-block'; usernameInput.value = ''; }
+                if (passwordInput) { passwordInput.style.display = 'inline-block'; passwordInput.value = ''; }
+            }
+        }
+        function isAdmin() {
+            try {
+                const info = JSON.parse(localStorage.getItem('dw_current_user_info') || 'null');
+                return info && info.role === 'admin';
+            } catch(_) { return false; }
+        }
+        function loginUser() {
+            const usernameInput = document.getElementById('usernameInput');
+            const u = (usernameInput && usernameInput.value || '').trim();
+            if (!u) { showStatus('Inserisci username', 'error'); return; }
+            const base = (window.DW_BACKEND_URL || location.origin);
+            fetch(base.replace(/\/$/, '') + '/api/auth/login', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: u })
+            })
+            .then(r => r.ok ? r.json() : r.json().then(x => Promise.reject(x)))
+            .then(data => {
+                const info = data && data.user;
+                if (!info) throw new Error('Login non valido');
+                try { localStorage.setItem('dw_current_user', String(info.username || u)); } catch(_) {}
+                try { localStorage.setItem('dw_current_user_info', JSON.stringify(info)); } catch(_) {}
+                updateUserUI();
+                const adminTab = document.getElementById('adminTab');
+                if (adminTab) adminTab.style.display = isAdmin() ? 'inline-block' : 'none';
+                const uploadSection = document.getElementById('uploadSection');
+                if (uploadSection) uploadSection.style.display = isAdmin() ? 'block' : 'none';
+                showStatus('Accesso eseguito come ' + (info.username || u), 'success');
+            })
+            .catch(err => {
+                showStatus((err && err.error) || 'Login fallito', 'error');
+            });
+        }
+        function logoutUser() {
+            try { localStorage.removeItem('dw_current_user'); } catch(_) {}
+            try { localStorage.removeItem('dw_current_user_info'); } catch(_) {}
+            updateUserUI();
+            const adminTab = document.getElementById('adminTab');
+            if (adminTab) adminTab.style.display = 'none';
+            const uploadSection = document.getElementById('uploadSection');
+            if (uploadSection) uploadSection.style.display = 'none';
+            showStatus('Logout eseguito', 'info');
+        }
+        setTimeout(() => {
+            const loginBtn = document.getElementById('loginBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (loginBtn) loginBtn.addEventListener('click', loginUser);
+            if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);
+            updateUserUI();
+            const adminTab = document.getElementById('adminTab');
+            if (adminTab) adminTab.style.display = isAdmin() ? 'inline-block' : 'none';
+            const uploadSection = document.getElementById('uploadSection');
+            if (uploadSection) uploadSection.style.display = isAdmin() ? 'block' : 'none';
+        }, 0);
+
+        // Persistenza dati per uso in stats.html
+        async function persistParsedData() {
+            try {
+                const payload = {
+                    lga: parsedData.lga || [],
+                    lge: parsedData.lge || [],
+                    lgd: parsedData.lgd || [],
+                    lgdRestarts: parsedData.lgdRestarts || []
+                };
+                const json = JSON.stringify(payload);
+                // Cedi il controllo prima di comprimere/salvare
+                await sleep(0);
+                // Pulisce la chiave precedente per evitare che resti il dataset vecchio
+                try { localStorage.removeItem('dw_parsed_data'); } catch(_) {}
+                try { localStorage.removeItem('dw_parsed_data_format'); } catch(_) {}
+                // Prova a comprimere nel Web Worker per ridurre carico e prevenire freeze
+                let stored = false;
+                const chunkSize = 180000;
+                const w = ensureParserWorker();
+                if (w) {
+                    try {
+                        const id = ++workerReqId;
+                        const res = await new Promise(resolve => {
+                            workerResolvers.set(id, resolve);
+                            w.postMessage({ type: 'compress', id, content: json });
+                        });
+                        if (res && res.status === 'ok') {
+                            const compressed = String(res.compressed || '');
+                            const fmt = res.format || 'lzutf16';
+                            if (compressed.length > chunkSize) {
+                                try {
+                                    const prevCount = parseInt(localStorage.getItem('dw_parsed_data_chunk_count') || '0', 10) || 0;
+                                    for (let i = 0; i < prevCount; i++) { try { localStorage.removeItem(`dw_parsed_data_chunk_${i}`); } catch(_) {} }
+                                } catch (_) {}
+                                const chunks = [];
+                                for (let i = 0; i < compressed.length; i += chunkSize) { chunks.push(compressed.slice(i, i + chunkSize)); }
+                                try {
+                                    localStorage.setItem('dw_parsed_data_format', fmt);
+                                    for (let ci = 0; ci < chunks.length; ci++) {
+                                        localStorage.setItem(`dw_parsed_data_chunk_${ci}`, chunks[ci]);
+                                        if (ci % 5 === 0) { await sleep(0); }
+                                    }
+                                    localStorage.setItem('dw_parsed_data_chunk_count', String(chunks.length));
+                                    stored = true;
+                                } catch (eChunk) {
+                                    console.warn('Salvataggio chunked localStorage fallito:', eChunk);
+                                    try { localStorage.removeItem('dw_parsed_data_chunk_count'); } catch (_) {}
+                                }
+                                try {
+                                    window.name = JSON.stringify({
+                                        dw_parsed_data_format: fmt,
+                                        dw_parsed_data_chunk_count: chunks.length,
+                                        dw_parsed_data_chunked: chunks
+                                    });
+                                } catch (_) {}
+                            } else {
+                                localStorage.setItem('dw_parsed_data', compressed);
+                                localStorage.setItem('dw_parsed_data_format', fmt);
+                                stored = true;
+                                await sleep(0);
+                                try { window.name = JSON.stringify({ dw_parsed_data_format: fmt, dw_parsed_data: compressed }); } catch (_) {}
+                            }
+                        }
+                    } catch (ew) {
+                        console.warn('Compressione via worker fallita:', ew);
+                    }
+                }
+                // Fallback: compress in main thread o salva JSON
+                if (!stored) {
+                    let fmtUsed = 'json';
+                    let contentToStore = null;
+                    if (typeof LZString !== 'undefined' && LZString.compressToUTF16) {
+                        try { contentToStore = LZString.compressToUTF16(json); fmtUsed = 'lzutf16'; } catch (e2) { console.warn('Compressione (main thread) fallita:', e2); }
+                    }
+                    if (!contentToStore) { contentToStore = json; fmtUsed = 'json'; }
+                    if (contentToStore.length > chunkSize) {
+                        try {
+                            const prevCount = parseInt(localStorage.getItem('dw_parsed_data_chunk_count') || '0', 10) || 0;
+                            for (let i = 0; i < prevCount; i++) { try { localStorage.removeItem(`dw_parsed_data_chunk_${i}`); } catch(_) {} }
+                        } catch (_) {}
+                        const chunks = [];
+                        for (let i = 0; i < contentToStore.length; i += chunkSize) { chunks.push(contentToStore.slice(i, i + chunkSize)); }
+                        try {
+                            localStorage.setItem('dw_parsed_data_format', fmtUsed);
+                            for (let ci = 0; ci < chunks.length; ci++) {
+                                localStorage.setItem(`dw_parsed_data_chunk_${ci}`, chunks[ci]);
+                                if (ci % 5 === 0) { await sleep(0); }
+                            }
+                            localStorage.setItem('dw_parsed_data_chunk_count', String(chunks.length));
+                            stored = true;
+                        } catch (eChunk) {
+                            console.warn('Salvataggio chunked localStorage fallito:', eChunk);
+                            try { localStorage.removeItem('dw_parsed_data_chunk_count'); } catch (_) {}
+                        }
+                        try {
+                            window.name = JSON.stringify({
+                                dw_parsed_data_format: fmtUsed,
+                                dw_parsed_data_chunk_count: chunks.length,
+                                dw_parsed_data_chunked: chunks
+                            });
+                        } catch (_) {}
+                    } else {
+                        try {
+                            localStorage.setItem('dw_parsed_data', contentToStore);
+                            localStorage.setItem('dw_parsed_data_format', fmtUsed);
+                            stored = true;
+                            await sleep(0);
+                            try { window.name = JSON.stringify({ dw_parsed_data_format: fmtUsed, dw_parsed_data: contentToStore }); } catch (_) {}
+                        } catch (e3) {
+                            console.warn('Salvataggio JSON fallito:', e3);
+                        }
+                    }
+                }
+                try { localStorage.setItem('dw_parsed_data_updated_at', String(Date.now())); } catch(_) {}
+                // Se non è riuscito a salvare, assicurati che non restino dati vecchi
+                if (!stored) {
+                    try { localStorage.removeItem('dw_parsed_data'); } catch(_) {}
+                    try { localStorage.setItem('dw_parsed_data_format', 'error'); } catch(_) {}
+                    try { localStorage.setItem('dw_parsed_data_error', 'quota_exceeded'); } catch(_) {}
+                }
+            } catch (e) {
+                console.warn('Impossibile preparare/salvare dati analizzati in localStorage:', e);
+                try { localStorage.removeItem('dw_parsed_data'); } catch(_) {}
+                try { localStorage.setItem('dw_parsed_data_format', 'error'); } catch(_) {}
+                try { localStorage.setItem('dw_parsed_data_error', 'unexpected'); } catch(_) {}
+                try { localStorage.setItem('dw_parsed_data_updated_at', String(Date.now())); } catch(_) {}
+            }
+        }
+
+        function exportLGA() {
+            if (parsedData.lga.length === 0) {
+                showStatus('Nessun dato LGA trovato', 'error');
+                return;
+            }
+            const payload = buildExportPayload('LGA');
+            startAsyncExport('LGA', payload);
+        }
+
+        function exportLGE() {
+            if (parsedData.lge.length === 0) {
+                showStatus('Nessun dato LGE trovato', 'error');
+                return;
+            }
+            const payload = buildExportPayload('LGE');
+            startAsyncExport('LGE', payload);
+        }
+
+        function exportLGD() {
+            if (parsedData.lgd.length === 0) {
+                showStatus('Nessun dato LGD trovato', 'error');
+                return;
+            }
+            const payload = buildExportPayload('LGD');
+            startAsyncExport('LGD', payload);
+        }
+
+        function exportOutagesCount() {
+            const outagesData = parsedData.lgd.filter(item => item.metric === 'Number Of outages');
+            
+            if (outagesData.length === 0) {
+                showStatus('Nessun dato Number Of outages trovato', 'error');
+                return;
+            }
+            const payload = buildExportPayload('OUTAGES_COUNT');
+            startAsyncExport('OUTAGES_COUNT', payload);
+        }
+
+        function exportDowntimeCount() {
+            const downtimeData = parsedData.lgd.filter(item => item.metric === 'Total downtime');
+            
+            if (downtimeData.length === 0) {
+                showStatus('Nessun dato Total downtime trovato', 'error');
+                return;
+            }
+            const payload = buildExportPayload('DOWNTIME_COUNT');
+            startAsyncExport('DOWNTIME_COUNT', payload);
+        }
+
+        function exportToExcel(data, fileName) {
+            try {
+                const wb = XLSX.utils.book_new();
+                const ws = XLSX.utils.aoa_to_sheet(data);
+                
+                // Auto-size columns
+                const colWidths = [];
+                data.forEach(row => {
+                    row.forEach((cell, i) => {
+                        const cellLength = cell ? cell.toString().length : 0;
+                        colWidths[i] = Math.max(colWidths[i] || 0, cellLength + 2);
+                    });
+                });
+                ws['!cols'] = colWidths.map(w => ({ width: Math.min(w, 50) }));
+                
+                XLSX.utils.book_append_sheet(wb, ws, 'Data');
+                XLSX.writeFile(wb, `${fileName}_${new Date().toISOString().slice(0, 10)}.xlsx`);
+                
+                showStatus(`File Excel ${fileName} esportato con successo!`, 'success');
+            } catch (error) {
+                console.error('Errore nell\'esportazione:', error);
+                showStatus('Errore nell\'esportazione del file Excel', 'error');
+            }
+        }
+
+        // === Export asincrono lato client ===
+        // Preferisci l'origine corrente in produzione; consenti override via DW_BACKEND_URL
+        const BACKEND_BASE = (window.DW_BACKEND_URL || location.origin);
+        const EXPORT_SERVER = BACKEND_BASE;
+        let exportInFlight = false;
+        let exportDownloadShown = false;
+        let currentExportJobType = null;
+
+        async function loadDataFromBackend() {
+            try {
+                showStatus('Carico dati dal backend…', 'info');
+                const base = BACKEND_BASE;
+                const [lgaRes, lgeRes, lgdRes, lgdMetricsRes] = await Promise.all([
+                    fetch(`${base}/api/lga?limit=10000`, { method: 'GET', mode: 'cors' }),
+                    fetch(`${base}/api/lge?limit=10000`, { method: 'GET', mode: 'cors' }),
+                    fetch(`${base}/api/lgd?limit=10000`, { method: 'GET', mode: 'cors' }),
+                    fetch(`${base}/api/lgd_metrics?limit=10000`, { method: 'GET', mode: 'cors' })
+                ]);
+                const lgaJson = await lgaRes.json().catch(() => ({}));
+                const lgeJson = await lgeRes.json().catch(() => ({}));
+                const lgdJson = await lgdRes.json().catch(() => ({}));
+                const lgdMetricsJson = await lgdMetricsRes.json().catch(() => ({}));
+                parsedData.lga = Array.isArray(lgaJson.lga) ? lgaJson.lga : [];
+                parsedData.lge = Array.isArray(lgeJson.lge) ? lgeJson.lge : [];
+                parsedData.lgdRestarts = Array.isArray(lgdJson.lgdRestarts) ? lgdJson.lgdRestarts : [];
+                parsedData.lgd = Array.isArray(lgdMetricsJson.lgd) ? lgdMetricsJson.lgd : [];
+                updateStats();
+                updateExportButtons();
+                try { await fetchAndRenderChartsFromBackend(5); } catch (_) {}
+                renderPreviewTables();
+                showStatus('Dati caricati dal backend', 'success');
+            } catch (e) {
+                console.warn('Caricamento dati backend fallito:', e);
+                showStatus('Errore nel caricamento dati dal backend', 'error');
+            }
+        }
+
+        function showExportProgress(initialMessage) {
+            const c = document.getElementById('exportProgressContainer');
+            const f = document.getElementById('exportProgressFill');
+            const t = document.getElementById('exportProgressText');
+            const d = document.getElementById('exportDownload');
+            const a = document.getElementById('exportDownloadLink');
+            if (c) c.style.display = 'block';
+            if (d) d.style.display = 'none';
+            if (a) { a.removeAttribute('href'); a.removeAttribute('download'); }
+            if (f) f.style.width = '0%';
+            stopExportHeartbeat();
+            exportHeartbeatPercent = 0;
+            exportDownloadShown = false;
+            lastExportMessage = initialMessage || 'Inizio';
+            if (t) t.textContent = `0% — ${lastExportMessage}`;
+        }
+
+        let lastExportMessage = '';
+        function setExportProgress(percent, message) {
+            const f = document.getElementById('exportProgressFill');
+            const t = document.getElementById('exportProgressText');
+            const p = Math.max(0, Math.min(100, Math.round(percent || 0)));
+            const m = (typeof message === 'string' && message.length) ? message : lastExportMessage;
+            lastExportMessage = m;
+            if (f) f.style.width = p + '%';
+            if (t) t.textContent = `${p}% — ${m}`;
+        }
+
+        // Heartbeat avanzamento export dopo 80%
+        let exportHeartbeatTimer = null;
+        let exportHeartbeatPercent = 0;
+        function startExportHeartbeat(startPercent) {
+            try { stopExportHeartbeat(); } catch(_) {}
+            exportHeartbeatPercent = Math.max(1, Math.min(98, Math.round(startPercent || 1)));
+            setExportProgress(exportHeartbeatPercent, lastExportMessage || 'In corso…');
+            exportHeartbeatTimer = setInterval(() => {
+                exportHeartbeatPercent = Math.min(98, exportHeartbeatPercent + 2);
+                setExportProgress(exportHeartbeatPercent, lastExportMessage || 'In corso…');
+            }, 5000);
+        }
+        function stopExportHeartbeat() {
+            if (exportHeartbeatTimer) { clearInterval(exportHeartbeatTimer); exportHeartbeatTimer = null; }
+        }
+
+        function showExportDownload(url, fileName) {
+            if (exportDownloadShown) return;
+            exportDownloadShown = true;
+            // Crea un link temporaneo per avviare il download senza mostrare alcun pulsante
+            const a = document.createElement('a');
+            a.href = url;
+            let fname = fileName;
+            if (!fname || typeof fname !== 'string' || !fname.trim()) {
+                const now = new Date();
+                const base = (currentExportJobType || 'EXPORT');
+                const ts = `${now.toISOString().slice(0,10)}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}`;
+                // Prova a dedurre estensione da URL
+                const isZip = /\.zip(\?|$)/i.test(url) || /export\/download\?/i.test(url);
+                const ext = isZip ? 'zip' : 'csv';
+                fname = `${base}_${ts}.${ext}`;
+            }
+            a.setAttribute('download', fname);
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            try { a.click(); } catch(_) {}
+            document.body.removeChild(a);
+        }
+
+        // Client-side CSV fallback helpers
+        function buildClientCsv(jobType, payload) {
+            try {
+                const t = (jobType || '').toUpperCase();
+                const data = payload || {};
+                const rows = [];
+                let headers = [];
+                function esc(v) {
+                    if (v == null) return '';
+                    const s = String(v);
+                    return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+                }
+                function csvFromRows(h, r) {
+                    const lines = [];
+                    if (h && h.length) lines.push(h.map(esc).join(','));
+                    for (const row of r) { lines.push(row.map(esc).join(',')); }
+                    return lines.join('\n');
+                }
+                if (t === 'LGA' || t === 'LGE') {
+                    headers = ['File Name','Data','Ora','Type','Sev','Oggetto','Descrizione','Dettaglio'];
+                    const items = (t === 'LGA' ? (data.lga||[]) : (data.lge||[]));
+                    for (const it of items) {
+                        rows.push([it.fileName||'', it.dateIso||'', it.time||'', it.type||'', it.severity||'', it.object||'', it.title||'', it.detail||'']);
+                    }
+                    return { csv: csvFromRows(headers, rows), base: t };
+                }
+                if (t === 'LGD') {
+                    headers = ['File Name','Metric','NodeUpgrade','NodeManual','NodeSpontaneous','AllNodeRestarts','PartialOutages'];
+                    const items = data.lgd || [];
+                    for (const it of items) {
+                        rows.push([it.fileName||'', it.metric||'', it.nodeUpgrade||'', it.nodeManual||'', it.nodeSpontaneous||'', it.allNodeRestarts||'', it.partialOutages||'']);
+                    }
+                    return { csv: csvFromRows(headers, rows), base: t };
+                }
+                if (t === 'LGD_RESTARTS') {
+                    const items = data.lgdRestarts || [];
+                    const hasNew = items.some(it => 'typeReason' in it);
+                    if (hasNew) {
+                        headers = ['File Name','Data','Ora','Tipo/Ragione','Valore','Commento','Durata'];
+                        for (const it of items) {
+                            rows.push([it.fileName||'', it.dateIso||'', it.time||'', it.typeReason||'', it.value||'', it.comment||'', it.duration||'']);
+                        }
+                    } else {
+                        headers = ['File Name','Timestamp (UTC)','RestartType/Reason','SwVersion','SwRelease','RCS Downtime','Appl. Downtime','TN Downtime','RATs Downtime'];
+                        for (const it of items) {
+                            rows.push([it.fileName||'', it.timestamp||'', it.restartTypeReason||'', it.swVersion||'', it.swRelease||'', it.rcsDowntime||'', it.applDowntime||'', it.tnDowntime||'', it.ratsDowntime||'']);
+                        }
+                    }
+                    return { csv: csvFromRows(headers, rows), base: t };
+                }
+                if (t === 'OUTAGES_COUNT' || t === 'DOWNTIME_COUNT') {
+                    const isOut = t === 'OUTAGES_COUNT';
+                    headers = [isOut ? 'PartialOutages Value' : 'PartialOutages Downtime','Count','File Names'];
+                    const items = (data.lgd||[]).filter(it => it.metric === (isOut ? 'Number Of outages' : 'Total downtime'));
+                    const map = {};
+                    for (const it of items) {
+                        const key = it.partialOutages||'';
+                        map[key] = (map[key]||0) + 1;
+                    }
+                    for (const [val,cnt] of Object.entries(map)) {
+                        const files = items.filter(it => (it.partialOutages||'') === val).map(it => it.fileName||'').join(', ');
+                        rows.push([val, cnt, files]);
+                    }
+                    return { csv: csvFromRows(headers, rows), base: t };
+                }
+                return { csv: csvFromRows(['No data'], []), base: (t||'DATA') };
+            } catch (e) {
+                console.warn('Errore buildClientCsv:', e);
+                return { csv: 'No data', base: 'DATA' };
+            }
+        }
+        function triggerLocalCsvDownload(jobType, payload) {
+            const { csv, base } = buildClientCsv(jobType, payload);
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const stamp = new Date();
+            const name = `${base}_${stamp.toISOString().slice(0,10)}_${String(stamp.getHours()).padStart(2,'0')}${String(stamp.getMinutes()).padStart(2,'0')}${String(stamp.getSeconds()).padStart(2,'0')}.csv`;
+            showExportDownload(url, name);
+            setExportProgress(100, 'CSV locale pronto');
+            showStatus('Server export non disponibile; uso CSV locale.', 'warning');
+            exportInFlight = false;
+        }
+        function setExportButtonsEnabled(enabled) {
+            const ids = ['exportLGA','exportLGE','exportLGD','exportOutagesCount','exportDowntimeCount','exportLGDRestarts'];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.disabled = !enabled;
+            });
+        }
+
+        async function startAsyncExport(jobType, payload) {
+            if (exportInFlight) { showStatus('Export già in corso', 'warning'); return; }
+            exportInFlight = true;
+            currentExportJobType = jobType || 'EXPORT';
+            setExportButtonsEnabled(false);
+            try {
+                showExportProgress('Preparazione export…');
+                startExportHeartbeat(2);
+                const controller = new AbortController();
+                let timedOut = false;
+                const to = setTimeout(() => { timedOut = true; try { controller.abort(); } catch(_) {} }, 4000);
+                const res = await fetch(`${EXPORT_SERVER}/export/start`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: jobType, data: payload || {} }),
+                    signal: controller.signal
+                });
+                clearTimeout(to);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const json = await res.json();
+                const jobId = json.job_id;
+                if (!jobId) throw new Error('Job ID mancante');
+                pollExportStatus(jobId, jobType, payload || {});
+            } catch (e) {
+                console.error('Errore avvio export:', e);
+                // Fallback CSV locale se il server non risponde o è assente
+                stopExportHeartbeat();
+                triggerLocalCsvDownload(jobType, payload || {});
+                exportInFlight = false;
+                setExportButtonsEnabled(true);
+            }
+        }
+
+        async function pollExportStatus(jobId, jobType, payload) {
+            let done = false;
+            const urlStatus = `${EXPORT_SERVER}/export/status?id=${encodeURIComponent(jobId)}`;
+            const urlDownload = `${EXPORT_SERVER}/export/download?id=${encodeURIComponent(jobId)}`;
+            while (!done) {
+                try {
+                    const res = await fetch(urlStatus, { method: 'GET', cache: 'no-store' });
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    const info = await res.json();
+                    const pServer = typeof info.percent === 'number' ? info.percent : 0;
+                    const msg = info.message || '';
+                    // Mostra la percentuale maggiore tra server e heartbeat
+                    const pDisplay = Math.max(pServer, exportHeartbeatPercent || 0);
+                    setExportProgress(pDisplay, msg);
+                    // Avvia heartbeat subito (anche se pServer è basso) se non già avviato
+                    if (!exportHeartbeatTimer) { startExportHeartbeat(pServer || 2); }
+                    // Allinea heartbeat se il server avanza
+                    if (pServer > (exportHeartbeatPercent || 0)) { exportHeartbeatPercent = pServer; }
+                    if (info.status === 'done') {
+                        stopExportHeartbeat();
+                        showExportDownload(urlDownload);
+                        setExportProgress(100, 'Salvataggio completato');
+                        showStatus('Export pronto. Avvia download.', 'success');
+                        setExportButtonsEnabled(true);
+                        exportInFlight = false;
+                        done = true;
+                        break;
+                    }
+                    if (info.status === 'error') {
+                        stopExportHeartbeat();
+                        showStatus(msg || 'Errore durante export', 'error');
+                        setExportButtonsEnabled(true);
+                        exportInFlight = false;
+                        done = true;
+                        break;
+                    }
+                } catch (e) {
+                    console.warn('Errore polling export:', e);
+                    // Fallback CSV locale in caso di problemi di comunicazione
+                    stopExportHeartbeat();
+                    if (!exportDownloadShown) { triggerLocalCsvDownload(jobType, payload || {}); }
+                    setExportButtonsEnabled(true);
+                    exportInFlight = false;
+                    break;
+                }
+                await sleep(300);
+            }
+        }
+
+        function buildExportPayload(jobType) {
+            const t = (jobType || '').toUpperCase();
+            if (t === 'LGA') return { lga: parsedData.lga || [] };
+            if (t === 'LGE') return { lge: parsedData.lge || [] };
+            if (t === 'LGD') return { lgd: parsedData.lgd || [] };
+            if (t === 'LGD_RESTARTS') return { lgdRestarts: parsedData.lgdRestarts || [] };
+            if (t === 'OUTAGES_COUNT' || t === 'DOWNTIME_COUNT') return { lgd: parsedData.lgd || [] };
+            return {};
+        }
+
+        function exportLGDRestarts() {
+            if (parsedData.lgdRestarts.length === 0) {
+                showStatus('Nessun dato di eventi restart LGD trovato', 'error');
+                return;
+            }
+            const payload = buildExportPayload('LGD_RESTARTS');
+            startAsyncExport('LGD_RESTARTS', payload);
+        }
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+            
+            if (type === 'success' || type === 'error') {
+                setTimeout(() => {
+                    statusDiv.innerHTML = '';
+                }, 5000);
+            }
+        }
+
+        // Integrazione: stats header dal backend
+        function fetchAndRenderHeaderStatsFromBackend() {
+            const base = (window.DW_BACKEND_URL || location.origin);
+            const url = base.replace(/\/$/, '') + '/api/stats/header';
+            return fetch(url, { mode: 'cors' })
+                .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+                .then(data => {
+                    const statsSection = document.getElementById('statsSection');
+                    const tf = document.getElementById('totalFiles');
+                    const lga = document.getElementById('lgaCount');
+                    const lge = document.getElementById('lgeCount');
+                    const lgd = document.getElementById('lgdCount');
+                    const rs = document.getElementById('lgdRestartsCount');
+                    if (tf && data && typeof data.totalFiles !== 'undefined') tf.textContent = String(data.totalFiles);
+                    if (lga && data && typeof data.lgaCount !== 'undefined') lga.textContent = String(data.lgaCount);
+                    if (lge && data && typeof data.lgeCount !== 'undefined') lge.textContent = String(data.lgeCount);
+                    if (lgd && data && typeof data.lgdCount !== 'undefined') lgd.textContent = String(data.lgdCount);
+                    if (rs && data && typeof data.lgdRestartsCount !== 'undefined') rs.textContent = String(data.lgdRestartsCount);
+                    if (statsSection) statsSection.style.display = 'grid';
+                })
+                .catch(err => { console.warn('Backend header stats non disponibili:', err); });
+        }
+
+        // Ripristino dati all’avvio e inizializzazione
+        function loadPersistedParsedData() {
+            try {
+                const getCurrentUserSafe = () => { try { return localStorage.getItem('dw_current_user') || ''; } catch(_) { return ''; } };
+                const ns = (s) => { const u = getCurrentUserSafe(); return u ? ('dw_' + u + '_' + s) : ('dw_' + s); };
+                const fmt = localStorage.getItem(ns('parsed_data_format')) || '';
+                let jsonStr = null;
+                // Ricostruisci contenuto (singolo o chunked)
+                function getStoredContent() {
+                    let single = localStorage.getItem(ns('parsed_data'));
+                    if (single) return single;
+                    const count = parseInt(localStorage.getItem(ns('parsed_data_chunk_count')) || '0', 10) || 0;
+                    if (count > 0) {
+                        const chunks = [];
+                        for (let i = 0; i < count; i++) { chunks.push(localStorage.getItem(ns('parsed_data_chunk_' + i)) || ''); }
+                        return chunks.join('');
+                    }
+                    return null;
+                }
+                const stored = getStoredContent();
+                if (!stored) return false;
+                if (fmt === 'lzutf16' && typeof LZString !== 'undefined' && LZString.decompressFromUTF16) {
+                    try { jsonStr = LZString.decompressFromUTF16(stored); } catch (e) { console.warn('Decompressione fallita:', e); }
+                } else {
+                    jsonStr = stored;
+                }
+                if (!jsonStr) return false;
+                const payload = JSON.parse(jsonStr);
+                parsedData = {
+                    lga: Array.isArray(payload.lga) ? payload.lga : [],
+                    lge: Array.isArray(payload.lge) ? payload.lge : [],
+                    lgd: Array.isArray(payload.lgd) ? payload.lgd : [],
+                    lgdRestarts: Array.isArray(payload.lgdRestarts) ? payload.lgdRestarts : []
+                };
+                return (parsedData.lga.length + parsedData.lge.length + parsedData.lgd.length + parsedData.lgdRestarts.length) > 0;
+            } catch (e) {
+                console.warn('Ripristino dati persistiti fallito:', e);
+                return false;
+            }
+        }
+
+        const restored = loadPersistedParsedData();
+        updateStats();
+        updateExportButtons();
+
+        // Modalità backend-only: inizializzazione senza selettore
+        try { fetchAndRenderHeaderStatsFromBackend(); } catch (e) { console.warn('Init backend stats fallito:', e); }
+        try { fetchAndRenderChartsFromBackend(5); } catch (_) {}
+        try { loadDataFromBackend(); } catch (_) {}
+        setDataSourceBadge();
+    </script>
+</body>
+</html>

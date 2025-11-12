@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downtime Analytics</title>
+    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
+    <meta name="dw-backend-url" content="">
+    <script>
+      (function(){
+        var backendUrl = null;
+        try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
+        if (!backendUrl) {
+          var m = document.querySelector('meta[name="dw-backend-url"]');
+          var c = m && m.getAttribute('content');
+          if (c) backendUrl = c;
+        }
+        var proto = (location && location.protocol || '').replace(':','');
+        if (!backendUrl && (proto === 'http' || proto === 'https')) {
+          backendUrl = location.origin;
+          try { localStorage.setItem('dw_backend_url', backendUrl); } catch(_) {}
+        }
+        if (backendUrl) { window.DW_BACKEND_URL = backendUrl.replace(/\/$/, ''); }
+      })();
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 24px 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 400;
+        }
+        .header .nav {
+            margin-top: 8px;
+        }
+        .header a {
+            color: #083b66;
+            background: #ffffff;
+            border-radius: 6px;
+            padding: 6px 10px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        .content { padding: 24px 30px; }
+        .status { margin: 10px 0; padding: 10px; border-radius: 6px; }
+        .status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .status.warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .card { background: #f8f9fa; border-radius: 10px; padding: 16px; margin-bottom: 20px; }
+        h3 { margin: 0 0 8px 0; font-size: 1.2em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; font-size: 0.95em; }
+        th { background: #eef6ff; text-align: left; }
+        tr:hover { background-color: #f5f5f5; }
+        .summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .summary-item {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            background-color: #e7f3fe;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .summary-item h3 {
+            margin-top: 0;
+            color: #2196F3;
+        }
+        .table-wrap { overflow-x: auto; }
+        /* Severity pill */
+        .severity-pill { display: inline-block; padding: 2px 6px; border-radius: 10px; font-size: 12px; border: 1px solid rgba(0,0,0,0.08); }
+        .sev-critical { background: #ffcdd2; color: #b71c1c; }
+        .sev-major { background: #ffe0b2; color: #e65100; }
+        .sev-warning { background: #fff8e1; color: #8d6e63; }
+        .sev-minor { background: #fff9c4; color: #827717; }
+        .sev-info { background: #bbdefb; color: #0d47a1; }
+        .sev-clear { background: #c8e6c9; color: #2e7d32; }
+        
+        /* Paginazione */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 10px;
+        }
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .pagination button:hover:not(:disabled) {
+            background: #f0f0f0;
+        }
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .pagination .current-page {
+            background: #4facfe;
+            color: white;
+            border-color: #4facfe;
+        }
+        .pagination-info {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Loading indicator */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #4facfe;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Performance indicator */
+        .performance-info {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #2e7d32;
+        }
+        <!-- Filtro per nodo -->
+        .filters { display: flex; gap: 10px; align-items: center; margin: 10px 0; }
+        .filters label { color: #333; }
+        .filters select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 4px; }
+    /* --- Tema scuro coordinato --- */
+:root {
+    --bg: #0f172a;
+    --surface: #111827;
+    --card: #0d1424;
+    --border: #1f2937;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --accent: #1e88e5;
+}
+body { background: var(--bg); color: var(--text); }
+.container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+.header { background: var(--surface); color: var(--text); border-bottom: 1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding: 12px 16px; }
+.brand { font-size: 18px; font-weight: 600; letter-spacing: .2px; }
+.nav-tabs { display:flex; gap:10px; }
+.nav-tabs .tab { color: var(--text); text-decoration:none; border:1px solid #263347; padding: 8px 14px; border-radius: 12px; background: #0d1424; box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 2px rgba(0,0,0,0.25); }
+.nav-tabs .tab.active { background: #1b2a44; border-color: #2b3c55; }
+.content { color: var(--text); }
+.card, .table-card { background: #0d1424; color: var(--text); border: 1px solid #263347; border-radius: 12px; }
+th { background: #16233a; border-color: #263347; }
+td { border-color: #263347; }
+a { color: var(--accent); }
+.button, .btn, .export-btn { background: #16233a; color: var(--text); border: 1px solid #263347; border-radius: 10px; }
+.button:hover, .btn:hover, .export-btn:hover { background: #1b2a44; }
+.pagination button { background: #16233a; color: var(--text); border: 1px solid #263347; border-radius: 10px; }
+.pagination button.active { background: #1b2a44; }
+/* Barra avanzamento export */
+.progress-bar { position: relative; height: 10px; background: #1b2a44; border: 1px solid #263347; border-radius: 6px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #1e88e5 0%, #64b5f6 100%); transition: width 0.3s ease; }
+.progress-text { font-size: 12px; color: #666; }
+</style>
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand"><img class="logo-icon" src="assets/logo.ico" alt="Downtime" /> Downtime Analytics</div>
+            <div class="nav-tabs">
+                <a href="index.html" class="tab">Dashboard</a>
+                <a href="stats.html" class="tab active">Analisi</a>
+            </div>
+        </div>
+        <div class="content">
+            <div id="status" class="status info">Caricamento dettagli evento...</div>
+
+            <div class="summary" id="summary" style="display: none;">
+                <div class="summary-item">
+                    <h3>Titolo Evento</h3>
+                    <p id="eventTitleText">-</p>
+                </div>
+                <div class="summary-item">
+                    <h3>Numero Totale</h3>
+                    <p id="totalCount">0</p>
+                </div>
+                <div class="summary-item">
+                    <h3>Nodi Coinvolti</h3>
+                    <p id="nodeCount">0</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Tutti gli Eventi con questo Titolo</h3>
+                
+                <!-- Performance info -->
+                <div id="performanceInfo" class="performance-info" style="display: none;">
+                    <span id="performanceText"></span>
+                </div>
+                
+                <!-- Filtro per nodo -->
+                <div class="filters">
+                    <label for="nodeFilter"><strong>Filtro nodo:</strong></label>
+                    <select id="nodeFilter">
+                        <option value="__ALL__">Tutti i nodi</option>
+                    </select>
+                    <label style="margin-left:12px;"><strong>Da data:</strong>
+                        <input type="date" id="dateFrom" />
+                    </label>
+                    <label style="margin-left:8px;"><strong>A data:</strong>
+                        <input type="date" id="dateTo" />
+                    </label>
+                </div>
+                <div class="filters" id="exportControls" style="display:none; gap:10px; align-items:center;">
+                    <button id="exportBtn" class="export-btn">⬇ Esporta CSV (tabella filtrata)</button>
+                    <div id="exportProgressWrap" style="display:none; align-items:center; gap:8px;">
+                        <div class="progress-bar" style="width:160px;">
+                            <div id="exportProgressFill" class="progress-fill" style="width:0%"></div>
+                        </div>
+                        <span id="exportProgressText" class="progress-text">0%</span>
+                    </div>
+                </div>
+                
+                <!-- Paginazione superiore -->
+                <div id="paginationTop" class="pagination" style="display: none;">
+                    <button id="firstPageBtn" onclick="goToPage(1)">⏮ Prima</button>
+                    <button id="prevPageBtn" onclick="goToPreviousPage()">◀ Precedente</button>
+                    <span id="pageInfo" class="pagination-info"></span>
+                    <button id="nextPageBtn" onclick="goToNextPage()">Successiva ▶</button>
+                    <button id="lastPageBtn" onclick="goToLastPage()">Ultima ⏭</button>
+                </div>
+                
+                <div class="table-wrap">
+                    <table id="eventsTable">
+                        <thead>
+                            <tr>
+                                <th>Nodo</th>
+                                <th>Data</th>
+                                <th>Ora</th>
+                                <th>Type</th>
+                                <th>Severità</th>
+                                <th>Oggetto</th>
+                                <th>Descrizione</th>
+                                <th>Dettaglio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventsTableBody">
+                            <!-- Gli eventi verranno inseriti qui dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Paginazione inferiore -->
+                <div id="paginationBottom" class="pagination" style="display: none;">
+                    <button onclick="goToPage(1)">⏮ Prima</button>
+                    <button onclick="goToPreviousPage()">◀ Precedente</button>
+                    <span class="pagination-info"></span>
+                    <button onclick="goToNextPage()">Successiva ▶</button>
+                    <button onclick="goToLastPage()">Ultima ⏭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variabili globali per la paginazione
+        let allEvents = [];
+        let sourceEvents = [];
+        let currentNodeFilter = '__ALL__';
+        let currentPage = 1;
+        const itemsPerPage = 100; // Mostra 100 righe per pagina
+        let totalPages = 1;
+        let isLoading = false;
+
+        // Helper per rimuovere il suffisso .log dalla visualizzazione
+        function stripLogExt(name) {
+            return (name || '').replace(/\.log$/i, '');
+        }
+
+        // Helper per formattare YYYY-MM-DD in DD/MM/YYYY
+        function formatItDate(iso) {
+            const m = typeof iso === 'string' && iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            if (!m) return iso || '';
+            return `${m[3]}/${m[2]}/${m[1]}`;
+        }
+
+        // Helper per ottenere le classi CSS per la severità (memoizzato)
+        const severityCache = new Map();
+        function getSeverityMeta(sevRaw) {
+            if (severityCache.has(sevRaw)) {
+                return severityCache.get(sevRaw);
+            }
+            
+            const s = (sevRaw || '').toString().toLowerCase();
+            let result;
+            if (/crit|emerg|fatal|sev[5-9]/.test(s)) result = { className: 'sev-critical', icon: '❗' };
+            else if (/maj|high|alto|sev[3-4]/.test(s)) result = { className: 'sev-major', icon: '⚠' };
+            else if (/warn|atten|avviso/.test(s)) result = { className: 'sev-warning', icon: '⚠' };
+            else if (/min|medium|medio|sev[2]/.test(s)) result = { className: 'sev-minor', icon: '▲' };
+            else if (/info|notice|log/.test(s)) result = { className: 'sev-info', icon: 'ℹ' };
+            else if (/clear|ok|norm|none/.test(s)) result = { className: 'sev-clear', icon: '✔' };
+            else result = { className: 'sev-info', icon: 'ℹ' };
+            
+            severityCache.set(sevRaw, result);
+            return result;
+        }
+
+        // Funzione per mostrare il loading
+        function showLoading() {
+            const statusEl = document.getElementById('status');
+            statusEl.innerHTML = '<div class="loading"></div> Caricamento in corso...';
+            statusEl.className = 'status info';
+            statusEl.style.display = 'block';
+        }
+
+        // Funzione per nascondere il loading
+        function hideLoading() {
+            document.getElementById('status').style.display = 'none';
+        }
+
+        // Applica filtro per nodo e aggiorna tabella/paginazione/summary
+        function applyNodeFilter(nodeName) {
+            const selected = nodeName || '__ALL__';
+            const df = document.getElementById('dateFrom');
+            const dt = document.getElementById('dateTo');
+            const fromVal = (df && df.value) || '';
+            const toVal = (dt && dt.value) || '';
+            const toMs = (d,t)=>{ if(!d) return 0; const ms=Date.parse(`${d}T${t||'00:00:00'}`); return isNaN(ms)?0:ms; };
+            let base = sourceEvents.slice();
+            if (fromVal || toVal) {
+                const fromMs = fromVal ? Date.parse(`${fromVal}T00:00:00`) : 0;
+                const toMsBound = toVal ? Date.parse(`${toVal}T23:59:59`) : Number.MAX_SAFE_INTEGER;
+                base = base.filter(ev => {
+                    const ms = toMs(ev.dateIso||ev.date||'', ev.time||'');
+                    return ms >= fromMs && ms <= toMsBound;
+                });
+            }
+            if (selected === '__ALL__') {
+                allEvents = base.slice();
+            } else {
+                allEvents = base.filter(ev => (ev.fileName || '') === selected);
+            }
+            totalPages = Math.ceil(allEvents.length / itemsPerPage) || 1;
+            currentPage = 1;
+            document.getElementById('paginationTop').style.display = totalPages > 1 ? 'flex' : 'none';
+            document.getElementById('paginationBottom').style.display = totalPages > 1 ? 'flex' : 'none';
+            const totalEl = document.getElementById('totalCount');
+            if (totalEl) totalEl.textContent = allEvents.length;
+            renderPage(1);
+            // Mostra/Nascondi pulsante export
+            const expCtrl = document.getElementById('exportControls');
+            if (expCtrl) expCtrl.style.display = allEvents.length > 0 ? 'flex' : 'none';
+        }
+
+        // Funzione per renderizzare una pagina di eventi
+        function renderPage(pageNumber) {
+            if (isLoading) return;
+            isLoading = true;
+            
+            const startTime = performance.now();
+            const startIndex = (pageNumber - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, allEvents.length);
+            const pageEvents = allEvents.slice(startIndex, endIndex);
+            
+            const tableBody = document.getElementById('eventsTableBody');
+            
+            // Usa DocumentFragment per migliorare le performance
+            const fragment = document.createDocumentFragment();
+            
+            pageEvents.forEach(event => {
+                const row = document.createElement('tr');
+                const sevMeta = getSeverityMeta(event.severity);
+                
+                row.innerHTML = `
+                    <td>${stripLogExt(event.fileName || '')}</td>
+                    <td>${formatItDate(event.dateIso || event.date || '')}</td>
+                    <td>${event.time || ''}</td>
+                    <td>${event.type || ''}</td>
+                    <td><span class="severity-pill ${sevMeta.className}" title="${event.severity || ''}">${sevMeta.icon} ${event.severity || ''}</span></td>
+                    <td>${event.object || ''}</td>
+                    <td>${event.title || ''}</td>
+                    <td>${event.detail || ''}</td>
+                `;
+                fragment.appendChild(row);
+            });
+            
+            // Sostituisce tutto il contenuto in una sola operazione
+            tableBody.innerHTML = '';
+            tableBody.appendChild(fragment);
+            
+            // Aggiorna i controlli di paginazione
+            updatePaginationControls(pageNumber);
+            
+            const endTime = performance.now();
+            const renderTime = Math.round(endTime - startTime);
+            
+            // Mostra info sulle performance
+            const performanceEl = document.getElementById('performanceInfo');
+            const performanceText = document.getElementById('performanceText');
+            performanceText.textContent = `Pagina ${pageNumber} di ${totalPages} - ${pageEvents.length} elementi renderizzati in ${renderTime}ms`;
+            performanceEl.style.display = 'block';
+            
+            isLoading = false;
+        }
+
+        // Funzione per aggiornare i controlli di paginazione
+        function updatePaginationControls(pageNumber) {
+            const pageInfo = document.getElementById('pageInfo');
+            pageInfo.textContent = `Pagina ${pageNumber} di ${totalPages} (${allEvents.length} elementi totali)`;
+            
+            // Aggiorna stati dei pulsanti
+            document.getElementById('firstPageBtn').disabled = pageNumber === 1;
+            document.getElementById('prevPageBtn').disabled = pageNumber === 1;
+            document.getElementById('nextPageBtn').disabled = pageNumber === totalPages;
+            document.getElementById('lastPageBtn').disabled = pageNumber === totalPages;
+            
+            // Aggiorna classe pagina corrente
+            document.querySelectorAll('.pagination button').forEach(btn => {
+                btn.classList.remove('current-page');
+            });
+        }
+
+        // Funzioni di navigazione paginazione
+        function goToPage(pageNumber) {
+            if (pageNumber >= 1 && pageNumber <= totalPages && !isLoading) {
+                currentPage = pageNumber;
+                renderPage(pageNumber);
+            }
+        }
+
+        function goToPreviousPage() {
+            if (currentPage > 1) goToPage(currentPage - 1);
+        }
+
+        function goToNextPage() {
+            if (currentPage < totalPages) goToPage(currentPage + 1);
+        }
+
+        function goToLastPage() {
+            goToPage(totalPages);
+        }
+
+        // init() legacy rimosso: la pagina usa solo dati dal backend tramite backendInit
+
+        const exportServerBase = (typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin);
+        // Helpers barra di avanzamento export
+        let exportProgressHideTimer = null;
+        function showExportProgress(initialText){
+            const wrap = document.getElementById('exportProgressWrap');
+            const fill = document.getElementById('exportProgressFill');
+            const txt = document.getElementById('exportProgressText');
+            if (wrap) wrap.style.display = 'inline-flex';
+            if (fill) fill.style.width = '0%';
+            if (txt) txt.textContent = initialText ? `${initialText} (0%)` : '0%';
+        }
+        function setExportProgress(percent, message){
+            const p = Math.max(0, Math.min(100, Number(percent)||0));
+            const fill = document.getElementById('exportProgressFill');
+            const txt = document.getElementById('exportProgressText');
+            if (fill) fill.style.width = p + '%';
+            if (txt) txt.textContent = (message ? `${message} (${p}%)` : `${p}%`);
+        }
+        function hideExportProgressAfterDelay(ms=1200){
+            if (exportProgressHideTimer) clearTimeout(exportProgressHideTimer);
+            exportProgressHideTimer = setTimeout(()=>{
+                const wrap = document.getElementById('exportProgressWrap');
+                if (wrap) wrap.style.display = 'none';
+            }, ms);
+        }
+        // Fallback robusto per avviare il download evitando blocchi popup
+        function triggerDownloadUrl(url){
+            try {
+                // Tentativo con link programmato (meno soggetto a blocchi rispetto a window.open)
+                const a = document.createElement('a');
+                a.href = url;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } catch (e) {
+                try {
+                    // Fallback con iframe nascosto
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = url;
+                    document.body.appendChild(iframe);
+                    setTimeout(() => iframe.remove(), 60000);
+                } catch (_) {
+                    // Ultimo fallback: navigazione corrente
+                    try { window.location.href = url; } catch(__) {}
+                }
+            }
+        }
+        function startExport(jobType, payload, statusEl, btn) {
+            if (btn) btn.disabled = true;
+            showExportProgress('Avvio esportazione...');
+            setExportProgress(2, 'Avvio esportazione...');
+            fetch(exportServerBase + '/export/start', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: jobType, data: payload })
+            }).then(r => {
+                if (!r.ok) throw new Error('Server export non raggiungibile');
+                return r.json();
+            }).then(resp => {
+                const jobId = resp.job_id;
+                if (!jobId) throw new Error('Job ID non ricevuto');
+                let tries = 0;
+                const maxTries = 60;
+                const timer = setInterval(() => {
+                    tries++;
+                    fetch(exportServerBase + '/export/status?id=' + encodeURIComponent(jobId))
+                      .then(r => r.json())
+                      .then(info => {
+                          setExportProgress(info.percent || 0, info.message || 'Esportazione...');
+                          if (info.status === 'done') {
+                              clearInterval(timer);
+                              const dlUrl = exportServerBase + '/export/download?id=' + encodeURIComponent(jobId);
+                              setExportProgress(100, 'Completato');
+                              triggerDownloadUrl(dlUrl);
+                              hideExportProgressAfterDelay(1500);
+                              if (btn) btn.disabled = false;
+                          } else if (info.status === 'error') {
+                              clearInterval(timer);
+                              try {
+                                  if (jobType === 'LGE') clientCsvFallbackLGE(payload.lge || []);
+                              } catch (_) {}
+                              setExportProgress(100, 'Completato');
+                              hideExportProgressAfterDelay(1500);
+                              if (btn) btn.disabled = false;
+                          } else if (tries >= maxTries) {
+                              clearInterval(timer);
+                              try {
+                                  if (jobType === 'LGE') clientCsvFallbackLGE(payload.lge || []);
+                              } catch (_) {}
+                              setExportProgress(100, 'Completato');
+                              hideExportProgressAfterDelay(1500);
+                              if (btn) btn.disabled = false;
+                          }
+                      }).catch(() => {});
+                }, 800);
+            }).catch(() => {
+                try {
+                    if (jobType === 'LGE') clientCsvFallbackLGE(payload.lge || []);
+                } catch (_) {}
+                setExportProgress(100, 'Completato');
+                hideExportProgressAfterDelay(1500);
+                if (btn) btn.disabled = false;
+            });
+        }
+
+        function exportFilteredEventDetail() {
+            const btn = document.getElementById('exportBtn');
+            const items = (allEvents || []).map(it => ({
+                fileName: it.fileName || '',
+                dateIso: it.dateIso || it.date || '',
+                time: it.time || '',
+                type: it.type || '',
+                severity: it.severity || '',
+                object: it.object || '',
+                title: it.title || '',
+                detail: it.detail || ''
+            }));
+            if (!items || items.length === 0) {
+                const statusTop = document.getElementById('status');
+                if (statusTop) {
+                    statusTop.style.display = 'block';
+                    statusTop.className = 'status warning';
+                    statusTop.textContent = 'Nessun evento da esportare.';
+                }
+                return;
+            }
+            startExport('LGE', { lge: items }, null, btn);
+        }
+
+        function clientCsvFallbackLGE(items) {
+            const headers = ['File Name','Data','Ora','Type','Sev','Oggetto','Descrizione','Dettaglio'];
+            const esc = s => String(s || '').replace(/"/g, '""');
+            const lines = [headers.join(',')].concat(items.map(it => {
+                const cols = [
+                    esc(it.fileName), esc(it.dateIso), esc(it.time), esc(it.type),
+                    esc(it.severity), esc(it.object), esc(it.title), esc(it.detail)
+                ];
+                return '"' + cols.join('","') + '"';
+            }));
+            const csv = lines.join('\r\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const a = document.createElement('a');
+            const now = new Date();
+            const fn = `LGE_export_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}.csv`;
+            a.href = URL.createObjectURL(blob);
+            a.download = fn;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                URL.revokeObjectURL(a.href);
+                a.remove();
+            }, 0);
+        }
+
+        // Inizializzazione backend-only: carica eventi da /api/lge usando ?title
+        function backendInit() {
+            showLoading();
+            setTimeout(() => {
+                const statusEl = document.getElementById('status');
+                try {
+                    const params = new URLSearchParams(window.location.search);
+                    const eventTitle = (params.get('title') || '').trim();
+                    if (!eventTitle) {
+                        statusEl.className = 'status warning';
+                        statusEl.textContent = 'Titolo evento mancante. Apri dalla pagina Analisi (stats).';
+                        return;
+                    }
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+                    fetch(`${base}/api/lge?limit=10000`)
+                        .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+                        .then(resp => {
+                            const lge = Array.isArray(resp.lge) ? resp.lge : [];
+                            const filteredEvents = lge.filter(ev => (ev.title || '').trim() === eventTitle);
+                            if (!filteredEvents.length) {
+                                statusEl.className = 'status warning';
+                                statusEl.textContent = 'Nessun evento trovato per questo titolo.';
+                                return;
+                            }
+                            // Ordina per data/ora decrescente
+                            filteredEvents.sort((a, b) => {
+                                const toMs = (d, t) => {
+                                    if (!d) return 0;
+                                    const ms = Date.parse(`${d}T${t || '00:00:00'}`);
+                                    return isNaN(ms) ? 0 : ms;
+                                };
+                                const msA = toMs(a.dateIso || a.date || '', a.time || '');
+                                const msB = toMs(b.dateIso || b.date || '', b.time || '');
+                                return msB - msA;
+                            });
+
+                            // Popola riepilogo
+                            document.getElementById('eventTitleText').textContent = eventTitle;
+                            document.getElementById('totalCount').textContent = filteredEvents.length;
+                            const nodesSet = new Set(filteredEvents.map(e => (e.fileName || '').trim()).filter(Boolean));
+                            document.getElementById('nodeCount').textContent = nodesSet.size;
+                            document.getElementById('summary').style.display = 'grid';
+                            document.title = `Dettaglio Evento: ${eventTitle}`;
+
+                            // Imposta sorgente per filtri
+                            sourceEvents = filteredEvents;
+
+                            // Configura filtro nodo
+                            const nodeSelect = document.getElementById('nodeFilter');
+                            if (nodeSelect) {
+                                const nodes = Array.from(nodesSet).sort((a,b)=>a.localeCompare(b,'it',{sensitivity:'base'}));
+                                let optionsHtml = '<option value="__ALL__">Tutti i nodi</option>';
+                                optionsHtml += nodes.map(n => `<option value="${n}">${stripLogExt(n)}</option>`).join('');
+                                nodeSelect.innerHTML = optionsHtml;
+                                nodeSelect.onchange = function(){
+                                    const sel = nodeSelect.value || '__ALL__';
+                                    applyNodeFilter(sel);
+                                };
+                            }
+
+                            // Collega filtri data
+                            const df = document.getElementById('dateFrom');
+                            const dt = document.getElementById('dateTo');
+                            if (df) df.addEventListener('change', () => applyNodeFilter((document.getElementById('nodeFilter').value)||'__ALL__'));
+                            if (dt) dt.addEventListener('change', () => applyNodeFilter((document.getElementById('nodeFilter').value)||'__ALL__'));
+
+                            // Mostra controlli Export
+                            const exportControls = document.getElementById('exportControls');
+                            if (exportControls) exportControls.style.display = 'flex';
+                            const exportBtn = document.getElementById('exportBtn');
+                            if (exportBtn) exportBtn.addEventListener('click', exportFilteredEventDetail);
+
+                            // Applica filtro iniziale (tutti i nodi)
+                            applyNodeFilter('__ALL__');
+
+                            // Mostra paginazione se necessario
+                            document.getElementById('paginationTop').style.display = totalPages > 1 ? 'flex' : 'none';
+                            document.getElementById('paginationBottom').style.display = totalPages > 1 ? 'flex' : 'none';
+
+                            hideLoading();
+                        })
+                        .catch(err => {
+                            statusEl.className = 'status error';
+                            statusEl.textContent = 'Errore nel caricamento dal backend: ' + (err && err.message ? err.message : err);
+                        });
+                } catch (error) {
+                    statusEl.className = 'status error';
+                    statusEl.textContent = `Errore durante l'inizializzazione: ${error && error.message ? error.message : error}`;
+                }
+            }, 50);
+        }
+        window.onload = backendInit;
+    </script>
+</body>
+</html>

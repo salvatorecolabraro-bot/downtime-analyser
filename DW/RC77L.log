@@ -1,0 +1,360 @@
+Logging to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/RC77L.log
+                        __  __  ____   _____
+                  /\   |  \/  |/ __ \ / ____|
+                 /  \  | \  / | |  | | (___  
+                / /\ \ | |\/| | |  | |\___ \ 
+               / ____ \| |  | | |__| |____) |
+              /_/    \_\_|  |_|\____/|_____/
+              OSS Framework for MoShell-25.0h 
+  Copyright (c) Ericsson AB 2001-2025 - All Rights Reserved
+              
+           
+[1;31mWARNING: [0mthe AMOS version currently running is more than 22 weeks old and is unsupported.
+Please upgrade as soon as possible to the latest released version, available from your local Ericsson support.
+
+$amosrb_pid = 716603
+
+Checking ip contact...OK
+
+HELP MENU            : h
+BASIC MO COMMANDS    : m
+OTHER MO COMMANDS    : n
+OTHER COMMANDS       : o
+PM COMMANDS          : p
+QUIT                 : q
+
+RC77L> lt all
+
+251007-11:17:29+0200 19.31.12.154 25.0h  stopfile=/tmp/716181
+Looking up temporary_amos account... OK.
+Trying temporary_amos_t20251007_37258710_53697_313's password from amos lookupAccount ... OK
+
+$ssh_pid = 718224
+
+Connected to 19.31.12.154 (SubNetwork=BBMM_rckomc_R,MeContext=RC77L,ManagedElement=RC77L)
+
+Checking MOM version...MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac
+Parsing MOM (cached): /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-111722_716104/MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac.xml.cache.gz ..................................................................................................................................................................................................................................Done.
+Using paramfile /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt
+Parsing file /opt/ericsson/amos/moshell/commonjars/pm/PARAM_MSRBS_25.Q1.txt .......................................................................................Done.
+Using imomdfile /opt/ericsson/amos/moshell/commonjars/pm/IMOMD_MSRBS_22.Q4.txt
+Using imomfile /opt/ericsson/amos/moshell/commonjars/pm/IMOM_MSRBS_25.Q1.txt
+Connected to 19.31.12.154 (SubNetwork=BBMM_rckomc_R,MeContext=RC77L,ManagedElement=RC77L)
+
+Last MO: 16593. Loaded 16593 MOs. Total: 16594 MOs.
+
+RC77L> hget EUtranCellFDD ^cellid
+
+251007-11:17:42+0200 19.31.12.154 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/716181
+
+=================================================================================================================
+MO                   cellId
+=================================================================================================================
+EUtranCellFDD=RC77F1 81    
+EUtranCellFDD=RC77F2 82    
+EUtranCellFDD=RC77L1 21    
+EUtranCellFDD=RC77L2 22    
+=================================================================================================================
+Total: 4 MOs
+
+Added 4 MOs to group: hget_group
+
+RC77L> hget NbIotCell ^cellid
+
+251007-11:17:43+0200 19.31.12.154 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/716181
+Total: 0 MOs
+
+RC77L> hget NRCellDU ^cellLocalId
+
+251007-11:17:43+0200 19.31.12.154 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/716181
+Total: 0 MOs
+
+RC77L> lgdc -m 30d
+
+251007-11:17:43+0200 19.31.12.154 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/716181
+
+Startdate=20250907.091743, Enddate=20251008.091744
+INFO: Using amos lookupAccount credentials for the export login
+
+Executing action LogM.exportAvailabilityLog()
+...LogM=1,exportAvailabilityLog    actionId=5295
+...
+=================================================================================================================
+MO     actionId result      resultInfo
+=================================================================================================================
+LogM=1 5295     1 (SUCCESS)           
+cp /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-111722_716104/rcslogs/RBS_CS_AVAILABILITY_LOG_20251007091746.xml /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-111722_716104/availabilityLog716181.xml
+Parsing availabilityLog.....Done.
+..
+Date;Time;RestartType;SwVersion;SwRelease;RCSDowntime;ApplicationDowntime;TNDowntime;RATsDowntime;ExtraInfo;ExtraInfo2
+2025-09-08;04:33:00;PartialOutage(Manual);25% Lrat Cell 22; ();9s;;;;;
+2025-09-08;04:33:13;PartialOutage(Manual);25% Lrat Cell 21; ();9s;;;;;
+2025-09-08;04:33:27;PartialOutage(Manual);25% Lrat Cell 82; ();8s;;;;;
+2025-09-08;04:33:41;PartialOutage(Manual);25% Lrat Cell 81; ();8s;;;;;
+2025-09-15;11:27:12;PartialOutage(Transmission);100% Lrat Cell 81 82 21 22; ();257393s (2d23h);;;;;
+2025-09-18;10:57:05;PartialOutage(Transmission);100% Lrat Cell 21; ();1s;;;;;
+2025-09-19;09:30:36;SpontaneousCold(Other:PowerReset);CXP2010174/2_R27J08;CXP2010174/2_R27J08 (25.Q1);106s (1m46s);332s (5m32s);132s (2m12s);L=337s G=332s ;Requested: RankCold Other PowerReset Performed: RankCold Other PowerReset;Grat GRAT Traffic Control active, Lrat LRAT Traffic Control active
+2025-09-19;09:36:13;PartialOutage(Manual);100% Lrat Cell 21 22;CXP2010174/2_R27J08 (25.Q1);1s;;;;;
+2025-09-19;09:38:04;PartialOutage(System);100% Lrat Cell 81 82 21 22;CXP2010174/2_R27J08 (25.Q1);5s;;;;;
+2025-09-19;09:38:09;PartialOutage(System);100% Lrat Cell 81 21 22;CXP2010174/2_R27J08 (25.Q1);1s;;;;;
+2025-09-19;09:38:10;PartialOutage(System);100% Lrat Cell 21 22;CXP2010174/2_R27J08 (25.Q1);1s;;;;;
+2025-09-22;02:48:21;PartialOutage(Transmission);100% Lrat Cell 81 82 21 22;CXP2010174/2_R27J08 (25.Q1);20103s (5h35m);;;;;
+2025-09-22;08:23:24;SpontaneousCold(Other:PowerReset);CXP2010174/2_R27J08;CXP2010174/2_R27J08 (25.Q1);119s (1m59s);343s (5m43s);146s (2m26s);L=7314s G=343s ;Requested: RankCold Other PowerReset Performed: RankCold Other PowerReset;Grat GRAT Traffic Control active, Lrat LRAT Traffic Control active
+2025-09-22;08:29:41;PartialOutage(Transmission);100% Lrat Cell 81 82 21 22;CXP2010174/2_R27J08 (25.Q1);6937s (1h55m);;;;;
+2025-09-22;10:25:18;PartialOutage(Transmission);100% Lrat Cell 21 22;CXP2010174/2_R27J08 (25.Q1);1s;;;;;
+2025-09-22;10:29:24;PartialOutage(System);100% Lrat Cell 81 82 21 22;CXP2010174/2_R27J08 (25.Q1);5s;;;;;
+2025-09-22;10:29:29;PartialOutage(System);100% Lrat Cell 81 21 22;CXP2010174/2_R27J08 (25.Q1);1s;;;;;
+2025-09-22;10:29:30;PartialOutage(System);100% Lrat Cell 22;CXP2010174/2_R27J08 (25.Q1);1s;;;;;
+2025-09-22;12:07:21;PartialOutage(Transmission);100% Lrat Cell 81 82 21 22;CXP2010174/2_R27J08 (25.Q1);573s (9m33s);;;;;
+2025-09-26;07:19:55;PartialOutage(Transmission);100% Lrat Cell 81 82 21 22;CXP2010174/2_R27J08 (25.Q1);30325s (8h25m);;;;;
+2025-09-26;15:46:31;PartialOutage(Transmission);100% Lrat Cell 81 82 21 22;CXP2010174/2_R27J08 (25.Q1);1047s (17m27s);;;;;
+
+Node uptime since last restart: 1298925 seconds (15 days, 0 hours, 48 minutes, 45 seconds)
+------------------------------------------------------------------------------------------------------
+Period=30 days       NodeUpgrade      NodeManual       NodeSpontaneous  AllNodeRestarts  PartialOutages  
+------------------------------------------------------------------------------------------------------
+Number Of outages    0                0                2                2                19              
+Total downtime       0s               0s               675s (11m15s)    675s (11m15s)    316429s (3d15h) 
+Downtime per day     0s               0s               22s              22s              10548s (2h55m)  
+Downtime per outage  0s               0s               338s (5m38s)     338s (5m38s)     16654s (4h37m)  
+
+RC77L> lgac -m 30d
+
+251007-11:17:52+0200 19.31.12.154 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/716181
+
+Startdate=20250907.091752, Enddate=20251008.091752
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlarmLog                    actionId=5296
+......
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlarmLog 5296     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-111722_716104/rcslogs/saLogAlarm_20231229__151912_20250226__233600.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-111722_716104/rcslogs/saLogAlarm_20250226__233600.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-111722_716104/alarmLog716181.xml
+2025-09-09;19:06:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600091;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-11;11:57:49;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600091;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-13;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600091;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-15;11:26:42;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-15;11:26:42;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-15;11:27:12;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-15;11:27:12;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-15;11:27:12;AL  ;Major ;EUtranCellFDD=RC77L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;11:27:12;AL  ;Major ;EUtranCellFDD=RC77L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;11:27:12;AL  ;Major ;EUtranCellFDD=RC77F2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;11:27:12;AL  ;Major ;EUtranCellFDD=RC77F1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-15;11:27:15;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600091;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-15;11:27:35;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-15;11:27:47;AL  ;Major ;GsmSector=RC77D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-15;11:27:47;AL  ;Major ;GsmSector=RC77D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-15;16:32:25;AL  ;Warning;SysM=1,TimeM=1,Ntp=1,NtpServer=1;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock.
+2025-09-15;16:32:25;AL  ;Warning;SysM=1,TimeM=1,Ntp=1,NtpServer=2;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock.
+2025-09-15;16:34:25;AL  ;Minor ;SysM=1;Calendar Clock All NTP Servers Unavailable;No NTP server configured, or no NTP service available.
+2025-09-18;10:57:04;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-18;10:57:04;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-18;10:57:04;AL  ;Cleared;EUtranCellFDD=RC77L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-18;10:57:04;AL  ;Cleared;EUtranCellFDD=RC77L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-18;10:57:04;AL  ;Cleared;EUtranCellFDD=RC77F2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-18;10:57:04;AL  ;Cleared;EUtranCellFDD=RC77F1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-18;10:57:05;AL  ;Cleared;GsmSector=RC77D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-18;10:57:16;AL  ;Cleared;GsmSector=RC77D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-18;10:57:45;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-18;10:59:16;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No granted service from PTP grandmaster
+2025-09-18;11:01:01;AL  ;Cleared;SysM=1,TimeM=1,Ntp=1,NtpServer=1;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock.
+2025-09-18;11:01:01;AL  ;Cleared;SysM=1;Calendar Clock All NTP Servers Unavailable;No NTP server configured, or no NTP service available.
+2025-09-18;11:01:01;AL  ;Cleared;SysM=1,TimeM=1,Ntp=1,NtpServer=2;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock.
+2025-09-18;11:05:41;AL  ;Minor ;ENodeBFunction=1;External Link Failure;X2 link problem to one or several neighbouring eNodeBs. AI: PLMN ID-eNB ID 1 = 2221-211368
+2025-09-19;09:33:02;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=SyncE;Sync Reference Quality Level Too Low;
+2025-09-19;09:35:50;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=SyncE;Sync Reference Quality Level Too Low;
+2025-09-19;09:36:13;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-19;09:36:13;AL  ;Minor ;EUtranCellFDD=RC77F2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-19;09:36:13;AL  ;Minor ;EUtranCellFDD=RC77F1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-19;09:36:14;AL  ;Minor ;EUtranCellFDD=RC77L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-19;09:36:14;AL  ;Minor ;EUtranCellFDD=RC77L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-19;09:36:18;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650547;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-19;09:38:04;AL  ;Cleared;EUtranCellFDD=RC77F1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-19;09:38:04;AL  ;Cleared;EUtranCellFDD=RC77F2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-19;09:38:04;AL  ;Cleared;EUtranCellFDD=RC77L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-19;09:38:04;AL  ;Cleared;EUtranCellFDD=RC77L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-19;09:38:04;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-19;09:38:04;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-21;10:11:30;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650547;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;10:11:50;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650547;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-21;10:19:05;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650547;Inter Node Carrier Aggregation Service Unavailable;Elastic RAN Carrier Aggregation is not available towards remote eNodeB.
+2025-09-22;02:48:05;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-22;02:48:13;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-22;02:48:21;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-22;02:48:21;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-22;02:48:21;AL  ;Major ;EUtranCellFDD=RC77L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;02:48:21;AL  ;Major ;EUtranCellFDD=RC77L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;02:48:21;AL  ;Major ;EUtranCellFDD=RC77F2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;02:48:21;AL  ;Major ;EUtranCellFDD=RC77F1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;02:48:48;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Availability Fault;No delay response messages
+2025-09-22;02:48:53;AL  ;Major ;GsmSector=RC77D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-22;02:48:53;AL  ;Major ;GsmSector=RC77D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-22;02:50:37;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-22;02:50:37;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Availability Fault;No sync messages
+2025-09-22;07:35:28;AL  ;Warning;SysM=1,TimeM=1,Ntp=1,NtpServer=1;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock.
+2025-09-22;07:35:28;AL  ;Warning;SysM=1,TimeM=1,Ntp=1,NtpServer=2;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock.
+2025-09-22;07:37:28;AL  ;Minor ;SysM=1;Calendar Clock All NTP Servers Unavailable;No NTP server configured, or no NTP service available.
+2025-09-22;08:26:04;AL  ;Minor ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=SyncE;Sync Reference Quality Level Too Low;
+2025-09-22;08:26:37;AL  ;Major ;GsmSector=RC77D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-22;08:26:51;AL  ;Major ;GsmSector=RC77D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-22;08:27:06;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages, No granted service from PTP grandmaster
+2025-09-22;08:28:50;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=SyncE;Sync Reference Quality Level Too Low;
+2025-09-22;10:25:08;AL  ;Cleared;GsmSector=RC77D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-22;10:25:08;AL  ;Cleared;GsmSector=RC77D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-22;10:25:17;AL  ;Cleared;EUtranCellFDD=RC77L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:25:17;AL  ;Cleared;EUtranCellFDD=RC77L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:25:17;AL  ;Cleared;EUtranCellFDD=RC77F2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:25:17;AL  ;Cleared;EUtranCellFDD=RC77F1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:25:18;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-22;10:25:18;AL  ;Minor ;EUtranCellFDD=RC77F2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:25:19;AL  ;Minor ;EUtranCellFDD=RC77F1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:25:19;AL  ;Minor ;EUtranCellFDD=RC77L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:25:19;AL  ;Minor ;EUtranCellFDD=RC77L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:27:12;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No granted service from PTP grandmaster
+2025-09-22;10:29:23;AL  ;Minor ;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-22;10:29:23;AL  ;Minor ;EUtranCellFDD=RC77F1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:29:23;AL  ;Minor ;EUtranCellFDD=RC77F2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:29:23;AL  ;Minor ;EUtranCellFDD=RC77L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:29:23;AL  ;Minor ;EUtranCellFDD=RC77L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:29:24;AL  ;Cleared;EUtranCellFDD=RC77F1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:29:24;AL  ;Cleared;EUtranCellFDD=RC77F2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:29:24;AL  ;Cleared;EUtranCellFDD=RC77L1;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:29:24;AL  ;Cleared;EUtranCellFDD=RC77L2;Service Degraded;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;10:29:24;AL  ;Cleared;ENodeBFunction=1;Sync Time and Phase Accuracy Too Low;Time and phase sync accuracy crossed the threshold for features interworking with NR.
+2025-09-22;10:29:24;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-22;12:07:07;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-22;12:07:11;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,
+2025-09-22;12:07:21;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-22;12:07:21;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-22;12:07:21;AL  ;Major ;EUtranCellFDD=RC77L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;12:07:21;AL  ;Major ;EUtranCellFDD=RC77L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;12:07:21;AL  ;Major ;EUtranCellFDD=RC77F2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;12:07:21;AL  ;Major ;EUtranCellFDD=RC77F1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;12:08:04;AL  ;Major ;GsmSector=RC77D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-22;12:08:04;AL  ;Major ;GsmSector=RC77D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-22;12:08:16;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-22;12:16:53;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-22;12:16:53;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-22;12:16:53;AL  ;Cleared;EUtranCellFDD=RC77L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;12:16:53;AL  ;Cleared;EUtranCellFDD=RC77L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;12:16:53;AL  ;Cleared;EUtranCellFDD=RC77F2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;12:16:53;AL  ;Cleared;EUtranCellFDD=RC77F1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-22;12:16:53;AL  ;Cleared;GsmSector=RC77D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-22;12:16:53;AL  ;Cleared;GsmSector=RC77D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-22;12:16:54;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-22;12:17:03;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-22;12:18:54;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-24;09:11:17;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-24;09:11:47;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-26;07:19:32;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-26;07:19:37;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-26;07:19:55;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-26;07:19:55;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-26;07:19:55;AL  ;Major ;EUtranCellFDD=RC77L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;07:19:55;AL  ;Major ;EUtranCellFDD=RC77L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;07:19:55;AL  ;Major ;EUtranCellFDD=RC77F2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;07:19:55;AL  ;Major ;EUtranCellFDD=RC77F1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;07:20:24;AL  ;Major ;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-26;07:20:37;AL  ;Major ;GsmSector=RC77D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-26;07:20:37;AL  ;Major ;GsmSector=RC77D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-26;11:26:49;AL  ;Warning;SysM=1,TimeM=1,Ntp=1,NtpServer=1;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock.
+2025-09-26;11:26:49;AL  ;Warning;SysM=1,TimeM=1,Ntp=1,NtpServer=2;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock.
+2025-09-26;11:28:49;AL  ;Minor ;SysM=1;Calendar Clock All NTP Servers Unavailable;No NTP server configured, or no NTP service available.
+2025-09-26;15:45:19;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-26;15:45:19;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-26;15:45:19;AL  ;Cleared;EUtranCellFDD=RC77L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:45:19;AL  ;Cleared;EUtranCellFDD=RC77L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:45:19;AL  ;Cleared;EUtranCellFDD=RC77F2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:45:19;AL  ;Cleared;EUtranCellFDD=RC77F1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:45:19;AL  ;Cleared;GsmSector=RC77D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-26;15:45:19;AL  ;Cleared;GsmSector=RC77D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-26;15:45:19;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-26;15:45:46;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-26;15:46:09;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-26;15:46:31;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=1,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=5,DN4=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,
+2025-09-26;15:46:31;AL  ;Minor ;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-26;15:46:31;AL  ;Major ;EUtranCellFDD=RC77L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:46:31;AL  ;Major ;EUtranCellFDD=RC77L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:46:31;AL  ;Major ;EUtranCellFDD=RC77F2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:46:31;AL  ;Major ;EUtranCellFDD=RC77F1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;15:46:35;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-26;15:47:15;AL  ;Major ;GsmSector=RC77D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-26;15:47:15;AL  ;Major ;GsmSector=RC77D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-26;16:03:57;AL  ;Warning;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,DN2=ManagedElement=1,ENodeBFunction=1,TermPointToMme=4,DN3=ManagedElement=1,ENodeBFunction=1,TermPointToMme=3,
+2025-09-26;16:03:57;AL  ;Cleared;ENodeBFunction=1;PLMN Service Unavailable;S1 Connection Failure for PLMNs listed in Additional Information. AI: PLMN = ["2221"],
+2025-09-26;16:03:57;AL  ;Cleared;EUtranCellFDD=RC77L2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;16:03:57;AL  ;Cleared;EUtranCellFDD=RC77L1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;16:03:57;AL  ;Cleared;EUtranCellFDD=RC77F2;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;16:03:57;AL  ;Cleared;EUtranCellFDD=RC77F1;Service Unavailable;This is a secondary alarm, use alarm correlation information in Additional Information to find primary alarm.
+2025-09-26;16:03:57;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-09-26;16:04:00;AL  ;Cleared;GsmSector=RC77D1,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-26;16:04:00;AL  ;Cleared;GsmSector=RC77D2,AbisIp=1;BSC Connection Failure;Connection timeout, there is no connection towards the BSC for the GSM Sector.
+2025-09-26;16:04:15;AL  ;Cleared;SysM=1,TimeM=1,Ntp=1,NtpServer=1;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock.
+2025-09-26;16:04:15;AL  ;Cleared;SysM=1,TimeM=1,Ntp=1,NtpServer=2;Calendar Clock NTP Server Unavailable;Configured NTP server is not used as basis for time of day clock.
+2025-09-26;16:04:15;AL  ;Cleared;SysM=1;Calendar Clock All NTP Servers Unavailable;No NTP server configured, or no NTP service available.
+2025-09-26;16:04:27;AL  ;Cleared;ENodeBFunction=1;PLMN Service Redundancy Lost;S1 connection failure for PLMN connected with link represented by MO listed in Additional Information. AI: PLMN = ["2221"],DN1=ManagedElement=1,ENodeBFunction=1,TermPointToMme=2,
+2025-09-26;16:05:58;AL  ;Cleared;Synchronization=1,RadioEquipmentClock=1,RadioEquipmentClockReference=PTP8275_2;Sync PTP Time Reachability Fault;No PTP messages
+2025-09-30;19:06:58;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600091;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-10-02;09:25:46;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-10-02;09:25:46;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-600091;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-10-03;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-10-05;09:25:46;AL  ;Cleared;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-10-05;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-650679;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+2025-10-06;19:06:59;AL  ;Minor ;EUtraNetwork=1,ExternalENodeBFunction=2221-600091;Inter Node Feature Incompatibility;Elastic RAN feature is not activated in remote eNodeB
+
+
+RC77L> lgec -m 30d
+
+251007-11:17:59+0200 19.31.12.154 25.0h MSRBS_NODE_MODEL_25.Q1_693.28324.131_62ac stopfile=/tmp/716181
+
+Startdate=20250907.091759, Enddate=20251008.091759
+Date;Time;Log;Severity;Object;Event;Cause;AdditionalText;AckState;Id;NotificationId;CorrelatedAlarms
+Executing action Log.export()
+..
+Log=AlertLog                    actionId=5297
+...
+=================================================================================================================
+MO                  actionId result      resultInfo
+=================================================================================================================
+LogM=1,Log=AlertLog 5297     1 (SUCCESS)           
+cat  /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-111722_716104/rcslogs/AlertLog_20231229__151929_20250226__233632.log /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-111722_716104/rcslogs/AlertLog_20250226__233632.log > /ericsson/log/amos/moshell_logfiles/t20251007_37258710_53697/logs_moshell/tempfiles/scp-2-amos_20251007-111722_716104/eventLog716181.xml
+2025-09-19;09:32:47;EV  ;Warning;FieldReplaceableUnit=Radio-S20-1;Radio Restart Alert;Restart details are listed in Additional Information AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 2012 B32A,"PNR":KRC 161 604/1,"PR":R2C,"SN":TU8U028XET,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-09-19;09:32:49;EV  ;Warning;FieldReplaceableUnit=Radio-S180-1;Radio Restart Alert;Restart details are listed in Additional Information AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 4415 B7,"PNR":KRC 161 495/1,"PR":R5J,"SN":DH80144353,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-09-19;09:32:50;EV  ;Warning;FieldReplaceableUnit=Radio-S220-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 2479 24B8 24B20 24B28B M01,"PNR":KRC 161 832/1,"PR":R2G,"SN":E55K671298,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-09-19;09:32:51;EV  ;Warning;FieldReplaceableUnit=Radio-S21-1;Radio Restart Alert;Restart details are listed in Additional Information AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 2012 B32A,"PNR":KRC 161 604/1,"PR":R2C,"SN":TU8U028XGR,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-09-19;09:32:52;EV  ;Warning;FieldReplaceableUnit=Radio-S221-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 2479 24B8 24B20 24B28B M01,"PNR":KRC 161 832/1,"PR":R2G,"SN":E55K671301,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-09-19;09:33:47;EV  ;Warning;ManagedElement=RC77L;System Restart Alert;Requested Restart Category: Other, Requested Restart Type: Power, Performed Restart Category: Other, Performed Restart Type: Power. AI: SystemRestart=[{"RRC":"Other","RRT":"Power","PRC":"Other","PRT":"Power"}] UI=[{"PN":"Baseband 6631","PNR":"KDU1370071/11","PR":"R3F","SN":"E23E999605","SR":"R27J08","SW":"CXP2010174_2"}]
+2025-09-19;09:35:09;EV  ;Warning;RiLink=S220-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-19;09:35:09;EV  ;Warning;RiLink=S221-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-19;09:35:47;EV  ;Warning;RiLink=S20-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=G (transportType=NOT_SET). SUPPRESSED
+2025-09-19;09:35:47;EV  ;Warning;RiLink=S180-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-19;09:35:47;EV  ;Warning;RiLink=S221-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-19;09:35:47;EV  ;Warning;RiLink=S220-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-19;09:38:07;EV  ;Warning;RiLink=S20-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=G (transportType=NOT_SET). SUPPRESSED
+2025-09-19;09:38:07;EV  ;Warning;RiLink=S180-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-19;09:38:07;EV  ;Warning;RiLink=S221-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-19;09:38:07;EV  ;Warning;RiLink=S220-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-22;08:25:50;EV  ;Warning;FieldReplaceableUnit=Radio-S20-1;Radio Restart Alert;Restart details are listed in Additional Information AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 2012 B32A,"PNR":KRC 161 604/1,"PR":R2C,"SN":TU8U028XET,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-09-22;08:25:50;EV  ;Warning;FieldReplaceableUnit=Radio-S221-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 2479 24B8 24B20 24B28B M01,"PNR":KRC 161 832/1,"PR":R2G,"SN":E55K671301,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-09-22;08:25:51;EV  ;Warning;FieldReplaceableUnit=Radio-S180-1;Radio Restart Alert;Restart details are listed in Additional Information AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 4415 B7,"PNR":KRC 161 495/1,"PR":R5J,"SN":DH80144353,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-09-22;08:25:52;EV  ;Warning;FieldReplaceableUnit=Radio-S220-1;Radio Restart Alert;Restart details are listed in Additional Information (Mixed Mode with other ME). AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 2479 24B8 24B20 24B28B M01,"PNR":KRC 161 832/1,"PR":R2G,"SN":E55K671298,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-09-22;08:25:53;EV  ;Warning;FieldReplaceableUnit=Radio-S21-1;Radio Restart Alert;Restart details are listed in Additional Information AI: Restartdetails=[{"RC":"Other","RT":"Power On","ERI":"FALSE"}] UI=[{"PN":Radio 2012 B32A,"PNR":KRC 161 604/1,"PR":R2C,"SN":TU8U028XGR,"SR":R101LX,"SW":CXP9013268/15}] :SUPPRESSED
+2025-09-22;08:26:50;EV  ;Warning;ManagedElement=RC77L;System Restart Alert;Requested Restart Category: Other, Requested Restart Type: Power, Performed Restart Category: Other, Performed Restart Type: Power. AI: SystemRestart=[{"RRC":"Other","RRT":"Power","PRC":"Other","PRT":"Power"}] UI=[{"PN":"Baseband 6631","PNR":"KDU1370071/11","PR":"R3F","SN":"E23E999605","SR":"R27J08","SW":"CXP2010174_2"}]
+2025-09-22;08:27:46;EV  ;Warning;RiLink=S221-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-22;08:27:49;EV  ;Warning;RiLink=S220-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-22;08:28:47;EV  ;Warning;RiLink=S21-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=Radio-S20-1,RiPort=DATA_2 (transportType=NOT_SET). SUPPRESSED
+2025-09-22;08:28:47;EV  ;Warning;RiLink=S20-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=G (transportType=NOT_SET). SUPPRESSED
+2025-09-22;08:28:47;EV  ;Warning;RiLink=S180-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-22;08:28:47;EV  ;Warning;RiLink=S221-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-22;08:28:47;EV  ;Warning;RiLink=S220-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-22;10:29:27;EV  ;Warning;RiLink=S20-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=G (transportType=NOT_SET). SUPPRESSED
+2025-09-22;10:29:27;EV  ;Warning;RiLink=S180-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=D (transportType=NOT_SET). SUPPRESSED
+2025-09-22;10:29:27;EV  ;Warning;RiLink=S221-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=B (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+2025-09-22;10:29:27;EV  ;Warning;RiLink=S220-1;Radio Interface Connectivity Disturbance Alert;Near end port:FieldReplaceableUnit=BB-1,RiPort=A (transportType=NOT_SET) (Mixed Mode with other ME). SUPPRESSED
+
+Bye...
+Output has been logged to file /mta_fs/UserFiles/37258710/amosbatch/2025-10-07_11-07-01_53697/RC77L.log
