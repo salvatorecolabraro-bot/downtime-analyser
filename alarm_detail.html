@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downtime Analytics</title>
-    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
-    <meta name="dw-backend-url" content="">
+    <!-- Configurazione backend: imposta dominio backend esplicito e fallback localStorage/origin -->
+    <meta name="dw-backend-url" content="https://downtime-analyser-1.onrender.com/">
     <script>
       (function(){
-        var backendUrl = null;
+        var backendUrl = 'https://downtime-analyser-1.onrender.com/';
         try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
         if (!backendUrl) {
           var m = document.querySelector('meta[name="dw-backend-url"]');
@@ -654,8 +654,30 @@ a { color: var(--accent); }
                         statusEl.textContent = 'Titolo allarme mancante. Apri dalla pagina Analisi (stats).';
                         return;
                     }
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
-                    fetch(`${base}/api/lga?limit=10000`)
+            // Base backend uniforme
+            (function(){ try { const saved = localStorage.getItem('dw_backend_url'); if (saved) window.DW_BACKEND_URL = saved.replace(/\/$/, ''); } catch(_) {} })();
+            function getBackendBase(){ return (window.DW_BACKEND_URL || '').replace(/\/$/, ''); }
+            async function probeBase(origin){
+                const base = String(origin||'').replace(/\/$/, '');
+                try { const ctl = new AbortController(); const t=setTimeout(()=>ctl.abort(),3000); const r=await fetch(`${base}/api/ping`,{signal:ctl.signal}); clearTimeout(t); if(!(r&&r.ok)) return false; } catch(_) { return false; }
+                try { const ctl = new AbortController(); const t=setTimeout(()=>ctl.abort(),4000); const r=await fetch(`${base}/api/stats/header`,{signal:ctl.signal}); clearTimeout(t); if(!(r&&r.ok)) return false; } catch(_) { return false; }
+                return true;
+            }
+            async function ensureBackendBase(){
+                const candidates=[];
+                const hinted=getBackendBase(); if(hinted) candidates.push(hinted);
+                try{ const saved=localStorage.getItem('dw_backend_url'); if(saved && !candidates.includes(saved)) candidates.push(saved); }catch(_){}
+                // Nessun fallback a origin
+                // Prova backend sulla stessa macchina del server statico
+                // Nessun fallback a hostname:8002/9000
+                // Nessun fallback a localhost
+                for(const c of candidates){ if(!c) continue; if(await probeBase(c)){ const norm=c.replace(/\/$/, ''); window.DW_BACKEND_URL = norm; try{ localStorage.setItem('dw_backend_url', norm); }catch(_){} return true; } }
+                const statusEl = document.getElementById('status'); if(statusEl){ statusEl.className='status error'; statusEl.textContent='Backend non raggiungibile. Configura DW_BACKEND_URL.'; }
+                return false;
+            }
+            ensureBackendBase().then(ok => { if(!ok) return; 
+                const base = getBackendBase();
+                fetch(`${base}/api/lga?limit=10000`)
                         .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
                         .then(resp => {
                             const lga = Array.isArray(resp.lga) ? resp.lga : [];
@@ -710,6 +732,7 @@ a { color: var(--accent); }
                             statusEl.className = 'status error';
                             statusEl.textContent = 'Errore nel caricamento dal backend: ' + (err && err.message ? err.message : err);
                         });
+            });
                 } catch (error) {
                     statusEl.className = 'status error';
                     statusEl.textContent = `Errore durante l'inizializzazione: ${error && error.message ? error.message : error}`;
@@ -820,7 +843,7 @@ a { color: var(--accent); }
                     title: it.title || '',
                     detail: it.detail || ''
                 }));
-                const resp = await fetch(((typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin)) + '/export/start', {
+                const resp = await fetch(getBackendBase() + '/export/start', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ type: 'LGA', data: { lga: items } })
@@ -834,13 +857,12 @@ a { color: var(--accent); }
                 const maxTries = 60;
                 while (tries < maxTries) {
                     await new Promise(r => setTimeout(r, 800));
-                    const st = await fetch(((typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin)) + `/export/status?id=${encodeURIComponent(jobId)}`);
+                    const st = await fetch(getBackendBase() + `/export/status?id=${encodeURIComponent(jobId)}`);
                     if (!st.ok) break;
                     const info = await st.json();
                     setExportProgress(info.percent || 0, info.message || 'Esportazione...');
                     if (info.status === 'done') {
-                        const base = (typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin);
-                        const dlUrl = `${base}/export/download?id=${encodeURIComponent(jobId)}`;
+                        const dlUrl = getBackendBase() + `/export/download?id=${encodeURIComponent(jobId)}`;
                         setExportProgress(100, 'Completato');
                         window.open(dlUrl, '_blank');
                         hideExportProgressAfterDelay(1500);

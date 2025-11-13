@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestione Amministratore</title>
   <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
-  <meta name="dw-backend-url" content="">
+    <meta name="dw-backend-url" content="https://downtime-analyser-1.onrender.com/">
   <script>
     (function(){
       var backendUrl = null;
@@ -190,12 +190,70 @@
   </div>
 
   <script>
-            const API_BASE = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            // Imposta esplicitamente il backend per produzione
+            window.DW_BACKEND_URL = 'https://downtime-analyser-1.onrender.com'.replace(/\/$/, '');
+            // Lettura da localStorage (se presente)
+            try {
+              const saved = localStorage.getItem('dw_backend_url');
+              if (saved && typeof saved === 'string') {
+                window.DW_BACKEND_URL = saved.replace(/\/$/, '');
+              }
+            } catch(_) {}
+            // Base dinamica uniforme
+            function getBackendBase() {
+              const origin = (window.DW_BACKEND_URL || '').trim();
+              return origin.replace(/\/$/, '');
+            }
+            let API_BASE = getBackendBase();
     let editingId = null;
+
+    async function ping(url) {
+      try {
+        const ctl = new AbortController();
+        const t = setTimeout(() => ctl.abort(), 2500);
+        const res = await fetch(`${url.replace(/\/$/, '')}/api/ping`, { signal: ctl.signal });
+        clearTimeout(t);
+        if (res && res.ok) return true;
+        return false;
+      } catch (_) { return false; }
+    }
+
+    async function ensureBackendBase() {
+      // Probe robusto: ping + header per evitare falsi positivi su origin statici
+      async function probe(base) {
+        const b = String(base||'').replace(/\/$/, '');
+        try {
+          const ctl = new AbortController(); const t = setTimeout(()=>ctl.abort(), 3000);
+          const r = await fetch(`${b}/api/ping`, { signal: ctl.signal }); clearTimeout(t);
+          if (!(r && r.ok)) return false;
+        } catch(_) { return false; }
+        try {
+          const ctl = new AbortController(); const t = setTimeout(()=>ctl.abort(), 4000);
+          const r = await fetch(`${b}/api/stats/header`, { signal: ctl.signal }); clearTimeout(t);
+          if (!(r && r.ok)) return false;
+        } catch(_) { return false; }
+        return true;
+      }
+      const candidates = [];
+      const hinted = getBackendBase(); if (hinted) candidates.push(hinted);
+      try { const saved = localStorage.getItem('dw_backend_url'); if (saved && !candidates.includes(saved)) candidates.push(saved); } catch(_) {}
+      // Nessun fallback a origin/localhost/hostname
+      for (const c of candidates) {
+        if (!c) continue;
+        if (await probe(c)) {
+          API_BASE = c.replace(/\/$/, '');
+          window.DW_BACKEND_URL = API_BASE;
+          try { localStorage.setItem('dw_backend_url', API_BASE); } catch(_) {}
+          return true;
+        }
+      }
+      setStatus('Backend non raggiungibile. Configura DW_BACKEND_URL o avvia backend locale.', true);
+      return false;
+    }
 
     async function loadUsers() {
       try {
-        const res = await fetch(`${API_BASE}/api/admin/users`);
+        const res = await fetch(`${getBackendBase()}/api/admin/users`);
         const data = await res.json();
         const users = Array.isArray(data.users) ? data.users : [];
         renderUsers(users);
@@ -284,7 +342,7 @@
       const ok = confirm('Confermi l\'eliminazione dell\'utente?');
       if (!ok) return;
       try {
-        const res = await fetch(`${API_BASE}/api/admin/users/delete`, {
+        const res = await fetch(`${getBackendBase()}/api/admin/users/delete`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id })
@@ -328,7 +386,7 @@
         if (!editingId) {
           const payload = { username, email, role, active };
           if (role !== 'admin') { payload.password = password; }
-          const res = await fetch(`${API_BASE}/api/admin/users/create`, {
+          const res = await fetch(`${getBackendBase()}/api/admin/users/create`, {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
@@ -344,7 +402,7 @@
           const id = editingId;
           const payload = { id, username, email, role, active };
           if (role !== 'admin') { payload.password = password; }
-          const res = await fetch(`${API_BASE}/api/admin/users/update`, {
+          const res = await fetch(`${getBackendBase()}/api/admin/users/update`, {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
@@ -363,8 +421,12 @@
     });
 
     // Init
-    loadUsers();
-    updatePasswordFieldState();
+    (async () => {
+      const ok = await ensureBackendBase();
+      if (!ok) { return; }
+      loadUsers();
+      updatePasswordFieldState();
+    })();
 
     // ===== File DW =====
     const dwStatusEl = document.getElementById('dw-status');
@@ -393,7 +455,7 @@
 
     async function loadDwFiles() {
       try {
-        const res = await fetch(`${API_BASE}/api/files/list`, { mode: 'cors' });
+        const res = await fetch(`${getBackendBase()}/api/files/list`, { mode: 'cors' });
         const data = await res.json();
         const files = Array.isArray(data.files) ? data.files : [];
         renderDwFiles(files);
@@ -448,7 +510,7 @@
       const ok = confirm(`Confermi la rimozione di ${names.length} file?`);
       if (!ok) return;
       try {
-        const res = await fetch(`${API_BASE}/api/files/delete`, {
+        const res = await fetch(`${getBackendBase()}/api/files/delete`, {
           method: 'POST', headers: { 'Content-Type': 'application/json' }, mode: 'cors',
           body: JSON.stringify({ files: names })
         });
@@ -479,7 +541,11 @@
     }
 
     // Avvio
-    loadDwFiles();
+    (async () => {
+      const ok = await ensureBackendBase();
+      if (!ok) { return; }
+      loadDwFiles();
+    })();
   </script>
 </body>
 </html>

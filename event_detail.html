@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downtime Analytics</title>
-    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
-    <meta name="dw-backend-url" content="">
+    <!-- Configurazione backend: imposta dominio backend esplicito e fallback localStorage/origin -->
+    <meta name="dw-backend-url" content="https://downtime-analyser-1.onrender.com/">
     <script>
       (function(){
-        var backendUrl = null;
+        var backendUrl = 'https://downtime-analyser-1.onrender.com/';
         try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
         if (!backendUrl) {
           var m = document.querySelector('meta[name="dw-backend-url"]');
@@ -475,7 +475,7 @@ a { color: var(--accent); }
 
         // init() legacy rimosso: la pagina usa solo dati dal backend tramite backendInit
 
-        const exportServerBase = (typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin);
+        const exportServerBase = getBackendBase();
         // Helpers barra di avanzamento export
         let exportProgressHideTimer = null;
         function showExportProgress(initialText){
@@ -645,8 +645,30 @@ a { color: var(--accent); }
                         statusEl.textContent = 'Titolo evento mancante. Apri dalla pagina Analisi (stats).';
                         return;
                     }
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
-                    fetch(`${base}/api/lge?limit=10000`)
+            // Base backend uniforme
+            (function(){ try { const saved = localStorage.getItem('dw_backend_url'); if (saved) window.DW_BACKEND_URL = saved.replace(/\/$/, ''); } catch(_) {} })();
+            function getBackendBase(){ return (window.DW_BACKEND_URL || '').replace(/\/$/, ''); }
+            async function probeBase(origin){
+                const base = String(origin||'').replace(/\/$/, '');
+                try { const ctl = new AbortController(); const t=setTimeout(()=>ctl.abort(),3000); const r=await fetch(`${base}/api/ping`,{signal:ctl.signal}); clearTimeout(t); if(!(r&&r.ok)) return false; } catch(_) { return false; }
+                try { const ctl = new AbortController(); const t=setTimeout(()=>ctl.abort(),4000); const r=await fetch(`${base}/api/stats/header`,{signal:ctl.signal}); clearTimeout(t); if(!(r&&r.ok)) return false; } catch(_) { return false; }
+                return true;
+            }
+            async function ensureBackendBase(){
+                const candidates=[];
+                const hinted=getBackendBase(); if(hinted) candidates.push(hinted);
+                try{ const saved=localStorage.getItem('dw_backend_url'); if(saved && !candidates.includes(saved)) candidates.push(saved); }catch(_){}
+                // Nessun fallback a origin
+                // Prova backend sulla stessa macchina del server statico
+                // Nessun fallback a hostname:8002/9000
+                // Nessun fallback a localhost
+                for(const c of candidates){ if(!c) continue; if(await probeBase(c)){ const norm=c.replace(/\/$/, ''); window.DW_BACKEND_URL = norm; try{ localStorage.setItem('dw_backend_url', norm); }catch(_){} return true; } }
+                const statusEl = document.getElementById('status'); if(statusEl){ statusEl.className='status error'; statusEl.textContent='Backend non raggiungibile. Configura DW_BACKEND_URL.'; }
+                return false;
+            }
+            ensureBackendBase().then(ok => { if(!ok) return; 
+                const base = getBackendBase();
+                fetch(`${base}/api/lge?limit=10000`)
                         .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
                         .then(resp => {
                             const lge = Array.isArray(resp.lge) ? resp.lge : [];
@@ -717,6 +739,7 @@ a { color: var(--accent); }
                             statusEl.className = 'status error';
                             statusEl.textContent = 'Errore nel caricamento dal backend: ' + (err && err.message ? err.message : err);
                         });
+            });
                 } catch (error) {
                     statusEl.className = 'status error';
                     statusEl.textContent = `Errore durante l'inizializzazione: ${error && error.message ? error.message : error}`;

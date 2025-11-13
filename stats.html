@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downtime Analytics</title>
-    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
-    <meta name="dw-backend-url" content="">
+    <!-- Configurazione backend: imposta dominio backend esplicito e fallback localStorage/origin -->
+    <meta name="dw-backend-url" content="https://downtime-analyser-1.onrender.com/">
     <script>
       (function(){
-        var backendUrl = null;
+        var backendUrl = 'https://downtime-analyser-1.onrender.com/';
         try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
         if (!backendUrl) {
           var m = document.querySelector('meta[name="dw-backend-url"]');
@@ -824,12 +824,69 @@ a { color: var(--accent); }
                 return info && info.role === 'admin';
             } catch(_) { return false; }
         }
-        function loginUser() {
+        // Lettura DW_BACKEND_URL salvato (se presente)
+        try {
+            const saved = localStorage.getItem('dw_backend_url');
+            if (saved && typeof saved === 'string') {
+                window.DW_BACKEND_URL = saved;
+            }
+        } catch (_) {}
+        // Base dinamica uniforme
+        function getBackendBase() {
+            const origin = (window.DW_BACKEND_URL || '').trim();
+            return origin.replace(/\/$/, '');
+        }
+        // Probe robusto: verifica sia /api/ping che /api/stats/header
+        async function probeBase(origin) {
+            const base = String(origin || '').replace(/\/$/, '');
+            // Ping
+            try {
+                const ctl = new AbortController();
+                const t = setTimeout(() => ctl.abort(), 3000);
+                const res = await fetch(`${base}/api/ping`, { signal: ctl.signal });
+                clearTimeout(t);
+                if (!(res && res.ok)) return false;
+            } catch (_) { return false; }
+            // Header stats (evita falsi positivi su domini statici)
+            try {
+                const ctl = new AbortController();
+                const t = setTimeout(() => ctl.abort(), 4000);
+                const res = await fetch(`${base}/api/stats/header`, { signal: ctl.signal });
+                clearTimeout(t);
+                if (!(res && res.ok)) return false;
+            } catch (_) { return false; }
+            return true;
+        }
+        // Individuazione backend: solo DW_BACKEND_URL o localStorage (niente origin/localhost)
+        async function ensureBackendBase() {
+            const candidates = [];
+            const hinted = (window.DW_BACKEND_URL || '').trim();
+            if (hinted) candidates.push(hinted);
+            try {
+                const saved = localStorage.getItem('dw_backend_url');
+                if (saved && typeof saved === 'string' && !candidates.includes(saved)) candidates.push(saved);
+            } catch(_) {}
+            // Nessun fallback a origin/localhost/hostname
+
+            for (const c of candidates) {
+                if (!c) continue;
+                if (await probeBase(c)) {
+                    const normalized = c.replace(/\/$/, '');
+                    window.DW_BACKEND_URL = normalized;
+                    try { localStorage.setItem('dw_backend_url', normalized); } catch(_) {}
+                    return true;
+                }
+            }
+            showStatus('Backend non raggiungibile. Configura DW_BACKEND_URL o avvia il backend locale.', 'error');
+            return false;
+        }
+        async function loginUser() {
             const usernameInput = document.getElementById('usernameInput');
             const u = (usernameInput && usernameInput.value || '').trim();
             if (!u) { showStatus('Inserisci username', 'error'); return; }
-            const base = (window.DW_BACKEND_URL || location.origin);
-            fetch(base.replace(/\/$/, '') + '/api/auth/login', {
+            const ok = await ensureBackendBase(); if (!ok) { return; }
+            const base = getBackendBase();
+            fetch(base + '/api/auth/login', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: u })
             })
@@ -845,7 +902,8 @@ a { color: var(--accent); }
                 showStatus('Accesso eseguito come ' + (info.username || u), 'success');
             })
             .catch(err => {
-                showStatus((err && err.error) || 'Login fallito', 'error');
+                const msg = (err && err.error) || 'Login fallito';
+                showStatus(msg + ` (backend: ${ getBackendBase() })`, 'error');
             });
         }
         function logoutUser() {
@@ -866,8 +924,8 @@ a { color: var(--accent); }
 
         // Integrazione: totals da backend per mostrare le card anche senza dati locali
         function fetchAndRenderTotalsFromBackend() {
-            const base = (window.DW_BACKEND_URL || location.origin);
-            const url = base.replace(/\/$/, '') + '/api/stats/header';
+            const base = getBackendBase();
+            const url = base + '/api/stats/header';
             return fetch(url, { mode: 'cors' })
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
                 .then(data => {
@@ -890,7 +948,7 @@ a { color: var(--accent); }
 
         // Nuovo: rendering grafici/tabelle da backend (senza dati locali)
         function fetchAndRenderChartsFromBackend() {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const topNMax = 20; // chiedi il massimo e poi applica clamp client-side
             const url = `${base}/api/charts/summary?n=${encodeURIComponent(topNMax)}`;
             return fetch(url, { mode: 'cors' })
@@ -1022,7 +1080,7 @@ a { color: var(--accent); }
             content.appendChild(closeBtn);
             content.appendChild(title);
 
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const nodeSel = document.getElementById('globalNodeSelect');
             const df = document.getElementById('globalDateFrom');
             const dt = document.getElementById('globalDateTo');
@@ -1072,7 +1130,9 @@ a { color: var(--accent); }
                 });
         };
 
-        function init() {
+        async function init() {
+            // Assicurati che l'origin del backend sia individuato prima di eseguire fetch
+            try { await ensureBackendBase(); } catch (_) {}
             // Modalità backend-only
             fetchAndRenderTotalsFromBackend()
                 .then(() => renderAllPanelsForCurrentFilters())
@@ -1102,6 +1162,28 @@ a { color: var(--accent); }
 
         init();
 
+        // Utilità: debounce per raggruppare cambi rapidi dei filtri
+        function debounce(fn, delay) {
+            let t = null;
+            return function(...args) {
+                if (t) clearTimeout(t);
+                t = setTimeout(() => fn.apply(this, args), delay);
+            };
+        }
+        const renderAllDebounced = debounce(renderAllPanelsForCurrentFilters, 250);
+
+        // Gestione fetch concorrenti: annulla la richiesta precedente per pannello
+        const FETCH_CTRL = new Map();
+        function nextController(key) {
+            const prev = FETCH_CTRL.get(key);
+            if (prev) {
+                try { prev.abort(); } catch (_) {}
+            }
+            const ctrl = new AbortController();
+            FETCH_CTRL.set(key, ctrl);
+            return ctrl;
+        }
+
         // Modalità backend-only: nessun selettore origine dati
 
         // --- Nuovo: supporto filtri per nodo ---
@@ -1118,83 +1200,69 @@ a { color: var(--accent); }
                     const elLge = document.getElementById('lgeNodeSelect');
                     const elLgd = document.getElementById('lgdNodeSelect');
                     const elLgdDur = document.getElementById('lgdDurNodeSelect');
-                    if (elLga) { elLga.value = val; elLga.dispatchEvent(new Event('change')); }
-                    if (elLgaSev) { elLgaSev.value = val; elLgaSev.dispatchEvent(new Event('change')); }
-                    if (elLge) { elLge.value = val; elLge.dispatchEvent(new Event('change')); }
-                    if (elLgd) { elLgd.value = val; elLgd.dispatchEvent(new Event('change')); }
-                    if (elLgdDur) { elLgdDur.value = val; elLgdDur.dispatchEvent(new Event('change')); }
-                    renderAllPanelsForCurrentFilters();
+                    if (elLga) { elLga.value = val; }
+                    if (elLgaSev) { elLgaSev.value = val; }
+                    if (elLge) { elLge.value = val; }
+                    if (elLgd) { elLgd.value = val; }
+                    if (elLgdDur) { elLgdDur.value = val; }
+                    renderAllDebounced();
                 });
             }
             // Global date filters
             const df = document.getElementById('globalDateFrom');
             const dt = document.getElementById('globalDateTo');
-            if (df) df.addEventListener('change', renderAllPanelsForCurrentFilters);
-            if (dt) dt.addEventListener('change', renderAllPanelsForCurrentFilters);
+            if (df) df.addEventListener('change', renderAllDebounced);
+            if (dt) dt.addEventListener('change', renderAllDebounced);
             // LGA per titolo
             const lgaNode = document.getElementById('lgaNodeSelect');
             if (lgaNode) {
                 lgaNode.addEventListener('change', () => {
-                    const node = (lgaNode.value || '').trim();
-                    if (!node || /^tutti$/i.test(node)) { renderAllPanelsForCurrentFilters(); return; }
-                    renderLgaTopForNode(node);
+                    renderAllDebounced();
                 });
                 // Cambi del Top N
                 const elLgaTopN = document.getElementById('lgaTopN');
                 if (elLgaTopN) elLgaTopN.addEventListener('change', () => {
-                    const node = (lgaNode.value || '').trim();
-                    if (node && !/^tutti$/i.test(node)) renderLgaTopForNode(node); else renderAllPanelsForCurrentFilters();
+                    renderAllDebounced();
                 });
             }
             // LGE per titolo
             const lgeNode = document.getElementById('lgeNodeSelect');
             if (lgeNode) {
                 lgeNode.addEventListener('change', () => {
-                    const node = (lgeNode.value || '').trim();
-                    if (!node || /^tutti$/i.test(node)) { renderAllPanelsForCurrentFilters(); return; }
-                    renderLgeTopForNode(node);
+                    renderAllDebounced();
                 });
                 const elLgeTopN = document.getElementById('lgeTopN');
                 if (elLgeTopN) elLgeTopN.addEventListener('change', () => {
-                    const node = (lgeNode.value || '').trim();
-                    if (node && !/^tutti$/i.test(node)) renderLgeTopForNode(node); else renderAllPanelsForCurrentFilters();
+                    renderAllDebounced();
                 });
             }
             // LGD Top per Tipo/Ragione
             const lgdNode = document.getElementById('lgdNodeSelect');
             if (lgdNode) {
                 lgdNode.addEventListener('change', () => {
-                    const node = (lgdNode.value || '').trim();
-                    if (!node || /^tutti$/i.test(node)) { renderAllPanelsForCurrentFilters(); return; }
-                    renderLgdTopForNode(node);
+                    renderAllDebounced();
                 });
                 const elLgdTopN = document.getElementById('lgdTopN');
                 if (elLgdTopN) elLgdTopN.addEventListener('change', () => {
-                    const node = (lgdNode.value || '').trim();
-                    if (node && !/^tutti$/i.test(node)) renderLgdTopForNode(node); else renderAllPanelsForCurrentFilters();
+                    renderAllDebounced();
                 });
             }
             // LGA Distribuzione Severità (aggregato o per nodo)
             const lgaSevNode = document.getElementById('lgaSevNodeSelect');
             if (lgaSevNode) {
                 lgaSevNode.addEventListener('change', () => {
-                    const node = (lgaSevNode.value || '').trim();
-                    if (!node || /^tutti$/i.test(node)) { renderAllPanelsForCurrentFilters(); return; }
-                    renderLgaSeverityForNode(node);
+                    renderAllDebounced();
                 });
             }
             // LGD Durata Totale per Tipo
             const lgdDurNode = document.getElementById('lgdDurNodeSelect');
             if (lgdDurNode) {
                 lgdDurNode.addEventListener('change', () => {
-                    const node = (lgdDurNode.value || '').trim();
-                    if (!node || /^tutti$/i.test(node)) { renderAllPanelsForCurrentFilters(); return; }
-                    renderLgdDurForNode(node);
+                    renderAllDebounced();
                 });
                 const elLgdDurN = document.getElementById('lgdDurN');
                 if (elLgdDurN) elLgdDurN.addEventListener('change', () => {
-                    const node = (lgdDurNode.value || '').trim();
-                    if (node && !/^tutti$/i.test(node)) renderLgdDurForNode(node); else renderAllPanelsForCurrentFilters();
+                    renderAllDebounced();
                 });
             }
             // LGD Top per nodo (card Eventi Restart per nodo): aggiorna su cambio Top N
@@ -1202,7 +1270,7 @@ a { color: var(--accent); }
             if (elLgdTopByFileN) {
                 elLgdTopByFileN.addEventListener('change', () => {
                     // Questo pannello è aggregato (non filtrato per nodo specifico)
-                    renderAllPanelsForCurrentFilters();
+                    renderAllDebounced();
                 });
             }
         }
@@ -1236,7 +1304,7 @@ a { color: var(--accent); }
 
         // Aggregato: LGA Top per titolo
         function renderLgaTopAll() {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const df = document.getElementById('globalDateFrom');
             const dt = document.getElementById('globalDateTo');
             const qs = [];
@@ -1245,7 +1313,8 @@ a { color: var(--accent); }
             if (dfv) qs.push('from=' + encodeURIComponent(dfv));
             if (dtv) qs.push('to=' + encodeURIComponent(dtv));
             qs.push('limit=100000');
-            fetch(`${base}/api/lga${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+            const ctrl = nextController('lgaTopAll');
+            fetch(`${base}/api/lga${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors', signal: ctrl.signal })
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
                 .then(resp => {
                     const items = Array.isArray(resp.lga) ? resp.lga : [];
@@ -1255,12 +1324,12 @@ a { color: var(--accent); }
                     const vis = rows.slice(0, Math.min(n, rows.length||5));
                     makeTable('lgaTop', ['Titolo', 'Conteggio'], vis, { clickable: true });
                     makeBarChart('lgaTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), 'Top Allarmi LGA (Tutti)');
-                }).catch(()=>{/*ignore*/});
+                }).catch(err=>{ if (err && err.name === 'AbortError') return; });
         }
 
         // Aggregato: LGA Distribuzione Severità
         function renderLgaSeverityAll() {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const df = document.getElementById('globalDateFrom');
             const dt = document.getElementById('globalDateTo');
             const qs = [];
@@ -1269,7 +1338,8 @@ a { color: var(--accent); }
             if (dfv) qs.push('from=' + encodeURIComponent(dfv));
             if (dtv) qs.push('to=' + encodeURIComponent(dtv));
             qs.push('limit=100000');
-            fetch(`${base}/api/lga${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+            const ctrl = nextController('lgaSeverityAll');
+            fetch(`${base}/api/lga${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors', signal: ctrl.signal })
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
                 .then(resp => {
                     const items = Array.isArray(resp.lga) ? resp.lga : [];
@@ -1277,12 +1347,12 @@ a { color: var(--accent); }
                     const rows = groupCountBy(normalized, 'severity');
                     makeTable('lgaSev', ['Severità', 'Conteggio'], rows, { clickable: true });
                     makePieChart('lgaSevChart', rows.map(r=>r[0]), rows.map(r=>r[1]), 'Distribuzione Severità LGA (Tutti)');
-                }).catch(()=>{/*ignore*/});
+                }).catch(err=>{ if (err && err.name === 'AbortError') return; });
         }
 
         // Aggregato: LGE Top per titolo
         function renderLgeTopAll() {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const df = document.getElementById('globalDateFrom');
             const dt = document.getElementById('globalDateTo');
             const qs = [];
@@ -1291,7 +1361,8 @@ a { color: var(--accent); }
             if (dfv) qs.push('from=' + encodeURIComponent(dfv));
             if (dtv) qs.push('to=' + encodeURIComponent(dtv));
             qs.push('limit=100000');
-            fetch(`${base}/api/lge${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+            const ctrl = nextController('lgeTopAll');
+            fetch(`${base}/api/lge${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors', signal: ctrl.signal })
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
                 .then(resp => {
                     const items = Array.isArray(resp.lge) ? resp.lge : [];
@@ -1301,12 +1372,12 @@ a { color: var(--accent); }
                     const vis = rows.slice(0, Math.min(n, rows.length||5));
                     makeTable('lgeTop', ['Titolo', 'Conteggio'], vis, { clickable: true });
                     makeBarChart('lgeTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), 'Top Eventi LGE (Tutti)');
-                }).catch(()=>{/*ignore*/});
+                }).catch(err=>{ if (err && err.name === 'AbortError') return; });
         }
 
         // Aggregato: LGD Top per Tipo/Ragione
         function renderLgdTopAll() {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const df = document.getElementById('globalDateFrom');
             const dt = document.getElementById('globalDateTo');
             const qs = [];
@@ -1315,7 +1386,8 @@ a { color: var(--accent); }
             if (dfv) qs.push('from=' + encodeURIComponent(dfv));
             if (dtv) qs.push('to=' + encodeURIComponent(dtv));
             qs.push('limit=100000');
-            fetch(`${base}/api/lgd${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+            const ctrl = nextController('lgdTopAll');
+            fetch(`${base}/api/lgd${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors', signal: ctrl.signal })
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
                 .then(resp => {
                     const items = Array.isArray(resp.lgdRestarts) ? resp.lgdRestarts : [];
@@ -1325,12 +1397,12 @@ a { color: var(--accent); }
                     const vis = rows.slice(0, Math.min(n, rows.length||5));
                     makeTable('lgdTop', ['Tipo/Ragione', 'Conteggio'], vis, { clickable: true });
                     makeBarChart('lgdTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), 'Top Restart LGD (Tutti)');
-                }).catch(()=>{/*ignore*/});
+                }).catch(err=>{ if (err && err.name === 'AbortError') return; });
         }
 
         // Aggregato: LGD Durata totale per Tipo/Ragione
         function renderLgdDurAll() {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const df = document.getElementById('globalDateFrom');
             const dt = document.getElementById('globalDateTo');
             const qs = [];
@@ -1339,7 +1411,8 @@ a { color: var(--accent); }
             if (dfv) qs.push('from=' + encodeURIComponent(dfv));
             if (dtv) qs.push('to=' + encodeURIComponent(dtv));
             qs.push('limit=100000');
-            fetch(`${base}/api/lgd${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+            const ctrl = nextController('lgdDurAll');
+            fetch(`${base}/api/lgd${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors', signal: ctrl.signal })
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
                 .then(resp => {
                     const items = Array.isArray(resp.lgdRestarts) ? resp.lgdRestarts : [];
@@ -1349,12 +1422,12 @@ a { color: var(--accent); }
                     const vis = rows.slice(0, Math.min(n, rows.length||5));
                     makeTable('lgdDur', ['Tipo/Ragione', 'Durata Totale (s)'], vis, { clickable: true });
                     makeBarChart('lgdDurChart', vis.map(r=>r[0]), vis.map(r=>r[1]), 'Durata totale (s) (Tutti)');
-                }).catch(()=>{/*ignore*/});
+                }).catch(err=>{ if (err && err.name === 'AbortError') return; });
         }
 
         // Aggregato: LGD Top per File Name
         function renderLgdTopByFileAll() {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const df = document.getElementById('globalDateFrom');
             const dt = document.getElementById('globalDateTo');
             const qs = [];
@@ -1363,7 +1436,8 @@ a { color: var(--accent); }
             if (dfv) qs.push('from=' + encodeURIComponent(dfv));
             if (dtv) qs.push('to=' + encodeURIComponent(dtv));
             qs.push('limit=100000');
-            fetch(`${base}/api/lgd${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors' })
+            const ctrl = nextController('lgdTopByFileAll');
+            fetch(`${base}/api/lgd${qs.length ? ('?' + qs.join('&')) : ''}`, { mode: 'cors', signal: ctrl.signal })
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
                 .then(resp => {
                     const items = Array.isArray(resp.lgdRestarts) ? resp.lgdRestarts : [];
@@ -1375,11 +1449,11 @@ a { color: var(--accent); }
                     makeTable('lgdTopByFile', ['File Name', 'Conteggio'], vis.map(([name,count]) => [stripLogExt(name), count]), { clickable: true });
                     const labelsDisplay = vis.map(r => stripLogExt(r[0]));
                     makeBarChart('lgdTopByFileChart', labelsDisplay, vis.map(r => r[1]), 'Top Restart per nodo (Tutti)');
-                }).catch(()=>{/*ignore*/});
+                }).catch(err=>{ if (err && err.name === 'AbortError') return; });
         }
 
         function populateNodeLists() {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const lists = ['globalNodeList','lgaNodeList','lgeNodeList','lgdNodeList','lgdDurNodeList','lgaSevNodeList'];
             const setNodes = (nodes) => {
                 const options = ['<option value="Tutti">Tutti</option>'];
@@ -1432,7 +1506,7 @@ a { color: var(--accent); }
         }
 
         function renderLgaTopForNode(node) {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const df = document.getElementById('globalDateFrom');
             const dt = document.getElementById('globalDateTo');
             const qs = [`node=${encodeURIComponent(node)}`];
@@ -1440,7 +1514,8 @@ a { color: var(--accent); }
             const dtv = (dt && dt.value) ? dt.value.trim() : '';
             if (dfv) qs.push('from=' + encodeURIComponent(dfv));
             if (dtv) qs.push('to=' + encodeURIComponent(dtv));
-            fetch(`${base}/api/lga?${qs.join('&')}`, { mode: 'cors' })
+            const ctrl = nextController('lgaTopNode');
+            fetch(`${base}/api/lga?${qs.join('&')}`, { mode: 'cors', signal: ctrl.signal })
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
                 .then(resp => {
                     const items = Array.isArray(resp.lga) ? resp.lga : [];
@@ -1450,11 +1525,11 @@ a { color: var(--accent); }
                     const vis = rows.slice(0, Math.min(n, rows.length||5));
                     makeTable('lgaTop', ['Titolo', 'Conteggio'], vis, { clickable: true });
                     makeBarChart('lgaTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), `Top Allarmi LGA (${stripLogExt(node)})`);
-                }).catch(()=>{/*ignore*/});
+                }).catch(err=>{ if (err && err.name === 'AbortError') return; });
         }
 
         function renderLgaSeverityForNode(node) {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const df = document.getElementById('globalDateFrom');
             const dt = document.getElementById('globalDateTo');
             const qs = [`node=${encodeURIComponent(node)}`];
@@ -1462,7 +1537,8 @@ a { color: var(--accent); }
             const dtv = (dt && dt.value) ? dt.value.trim() : '';
             if (dfv) qs.push('from=' + encodeURIComponent(dfv));
             if (dtv) qs.push('to=' + encodeURIComponent(dtv));
-            fetch(`${base}/api/lga?${qs.join('&')}`, { mode: 'cors' })
+            const ctrl = nextController('lgaSeverityNode');
+            fetch(`${base}/api/lga?${qs.join('&')}`, { mode: 'cors', signal: ctrl.signal })
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
                 .then(resp => {
                     const items = Array.isArray(resp.lga) ? resp.lga : [];
@@ -1470,11 +1546,11 @@ a { color: var(--accent); }
                     const rows = groupCountBy(normalized, 'severity');
                     makeTable('lgaSev', ['Severità', 'Conteggio'], rows, { clickable: true });
                     makePieChart('lgaSevChart', rows.map(r=>r[0]), rows.map(r=>r[1]), `Distribuzione Severità LGA (${stripLogExt(node)})`);
-                }).catch(()=>{/*ignore*/});
+                }).catch(err=>{ if (err && err.name === 'AbortError') return; });
         }
 
         function renderLgeTopForNode(node) {
-            const base = (window.DW_BACKEND_URL || 'http://localhost:9000').replace(/\/$/, '');
+            const base = getBackendBase();
             const df = document.getElementById('globalDateFrom');
             const dt = document.getElementById('globalDateTo');
             const qs = [`node=${encodeURIComponent(node)}`];
@@ -1482,7 +1558,8 @@ a { color: var(--accent); }
             const dtv = (dt && dt.value) ? dt.value.trim() : '';
             if (dfv) qs.push('from=' + encodeURIComponent(dfv));
             if (dtv) qs.push('to=' + encodeURIComponent(dtv));
-            fetch(`${base}/api/lge?${qs.join('&')}`, { mode: 'cors' })
+            const ctrl = nextController('lgeTopNode');
+            fetch(`${base}/api/lge?${qs.join('&')}`, { mode: 'cors', signal: ctrl.signal })
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
                 .then(resp => {
                     const items = Array.isArray(resp.lge) ? resp.lge : [];
@@ -1492,16 +1569,17 @@ a { color: var(--accent); }
                     const vis = rows.slice(0, Math.min(n, rows.length||5));
                     makeTable('lgeTop', ['Titolo', 'Conteggio'], vis, { clickable: true });
                     makeBarChart('lgeTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), `Top Eventi LGE (${stripLogExt(node)})`);
-                }).catch(()=>{/*ignore*/});
+                }).catch(err=>{ if (err && err.name === 'AbortError') return; console.error('Render LGE per nodo fallito:', err); });
         }
 
         function ensureLogSuffix(node) {
             return /\.log$/i.test(node) ? node : `${node}.log`;
         }
         function renderLgdTopForNode(node) {
-            const base = (window.DW_BACKEND_URL || 'http://localhost:9000').replace(/\/$/, '');
+            const base = getBackendBase();
             const fileName = ensureLogSuffix(node);
-            fetch(`${base}/api/node/summary?node=${encodeURIComponent(fileName)}`, { mode: 'cors' })
+            const ctrl = nextController('lgdTopNode');
+            fetch(`${base}/api/node/summary?node=${encodeURIComponent(fileName)}`, { mode: 'cors', signal: ctrl.signal })
                 .then(r=> r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
                 .then(resp => {
                     const items = Array.isArray(resp.lgdRestarts) ? resp.lgdRestarts : [];
@@ -1511,12 +1589,13 @@ a { color: var(--accent); }
                     const vis = rows.slice(0, Math.min(n, rows.length||5));
                     makeTable('lgdTop', ['Tipo/Ragione', 'Conteggio'], vis, { clickable: true });
                     makeBarChart('lgdTopChart', vis.map(r=>r[0]), vis.map(r=>r[1]), `Top Restart LGD (${stripLogExt(fileName)})`);
-                }).catch(()=>{/*ignore*/});
+                }).catch(err=>{ if (err && err.name === 'AbortError') return; console.error('Render LGD Top per nodo fallito:', err); });
         }
         function renderLgdDurForNode(node) {
-            const base = (window.DW_BACKEND_URL || 'http://localhost:9000').replace(/\/$/, '');
+            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
             const fileName = ensureLogSuffix(node);
-            fetch(`${base}/api/node/summary?node=${encodeURIComponent(fileName)}`, { mode: 'cors' })
+            const ctrl = nextController('lgdDurNode');
+            fetch(`${base}/api/node/summary?node=${encodeURIComponent(fileName)}`, { mode: 'cors', signal: ctrl.signal })
                 .then(r=> r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status)))
                 .then(resp => {
                     const items = Array.isArray(resp.lgdRestarts) ? resp.lgdRestarts : [];
@@ -1526,7 +1605,7 @@ a { color: var(--accent); }
                     const vis = rows.slice(0, Math.min(n, rows.length||5));
                     makeTable('lgdDur', ['Tipo/Ragione', 'Durata Totale (s)'], vis, { clickable: true });
                     makeBarChart('lgdDurChart', vis.map(r=>r[0]), vis.map(r=>r[1]), `Durata totale (s) (${stripLogExt(fileName)})`);
-                }).catch(()=>{/*ignore*/});
+                }).catch(err=>{ if (err && err.name === 'AbortError') return; console.error('Render LGD Dur per nodo fallito:', err); });
         }
     </script>
 </body>

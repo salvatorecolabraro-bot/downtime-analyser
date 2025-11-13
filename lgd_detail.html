@@ -88,11 +88,11 @@ a { color: var(--accent); }
 .progress-text { font-size: 12px; color: #666; }
 </style>
     <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
-    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
-    <meta name="dw-backend-url" content="">
+    <!-- Configurazione backend: imposta dominio backend esplicito e fallback localStorage/origin -->
+    <meta name="dw-backend-url" content="https://downtime-analyser-1.onrender.com/">
     <script>
     (function(){
-        var backendUrl = null;
+        var backendUrl = 'https://downtime-analyser-1.onrender.com/';
         try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
         if (!backendUrl) {
             var m = document.querySelector('meta[name="dw-backend-url"]');
@@ -275,8 +275,29 @@ a { color: var(--accent); }
             if (exportCtrl) exportCtrl.style.display = allRows.length > 0 ? 'flex' : 'none';
         }
 
+        // Base backend uniforme
+        (function(){ try { const saved = localStorage.getItem('dw_backend_url'); if (saved) window.DW_BACKEND_URL = saved.replace(/\/$/, ''); } catch(_) {} })();
+        function getBackendBase(){ return (window.DW_BACKEND_URL || '').replace(/\/$/, ''); }
+        async function probeBase(origin){
+            const base = String(origin||'').replace(/\/$/, '');
+            try { const ctl = new AbortController(); const t=setTimeout(()=>ctl.abort(),3000); const r=await fetch(`${base}/api/ping`,{signal:ctl.signal}); clearTimeout(t); if(!(r&&r.ok)) return false; } catch(_) { return false; }
+            try { const ctl = new AbortController(); const t=setTimeout(()=>ctl.abort(),4000); const r=await fetch(`${base}/api/stats/header`,{signal:ctl.signal}); clearTimeout(t); if(!(r&&r.ok)) return false; } catch(_) { return false; }
+            return true;
+        }
+        async function ensureBackendBase(){
+            const candidates=[];
+            const hinted=getBackendBase(); if(hinted) candidates.push(hinted);
+            try{ const saved=localStorage.getItem('dw_backend_url'); if(saved && !candidates.includes(saved)) candidates.push(saved); }catch(_){}
+            // Nessun fallback a origin
+            // Prova backend sulla stessa macchina del server statico
+            // Nessun fallback a hostname:8002/9000
+            // Nessun fallback a localhost
+            for(const c of candidates){ if(!c) continue; if(await probeBase(c)){ const norm=c.replace(/\/$/, ''); window.DW_BACKEND_URL = norm; try{ localStorage.setItem('dw_backend_url', norm); }catch(_){} return true; } }
+            const statusEl = document.getElementById('status'); if(statusEl){ statusEl.className='status error'; statusEl.textContent='Backend non raggiungibile. Configura DW_BACKEND_URL.'; }
+            return false;
+        }
         async function fetchFromBackend(typeReason) {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const params = new URLSearchParams();
             if (typeReason) params.set('typeReason', typeReason);
             const url = base + '/api/lgd?' + params.toString();
@@ -341,6 +362,7 @@ a { color: var(--accent); }
 
             if (!rawStored) {
                 const s = document.getElementById('status');
+                ensureBackendBase().then(ok => { if(!ok) return; 
                 if (window.DW_BACKEND_URL) {
                     s.className = 'status info';
                     s.textContent = 'Caricamento dal backend...';
@@ -393,6 +415,7 @@ a { color: var(--accent); }
                     s.textContent = 'Nessun dato disponibile. Se usi file:// apri stats nella stessa scheda, oppure usa un server locale.';
                     return;
                 }
+                });
             }
 
             let raw;
@@ -447,6 +470,7 @@ a { color: var(--accent); }
             });
             if (filtered.length === 0) {
                 const s = document.getElementById('status');
+                ensureBackendBase().then(ok => { if(!ok) return; 
                 if (window.DW_BACKEND_URL) {
                     s.className = 'status info';
                     s.textContent = 'Carico dettagli dal backend...';
@@ -494,6 +518,7 @@ a { color: var(--accent); }
                     });
                     return;
                 }
+                });
                 s.className = 'status warning';
                 s.textContent = 'Nessun evento trovato per questo Tipo/Ragione.';
                 return;
@@ -545,7 +570,7 @@ a { color: var(--accent); }
             applyNodeFilter(currentNodeFilter);
         }
 
-        const exportServerBase = (typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin);
+        const exportServerBase = getBackendBase();
         // Helpers barra di avanzamento export
         let exportProgressHideTimer = null;
         function showExportProgress(initialText){

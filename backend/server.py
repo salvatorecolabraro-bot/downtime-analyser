@@ -6,7 +6,7 @@ import json
 import uuid
 import time
 import zipfile
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -16,6 +16,123 @@ USERS_FILE = os.path.join(PROJECT_ROOT, 'backend', 'users.json')
 
 # In-memory job store
 JOBS = {}
+
+# Cache semplice basata su snapshot della directory DW
+# Snapshot: (file_count, latest_mtime)
+_DW_CACHE = {
+    'snapshot': None,
+    'parsed_summary': None,  # risultato di parse_logs_summary()
+    'lgd_metrics': None,     # risultato di parse_lgd_metrics()
+    'charts_summary': {},    # mappa top_n -> (snapshot, data)
+}
+
+def _dw_snapshot():
+    try:
+        if not os.path.isdir(DW_DIR):
+            return (0, 0)
+        latest = 0
+        count = 0
+        for p in iter_log_files() or []:
+            try:
+                st = os.stat(p)
+                count += 1
+                if st.st_mtime > latest:
+                    latest = st.st_mtime
+            except Exception:
+                continue
+        return (count, int(latest))
+    except Exception:
+        return (0, 0)
+
+def _get_parsed_summary_cached():
+    snap = _dw_snapshot()
+    if _DW_CACHE.get('snapshot') == snap and _DW_CACHE.get('parsed_summary') is not None:
+        return _DW_CACHE['parsed_summary']
+    data = parse_logs_summary()
+    _DW_CACHE['snapshot'] = snap
+    _DW_CACHE['parsed_summary'] = data
+    # invalida dipendenze derivate
+    _DW_CACHE['charts_summary'] = {}
+    return data
+
+def _get_lgd_metrics_cached():
+    snap = _dw_snapshot()
+    if _DW_CACHE.get('snapshot') == snap and _DW_CACHE.get('lgd_metrics') is not None:
+        return _DW_CACHE['lgd_metrics']
+    items = parse_lgd_metrics()
+    _DW_CACHE['snapshot'] = snap
+    _DW_CACHE['lgd_metrics'] = items
+    return items
+
+def _get_charts_summary_cached(top_n=5):
+    snap = _dw_snapshot()
+    key = max(1, min(20, int(top_n or 5)))
+    entry = _DW_CACHE['charts_summary'].get(key)
+    if entry and entry[0] == snap:
+        return entry[1]
+    # costruisci dai dati parsati (riuso cache se presente)
+    data = _get_parsed_summary_cached()
+    lga = data.get('lga', [])
+    lge = data.get('lge', [])
+    lgd = data.get('lgdRestarts', [])
+    charts = compute_charts_summary(key) if False else None
+    # ricostruisci direttamente evitando rilettura file
+    def _top_counts(items, key_name, top_n_local):
+        counter = {}
+        for it in items:
+            k = (it.get(key_name) or '').strip() or 'N/D'
+            counter[k] = counter.get(k, 0) + 1
+        pairs = sorted(counter.items(), key=lambda kv: kv[1], reverse=True)[:top_n_local]
+        return {'labels': [p[0] for p in pairs], 'data': [p[1] for p in pairs]}
+    lga_top_title = _top_counts(lga, 'title', key)
+    lge_top_title = _top_counts(lge, 'title', key)
+    sev = {}
+    for it in lga:
+        s = (it.get('severity') or '').strip().upper() or 'N/D'
+        sev[s] = sev.get(s, 0) + 1
+    sev_pairs = sorted(sev.items(), key=lambda kv: kv[1], reverse=True)
+    lga_severity = {'labels': [p[0] for p in sev_pairs], 'data': [p[1] for p in sev_pairs]}
+    lgd_top_type = _top_counts(lgd, 'typeReason', key)
+    lgd_top_node = _top_counts(lgd, 'fileName', key)
+    def _parse_duration_sec(s):
+        try:
+            raw = (s or '').strip().lower()
+            if not raw:
+                return 0
+            m = DURATION_RX.match(raw)
+            if m:
+                return int(m.group(1) or '0') * 3600 + int(m.group(2) or '0') * 60 + int(m.group(3) or '0')
+            m2 = re.match(r"^(\d+)\s*s\b", raw)
+            if m2:
+                return int(m2.group(1))
+            total = 0
+            mh = re.search(r"(\d+)\s*h", raw)
+            mm = re.search(r"(\d+)\s*m", raw)
+            ms = re.search(r"(\d+)\s*s", raw)
+            if mh:
+                total += int(mh.group(1)) * 3600
+            if mm:
+                total += int(mm.group(1)) * 60
+            if ms:
+                total += int(ms.group(1))
+            return total
+        except Exception:
+            return 0
+    dmap = {}
+    for it in lgd:
+        k = (it.get('typeReason') or '').strip() or 'N/D'
+        dmap[k] = dmap.get(k, 0) + _parse_duration_sec(it.get('duration') or '')
+    d_pairs = sorted(dmap.items(), key=lambda kv: kv[1], reverse=True)[:key]
+    charts = {
+        'lgaTopByTitle': lga_top_title,
+        'lgeTopByTitle': lge_top_title,
+        'lgaSeverity': lga_severity,
+        'lgdTopByTypeReason': lgd_top_type,
+        'lgdTopByFileName': lgd_top_node,
+        'lgdDurationByTypeReason': {'labels': [p[0] for p in d_pairs], 'data': [p[1] for p in d_pairs]},
+    }
+    _DW_CACHE['charts_summary'][key] = (snap, charts)
+    return charts
 
 
 def ensure_dirs():
@@ -66,27 +183,17 @@ def count_stats():
             'lgdCount': 0,
             'lgdRestartsCount': 0,
         }
-    # Usa il parser per LGA/LGE e LGD restarts
-    parsed = parse_logs_summary()
+    # Usa il parser con cache per LGA/LGE e LGD restarts
+    parsed = _get_parsed_summary_cached()
     lga_count = len(parsed.get('lga', []))
     lge_count = len(parsed.get('lge', []))
     lgd_restarts_count = len(parsed.get('lgdRestarts', []))
-    # Conta le righe LGD statistiche come fa il frontend (metriche)
-    for path in iter_log_files():
+    # Conta metriche LGD usando cache
+    lgd_items = _get_lgd_metrics_cached()
+    lgd_count = len(lgd_items)
+    # Conta file
+    for _ in iter_log_files():
         total_files += 1
-        try:
-            with open(path, 'r', encoding='utf-8', errors='ignore') as f:
-                for raw in f:
-                    line = raw.strip()
-                    if not line:
-                        continue
-                    if (line.startswith('Number Of outages') or
-                        line.startswith('Total downtime') or
-                        line.startswith('Downtime per day') or
-                        line.startswith('Downtime per outage')):
-                        lgd_count += 1
-        except Exception:
-            pass
     return {
         'totalFiles': total_files,
         'lgaCount': lga_count,
@@ -525,14 +632,14 @@ class APIHandler(BaseHTTPRequestHandler):
                 top = int(qs.get('n', ['5'])[0])
             except Exception:
                 top = 5
-            charts = compute_charts_summary(max(1, min(20, top)))
+            charts = _get_charts_summary_cached(max(1, min(20, top)))
             self._set_headers(200)
             self.wfile.write(json.dumps(charts).encode('utf-8'))
             return
         # Nuovo: dettagli LGA/LGE con filtri (per abilitare drilldown severità in backend)
         if path == '/api/lga' or path == '/api/lge':
             try:
-                parsed = parse_logs_summary()
+                parsed = _get_parsed_summary_cached()
                 key = 'lga' if path.endswith('/lga') else 'lge'
                 items = parsed.get(key, [])
                 severity = (qs.get('severity', [''])[0] or '').strip().upper()
@@ -573,7 +680,7 @@ class APIHandler(BaseHTTPRequestHandler):
         # Nuovo: dettagli LGD restarts filtrati per typeReason, nodo, data
         if path == '/api/lgd':
             try:
-                parsed = parse_logs_summary()
+                parsed = _get_parsed_summary_cached()
                 items = parsed.get('lgdRestarts', [])
                 # Normalizza typeReason: senza spazi, case-insensitive
                 tr_q = (qs.get('typeReason', [''])[0] or '').strip()
@@ -627,7 +734,7 @@ class APIHandler(BaseHTTPRequestHandler):
         # Metriche LGD
         if path == '/api/lgd_metrics':
             try:
-                items = parse_lgd_metrics()
+                items = _get_lgd_metrics_cached()
                 node = (qs.get('node', [''])[0] or '').strip()
                 metric_q = (qs.get('metric', [''])[0] or '').strip()
                 try:
@@ -669,7 +776,7 @@ class APIHandler(BaseHTTPRequestHandler):
             node_base = os.path.splitext(node)[0]
             node_log = node_base + '.log'
             try:
-                parsed = parse_logs_summary()
+                parsed = _get_parsed_summary_cached()
                 def by_node(items):
                     out = []
                     for it in items or []:
@@ -1040,8 +1147,8 @@ class APIHandler(BaseHTTPRequestHandler):
 if __name__ == '__main__':
     ensure_dirs()
     port = int(os.environ.get('PORT', '9000'))
-    server = HTTPServer(('0.0.0.0', port), APIHandler)
-    print(f"Backend server running at http://localhost:{port}/")
+    server = ThreadingHTTPServer(('0.0.0.0', port), APIHandler)
+    print(f"Backend server running at http://localhost:{port}/ (threaded)")
     print(f"DW directory: {DW_DIR}")
     try:
         server.serve_forever()

@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downtime Analytics</title>
-    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
-    <meta name="dw-backend-url" content="">
+    <!-- Configurazione backend: URL esplicito, sovrascrivibile via localStorage -->
+    <meta name="dw-backend-url" content="https://downtime-analyser-1.onrender.com/">
     <script>
       (function(){
-        var backendUrl = null;
+        var backendUrl = 'https://downtime-analyser-1.onrender.com/';
         try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
         if (!backendUrl) {
           var m = document.querySelector('meta[name="dw-backend-url"]');
@@ -693,8 +693,29 @@ a { color: var(--accent); }
             (function fetchBackendAndRender(){
                 const s = document.getElementById('status');
                 if (s) { s.className = 'status info'; s.textContent = 'Caricamento dati dal backend…'; s.style.display = ''; }
-            const base = (window.DW_BACKEND_URL || location.origin);
-                const url = base.replace(/\/$/, '') + '/api/node/summary?node=' + encodeURIComponent(nodeNameFull);
+            // Base backend uniforme
+            (function(){ try { const saved = localStorage.getItem('dw_backend_url'); if (saved) window.DW_BACKEND_URL = saved.replace(/\/$/, ''); } catch(_) {} })();
+function getBackendBase(){ return (window.DW_BACKEND_URL || '').replace(/\/$/, ''); }
+            async function probeBase(origin){
+                const base = String(origin||'').replace(/\/$/, '');
+                try { const ctl = new AbortController(); const t=setTimeout(()=>ctl.abort(),3000); const r=await fetch(`${base}/api/ping`,{signal:ctl.signal}); clearTimeout(t); if(!(r&&r.ok)) return false; } catch(_) { return false; }
+                try { const ctl = new AbortController(); const t=setTimeout(()=>ctl.abort(),4000); const r=await fetch(`${base}/api/stats/header`,{signal:ctl.signal}); clearTimeout(t); if(!(r&&r.ok)) return false; } catch(_) { return false; }
+                return true;
+            }
+            async function ensureBackendBase(){
+                const candidates=[];
+                const hinted=getBackendBase(); if(hinted) candidates.push(hinted);
+                try{ const saved=localStorage.getItem('dw_backend_url'); if(saved && !candidates.includes(saved)) candidates.push(saved); }catch(_){}
+                // Nessun fallback a origin
+                // Prova backend sulla stessa macchina del server statico
+                // Nessun fallback a hostname:8002/9000
+                // Nessun fallback a localhost
+                for(const c of candidates){ if(!c) continue; if(await probeBase(c)){ const norm=c.replace(/\/$/, ''); window.DW_BACKEND_URL = norm; try{ localStorage.setItem('dw_backend_url', norm); }catch(_){} return true; } }
+                const s3 = document.getElementById('status'); if(s3){ s3.className='status error'; s3.textContent='Backend non raggiungibile. Configura DW_BACKEND_URL.'; }
+                return false;
+            }
+            ensureBackendBase().then(ok => { if(!ok) return;
+                const url = getBackendBase() + '/api/node/summary?node=' + encodeURIComponent(nodeNameFull);
                 fetch(url, { mode: 'cors' })
                     .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
                     .then(resp => {
@@ -711,6 +732,7 @@ a { color: var(--accent); }
                         const s2 = document.getElementById('status');
                         if (s2) { s2.className = 'status error'; s2.textContent = 'Errore nel caricamento dal backend: ' + (err && err.message ? err.message : err); s2.style.display = ''; }
                     });
+            });
             })();
 
             // Render raggruppato per ogni LGD: sotto ciascun restart, LGA e LGE entro ±2 minuti
@@ -1016,7 +1038,7 @@ a { color: var(--accent); }
             // Qui non serve alcun render aggiuntivo.
 
             // Base per servizi di export
-        const exportServerBase = (typeof DW_BACKEND_URL !== 'undefined' && DW_BACKEND_URL) ? DW_BACKEND_URL : (localStorage.getItem('dw_backend_url') || location.origin);
+        const exportServerBase = getBackendBase();
 
             function showExportProgress(ids) {
                 if (!ids) return;

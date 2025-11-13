@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downtime Analytics</title>
-    <!-- Configurazione backend: localStorage 'dw_backend_url' → default a location.origin se HTTP/HTTPS -->
-    <meta name="dw-backend-url" content="">
+    <!-- Configurazione backend: imposta dominio backend esplicito e fallback localStorage/origin -->
+    <meta name="dw-backend-url" content="https://downtime-analyser-1.onrender.com/">
     <script>
       (function(){
         var backendUrl = null;
+        // Dominio esplicito
+        backendUrl = 'https://downtime-analyser-1.onrender.com/';
         try { backendUrl = localStorage.getItem('dw_backend_url'); } catch(_) {}
         if (!backendUrl) {
           var m = document.querySelector('meta[name="dw-backend-url"]');
@@ -109,30 +111,6 @@
             box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
         }
         
-        .export-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 20px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 5px;
-            min-width: 200px;
-        }
-        
-        .export-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
-        }
-        
-        .export-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
         
         .file-list {
             margin: 20px 0;
@@ -176,30 +154,7 @@
             background: #c82333;
         }
         
-        .export-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .export-card {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
-        }
-        
-        .export-card h3 {
-            margin: 0 0 15px 0;
-            color: var(--text);
-            font-size: 1.3em;
-        }
-        
-        .export-card p {
-            color: var(--text);
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
+        /* Stili export rimossi */
         
         .status {
             margin: 20px 0;
@@ -362,9 +317,9 @@ body { background: var(--bg); color: var(--text); }
 .content { color: var(--text); }
 .upload-section { background: #0d1424; border: 2px dashed #263347; color: var(--muted); }
 .upload-section .cloud { font-size: 40px; margin-bottom: 10px; color: var(--accent); }
-.upload-btn, .export-btn { background: #16233a; color: var(--text); border: 1px solid #263347; }
-.upload-btn:hover, .export-btn:hover { background: #1b2a44; }
-.file-list, .export-card, .chart-card, .stat-card, .card { background: #0d1424; color: var(--text); }
+.upload-btn { background: #16233a; color: var(--text); border: 1px solid #263347; }
+.upload-btn:hover { background: #1b2a44; }
+.file-list, .chart-card, .stat-card, .card { background: #0d1424; color: var(--text); }
 .stat-number { color: var(--accent); }
 /* Opacità card in fase di elaborazione/salvataggio */
 .stat-card.opaque { filter: blur(3px); opacity: 0.5; transition: all 0.2s ease-in-out; }
@@ -408,13 +363,13 @@ a { color: var(--accent); }
             <div style="margin-top:6px; display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;">
                 <div id="dataSourceBadge" style="font-size:12px; opacity:0.9;">Origine dati: Backend</div>
             </div>
-            <div id="userAuthBox" style="margin-top:8px; display:flex; gap:8px; align-items:center; justify-content:center; flex-wrap:wrap;">
+            <form id="userAuthBox" style="margin-top:8px; display:flex; gap:8px; align-items:center; justify-content:center; flex-wrap:wrap;" onsubmit="event.preventDefault(); return false;">
                 <span id="currentUserLabel" style="display:none; font-size:12px; background:#fff3cd; color:#856404; padding:3px 8px; border-radius:6px;"></span>
                 <input id="usernameInput" placeholder="Username" style="padding:6px 8px; border-radius:6px; border:1px solid #ddd; max-width:140px;">
                 <input id="passwordInput" placeholder="Password" type="password" style="padding:6px 8px; border-radius:6px; border:1px solid #ddd; max-width:140px;">
-                <button id="loginBtn" class="upload-btn" style="padding:8px 14px;">Login</button>
-                <button id="logoutBtn" class="remove-btn" style="display:none; padding:8px 14px;">Logout</button>
-            </div>
+                <button id="loginBtn" type="button" class="upload-btn" style="padding:8px 14px;">Login</button>
+                <button id="logoutBtn" type="button" class="remove-btn" style="display:none; padding:8px 14px;">Logout</button>
+            </form>
         </div>
         
         <div class="content">
@@ -504,71 +459,7 @@ a { color: var(--accent); }
                 </div>
             </div>
             
-            <div class="export-section">
-                <div class="export-card">
-                    <h3>📡 Carica dati dal backend</h3>
-                    <p>Recupera LGA, LGE e eventi LGD dal backend per abilitare gli export.</p>
-                    <button class="export-btn" id="loadFromBackend" onclick="loadDataFromBackend()">
-                        Carica dati dal backend
-                    </button>
-                </div>
-                <div class="export-card">
-                    <h3>📊 Esporta LGA (Allarmi)</h3>
-                    <p>Genera file Excel con tutti gli allarmi dalle sezioni LGA nel formato: Data, Ora, Type, Sev, Oggetto, Descrizione, Dettaglio</p>
-                    <button class="export-btn" id="exportLGA" onclick="exportLGA()" disabled>
-                        Esporta LGA Excel
-                    </button>
-                </div>
-                
-                <div class="export-card">
-                    <h3>⚠️ Esporta LGE (Eventi)</h3>
-                    <p>Genera file Excel con tutti gli eventi dalle sezioni LGE nel formato: Data, Ora, Type, Sev, Oggetto, Descrizione, Dettaglio</p>
-                    <button class="export-btn" id="exportLGE" onclick="exportLGE()" disabled>
-                        Esporta LGE Excel
-                    </button>
-                </div>
-                
-                <div class="export-card">
-                    <h3>📈 Esporta LGD (Statistiche)</h3>
-                    <p>Genera file Excel con le statistiche Period=30 days dalle sezioni LGD</p>
-                    <button class="export-btn" id="exportLGD" onclick="exportLGD()" disabled>
-                        Esporta LGD Excel
-                    </button>
-                </div>
-                
-                <div class="export-card">
-                    <h3>📊 Conteggio PartialOutages</h3>
-                    <p>Genera tabella di conteggio per Number Of outages di PartialOutages</p>
-                    <button class="export-btn" id="exportOutagesCount" onclick="exportOutagesCount()" disabled>
-                        Esporta Conteggio Outages
-                    </button>
-                </div>
-                
-                <div class="export-card">
-                    <h3>⏱️ Downtime PartialOutages</h3>
-                    <p>Genera tabella per Total downtime con conteggio PartialOutages</p>
-                    <button class="export-btn" id="exportDowntimeCount" onclick="exportDowntimeCount()" disabled>
-                        Esporta Conteggio Downtime
-                    </button>
-                </div>
-                
-                <div class="export-card">
-                    <h3>🔄 Eventi Restart LGD</h3>
-                    <p>Genera file Excel con eventi LGD (LGDC) nel formato: Data, Ora, Tipo/Ragione, Valore, Commento, Durata</p>
-                    <button class="export-btn" id="exportLGDRestarts" onclick="exportLGDRestarts()" disabled>
-                        Esporta Eventi Restart LGD
-                    </button>
-                </div>
-
-                <!-- Barra avanzamento export asincrono -->
-                <div id="exportProgressContainer" style="display:none; text-align:left; margin-top: 10px;">
-                    <div style="font-weight:600; color: var(--text); margin: 6px 0;">Salvataggio risultati in corso...</div>
-                    <div class="progress-bar">
-                        <div id="exportProgressFill" class="progress-fill"></div>
-                    </div>
-                    <div id="exportProgressText" style="font-size:0.95em; color:#94a3b8;">0% — In attesa…</div>
-                </div>
-            </div>
+            
             
             <div id="fileList" class="file-list" style="display: none;">
                 <h3>📋 File Caricati</h3>
@@ -851,7 +742,6 @@ a { color: var(--accent); }
                 setChartCardsOpacity(false);
                 // Aggiorna interfaccia in base ai dati già presenti
                 updateStats();
-                updateExportButtons();
                 // Mantieni grafici e tabelle basati sui dati persistiti
                 await computeAndRenderCharts();
                 renderPreviewTables();
@@ -894,7 +784,6 @@ a { color: var(--accent); }
             }
             
             updateStats();
-            updateExportButtons();
             // Salva i dati analizzati in localStorage per la pagina statistiche
             // Cedi il controllo prima del salvataggio (compressione può essere corposa)
             showStatus('Salvataggio risultati', 'info');
@@ -1251,15 +1140,7 @@ a { color: var(--accent); }
             if (statsSection) statsSection.style.display = 'grid';
         }
 
-        function updateExportButtons() {
-            const hasData = (parsedData.lga.length + parsedData.lge.length + parsedData.lgd.length + parsedData.lgdRestarts.length) > 0;
-            document.getElementById('exportLGA').disabled = !hasData || parsedData.lga.length === 0;
-            document.getElementById('exportLGE').disabled = !hasData || parsedData.lge.length === 0;
-            document.getElementById('exportLGD').disabled = !hasData || parsedData.lgd.length === 0;
-            document.getElementById('exportOutagesCount').disabled = !hasData || parsedData.lgd.length === 0;
-            document.getElementById('exportDowntimeCount').disabled = !hasData || parsedData.lgd.length === 0;
-            document.getElementById('exportLGDRestarts').disabled = !hasData || parsedData.lgdRestarts.length === 0;
-        }
+        // (export disabilitato) nessun controllo pulsanti export necessario
 
         // ===== Grafici Top 5 =====
         let charts = {};
@@ -1524,7 +1405,7 @@ a { color: var(--accent); }
 
         // Backend charts (senza parsing locale)
         async function fetchAndRenderChartsFromBackend(topN = 5) {
-            const base = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+            const base = getBackendBase();
             const url = `${base}/api/charts/summary?n=${encodeURIComponent(topN)}`;
             try {
                 const res = await fetch(url, { mode: 'cors' });
@@ -1613,11 +1494,56 @@ a { color: var(--accent); }
                 return info && info.role === 'admin';
             } catch(_) { return false; }
         }
-        function loginUser() {
+        // Rilevamento automatico del backend (porta corretta)
+        try { const saved = localStorage.getItem('dw_backend_url'); if (saved) { window.DW_BACKEND_URL = saved; } } catch(_) {}
+        let API_BASE = (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '');
+        async function ping(url) {
+            try {
+                const ctl = new AbortController();
+                const t = setTimeout(() => ctl.abort(), 2500);
+                const res = await fetch(`${url.replace(/\/$/, '')}/api/ping`, { signal: ctl.signal });
+                clearTimeout(t);
+                return !!(res && res.ok);
+            } catch (_) { return false; }
+        }
+        async function probeBase(url) {
+            const base = url.replace(/\/$/, '');
+            if (!(await ping(base))) return false;
+            try {
+                const ctl = new AbortController();
+                const t = setTimeout(() => ctl.abort(), 2500);
+                const res = await fetch(`${base}/api/stats/header`, { signal: ctl.signal });
+                clearTimeout(t);
+                return !!(res && res.ok);
+            } catch (_) { return false; }
+        }
+        async function ensureBackendBase() {
+            const pref = (window.DW_BACKEND_URL || '').replace(/\/$/, '');
+            let candidates = [];
+            try { const saved = localStorage.getItem('dw_backend_url'); if (saved) candidates.push(saved.replace(/\/$/, '')); } catch(_) {}
+            if (pref) candidates.push(pref);
+            // Nessun fallback a origin
+            // Prova backend sulla stessa macchina del server statico
+            // Nessun fallback a hostname:8002/9000
+            // Nessun fallback a localhost
+            candidates = [...new Set(candidates)];
+            for (const c of candidates) {
+                if (await probeBase(c)) {
+                    API_BASE = c.replace(/\/$/, '');
+                    try { localStorage.setItem('dw_backend_url', API_BASE); } catch(_) {}
+                    window.DW_BACKEND_URL = API_BASE;
+                    return true;
+                }
+            }
+            showStatus('Backend non raggiungibile o incompleto. Imposta DW_BACKEND_URL.', 'error');
+            return false;
+        }
+        async function loginUser() {
             const usernameInput = document.getElementById('usernameInput');
             const u = (usernameInput && usernameInput.value || '').trim();
             if (!u) { showStatus('Inserisci username', 'error'); return; }
-            const base = (window.DW_BACKEND_URL || location.origin);
+            const ok = await ensureBackendBase(); if (!ok) { return; }
+            const base = getBackendBase();
             fetch(base.replace(/\/$/, '') + '/api/auth/login', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: u })
@@ -1636,7 +1562,8 @@ a { color: var(--accent); }
                 showStatus('Accesso eseguito come ' + (info.username || u), 'success');
             })
             .catch(err => {
-                showStatus((err && err.error) || 'Login fallito', 'error');
+                const msg = (err && err.error) || 'Login fallito';
+                showStatus(msg + ` (backend: ${ (window.DW_BACKEND_URL || location.origin).replace(/\/$/, '') })`, 'error');
             });
         }
         function logoutUser() {
@@ -1790,92 +1717,15 @@ a { color: var(--accent); }
             }
         }
 
-        function exportLGA() {
-            if (parsedData.lga.length === 0) {
-                showStatus('Nessun dato LGA trovato', 'error');
-                return;
-            }
-            const payload = buildExportPayload('LGA');
-            startAsyncExport('LGA', payload);
-        }
+        // Funzioni di export legacy rimosse
 
-        function exportLGE() {
-            if (parsedData.lge.length === 0) {
-                showStatus('Nessun dato LGE trovato', 'error');
-                return;
-            }
-            const payload = buildExportPayload('LGE');
-            startAsyncExport('LGE', payload);
-        }
-
-        function exportLGD() {
-            if (parsedData.lgd.length === 0) {
-                showStatus('Nessun dato LGD trovato', 'error');
-                return;
-            }
-            const payload = buildExportPayload('LGD');
-            startAsyncExport('LGD', payload);
-        }
-
-        function exportOutagesCount() {
-            const outagesData = parsedData.lgd.filter(item => item.metric === 'Number Of outages');
-            
-            if (outagesData.length === 0) {
-                showStatus('Nessun dato Number Of outages trovato', 'error');
-                return;
-            }
-            const payload = buildExportPayload('OUTAGES_COUNT');
-            startAsyncExport('OUTAGES_COUNT', payload);
-        }
-
-        function exportDowntimeCount() {
-            const downtimeData = parsedData.lgd.filter(item => item.metric === 'Total downtime');
-            
-            if (downtimeData.length === 0) {
-                showStatus('Nessun dato Total downtime trovato', 'error');
-                return;
-            }
-            const payload = buildExportPayload('DOWNTIME_COUNT');
-            startAsyncExport('DOWNTIME_COUNT', payload);
-        }
-
-        function exportToExcel(data, fileName) {
-            try {
-                const wb = XLSX.utils.book_new();
-                const ws = XLSX.utils.aoa_to_sheet(data);
-                
-                // Auto-size columns
-                const colWidths = [];
-                data.forEach(row => {
-                    row.forEach((cell, i) => {
-                        const cellLength = cell ? cell.toString().length : 0;
-                        colWidths[i] = Math.max(colWidths[i] || 0, cellLength + 2);
-                    });
-                });
-                ws['!cols'] = colWidths.map(w => ({ width: Math.min(w, 50) }));
-                
-                XLSX.utils.book_append_sheet(wb, ws, 'Data');
-                XLSX.writeFile(wb, `${fileName}_${new Date().toISOString().slice(0, 10)}.xlsx`);
-                
-                showStatus(`File Excel ${fileName} esportato con successo!`, 'success');
-            } catch (error) {
-                console.error('Errore nell\'esportazione:', error);
-                showStatus('Errore nell\'esportazione del file Excel', 'error');
-            }
-        }
-
-        // === Export asincrono lato client ===
-        // Preferisci l'origine corrente in produzione; consenti override via DW_BACKEND_URL
-        const BACKEND_BASE = (window.DW_BACKEND_URL || location.origin);
-        const EXPORT_SERVER = BACKEND_BASE;
-        let exportInFlight = false;
-        let exportDownloadShown = false;
-        let currentExportJobType = null;
+        // Origine backend (forzata): usa solo DW_BACKEND_URL
+        function getBackendBase() { return (window.DW_BACKEND_URL || '').replace(/\/$/, ''); }
 
         async function loadDataFromBackend() {
             try {
                 showStatus('Carico dati dal backend…', 'info');
-                const base = BACKEND_BASE;
+                const base = getBackendBase();
                 const [lgaRes, lgeRes, lgdRes, lgdMetricsRes] = await Promise.all([
                     fetch(`${base}/api/lga?limit=10000`, { method: 'GET', mode: 'cors' }),
                     fetch(`${base}/api/lge?limit=10000`, { method: 'GET', mode: 'cors' }),
@@ -1891,7 +1741,6 @@ a { color: var(--accent); }
                 parsedData.lgdRestarts = Array.isArray(lgdJson.lgdRestarts) ? lgdJson.lgdRestarts : [];
                 parsedData.lgd = Array.isArray(lgdMetricsJson.lgd) ? lgdMetricsJson.lgd : [];
                 updateStats();
-                updateExportButtons();
                 try { await fetchAndRenderChartsFromBackend(5); } catch (_) {}
                 renderPreviewTables();
                 showStatus('Dati caricati dal backend', 'success');
@@ -1901,263 +1750,7 @@ a { color: var(--accent); }
             }
         }
 
-        function showExportProgress(initialMessage) {
-            const c = document.getElementById('exportProgressContainer');
-            const f = document.getElementById('exportProgressFill');
-            const t = document.getElementById('exportProgressText');
-            const d = document.getElementById('exportDownload');
-            const a = document.getElementById('exportDownloadLink');
-            if (c) c.style.display = 'block';
-            if (d) d.style.display = 'none';
-            if (a) { a.removeAttribute('href'); a.removeAttribute('download'); }
-            if (f) f.style.width = '0%';
-            stopExportHeartbeat();
-            exportHeartbeatPercent = 0;
-            exportDownloadShown = false;
-            lastExportMessage = initialMessage || 'Inizio';
-            if (t) t.textContent = `0% — ${lastExportMessage}`;
-        }
-
-        let lastExportMessage = '';
-        function setExportProgress(percent, message) {
-            const f = document.getElementById('exportProgressFill');
-            const t = document.getElementById('exportProgressText');
-            const p = Math.max(0, Math.min(100, Math.round(percent || 0)));
-            const m = (typeof message === 'string' && message.length) ? message : lastExportMessage;
-            lastExportMessage = m;
-            if (f) f.style.width = p + '%';
-            if (t) t.textContent = `${p}% — ${m}`;
-        }
-
-        // Heartbeat avanzamento export dopo 80%
-        let exportHeartbeatTimer = null;
-        let exportHeartbeatPercent = 0;
-        function startExportHeartbeat(startPercent) {
-            try { stopExportHeartbeat(); } catch(_) {}
-            exportHeartbeatPercent = Math.max(1, Math.min(98, Math.round(startPercent || 1)));
-            setExportProgress(exportHeartbeatPercent, lastExportMessage || 'In corso…');
-            exportHeartbeatTimer = setInterval(() => {
-                exportHeartbeatPercent = Math.min(98, exportHeartbeatPercent + 2);
-                setExportProgress(exportHeartbeatPercent, lastExportMessage || 'In corso…');
-            }, 5000);
-        }
-        function stopExportHeartbeat() {
-            if (exportHeartbeatTimer) { clearInterval(exportHeartbeatTimer); exportHeartbeatTimer = null; }
-        }
-
-        function showExportDownload(url, fileName) {
-            if (exportDownloadShown) return;
-            exportDownloadShown = true;
-            // Crea un link temporaneo per avviare il download senza mostrare alcun pulsante
-            const a = document.createElement('a');
-            a.href = url;
-            let fname = fileName;
-            if (!fname || typeof fname !== 'string' || !fname.trim()) {
-                const now = new Date();
-                const base = (currentExportJobType || 'EXPORT');
-                const ts = `${now.toISOString().slice(0,10)}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}${String(now.getSeconds()).padStart(2,'0')}`;
-                // Prova a dedurre estensione da URL
-                const isZip = /\.zip(\?|$)/i.test(url) || /export\/download\?/i.test(url);
-                const ext = isZip ? 'zip' : 'csv';
-                fname = `${base}_${ts}.${ext}`;
-            }
-            a.setAttribute('download', fname);
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            try { a.click(); } catch(_) {}
-            document.body.removeChild(a);
-        }
-
-        // Client-side CSV fallback helpers
-        function buildClientCsv(jobType, payload) {
-            try {
-                const t = (jobType || '').toUpperCase();
-                const data = payload || {};
-                const rows = [];
-                let headers = [];
-                function esc(v) {
-                    if (v == null) return '';
-                    const s = String(v);
-                    return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
-                }
-                function csvFromRows(h, r) {
-                    const lines = [];
-                    if (h && h.length) lines.push(h.map(esc).join(','));
-                    for (const row of r) { lines.push(row.map(esc).join(',')); }
-                    return lines.join('\n');
-                }
-                if (t === 'LGA' || t === 'LGE') {
-                    headers = ['File Name','Data','Ora','Type','Sev','Oggetto','Descrizione','Dettaglio'];
-                    const items = (t === 'LGA' ? (data.lga||[]) : (data.lge||[]));
-                    for (const it of items) {
-                        rows.push([it.fileName||'', it.dateIso||'', it.time||'', it.type||'', it.severity||'', it.object||'', it.title||'', it.detail||'']);
-                    }
-                    return { csv: csvFromRows(headers, rows), base: t };
-                }
-                if (t === 'LGD') {
-                    headers = ['File Name','Metric','NodeUpgrade','NodeManual','NodeSpontaneous','AllNodeRestarts','PartialOutages'];
-                    const items = data.lgd || [];
-                    for (const it of items) {
-                        rows.push([it.fileName||'', it.metric||'', it.nodeUpgrade||'', it.nodeManual||'', it.nodeSpontaneous||'', it.allNodeRestarts||'', it.partialOutages||'']);
-                    }
-                    return { csv: csvFromRows(headers, rows), base: t };
-                }
-                if (t === 'LGD_RESTARTS') {
-                    const items = data.lgdRestarts || [];
-                    const hasNew = items.some(it => 'typeReason' in it);
-                    if (hasNew) {
-                        headers = ['File Name','Data','Ora','Tipo/Ragione','Valore','Commento','Durata'];
-                        for (const it of items) {
-                            rows.push([it.fileName||'', it.dateIso||'', it.time||'', it.typeReason||'', it.value||'', it.comment||'', it.duration||'']);
-                        }
-                    } else {
-                        headers = ['File Name','Timestamp (UTC)','RestartType/Reason','SwVersion','SwRelease','RCS Downtime','Appl. Downtime','TN Downtime','RATs Downtime'];
-                        for (const it of items) {
-                            rows.push([it.fileName||'', it.timestamp||'', it.restartTypeReason||'', it.swVersion||'', it.swRelease||'', it.rcsDowntime||'', it.applDowntime||'', it.tnDowntime||'', it.ratsDowntime||'']);
-                        }
-                    }
-                    return { csv: csvFromRows(headers, rows), base: t };
-                }
-                if (t === 'OUTAGES_COUNT' || t === 'DOWNTIME_COUNT') {
-                    const isOut = t === 'OUTAGES_COUNT';
-                    headers = [isOut ? 'PartialOutages Value' : 'PartialOutages Downtime','Count','File Names'];
-                    const items = (data.lgd||[]).filter(it => it.metric === (isOut ? 'Number Of outages' : 'Total downtime'));
-                    const map = {};
-                    for (const it of items) {
-                        const key = it.partialOutages||'';
-                        map[key] = (map[key]||0) + 1;
-                    }
-                    for (const [val,cnt] of Object.entries(map)) {
-                        const files = items.filter(it => (it.partialOutages||'') === val).map(it => it.fileName||'').join(', ');
-                        rows.push([val, cnt, files]);
-                    }
-                    return { csv: csvFromRows(headers, rows), base: t };
-                }
-                return { csv: csvFromRows(['No data'], []), base: (t||'DATA') };
-            } catch (e) {
-                console.warn('Errore buildClientCsv:', e);
-                return { csv: 'No data', base: 'DATA' };
-            }
-        }
-        function triggerLocalCsvDownload(jobType, payload) {
-            const { csv, base } = buildClientCsv(jobType, payload);
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const stamp = new Date();
-            const name = `${base}_${stamp.toISOString().slice(0,10)}_${String(stamp.getHours()).padStart(2,'0')}${String(stamp.getMinutes()).padStart(2,'0')}${String(stamp.getSeconds()).padStart(2,'0')}.csv`;
-            showExportDownload(url, name);
-            setExportProgress(100, 'CSV locale pronto');
-            showStatus('Server export non disponibile; uso CSV locale.', 'warning');
-            exportInFlight = false;
-        }
-        function setExportButtonsEnabled(enabled) {
-            const ids = ['exportLGA','exportLGE','exportLGD','exportOutagesCount','exportDowntimeCount','exportLGDRestarts'];
-            ids.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.disabled = !enabled;
-            });
-        }
-
-        async function startAsyncExport(jobType, payload) {
-            if (exportInFlight) { showStatus('Export già in corso', 'warning'); return; }
-            exportInFlight = true;
-            currentExportJobType = jobType || 'EXPORT';
-            setExportButtonsEnabled(false);
-            try {
-                showExportProgress('Preparazione export…');
-                startExportHeartbeat(2);
-                const controller = new AbortController();
-                let timedOut = false;
-                const to = setTimeout(() => { timedOut = true; try { controller.abort(); } catch(_) {} }, 4000);
-                const res = await fetch(`${EXPORT_SERVER}/export/start`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: jobType, data: payload || {} }),
-                    signal: controller.signal
-                });
-                clearTimeout(to);
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const json = await res.json();
-                const jobId = json.job_id;
-                if (!jobId) throw new Error('Job ID mancante');
-                pollExportStatus(jobId, jobType, payload || {});
-            } catch (e) {
-                console.error('Errore avvio export:', e);
-                // Fallback CSV locale se il server non risponde o è assente
-                stopExportHeartbeat();
-                triggerLocalCsvDownload(jobType, payload || {});
-                exportInFlight = false;
-                setExportButtonsEnabled(true);
-            }
-        }
-
-        async function pollExportStatus(jobId, jobType, payload) {
-            let done = false;
-            const urlStatus = `${EXPORT_SERVER}/export/status?id=${encodeURIComponent(jobId)}`;
-            const urlDownload = `${EXPORT_SERVER}/export/download?id=${encodeURIComponent(jobId)}`;
-            while (!done) {
-                try {
-                    const res = await fetch(urlStatus, { method: 'GET', cache: 'no-store' });
-                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                    const info = await res.json();
-                    const pServer = typeof info.percent === 'number' ? info.percent : 0;
-                    const msg = info.message || '';
-                    // Mostra la percentuale maggiore tra server e heartbeat
-                    const pDisplay = Math.max(pServer, exportHeartbeatPercent || 0);
-                    setExportProgress(pDisplay, msg);
-                    // Avvia heartbeat subito (anche se pServer è basso) se non già avviato
-                    if (!exportHeartbeatTimer) { startExportHeartbeat(pServer || 2); }
-                    // Allinea heartbeat se il server avanza
-                    if (pServer > (exportHeartbeatPercent || 0)) { exportHeartbeatPercent = pServer; }
-                    if (info.status === 'done') {
-                        stopExportHeartbeat();
-                        showExportDownload(urlDownload);
-                        setExportProgress(100, 'Salvataggio completato');
-                        showStatus('Export pronto. Avvia download.', 'success');
-                        setExportButtonsEnabled(true);
-                        exportInFlight = false;
-                        done = true;
-                        break;
-                    }
-                    if (info.status === 'error') {
-                        stopExportHeartbeat();
-                        showStatus(msg || 'Errore durante export', 'error');
-                        setExportButtonsEnabled(true);
-                        exportInFlight = false;
-                        done = true;
-                        break;
-                    }
-                } catch (e) {
-                    console.warn('Errore polling export:', e);
-                    // Fallback CSV locale in caso di problemi di comunicazione
-                    stopExportHeartbeat();
-                    if (!exportDownloadShown) { triggerLocalCsvDownload(jobType, payload || {}); }
-                    setExportButtonsEnabled(true);
-                    exportInFlight = false;
-                    break;
-                }
-                await sleep(300);
-            }
-        }
-
-        function buildExportPayload(jobType) {
-            const t = (jobType || '').toUpperCase();
-            if (t === 'LGA') return { lga: parsedData.lga || [] };
-            if (t === 'LGE') return { lge: parsedData.lge || [] };
-            if (t === 'LGD') return { lgd: parsedData.lgd || [] };
-            if (t === 'LGD_RESTARTS') return { lgdRestarts: parsedData.lgdRestarts || [] };
-            if (t === 'OUTAGES_COUNT' || t === 'DOWNTIME_COUNT') return { lgd: parsedData.lgd || [] };
-            return {};
-        }
-
-        function exportLGDRestarts() {
-            if (parsedData.lgdRestarts.length === 0) {
-                showStatus('Nessun dato di eventi restart LGD trovato', 'error');
-                return;
-            }
-            const payload = buildExportPayload('LGD_RESTARTS');
-            startAsyncExport('LGD_RESTARTS', payload);
-        }
+        // Funzioni di export rimosse; la pagina index non supporta export.
 
         function showStatus(message, type) {
             const statusDiv = document.getElementById('statusMessage');
@@ -2172,8 +1765,8 @@ a { color: var(--accent); }
 
         // Integrazione: stats header dal backend
         function fetchAndRenderHeaderStatsFromBackend() {
-            const base = (window.DW_BACKEND_URL || location.origin);
-            const url = base.replace(/\/$/, '') + '/api/stats/header';
+            const base = getBackendBase();
+            const url = base + '/api/stats/header';
             return fetch(url, { mode: 'cors' })
                 .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
                 .then(data => {
@@ -2236,13 +1829,16 @@ a { color: var(--accent); }
 
         const restored = loadPersistedParsedData();
         updateStats();
-        updateExportButtons();
 
-        // Modalità backend-only: inizializzazione senza selettore
-        try { fetchAndRenderHeaderStatsFromBackend(); } catch (e) { console.warn('Init backend stats fallito:', e); }
-        try { fetchAndRenderChartsFromBackend(5); } catch (_) {}
-        try { loadDataFromBackend(); } catch (_) {}
-        setDataSourceBadge();
+        // Modalità backend-only: inizializzazione con rilevamento backend
+        (async () => {
+            const ok = await ensureBackendBase();
+            try { fetchAndRenderHeaderStatsFromBackend(); } catch (e) { console.warn('Init backend stats fallito:', e); }
+            try { fetchAndRenderChartsFromBackend(5); } catch (_) {}
+            try { loadDataFromBackend(); } catch (_) {}
+            setDataSourceBadge();
+            if (!ok) { console.warn('Backend non rilevato automaticamente; uso base di default:', (window.DW_BACKEND_URL || location.origin)); }
+        })();
     </script>
 </body>
 </html>
